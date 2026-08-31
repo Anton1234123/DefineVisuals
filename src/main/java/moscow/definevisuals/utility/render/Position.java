@@ -1,0 +1,77 @@
+package moscow.definevisuals.utility.render;
+
+import net.minecraft.client.MinecraftClient;
+import moscow.definevisuals.utility.render.Render2DCoordinateSpace;
+
+public final class Position {
+    public static final float SCREEN_MARGIN = 5.0f;
+    private float x;
+    private float y;
+
+    public Position(float f, float f2) {
+        this.x = f;
+        this.y = f2;
+    }
+
+    public float x() {
+        return this.x;
+    }
+
+    public void set(float f, float f2, float f3, float f4) {
+        this.x = Position.clampX(f, f3);
+        this.y = Position.clampY(f2, f4);
+    }
+
+    public float y() {
+        return this.y;
+    }
+
+    public static float clampX(float f, float f2) {
+        float f3 = Math.max(5.0f, Position.screenWidth() - f2 - 5.0f);
+        return Math.max(5.0f, Math.min(f3, f));
+    }
+
+    public static float clampY(float f, float f2) {
+        float f3 = Math.max(5.0f, Position.screenHeight() - f2 - 5.0f);
+        return Math.max(5.0f, Math.min(f3, f));
+    }
+
+    public void setRaw(float f, float f2) {
+        this.x = f;
+        this.y = f2;
+    }
+
+    public static float mouseX() {
+        MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        if (minecraftClient == null) {
+            return 0.0f;
+        }
+        double d = minecraftClient.mouse.getX() * (double)minecraftClient.getWindow().getScaledWidth() / (double)minecraftClient.getWindow().getWidth();
+        return (float)(d / (double)Render2DCoordinateSpace.guiIndependentScale());
+    }
+
+    public static float mouseY() {
+        MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        if (minecraftClient == null) {
+            return 0.0f;
+        }
+        double d = minecraftClient.mouse.getY() * (double)minecraftClient.getWindow().getScaledHeight() / (double)minecraftClient.getWindow().getHeight();
+        return (float)(d / (double)Render2DCoordinateSpace.guiIndependentScale());
+    }
+
+    public static float screenWidth() {
+        MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        if (minecraftClient == null || minecraftClient.getWindow() == null) {
+            return 960.0f;
+        }
+        return (float)minecraftClient.getWindow().getFramebufferWidth() / Render2DCoordinateSpace.designGuiScale();
+    }
+
+    public static float screenHeight() {
+        MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        if (minecraftClient == null || minecraftClient.getWindow() == null) {
+            return 540.0f;
+        }
+        return (float)minecraftClient.getWindow().getFramebufferHeight() / Render2DCoordinateSpace.designGuiScale();
+    }
+}

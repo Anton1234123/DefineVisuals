@@ -1,0 +1,11 @@
+{
+  "clickgui_open": { "sounds": [ "definevisuals:clickgui_open" ] },
+  "toggle": { "sounds": [ "definevisuals:toggle" ] },
+  "applepay": { "sounds": [ "definevisuals:applepay" ] },
+  "welcome": { "sounds": [ "definevisuals:welcome" ] },
+  "typing": { "sounds": [ "definevisuals:typing" ] },
+  "critical": { "sounds": [ "definevisuals:critical" ] },
+  "gribochki/track1": { "sounds": [ "definevisuals:gribochki/track1" ] },
+  "gribochki/track2": { "sounds": [ "definevisuals:gribochki/track2" ] },
+  "gribochki/track3": { "sounds": [ "definevisuals:gribochki/track3" ] }
+}

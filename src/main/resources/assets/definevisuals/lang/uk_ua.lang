@@ -1,0 +1,2638 @@
+﻿
+# ��������
+modules.descriptions.no_description=�� ������� �� �� �����
+modules.descriptions.russian_roulette=�������, �� ��������� :)
+modules.descriptions.free_camera=�������� �������� ��������
+modules.descriptions.tracers=³������� ��� �� ���������
+modules.descriptions.auto_totem=����������� ���� ����� � ��� ���� ��� ���������
+modules.descriptions.criticals=�������� ���� ������ ���, ���� �� ���������
+modules.settings.criticals.mode=�����
+modules.settings.criticals.mode.default=���������
+modules.settings.criticals.mode.reallyworld=ReallyWorld
+modules.descriptions.trigger_bot=����������� ����� ��� �������� �� �������
+modules.descriptions.auto_gapple=����������� ���� ����� ������ ��� ��������� ������� ���� ������'�
+modules.descriptions.aim_bot=����������� ���������� �� ��������� �����, �������� ��� ���������
+modules.descriptions.auto_potion=����������� ����������� ������� ����
+# AntiBot
+modules.descriptions.anti_bot=�������� �� ���� ����, ��������� ���������
+modules.descriptions.velocity=������� ��������� ��� ���� �� ���
+modules.descriptions.knockback_tweaks=������� ��������� �� ��� ��� ����
+modules.settings.knockback_tweaks.fake_sprint=���� ������
+modules.settings.knockback_tweaks.fake_sprint.description=������� ������ ������� ��� ���� �� �������
+modules.descriptions.auto_armor=����������� ������ �������� �����
+modules.descriptions.no_web=��������� � �������
+modules.descriptions.clan_upgrade=����������� ������� ���� �� ��������� ������
+modules.descriptions.hitboxes=������ ����� ��������
+modules.descriptions.wind_hop=��� ������� ����������� ����������� ����� ����
+modules.descriptions.flight=�������� �����
+modules.descriptions.speed=������ �������� ��� ������� � �����
+modules.descriptions.timer=��������� ��� ��� ���
+modules.descriptions.no_slow=������� ����������� ��� ����������� ��������
+modules.descriptions.spider=�������� ��������� �� �����
+modules.descriptions.menu=���� ������� �볺���
+modules.descriptions.esp=�������� ����������� �������� �������
+modules.settings.esp.open_menu=³������ ����
+
+esp.bind=����
+esp.targets=ֳ�
+esp.max_distance=����. ���������
+esp.glow=�����
+esp.nametags=��������
+esp.nametags.show_armor=���������� �����
+esp.nametags.show_item_use=��������� ������������
+esp.nametags.background=���
+esp.arrows=��������
+esp.arrows.lines=˳��
+esp.arrows.color=����
+esp.arrows.distance=���������
+esp.arrows.hide_naked=����������� �����
+esp.friend_markers=������� �����
+esp.friend_markers.type=���
+esp.friend_markers.heads=������
+esp.friend_markers.sims=ѳ���
+esp.taksa=�����
+esp.boxes=�����
+esp.boxes.color=����
+esp.boxes.mode=�����
+esp.boxes.mode.gradient=���䳺��
+esp.boxes.mode.outline=������
+esp.boxes.mode.fill=�������
+
+modules.descriptions.name_tags=����, �� ����������� ���������� ��� ���������
+modules.descriptions.ambience=����� �������� ����
+modules.descriptions.swing_animation=����� ������� ��� ��� ������
+modules.descriptions.sound_esp=������, �� ���� ��������� ���� ������� ��� �������
+modules.descriptions.arrows=³������� �������� �� ���������
+modules.descriptions.tnt_timer=³������� ��� �� ������ �������
+modules.descriptions.view_model=����� ������� ���
+modules.descriptions.trap_esp=ϳ����� ������
+modules.descriptions.blink=������� ������ ������
+modules.descriptions.storage_esp=ϳ����� �������
+modules.descriptions.xray=ϳ����� ���� ����
+modules.settings.xray.blocks=����
+modules.settings.xray.blocks.diamond_ore=������� ����
+modules.settings.xray.blocks.iron_ore=������ ����
+modules.settings.xray.blocks.gold_ore=������ ����
+modules.settings.xray.blocks.ancient_debris=���� ������
+modules.settings.xray.blocks.lapis_ore=���������� ����
+modules.descriptions.anti_invisible=Дозволяє бачити невидимих гравців
+modules.descriptions.see_invisibles=Показує нік над невидимими гравцями
+modules.descriptions.world=³������ ���������� ����
+modules.descriptions.inventory_cleaner=����� �������� �� ������ �����
+modules.descriptions.auto_invisible=����������� �'� ���� ����������
+modules.descriptions.mine_helper=������� ������� ��� �����
+modules.descriptions.middle_click=������ �� ��� ��������� �� ������ ����
+modules.settings.middle_click.pearl=������ �����
+modules.settings.middle_click.friend=�������� �����
+modules.settings.middle_click.friend_key=������ �����
+modules.settings.middle_click.pearl_key=������ �����
+modules.descriptions.auto_brew=����������� ������ ����
+modules.descriptions.potion_farm=����������� �������� �������, ���� ���������� �� ������ ������ ���� � �����
+modules.descriptions.auto_farm=����������� ����� ��������
+modules.descriptions.auto_eat=����������� ���� ��� ��� ������� ������� ������
+modules.descriptions.free_camera=�������� ������
+modules.descriptions.no_delay=������� ��������
+modules.descriptions.player_utils=������� ������� ��� ������
+modules.descriptions.no_push=������� ����� �� ������� �������
+modules.descriptions.item_pickup=��������� ��� ��� ������ ��������� ��������
+modules.descriptions.object_info=������ ���������� ��� ����� ��'���� � ���
+modules.settings.object_info.particleMode=����� ��������
+modules.settings.object_info.particleMode.description=����� ������� �������� ��� ��������
+modules.settings.object_info.particleMode.gravity=���������
+modules.settings.object_info.particleMode.scatter=������
+object_info.trap=������
+object_info.dragon=������
+object_info.plast=�����
+object_info.boom_trap=�������� ������
+object_info.stan=����
+modules.descriptions.donate_effects=³������ ������ �� ������������ �������� ��������
+modules.settings.donate_effects.sonar=�����
+modules.settings.donate_effects.sonar.description=����� ���������� ��� ����������� ��������
+modules.settings.donate_effects.potions=������� ����
+modules.settings.donate_effects.potions.description=������ ������ ��� ����� ��������� ����
+modules.settings.donate_effects.targets=����� ���
+modules.settings.donate_effects.targets.dez=�����������
+modules.settings.donate_effects.targets.aura=���� ����
+modules.settings.donate_effects.targets.pil=����� ���
+modules.settings.donate_effects.targets.fire=�������� �����
+modules.settings.donate_effects.targets.boom=�������� �����
+modules.settings.donate_effects.targets.trapka=�������� ������
+modules.settings.donate_effects.targets.stun=����
+modules.descriptions.creeper_farm=����������� ����� ������ �� �������
+modules.descriptions.nuker=������ ����� ������� ����
+modules.settings.nuker.swap_delay=�������� ����
+modules.settings.nuker.swap_delay.description=�������� ����� �������� ������� ������ �����
+modules.descriptions.slot_lock=��������� �������� �������� � �������
+modules.descriptions.no_rotate=��������� ������� ��������� ���� ������
+modules.descriptions.effect_remover=������� ������ ������
+modules.descriptions.name_protect=³������� ����� ��'� ������
+modules.descriptions.elytra_utils=������� ������� ��� ����
+modules.descriptions.boots_swap=��������������� ��� ����� ���� �������� �� ���������
+modules.descriptions.fast_item_use=������ ����������� ��� ��� ������
+modules.descriptions.auto_resell=����������� ������������� �������� �� �������
+modules.descriptions.auto_accept=����������� ������ ������������
+modules.descriptions.death_cords=������� ���������� ����� � ���
+modules.descriptions.auto_leave=����������� ������ ��, ���� ������� �����
+modules.descriptions.auto_swap=����������� ������ �������� � �����
+modules.descriptions.auto_duels=����������� ��������� ������ �� ���� �������
+modules.descriptions.auto_auth=����������� ������ �� ������� � ������ �� ������
+modules.descriptions.auto_join=����������� �������� �� �����
+
+modules.settings.elytra_motion.algorithm=��������
+modules.settings.elytra_motion.algorithm.default=�����������
+modules.settings.elytra_motion.algorithm.advanced=����������
+modules.settings.elytra_motion.algorithm.advanced-stable=���������� (���������)
+modules.settings.elytra_motion.boost_strength=���� �����
+
+modules.settings.elytra_target.auto_fireworks=���� ��������
+modules.settings.elytra_target.smart_fireworks=������ ��������
+modules.settings.elytra_target.fireworkSlot=���� � ����������
+modules.settings.elytra_target.fireworkDelay=��������
+modules.settings.elytra_target.predict_key=������ ��������
+modules.settings.elytra_target.leadStrength=���� �������
+
+modules.settings.auto_join.mode=�����
+modules.settings.auto_join.mode.duels_st=���� (SpookyTime)
+modules.settings.auto_join.mode.grief=������� FT/Spooky
+modules.settings.auto_join.anarchy_number=����� �������
+modules.descriptions.assist=������� ��� ����� �������
+modules.descriptions.sounds=���� �볺��� ����� ��� ����� ���
+modules.settings.sounds.volume=������� �����
+modules.settings.sounds.voice=���������
+modules.settings.sounds.voice.totem=������
+modules.settings.sounds.voice.start=������
+modules.settings.sounds.voice.leave=����
+modules.settings.sounds.voice.kill=�������
+modules.descriptions.test=�� ������� �� �� �����
+modules.descriptions.recorder=�� ������� �� �� �����
+modules.descriptions.player=�� ������� �� �� �����
+modules.descriptions.no_fall=������� ����� ��� �����
+modules.descriptions.kill_effects=�������� ����� ��� ����� ���������
+modules.descriptions.auto_soup=����������� ��� ��� ������
+modules.descriptions.auto_explosion=����������� ������ �� ������� ��������
+modules.descriptions.auto_crystal=����������� ������ �������� � ����� 䳿
+modules.settings.auto_crystal.place=�������������
+modules.descriptions.friend_markers=³������� ������� �����
+modules.descriptions.scaffold=����������� ��������
+modules.settings.scaffold.place_delay=�������� ������������
+modules.settings.scaffold.place_delay.description=̳������� �������� �� ������������� �����
+modules.settings.scaffold.prediction=������������ ����
+modules.settings.scaffold.prediction.description=�� ������ ���� ������ ������ ���� �� �������
+modules.settings.scaffold.rotation_speed=�������� �������
+modules.settings.scaffold.rotation_speed.description=����������� �������� ��������� �� ���� �� ���
+modules.settings.scaffold.aim_tolerance=������ ���������
+modules.settings.scaffold.aim_tolerance.description=г����� � ��������, �� ��� Scaffold ��� ���� ������� ����
+modules.settings.scaffold.stable_ticks=���� ����������
+modules.settings.scaffold.stable_ticks.description=������ ���� ������ ���� ��������� ����� �������������
+modules.settings.scaffold.same_y=���� ������
+modules.settings.scaffold.same_y.description=���������� ������ ������������, ������� �� ��� ��������� ������
+modules.settings.scaffold.reset_sprint=������� ������
+modules.settings.scaffold.reset_sprint.description=�������� ������ ����� ������������� �����, ����� ���� �������� Auto Sprint
+modules.settings.scaffold.edge_sneak=���� �� ����
+modules.settings.scaffold.edge_sneak.description=��������� ���� �� ������������ ����, ���� Scaffold �� �� ���� �������� ����������
+modules.settings.scaffold.move_correction=�������� ����
+modules.settings.scaffold.move_correction.none=����
+modules.settings.scaffold.move_correction.silent=����
+modules.settings.scaffold.move_correction.smooth=������
+modules.descriptions.stealer=���� ������� � ����������
+modules.descriptions.target_pearl=����������� ���� ������� �� ��������
+modules.descriptions.panic=������� �볺��
+modules.descriptions.russian_roulette=�������, �� ��������� :)
+modules.descriptions.inventory_utils=������� � ���������
+modules.descriptions.air_stuck=������ � �����
+modules.settings.air_stuck.catch_moment=������ ������
+modules.descriptions.high_jump=������ ������ � �����
+modules.descriptions.glow=����� ������� ���������
+modules.descriptions.kt_leave=�������� ����� � PVP-�����
+modules.descriptions.base_finder=�������� ������ ����
+modules.descriptions.web_utils=������ ��� ��������
+modules.descriptions.no_description=�� ������� �� �� �����
+
+# Apple Farm
+modules.descriptions.apple_farm=����������� ������ ������ �� �������� �������� �������� � ����� ����
+modules.settings.apple_farm.bonemeal_delay=�������� ��������� �������
+modules.apple_farm.no_dirt=������� ���� ����� ��� ���� � ������ 4 �����
+modules.apple_farm.multiple_dirt=������� ������ ������ ����� �����, ������� ���� ����
+modules.apple_farm.no_sapling=���� ��������� ���� � ��������
+modules.apple_farm.no_bonemeal=���� ��������� ������� � ��������
+modules.apple_farm.no_hoe_recommend=������ ���� ������ � ����� �� �����
+modules.apple_farm.no_grow_space=���� ���� ��� ����� ������
+modules.apple_farm.no_fresh_hoe=���� ������ � ������ ���� 10%
+modules.apple_farm.no_dirt_item=���� ����� ���� � �������� ��� ����������
+modules.apple_farm.no_dirt_support=���� ������� ��� ��������� ����� ����
+
+# Sword Farm
+modules.descriptions.sword_farm=����������� �������� ������ ���� �� ����� �� �� �������
+modules.settings.sword_farm.price=ֳ�� �������
+modules.settings.sword_farm.relist_cooldown=�� ���������������
+modules.settings.sword_farm.craft_all=�������� ��� ������
+modules.sword_farm.no_sticks=���� ������ � ��������
+modules.sword_farm.no_diamonds=���� ������ � ��������: ������� ���������� 2 ������
+modules.sword_farm.no_sword=������� ������� �������� ��� ��� 2 ������ � 1 ������ ��� ������
+modules.sword_farm.error=������� ����� �����, �� ��������
+modules.sword_farm.shop_no_gold=� ������� �� �������� ���� �� ������� �������
+modules.sword_farm.shop_no_emerald=� ������� �� �������� ���� �� ���������
+modules.sword_farm.shop_no_confirm=� ������� �� �������� ������ ������������ �������
+modules.sword_farm.no_crafting_table=������� ���� �������� � ��� ���������
+modules.sword_farm.recipe_not_found=������ ������������ ���� �� ��������
+modules.sword_farm.no_lime_dye=������ ������������ (lime_dye) �� ��������
+modules.sword_farm.no_storage=� ������� �� �������� ���� �������
+
+# AutoSprint
+modules.descriptions.auto_sprint=����������� ����� ������
+modules.settings.keepSprint=�������� ������
+modules.settings.auto_sprint.ignore_hunger=���������� �����
+modules.settings.keepSprint.description=�� �� ����������� ��������� ���� �����
+
+# BackTrack
+modules.descriptions.back_track=³����� ������� ������, �� ��� ����� �������� �����
+modules.settings.backtrack.visual=³����������
+modules.settings.backtrack.visual.description=³������� ����� ������� ������� � ������ �����
+modules.settings.backtrack.delay=��� ������
+modules.settings.backtrack.delay.description=��� � ����������, �������� ����� ����������� �������� �������
+
+# Target ESP
+modules.descriptions.target_esp=������� ������� ����
+modules.settings.target_esp.mode=�����
+modules.settings.target_esp.mode.souls=����
+modules.settings.target_esp.mode.crystals=��������
+modules.settings.target_esp.mode.circle=����
+modules.settings.target_esp.mode.swords=����
+
+# Auction
+modules.descriptions.auction=��� ������� �� �������
+
+modules.settings.auction.armor=����������� �����..
+modules.settings.auction.armor.no_spike=� ������
+modules.settings.auction.armor.no_prot5=��� ������� 5
+modules.settings.auction.armor.no_durability=� �������������
+modules.settings.auction.armor.min_durability=̳�. ������
+modules.settings.auction.armor.no_repair=��� ����������
+
+modules.settings.auction.pickaxe=����������� �����..
+modules.settings.auction.pickaxe.silk_touch=��� ��������� ������
+modules.settings.auction.pickaxe.noMega=��� ����-���������
+modules.settings.auction.pickaxe.noMiner=��� ��������� 2
+modules.settings.auction.pickaxe.noMagnit=��� �����
+modules.settings.auction.pickaxe.noExp=��� ���������� 3
+
+modules.settings.auction.potions=����������� ����..
+modules.settings.auction.potions.no_level3=��� 3 ����
+modules.settings.auction.potions.no_combined=�� �����
+modules.settings.auction.potions.no_under_6min=��� 6 ������
+
+modules.settings.auction.show_yellow=���������� �������
+
+modules.settings.auction.fast_buy=������ �������
+modules.settings.auction.search=�����
+modules.settings.auction.auto_sell=����-������
+modules.settings.auction.auto_sell.mode=�����
+modules.settings.auction.auto_sell.mode.funtime=FunTime
+modules.settings.auction.auto_sell.mode.holyworld=HolyWorld
+modules.settings.auction.auto_sell.pages=�������
+modules.settings.auction.auto_sell.bind=���� �������
+
+modules.settings.auction.price_mode=�����
+modules.settings.auction.price_mode.per_unit=ֳ�� �� 1 ��
+modules.settings.auction.price_mode.total=ֳ�� �� ���
+
+modules.settings.auction.low_price_color=���� ��������
+modules.settings.auction.high_price_color=���� ��������
+
+
+# Gui Move
+modules.descriptions.gui_move=�������� ������������� ���������� �� ������ ������������ �� ��� ����
+modules.settings.gui_move.mode=�����
+modules.settings.gui_move.mode.no_bypass=��� ������
+modules.settings.gui_move.mode.auto=����
+modules.settings.gui_move.mode.custom=��������������
+modules.settings.gui_move.containers=� �����������
+modules.settings.gui_move.containers.stay=������
+modules.settings.gui_move.containers.move=��������
+modules.settings.gui_move.containers.shift=����
+modules.settings.gui_move.bypass=�����
+modules.settings.gui_move.bypass.description=�������� �������� ��� ������ �� FunTime �� ������� ��������
+modules.settings.gui_move.bypass.none=��� ������
+modules.settings.gui_move.bypass.slow=�����������
+modules.settings.gui_move.bypass.on_close=��� �������
+modules.settings.gui_move.bypass.fake_close=���� ��������
+modules.settings.gui_move.noslow=��� �����������
+modules.settings.gui_move.noslow.description=�� ��������� ��� ������� ���������
+modules.settings.gui_move.cancel_close=����������� ��������
+modules.settings.gui_move.jump=����������� �������
+modules.settings.gui_move.ground_no_bypass=��� ������ �� ����
+modules.settings.gui_move.cooldown=��������
+modules.settings.gui_move.delay_after=�������� ����
+modules.settings.gui_move.unlock_shift=������������ ����
+
+# Friend Markers
+modules.settings.friends_markers.setting=�����
+modules.settings.friends_markers.heads=������
+
+
+# Aura
+modules.descriptions.aura=����������� ����� ���� ������� ������
+modules.settings.aura.attackDistance=��������� �����
+modules.settings.aura.attackDistance.description=���������, �� ��� Aura ���� ��������� ����
+modules.settings.aura.aimDistance=��������� ���������
+modules.settings.aura.aimDistance.description=���������, �� ��� Aura ���� ���������� �� ����
+modules.settings.aura.distanceSorting=�� ������
+modules.settings.aura.distanceSorting.description=��������� ��� �� ������
+modules.settings.aura.healthSorting=�� ������'�
+modules.settings.aura.healthSorting.description=��������� ��� �� ������'�
+modules.settings.aura.fovSorting=�� ���� ����
+modules.settings.aura.fovSorting.description=��������� ��� �� ���� ����
+modules.settings.aura.rotationMode=����� ���������
+modules.settings.aura.rotationMode.description=����� ��������� ��� �����
+modules.settings.aura.noRotation=��� ���������
+modules.settings.aura.simpleRotation=������
+modules.settings.aura.aiRotation=������� ��������
+modules.settings.aura.moveCorrectionMode=��������� ��������
+modules.settings.aura.moveCorrectionMode.description=����� ��� ������ ������� ���������
+modules.settings.aura.noMoveCorrection=����
+modules.settings.aura.directMoveCorrection=�����������
+modules.settings.aura.silentMoveCorrection=��������
+modules.settings.aura.walls=����� ����
+modules.settings.aura.walls.description=�������� ��������� ���, �� ����������� �� ������
+modules.settings.aura.rw_wall_bypass=����� RW
+modules.settings.aura.rw_wall_bypass.description=������ ������� � ���� ������� ����� ����� ������ ���� ����
+modules.settings.aura.rayTrace=�������� ���������
+modules.settings.aura.rayTrace.description=��������� ���� ���, �� �� �� �������
+modules.settings.aura.targeting=������������
+modules.settings.aura.targeting.description=�� ����� ����, ���� �� ������ �� ���������
+modules.settings.aura.onlyWeapon=ҳ���� � �����
+modules.settings.aura.auto_mace=����������
+modules.settings.aura.auto_mace_fall_distance=������ ������
+modules.settings.aura.smartCriticals=������ �����
+modules.settings.aura.onlyWeapon.description=������ ����������� ���� ���, ���� � ��� ����� � �����
+modules.settings.aura.styleAttack=����� �����
+modules.settings.aura.cps_limiter=˳���� CPS
+modules.settings.aura.sprint_reset=�������� �������
+modules.settings.aura.sprint_reset.smart=��������
+modules.settings.aura.sprint_reset.normal=���������
+modules.settings.aura.sprint_reset.packet=��������
+
+# Shield Breaker
+shieldbreaker.title=������
+shieldbreaker.desc=��� ���������� �������
+
+# Interface
+modules.descriptions.interface=�������� i��������� �i��
+modules.settings.interface.liquidGlass=�i��� ����
+modules.settings.interface.minimalism=�i�i���i��
+modules.settings.interface.language=����
+modules.settings.interface.mode=�����
+modules.settings.interface.theme=����
+modules.settings.interface.dark=�����
+modules.settings.interface.light=�����
+modules.settings.interface.hud=��� ��������� HUD �������� ��� � ���
+
+# Removals
+modules.descriptions.removals=������� ��� �������� ���
+modules.settings.removals.effects=���������
+modules.settings.removals.hurtCam=������ �i� ��� �����
+modules.settings.removals.scoreboard=��������
+modules.settings.removals.bossBar=�������
+modules.settings.removals.portal=����� � ������i
+modules.settings.removals.fire=�����
+modules.settings.removals.clip=������� ����
+modules.settings.removals.water=���������� ���� ���i�
+modules.settings.removals.nausea=����� ������
+modules.settings.removals.blindness=����� ������
+modules.settings.removals.darkness=����� �������
+modules.settings.removals.pumpkin=���������� �i� ������
+modules.settings.removals.fov=�����i���� FOV
+modules.settings.removals.breakParticles=�������� �����
+modules.settings.removals.weather=�������� ������
+modules.settings.removals.glowing=����� ������
+modules.settings.removals.lava=���������� �� ����
+
+modules.settings.removals.sounds=��������� �����
+modules.settings.removals.beacon=�����
+modules.settings.removals.weatherSound=������
+modules.settings.removals.phantoms=�������
+modules.settings.removals.waterSound=����
+modules.settings.removals.lavaSound=����
+
+# Elytra Target
+modules.descriptions.elytra_target=�������� ������������ ������� �� ������
+modules.settings.elytra_target.fireworkSlot=�������
+modules.settings.elytra_target.fireworkSlot.description=����, � ����� ���� ������� �������
+modules.settings.elytra_target.fireworkDelay=�������� ��������
+modules.settings.elytra_target.fireworkDelay.description=��� �� ������ ������ ���� ����������������� �������
+modules.settings.elytra_target.predict_key=������ ��������
+modules.settings.elytra_target.predict_key.description=������ ��� ��������� ������������ ���� ���
+modules.settings.elytra_target.engageRange=��������� ����������
+modules.settings.elytra_target.engageRange.description=����������� ��������� ��� ������������� ������ ���
+modules.settings.elytra_target.boostDistance=��������� �����������
+modules.settings.elytra_target.boostDistance.description=��������������� �������, ���� ���� ��� ���� ���������
+modules.settings.elytra_target.smoothing=������������
+modules.settings.elytra_target.smoothing.description=�������� ������ ��������� ������� �� ������������ ������ �������
+modules.settings.elytra_target.leadStrength=�������� �� ���
+modules.settings.elytra_target.leadStrength.description=�������� ������ ����������� ������������ ��� ���
+modules.settings.elytra_target.swapVector=�������� ������
+modules.settings.elytra_target.swapVector.description=����� ������ ������� ���� ������� �����
+modules.settings.elytra_target.defensive=��������
+modules.settings.elytra_target.defensive.description=�������� ������ ����� ������
+modules.settings.elytra_target.autoAcquire=��������
+modules.settings.elytra_target.autoAcquire.description=����������� ������ �������� ���� �� ����, ���� ����� �� �������
+
+# Elytra Strafe
+modules.descriptions.elytra_strafe=����� �������� ������� �� ������ �� �������� ��������� ������
+modules.settings.elytra_strafe.autoTakeoff=���� ���
+
+# Elytra Utils
+modules.settings.elytra_utils.swapKey=������ �����
+modules.settings.elytra_utils.swapKey.description=������ ��� ���� ����� �� ����������
+modules.settings.elytra_utils.fireworkKey=������ ��������
+modules.settings.elytra_utils.firework_mode=����� ��������
+modules.settings.elytra_utils.firework_mode.hvh=HvH
+modules.settings.elytra_utils.firework_mode.legit=����
+
+# Boots Swap
+modules.settings.boots_swap.automatic=������������
+modules.settings.boots_swap.automatic.description=���� ����� ������ �������� ����������� ��� ����� � ����
+modules.settings.boots_swap.swap_key=������ �����
+modules.settings.boots_swap.swap_key.description=������ ��� ���� ���� �������� �� ���������
+modules.settings.elytra_utils.auto_takeoff=���� ���
+modules.settings.elytra_utils.auto_takeoff.description=����������� ���� �� ������
+modules.settings.elytra_utils.auto_use=���� ������������
+modules.settings.elytra_utils.auto_use.description=����������� ����������� ������� ��� ������
+modules.settings.elytra_utils.chest_on_ground=��������� �� ����
+modules.settings.elytra_utils.chest_on_ground.description=����������� ������ ��������� ��� ���� ����� ��� ����������
+modules.settings.elytra_utils.elytra_boost=���� �� �����
+modules.settings.elytra_utils.elytra_boost.description=���� ���������� ���� �� ��� ������� � ����������
+modules.settings.elytra_utils.elytra_speed=�������� �����
+modules.settings.elytra_utils.elytra_speed.description=������� �������� ��� ����� �����
+modules.settings.elytra_utils.boost.description=��������� ���� �� ����
+
+modules.settings.flight.mode=�����
+modules.settings.flight.vanilla=���������
+modules.settings.flight.elytraSpoof=���� �����
+modules.settings.flight.speed=��������
+
+# Speed
+modules.settings.speed.mode=�����
+modules.settings.speed.vanilla=���������
+modules.settings.speed.collision=�����
+modules.settings.speed.entities=�����
+modules.settings.speed.spooky_elytra=SpookyTime �����
+modules.settings.speed.collision_target=����� ������
+modules.settings.speed.ice=˳�
+modules.settings.speed.distance=���������
+modules.settings.speed.speed_info=��������
+modules.settings.speed.expand=����������
+modules.settings.speed.only_players=ҳ���� ������
+modules.settings.speed.require_moving=������� ���
+modules.settings.speed.on_ground=�� ����
+modules.settings.speed.on_jump=��� �������
+modules.settings.speed.on_fall=��� �����
+modules.settings.speed.cooldown_info=��������
+modules.settings.speed.time=���
+modules.settings.speed.chase_ticks=ҳ�� �����
+modules.settings.speed.cooldown_range=����� ��������
+modules.settings.speed.boost_info=�����������
+modules.settings.speed.power=����
+modules.settings.speed.boost_range=����� �����������
+
+# Water Speed
+modules.settings.water_speed.bypass=�����
+modules.settings.water_speed.vontam=Vontam
+modules.settings.water_speed.swap_depth_strider=���� Depth Strider
+modules.settings.water_speed.swap_depth_strider.description=������ ��� ���� �������� � Depth Strider � ���������
+
+modules.settings.noslow.mode=�����
+modules.settings.noslow.grim=Grim
+modules.settings.noslow.grim_new=grimNew
+modules.settings.noslow.spooky=SpookyTime
+modules.settings.noslow.holly=HolyWorld
+modules.settings.noslow.grim_tick=GrimTick
+
+# Timer
+modules.settings.timer.speed=��������
+
+# WindHop
+modules.settings.wind_hop.autoJump=���� �������
+modules.settings.wind_hop.autoJump.description=����������� ������ � �������� ������
+modules.settings.wind_hop.swingArm=����� �����
+modules.settings.wind_hop.swingArm.description=ϳ� ��� ������������ ������ ����� �����
+modules.settings.wind_hop.predictJump=������� �������
+modules.settings.wind_hop.predictJump.description=���� ��������� �����, �� ������� ���� ��������������� ����� ������ �� �����������, �� �������� �������� ����
+
+# CustomFog
+modules.descriptions.custom_fog=������������ ������
+modules.settings.custom_fog.distance=³�/��
+modules.settings.custom_fog.distance.description=��������� ������� � ����� ������
+modules.settings.custom_fog.color_enabled=���� ������
+modules.settings.custom_fog.color=���� ������
+modules.settings.custom_fog.depth_blur=�������� �� ��������
+modules.settings.custom_fog.blur_strength=���� ��������
+modules.settings.custom_fog.blur_offset=����� ��������
+modules.settings.custom_fog.no_sky_blur=�� ��������� ����
+
+# NoInteract
+modules.descriptions.no_interact=������� �����䳿 � �������
+modules.settings.no_interact.blocks=���������� ������� �
+modules.settings.no_interact.craftingTables=����������
+modules.settings.no_interact.enchantingTables=������� �����������
+modules.settings.no_interact.beds=˳�����
+modules.settings.no_interact.chests=��������
+modules.settings.no_interact.enderChests=�����-��������
+modules.settings.no_interact.trappedChests=��������-��������
+modules.settings.no_interact.furnaces=ϳ�����
+modules.settings.no_interact.barrels=ĳ����� (�������)
+modules.settings.no_interact.shulkers=���������
+modules.settings.no_interact.droppers=����������
+modules.settings.no_interact.dispensers=������������
+modules.settings.no_interact.hoppers=���������
+modules.settings.no_interact.anvils=���������
+modules.settings.no_interact.cauldrons=�������� (�������)
+modules.settings.no_interact.signs=����������
+modules.settings.no_interact.bells=�������
+modules.settings.no_interact.composters=������������
+modules.settings.no_interact.brewingStands=������������
+modules.settings.no_interact.jukeBoxes=������������
+modules.settings.no_interact.commandBlocks=���������� �������
+modules.settings.no_interact.beacons=�������
+modules.settings.no_interact.respawnAnchors=������� ����������
+modules.settings.no_interact.grindstones=��������
+modules.settings.no_interact.lecterns=���������
+modules.settings.no_interact.cartographyTables=�������������� �������
+modules.settings.no_interact.looms=��������� ����������
+modules.settings.no_interact.smithingTables=����������� �������
+modules.settings.no_interact.stonecutter=����������
+modules.settings.no_interact.playerHeads=������
+
+modules.settings.no_interact.onlyAura=���� � Aura
+modules.settings.no_interact.onlyUtilityItems=���� � �������/��������
+
+# MineHelper
+modules.settings.mine_helper.save_pickaxe=�������� �����
+modules.settings.mine_helper.save_pickaxe.description=�� �������� ������� ���� ��� ������ ������ �����������
+modules.settings.mine_helper.percent=̳�����
+modules.settings.mine_helper.fix_key=������ �������
+modules.settings.mine_helper.auto_replace=���� �����
+modules.settings.mine_helper.auto_replace.description=����������� ���� ����� ��� ������ ������
+modules.settings.mine_helper.auto_repair=���� ������
+modules.settings.mine_helper.auto_repair.description=������� ����� �� ��������� ������
+mine_helper.pickaxe_almost_broken=����� ����� �������!
+mine_helper.no_replacement=���� �����/������ ��� �������
+mine_helper.no_bottles=���� �������� ������!
+mine_helper.need_bottles=��� ��������� ���� �������� ������ � ��������
+
+# WebUtils
+modules.settings.web_utils=������
+modules.settings.web_utils.no_web=����-��������
+modules.settings.web_utils.trap_web=������ � ���������
+modules.settings.web_utils.placement_mode=�����
+modules.settings.web_utils.placement_mode.default=���������
+modules.settings.web_utils.placement_mode.full_body=������ ����
+modules.settings.web_utils.placement_mode.sides=�������
+modules.settings.web_utils.count=ʳ������
+modules.settings.web_utils.delay=��������
+modules.settings.web_utils.no_web_speed=�������� ����-��������
+
+# AutoAccept
+modules.settings.auto_accept.mode=��������
+modules.settings.auto_accept.mode.all=���
+modules.settings.auto_accept.mode.friends_only=�����
+
+# FreeCam
+modules.settings.free_cam.speed=��������
+modules.settings.free_cam.display_coords=³��������� ����������
+modules.settings.free_cam.freeze=��������
+modules.settings.free_cam.animation=�������
+
+# FreeCam coords labels
+coords.x=X
+coords.y=Y
+coords.z=Z
+
+# NoPush
+modules.settings.no_push.remove_from=�������� ������������� ���
+modules.settings.no_push.remove_from.entities=���������
+modules.settings.no_push.remove_from.entities.description=������� ������������� �� ���������
+modules.settings.no_push.remove_from.fluids=���� �� ����
+modules.settings.no_push.remove_from.fluids.description=������� ������������� ����� �� �����
+modules.settings.no_push.remove_from.blocks=�����
+modules.settings.no_push.remove_from.blocks.description=������� ������������� �������
+
+# CreeperFarm/AutoBot
+creeper_farm.need_baritone=��� ������ %s ������� ��� baritone
+
+# AutoInvisible
+modules.settings.auto_invisible.pre_drink=���� ����������
+
+# AutoBrew
+modules.settings.auto_brew.brew=������
+modules.settings.auto_brew.potion.strength=ǳ��� ����
+modules.settings.auto_brew.potion.speed=ǳ��� ��������
+modules.settings.auto_brew.potion.fire_resistance=ǳ��� ������������
+modules.settings.auto_brew.delay=��������
+modules.settings.auto_brew.delay.description=�������� �� ���������� �����䳺���
+autobrew.item_not_found=������� �� ��������
+autobrew.need_item=��� ��������� ���� %s � ��������
+
+# PotionFarm
+modules.settings.potion_farm.brew=������
+modules.settings.potion_farm.potion.strength=ǳ��� ����
+modules.settings.potion_farm.potion.speed=ǳ��� ��������
+modules.settings.potion_farm.potion.fire_resistance=ǳ��� ������������
+modules.settings.potion_farm.potion.invisibility=����������
+modules.settings.potion_farm.potion.regen=�����������
+modules.settings.potion_farm.potion.healing=ǳ��� ��������
+modules.settings.potion_farm.potion.strong_healing=ǳ��� �������� II
+modules.settings.potion_farm.stack_mode=����� ���������
+modules.settings.potion_farm.stack_mode.multiple=���������
+modules.settings.potion_farm.stack_mode.single=���������
+modules.settings.potion_farm.enhance=��������
+modules.settings.potion_farm.use_chests=��������������� �����
+modules.settings.potion_farm.target_esp=ϳ��������� ����
+modules.settings.potion_farm.display=���������� ������
+modules.settings.potion_farm.show_ingredients=���������� ����������
+modules.settings.potion_farm.delay=��������
+modules.settings.potion_farm.delay.description=�������� �� ����
+modules.settings.potion_farm.single_stack_delay=�������� ���������� ������
+modules.settings.potion_farm.single_stack_delay.description=�������� �� �������������� ������ � ������
+modules.potion_farm.brewing=%s�
+modules.potion_farm.need_fuel=���� ������
+modules.potion_farm.idle=����������
+potion_farm.no_chest_title=���� �����
+potion_farm.no_chest=�������� ������ ����� �� ��������
+potion_farm.no_item_title=���� ��������
+potion_farm.no_item=�������: %s
+potion_farm.item.water_bottle=�������� � �����
+
+# Assist
+modules.settings.assist.spoof_rp=���� RP
+modules.settings.assist.spoof_rp.description=�������� ����� �� ������ ��� ������������ ����������
+modules.settings.assist.close_menu=��������� ����
+modules.settings.assist.close_menu.description=����������� ������� ���� ��� �����
+modules.settings.assist.auto_fix=����-������
+modules.settings.assist.chat_filter=Գ���� ����
+modules.settings.assist.show_radius=���������� ������
+modules.settings.assist.preview_color=���� ����'�
+modules.settings.assist.reduce_cooldown=���������� ��������
+modules.settings.assist.reduce_cooldown.description=������ �������� �� ����������� �������
+modules.settings.assist.warn_armor=������� ����
+modules.settings.assist.warn_armor.description=���������, ���� ����� �������
+modules.settings.assist.dragon_fly=������ ����
+modules.settings.assist.dragon_fly.description=��������� ���� � ��������
+modules.settings.assist.fly_speed_xz=������������ �� XZ
+modules.settings.assist.fly_speed_y=������������ �� Y
+modules.settings.assist.auto_piona=���� /piona
+modules.settings.assist.auto_shulker=���� ������
+modules.settings.assist.auto_piona.description=����������� ������� /piona ��� ����� �� Funtime
+modules.settings.assist.dezorent=�����������
+modules.settings.assist.trapka=������
+modules.settings.assist.smerch=��������� �����
+modules.settings.assist.plast=�����
+modules.settings.assist.aura=���� ����
+modules.settings.assist.pilb=����� ���
+modules.settings.assist.auto_zako=���� /zako
+modules.settings.assist.auto_stop=����-����
+modules.settings.assist.heal_helper=������� � ���
+modules.settings.assist.stan=����
+modules.settings.assist.snow=�����
+modules.settings.assist.trap=�������
+modules.settings.assist.anti_flight=���� �����
+modules.settings.assist.dark_pulse=Ҹ���� �����
+modules.settings.assist.experience_scroll=������ �����
+modules.settings.assist.bomb=���������
+modules.settings.assist.boom_trap=�������� ������
+modules.settings.assist.hlopushka=��������
+modules.settings.assist.radiation_potion=ǳ��� �������
+modules.settings.assist.sleeping_potion=�������
+modules.settings.assist.holy_water=����� ����
+modules.settings.assist.wrath_potion=ǳ��� ����
+modules.settings.assist.paladin_potion=ǳ��� ��������
+modules.settings.assist.assassin_potion=ǳ��� ��������
+modules.settings.assist.wind_charge=����� ����
+modules.settings.assist.gool=���������� ���
+modules.settings.assist.backpack=������
+modules.settings.assist.hand_mode=������������ �����
+modules.settings.assist.hand_mode.description=���� ���� ��� ������������ �������� � SwapIntegration
+modules.settings.assist.hand_mode.left=˳�� ����
+modules.settings.assist.hand_mode.right=����� ����
+modules.settings.assist.hand_mode.packet=������
+assist.break=�������
+assist.armor_almost_broken=���� ����� �� ��� �������
+
+# AutoAuth
+modules.settings.auto_auth.random=����������
+modules.settings.auto_auth.password=������
+
+# AutoDuels
+modules.settings.auto_duels.prefer=³������� ��������
+modules.settings.auto_duels.prefer.soft=�������
+modules.settings.auto_duels.prefer.ansoft=���������
+modules.settings.auto_duels.prefer.random=���������
+modules.settings.auto_duels.kit=����
+modules.settings.auto_duels.kit.shield=���
+modules.settings.auto_duels.kit.thorns3=���� 3
+modules.settings.auto_duels.kit.bow=���
+modules.settings.auto_duels.kit.totem=�����
+modules.settings.auto_duels.kit.nodebuff=NoDebuff
+modules.settings.auto_duels.kit.balls=���
+modules.settings.auto_duels.kit.classic=�������
+modules.settings.auto_duels.kit.cheats=׳�������� ���
+modules.settings.auto_duels.kit.nether=�����
+
+# AutoJoin
+auto_join.success=������� ����
+auto_join.success.desc=�� ������ ������ �� ����
+auto_join.already_connected=�� ��� �������� �� ����� �������!
+auto_join.already_connected_ft=�� ��� �������� �� ����� �������!
+
+# DeathCords
+modules.settings.death_cords.waypoint=������� ����
+death_cords.coords=���������� �����: %s
+
+# RussianRoulette
+rroulette.luck.prize=��� ���������, ��� ��� ����
+rroulette.luck.simple=��� ���������!
+rroulette.unlucky.prize=�����, ��� ��� ������ ����
+rroulette.unlucky.simple=�����
+# ItemPickup
+itempickup.krush_helmet=�� ������� ����� ���������!
+itempickup.krush_chestplate=�� ������� ��������� ���������!
+itempickup.krush_leggings=�� ������� ����� ���������!
+itempickup.krush_boots=�� ������� �������� ���������!
+itempickup.krush_sword=�� ������� �������� �������: ��� ���������
+itempickup.donate_item=�������� �������
+itempickup.donate_item.picked=�� ������� �������� �������: 
+
+alerts.cooldown=��������� %.1f ���
+alerts.cooldown_ready=�������� ����������!
+alerts.equipped=�� ��������: %s
+alerts.moved_to_offhand=��������� %s � ��� ����
+
+alerts.donate_picked=�� ������� �������� �������: 
+
+# PlayerUtils
+modules.settings.anti_afk.delay.description=�������� �� ����
+player_utils.hello_message=��� ����� %s !
+# Predictions
+modules.descriptions.prediction=³������� �������� ������� �����-�����, ������� ����.
+
+modules.prediction.from=³�
+modules.prediction.you=���
+modules.prediction.warning=� ��� ������ %s!
+
+modules.settings.prediction.helper=�������
+modules.settings.prediction.helper.description=������ �����, ���� ������� ���������� ��� ����� �����
+modules.settings.prediction.assist=���������
+modules.settings.prediction.assist.description=����������� ��������� ������ ����� �� ������ ��������
+
+modules.settings.prediction.entities=³���������
+modules.settings.prediction.entities.pearls=�����-�����
+modules.settings.prediction.entities.tridents=�������
+modules.settings.prediction.entities.arrows=�����
+modules.settings.prediction.entities.snowballs=�����
+modules.settings.prediction.entities.potions=ǳ���
+modules.settings.prediction.entities.items=��������
+modules.settings.prediction.render_mode=�����
+modules.settings.prediction.render_mode.default=���������
+modules.settings.prediction.render_mode.glow=������
+modules.settings.prediction.hand=� ����
+modules.settings.prediction.walls=����� ����
+modules.settings.prediction.hud=��������� � ���
+modules.settings.prediction.hud.description=³������� ����� �� �����, ���� � ��� ������ ������, ����� ����
+
+
+modules.settings.player_utils.select_setting=�����
+modules.settings.anti_afk=���-���
+modules.settings.auto_respawn=����������� ����������
+modules.settings.auto_fish=���� �����������
+modules.settings.fast_ladder=������ ������
+modules.settings.no_friend_damage=�� ���� �����
+modules.settings.fast_break=������ �������
+modules.settings.auto_tool=������������ ����������
+modules.settings.anti_afk.mode=ĳ�
+modules.settings.anti_afk.send=������ � ���
+modules.settings.anti_afk.jump=�������
+modules.settings.anti_afk.swing=������ �����
+modules.settings.anti_afk.delay=�������� �� ����
+
+# Velocity
+modules.settings.velocity.default=���������
+modules.settings.velocity.compensation=�����������
+modules.settings.velocity.modify=������������
+modules.settings.velocity.velocity_x=³�������� X
+modules.settings.velocity.velocity_y=³�������� Y
+modules.settings.velocity.velocity_z=³�������� Z
+modules.settings.velocity.grim_attack_window=³��� Grim ���� ����� �� ������
+modules.settings.velocity.grim_hits_before_cancel=����� �� ���������� Grim
+modules.settings.velocity.grim_hits_before_cancel.description=������ �������� ���������� ����� ����������� ���������� � Grim
+
+# AutoPotion
+modules.settings.auto_potion.allow=���������
+modules.settings.auto_potion.potions=ǳ���
+modules.settings.auto_potion.potions.strength=����
+modules.settings.auto_potion.potions.speed=��������
+modules.settings.auto_potion.potions.fire_resistance=������������
+modules.settings.auto_potion.potions.heal=��������
+modules.settings.auto_potion.allow.potions.allow=���������
+modules.settings.auto_potion.allow.throw_up=������ �����
+modules.settings.auto_potion.allow.throw_walls=������ �� ����/����
+modules.settings.auto_potion.allow.donate=���. ����
+modules.settings.auto_potion.potions.heal.cerka=ѳ����� �������
+modules.settings.auto_potion.potions.heal_health=������'� ��� ��������
+modules.settings.auto_potion.potions.heal_health.description=������'�, ��� ����� ���� ����������������� ���� ��������
+modules.settings.auto_potion.potions.cerka_health=������'� ��� ����
+modules.settings.auto_potion.potions.cerka_health.description=������'�, ��� ����� ���� ����������������� ���� ������ �������
+
+# AutoTotem
+modules.settings.auto_totem.health=������'�
+modules.settings.auto_totem.health.description=������'�, ��� ����� ���� ������� �����
+
+modules.settings.auto_totem.elytra_health=������'� � ������
+modules.settings.auto_totem.elytra_health.description=������'�, ��� ����� ���� ������� ����� ��� ��������� ����
+
+modules.settings.auto_totem.select_with=����� ���
+modules.settings.auto_totem.select_with.fall=�����
+modules.settings.auto_totem.select_with.tnt=������
+modules.settings.auto_totem.select_with.crystal=�������
+modules.settings.auto_totem.select_with.trident=������
+modules.settings.auto_totem.death_tnt=���� ����������
+modules.settings.auto_totem.tnt_distance=��������� �� �������
+modules.settings.auto_totem.tnt_distance.description=��������� ��������� �������
+modules.settings.auto_totem.crystal_distance=��������� �� ��������
+modules.settings.auto_totem.crystal_distance.description=��������� ��������� ��������
+
+# AutoGapple
+modules.settings.auto_gapple.health=������'�
+modules.settings.auto_gapple.health.description=��� ����� ������� ����� ������ ���� ������ ������
+
+# -------- ��� --------
+hud.keybinds=������
+hud.staff_list=��������
+staff.herobrine=��������
+
+hud.always_display=���������� ������
+
+# > �������
+hud.effects=������
+hud.effects.alert=�����. ��� ���������
+hud.effects.grouping=�����������
+hud.effects.ended=����� %s ����������
+hud.effects.ended.desc=ĳ� ������ ���������
+
+hud.targethud=ֳ��
+hud.targethud.look=��� ��������
+hud.targethud.look.description=��� �������� ������ ����, ���� �� �� �� �������
+hud.targethud.armor=³���������� ����
+hud.targethud.armor.description=³���������� ���� ������ ��, �� ���� ������������ �����
+hud.targethud.armor.none=�� ����������
+hud.targethud.armor.number=³������ ��������
+hud.targethud.armor.icon=������
+
+# > ������� ������
+hud.dynamic_island=��������� �����
+hud.dynamic_island.statuses=�������
+hud.dynamic_island.statuses.alerts=���������
+hud.dynamic_island.statuses.blink=Blink
+hud.dynamic_island.statuses.cerber=������
+hud.dynamic_island.statuses.pvp=PVP-�����
+hud.dynamic_island.statuses.events=��䳿
+hud.dynamic_island.statuses.mine=�����
+hud.dynamic_island.statuses.xray=XRay
+hud.dynamic_island.statuses.music=������
+hud.dynamic_island.statuses.default=������� ����
+hud.dynamic_island.statuses.freecam=³���� ������
+
+# > ���� HUD
+hud.item_binds=���� ��������
+hud.item_binds.per_row=� �����
+hud.custom_hotbar=��������� ������
+hud.totem_counter=˳������� ������
+hud.no_elements=�������� ����
+hud.no_elements.desc=�������� ����������, �������� ����� �����
+
+# > XRay HUD
+hud.xray.ancient_debris=���� ������
+hud.xray.diamond_ore=������� ����
+hud.xray.gold_ore=������ ����
+hud.xray.lapis_ore=���������� ����
+hud.xray.found=��������
+hud.xray.found_diamonds=�������� ������
+
+
+only_crits=ҳ���� ����
+sorting=����������
+remove=��������
+actions=ĳ�
+settings=������������
+whatadd=�� ������?
+enabled=��������
+disabled=��������
+
+# ����
+targets=ֳ�
+players=������
+animals=�������
+mobs=����
+invisibles=���������
+nakedPlayers=������ ��� ����
+friends=����
+
+# ������ ��������
+slot=����
+sec=���
+block=����
+big_block=����
+
+# ��������
+mainmenu.next=������ ��� �����������
+mainmenu.wallpaper.day1=����� �� ����
+mainmenu.wallpaper.day2=������ ��������
+mainmenu.wallpaper.day3=ϳ������� ���
+mainmenu.wallpaper.day4=��������� ����
+mainmenu.wallpaper.day5=����� �����
+mainmenu.wallpaper.day6=������� ��������
+mainmenu.wallpaper.night1=̳������ �����
+mainmenu.wallpaper.night2=������ ��
+mainmenu.wallpaper.night3=����� � ���
+mainmenu.bar.accounts=�������
+mainmenu.bar.language=����
+mainmenu.bar.wallpaper=���� ������
+mainmenu.accounts.title=�������
+mainmenu.accounts.empty=������ ������� �������
+mainmenu.accounts.placeholder=������ ��
+
+# �� �����
+time.days.monday=��������
+time.days.tuesday=³������
+time.days.wednesday=������
+time.days.thursday=������
+time.days.friday=�'������
+time.days.saturday=������
+time.days.sunday=�����
+
+# ̳���� (� �������� ������)
+time.months.january=����
+time.months.february=������
+time.months.march=�������
+time.months.april=�����
+time.months.may=������
+time.months.june=������
+time.months.july=�����
+time.months.august=������
+time.months.september=�������
+time.months.october=������
+time.months.november=���������
+time.months.december=������
+
+type_text=������ �����
+setting_of=�
+
+# ����������
+colorpicker.opacity=���������
+colorpicker.click_to_sample=��������, ��� ������� ����
+
+# �����
+search=�����
+search.tooltip=��� ������� �����, �������� Ctrl + F
+search.tooltip.tab=Tab - ³������ ������������
+search.tooltip.enter=Enter - ��������/��������
+
+# ����
+modules=�������
+menu.binding=�������� ����-��� ������
+
+configs.loaded=����� ������ �����������
+
+# > ������ ����������
+friend=����
+enemy=�����
+copy=���������
+
+modules.settings.name_tags.elementsToDisplay=��������
+modules.settings.name_tags.elementsToDisplay.armor=�����
+modules.settings.name_tags.elementsToDisplay.items=��������
+
+modules.settings.name_tags.offFriends=��������� �����
+modules.settings.name_tags.background=��� � ��������
+
+swing.only_aura=ҳ���� � Aura
+swing.open_menu=³������ ����
+type_name=������ ��'�
+dont_have_presets=� ��� ���� �������
+presets=�������
+shared=������
+anim_from=������� ��
+anim_to=������� ��
+animation=�������
+swing.back=���������
+swing.wing_speed=�������� ������
+swing.anchorX=����� X
+swing.anchorY=����� Y
+swing.anchorZ=����� Z
+swing.moveX=³�������� X
+swing.moveY=³�������� Y
+swing.moveZ=³�������� Z
+swing.rotateX=������� X
+swing.rotateY=������� Y
+swing.rotateZ=������� Z
+# �������
+swings.block_hit=ϳ� �������
+swings.from_me=³� ����
+swings.rotate_360=��������� �� 360
+swings.bonk=�����
+
+coords=����������
+server=������
+speed=��������
+hud.player.speedY=�������� �� Y
+hud.player=�������
+hud.world=���
+hud.world.compact_server=��������� ������
+
+color=����
+
+fov=���� ����
+distance=���������
+silent_aim=³����� ��
+predict=�������������
+items=��������
+bow=���
+crossbow=�������
+trident=������
+
+delay=��������
+ms=��
+mode=�����
+size=�����
+
+elements=��������
+
+# NameProtect
+modules.settings.name_protect.fake_name=������� ��'�
+modules.settings.name_protect.hide_friends=����������� �����
+
+health=������'�
+key=������
+key.none=����
+
+
+# AutoAuth
+commands.auth.description=������ ������ ������, �� ����������������� ��� ����� �� ������ ����� AutoAuth
+commands.auth.empty=���� ���������� ������!
+commands.auth.passwords=������ ������:
+commands.auth.entry=ͳ�����: %s | ������: %s
+commands.auth.nick=ͳ�����
+commands.auth.password=������
+
+# AutoPilot
+commands.autopilot.description=����������� ������ �� ������� ���������
+commands.autopilot.invalid=���������� ����������!
+commands.autopilot.stopping=���������...
+commands.autopilot.stopped=������ ������! ������ �� ������������ ������ "������"
+commands.autopilot.start=������� ���� �� ��������� %s, %s, %s
+commands.autopilot.not_active=�������� �� ��������!
+
+# Cat
+commands.cat.description=������ ��������� ���������� ������
+
+# Config
+commands.config.description=��������� ��������
+commands.config.invalid_action=������� ��!
+commands.config.saved=����� %s ���������!
+
+# FakePlayer
+commands.fakeplayer.description=������� ��������� ������
+commands.fakeplayer.error=�������
+commands.fakeplayer.success=������
+commands.fakeplayer.added=��������� ������ ������ ��������!
+commands.fakeplayer.not_exists=��������� ������ �� ����!
+commands.fakeplayer.removed=��������� ������ ������ ��������!
+
+# Friends
+commands.friends.description=��������� �������
+commands.friends.target=�� �� ����� ������� ������� ������!
+commands.friends.added=������� %s ������� � ����!
+commands.friends.removed=������� %s ��������� �� �����!
+commands.friends.exists=������� %s ��� � ������ �����!
+commands.friends.self=�� ����� ������ ���� � ����!
+commands.friends.not_exists=������ %s �� �������� � ������ �����!
+commands.friends.list=������ �����:
+commands.friends.empty=������ ����� ������� :(
+commands.friends.cleared=������ ����� �������!
+
+# Help
+commands.help.description=������ ������ ������
+
+# Inventory
+commands.inventory.description=��������� ������� ���������
+commands.inventory.saved=�������� ��������� �� %s
+commands.inventory.loaded=������������ �������� �����������
+commands.inventory.not_found=���������� � ��'�� %s �� ��������!
+commands_inventory_invalid_action=������� ��
+
+# Prefix
+commands.prefix.description=��������� ��������
+commands.prefix.current=�������� ������: %s
+commands.prefix.invalid_length=������ �� ���� ���� ����� ��������!
+commands.prefix.reset=������ ������� �� �����������: "."
+commands.prefix.empty=������ ����� ������! �������: .prefix set $
+commands.prefix.set=������ ������ ��: %s
+
+# Python
+commands.python.description=��������� ���������
+commands.python.save.success=������ %s ������ ���������
+commands.python.create.success=������ %s ������ ��������
+commands.python.delete.success=������ %s ������ ��������
+commands.python.delete.error=ϳ� ��� ��������� ������� %s ������� �������
+commands.python.not_found=������ %s �� ��������
+commands.python.load.success=���������� ������ %s
+commands.python.unload.success=������ %s ������ �����������
+commands.python.unload.not_loaded=������ %s �� ������������
+commands.python.dir.error=�� ������� ������� ����� � ���������: %s
+
+# ReHub
+commands.rehub.description=������������ �� ������
+commands_rehub.ct=�� ������� �� ����� ��������������� �� ��� ���!
+
+# Toggle
+commands.toggle.description=�����/������ ������
+commands.toggle.enabled=������ %s ���� ��������!
+commands.toggle.disabled=������ %s ���� ��������!
+
+# Vclip
+commands.vclip.description=��������� ������ �� ��������
+commands.vclip.invalid=����������� �����!
+
+commands.target.description=������ �������
+# Target
+commands.target.friend_error=�� �� ������ ������ ����� � �������!
+commands.target.already_exists=������ %s ��� � � ������
+commands.target.self_error=�� �� ������ ��������� ����
+commands.target.added=������ %s ������
+commands.target.not_found=������� � ���� %s �� ��������!
+commands.target.removed=������ %s ��������
+commands.target.cleared=������ ������� �������!
+commands.target.empty=������ ������� �������!
+commands.target.list_header=������ �������:
+commands.target.list_entry=[%s] %s
+
+commands.plugins.description=³������� ������ �� ������
+commands.plugins.error=�������
+commands.plugins.empty=������� ����!
+commands.plugins.client_error=������� ��� ������ �������
+commands.plugins.counts=Counts plugins
+commands.plugins.find=finds:
+
+commands.way.description=��������
+commands.way.error_number=Error numbers
+commands.way.help=������ ��'� �� ���������� (.way add ["��'�"] [x] [y] [z])
+commands.way.error_numbers=Coordinates don't numbers
+commands.way.error_name=Enter name (.way del "names")
+
+commands.bind.clear=�� ���� ������ ������!
+commands.bind.create.download=���� ����������� �� ������
+commands.bind.create.key_not=������ �� �������
+commands.bind.create.key_unknow=������ �� ��������:
+commands.bind.delete=���� �������� � ������
+commands.bind.description=������ ����
+commands.bind.list=������ ����:
+commands.bind.list_empty=������ ���� �������!
+commands.bind.module_required=������ ������!
+
+# Auto Farm
+modules.settings.auto_farm.mode=�����
+modules.settings.auto_farm.mode.carrot=������
+modules.settings.auto_farm.mode.potato=��������
+modules.settings.auto_farm.mode.beetroot=�����
+modules.settings.auto_farm.mine_blocks=������ �����
+modules.settings.auto_farm.blocks=�����
+modules.settings.auto_farm.blocks.melon=�����
+modules.settings.auto_farm.blocks.pumpkin=������
+modules.settings.auto_farm.blocks.other_crops=���� ��������
+modules.settings.auto_farm.auto_exp=���� �������
+modules.settings.auto_farm.auto_exp.description=����������� ������� ������
+modules.settings.auto_farm.auto_sell=���� ������
+modules.settings.auto_farm.auto_sell.description=����������� ����� ��������
+modules.auto_farm.screen.select_section_ft=? ������� ������
+modules.auto_farm.screen.select_section=? ������ ������
+modules.auto_farm.screen.food_seller=������� ��
+
+# Auto Swap
+modules.settings.auto_swap.button=������
+modules.settings.auto_swap.item=�������
+modules.settings.auto_swap.item.talisman=�������
+modules.settings.auto_swap.item.orb=�����
+modules.settings.auto_swap.swap_to=������� ��
+modules.settings.auto_swap.swap_to.talisman=�������
+modules.settings.auto_swap.swap_to.orb=�����
+
+# Auto Eat
+modules.settings.auto_eat.food=г���� ������
+modules.settings.auto_eat.food.description=�� ����� �������� ������ �������� ����
+
+# Blink
+modules.settings.blink.pulse=���������
+modules.settings.blink.time=���
+modules.settings.blink.display=³���������
+modules.settings.blink.hide_first_person=����������� �� ����� �����
+modules.settings.blink.hide_first_person.description=������� ������ �� ����� �����
+
+# Auto Leave
+modules.settings.auto_leave.leave=�������� ���
+modules.settings.auto_leave.leave.distance=���������
+modules.settings.auto_leave.leave.health=������'�
+modules.settings.auto_leave.leave.ban=��� ������
+modules.settings.auto_leave.distance=���������
+modules.settings.auto_leave.distance.description=��������� �� ������, �� ��� ���������������� ��
+modules.settings.auto_leave.health=������'�
+modules.settings.auto_leave.health.description=������'�, �� ����� ���������������� ��
+modules.settings.auto_leave.delay=��������
+modules.settings.auto_leave.delay.description=���, ����� ���� ���� ��������� ���� �� ������ ���� ���� ������
+modules.settings.auto_leave.mode=�� ������
+modules.settings.auto_leave.mode.hub=�������� � ���
+modules.settings.auto_leave.mode.server=�������� � �������
+modules.settings.auto_leave.mode.spawn=��������������� �� �����
+modules.auto_leave.near_player=����� �������!
+modules.auto_leave.low_health=���� ������'�!
+modules.auto_leave.banned_word=���������
+
+
+# Waypoints
+modules.descriptions.waypoints=³������� ���� � ���
+modules.waypoints.base_name=̳���
+modules.waypoints.player_removed=̳��� �� ������� %s ��������, ������� �� �����������
+modules.waypoints.exists=̳��� "%s" ��� ����
+modules.waypoints.added=������ ���� "%s" �� %d, %d, %d
+modules.waypoints.deleted=�������� ���� "%s"
+modules.waypoints.not_found=̳��� "%s" �� ��������
+modules.waypoints.cleared=�� ���� ��������
+commands.way.list_empty=̳��� ������
+commands.way.list_header=������ ����:
+commands.way.list_coordinates=�� %d, %d, %d
+commands.way.list_hover=��������, ��� �������� ����
+
+# Slot Lock
+modules.settings.slot_lock.lock=���������
+modules.settings.slot_lock.lock.slot1=���� 1
+modules.settings.slot_lock.lock.slot2=���� 2
+modules.settings.slot_lock.lock.slot3=���� 3
+modules.settings.slot_lock.lock.slot4=���� 4
+modules.settings.slot_lock.lock.slot5=���� 5
+modules.settings.slot_lock.lock.slot6=���� 6
+modules.settings.slot_lock.lock.slot7=���� 7
+modules.settings.slot_lock.lock.slot8=���� 8
+modules.settings.slot_lock.lock.slot9=���� 9
+
+# Stealer
+modules.settings.stealer.delay=��������
+modules.settings.stealer.close=���������
+modules.settings.stealer.close.description=������� ������ ���� �� ��������
+modules.settings.stealer.off=��������
+modules.settings.stealer.off.description=������ ������ ���� ������������
+modules.settings.stealer.open_mystic=³�������� ������
+modules.settings.stealer.open_mystic.description=��� ��� ������ ���� � ��������� ��������
+modules.settings.stealer.mode=����� �������
+modules.settings.stealer.mode.up=��������� ������
+modules.settings.stealer.mode.down=��������� �����
+modules.settings.stealer.mode.center=� ��������
+modules.settings.stealer.mode.random=���������
+
+# Effect Remover
+modules.settings.effect_remover.remove=���������
+modules.settings.effect_remover.remove.levitation=��������
+modules.settings.effect_remover.remove.jump_boost=�����������
+modules.settings.effect_remover.remove.slow_fall=������ ������
+
+# Anti Invisible
+modules.settings.anti_invisible.opacity=���������
+
+# Trap ESP
+modules.trap_esp.label=������
+modules.trap_esp.depth=������� %s �����
+modules.trap_esp.private=������
+modules.trap_esp.no_private=��� �������
+
+# Sound ESP
+modules.settings.sound_esp.select=³���������
+modules.settings.sound_esp.select.trident=������
+modules.settings.sound_esp.select.tnt=������
+modules.settings.sound_esp.select.fireworks=��������
+
+# Storage ESP
+modules.settings.storage_esp.blocks=ϳ���������
+modules.settings.storage_esp.blocks.chests=�����
+modules.settings.storage_esp.blocks.ender_chests=�����-�����
+modules.settings.storage_esp.blocks.trapped_chests=�����-������
+modules.settings.storage_esp.blocks.furnaces=����
+modules.settings.storage_esp.blocks.barrels=�����
+modules.settings.storage_esp.blocks.minecart=���������
+modules.settings.storage_esp.blocks.shulkers=�������
+modules.settings.storage_esp.blocks.droppers=��������
+modules.settings.storage_esp.blocks.dispensers=���������
+modules.settings.storage_esp.blocks.hoppers=�������
+modules.settings.storage_esp.render=³���������
+modules.settings.storage_esp.render.fill=�������
+modules.settings.storage_esp.render.outline=�������
+modules.settings.storage_esp.render.diagonals=ĳ������
+modules.settings.storage_esp.render.lines=˳�� �� ������
+modules.settings.storage_esp.max_distance=����������� ���������
+modules.settings.storage_esp.max_distance.description=����������� ���������, �� ��� ���������������� �����
+modules.settings.storage_esp.connect=�'��������
+modules.settings.storage_esp.connect.description=��'���� ����� ����� �� ��� ����������� �������
+
+# TNT Timer
+modules.tnt_timer.format=%.1f �
+
+# Tracers
+modules.settings.tracers.targets=ֳ�
+modules.settings.tracers.targets.description=ֳ� ��� ����������� ���
+modules.settings.tracers.targets.players=������
+modules.settings.tracers.targets.animals=�������
+modules.settings.tracers.targets.mobs=����
+modules.settings.tracers.targets.invisibles=���������
+modules.settings.tracers.targets.naked_players=������ ��� ����
+modules.settings.tracers.targets.friends=����
+
+# Ambience
+modules.settings.ambience.end_sky=�������� ����
+modules.settings.ambience.skybox=����
+modules.settings.ambience.skybox.default=��������
+modules.settings.ambience.skybox.bright_clouds=������ �����
+modules.settings.ambience.skybox.lake=�����
+modules.settings.ambience.skybox.cloud_space=������� ������
+modules.settings.ambience.skybox.clear_evening=������ �����
+modules.settings.ambience.skybox.underwater=ϳ� �����
+modules.settings.ambience.shader=������
+modules.settings.ambience.shader_type=��� �������
+modules.settings.ambience.shader_type.nebula=���������
+modules.settings.ambience.shader_type.caustic=��������
+modules.settings.ambience.shader_opacity=��������� �������
+modules.settings.ambience.skybox_color=���� ���������
+modules.settings.ambience.custom_time=�������� ���
+modules.settings.ambience.time=���
+modules.settings.ambience.bright=�������� ���������
+
+modules.settings.ambience.night_mode=ͳ���� �����
+modules.settings.ambience.night_mode.sync=������������ ����
+modules.settings.ambience.night_mode.color=���� ������
+modules.settings.ambience.night_mode.strength=���� ������
+
+# Menu
+modules.settings.menu.mode=�����
+modules.settings.menu.mode.dropdown=�����
+modules.settings.menu.mode.modern=�����
+
+# View Model
+modules.settings.view_model.main_translate_x=����� X
+modules.settings.view_model.main_translate_y=����� ������� Y
+modules.settings.view_model.main_translate_z=����� ������� Z
+modules.settings.view_model.main_rotate_x=����� ��������� X
+modules.settings.view_model.main_rotate_y=����� ��������� Y
+modules.settings.view_model.main_rotate_z=����� ��������� Z
+modules.settings.view_model.off_translate_x=˳�� X
+modules.settings.view_model.off_translate_y=˳�� ������� Y
+modules.settings.view_model.off_translate_z=˳�� ������� Z
+modules.settings.view_model.off_rotate_x=˳�� ��������� X
+modules.settings.view_model.off_rotate_y=˳�� ��������� Y
+modules.settings.view_model.off_rotate_z=˳�� ��������� Z
+
+# Kill Effects
+modules.settings.kill_effects.color=����
+
+# No Delay
+modules.settings.no_delay.jump=�������
+modules.settings.no_delay.jump.description=������� �������� ��� �������
+modules.settings.no_delay.right_click=���
+modules.settings.no_delay.right_click.description=�������� ������ ������� ����� ��� ��������������� ��������
+modules.settings.no_delay.right_click_delay=�������� ���
+modules.settings.no_delay.exp=�������� ������
+modules.settings.no_delay.potions=ǳ���
+modules.settings.no_delay.potions.description=������� �������� ������������ ����
+
+# Fast Item Use
+modules.settings.fast_item_use.bow=���
+modules.settings.fast_item_use.bow.description=����������� ������� �����
+modules.settings.fast_item_use.trident=������
+modules.settings.fast_item_use.trident.description=����������� ������� ��������
+modules.settings.fast_item_use.crossbow=�������
+modules.settings.fast_item_use.crossbow.description=����������� ������� ���������
+
+# Auto Explosion
+modules.settings.auto_explosion.bind=������ ������
+modules.settings.auto_explosion.attack_others=���� ���
+modules.settings.auto_explosion.self_save=�� �������� ����
+modules.settings.auto_explosion.delay=��������
+
+# ������ � ���������
+inventory.button.drop_all=�������� ���
+inventory.button.move=����� ���
+inventory.button.steal=������� ���
+inventory.button.reconnect=�������� �����������
+
+lines=˳��
+
+# RussianRoulette settings
+modules.settings.russian_roulette.difficulty=���������
+modules.settings.russian_roulette.difficulty.description=������ ��������� �������
+modules.settings.russian_roulette.easy=�����
+modules.settings.russian_roulette.normal=��������
+modules.settings.russian_roulette.very_hard=���� �������
+
+# New module descriptions
+modules.descriptions.no_clip=�������� ������ ���� ����
+modules.descriptions.click_through=�������� ��������� ����� ���� ���� ����
+
+# ParseCommand
+commands.parse.description=������ ������� �� ������ �� ������ � ����
+commands.parse.singleplayer_error=�� ������� �� ������ � ������������������� �����.
+commands.parse.server_info_error=�� ������� �������� ���������� ��� ������.
+commands.parse.folder_error=�� ������� �������� �����: %s
+commands.parse.success=��� ������� ������ ���������.
+commands.parse.save_error=������� ���������� ����� �������: %s
+
+message=�����������
+python.script.context.create_error=�� ������� �������� �������� GraalPy ��� ������� "%s"
+python.script.context.runtime_error=�� ������� �������� �������� GraalPy
+python.script.file_missing=���� ������� �� ��������, ������� �����: %s
+python.script.context.creating=��������� Python-�������� ��� ������� "%s"...
+python.script.execution.running=�������� Python-������ "%s"...
+python.script.load.success_log=������ "%s" ������ �����������!
+python.script.load.success=�a������ %s ������ �����������.
+python.script.load.error=�c�� ������� ����������� ������ %s: %s
+python.script.load.error_log=�� ������� ����������� ������ "%s"
+python.script.unload=������ "%s" �����������.
+python.script.create_file_error=�� ������� �������� ���� �������: %s
+python.script.template=# ��� ������ ���� �� �������... ��� �� ������!
+python.script.save_error=�� ������� �������� ���� �������
+python.script.delete.success=���� ������� ��������: %s
+python.script.delete.error=�� ������� �������� ���� �������: %s
+modules.settings.waypoints.key=������ ����
+modules.settings.waypoints.player_time=��� ���� �� �������
+modules.settings.waypoints.block_time=��� ���� �� �����
+modules.waypoints.from=³� %s
+modules.waypoints.distance=%s �
+rocknet.activity.main_menu=� ��������� ����
+rocknet.activity.online=� �����
+rocknet.activity.singleplayer=� �������� ��
+rocknet.activity.multiplayer=��� �� %s
+rocknet.reconnect.start=�������� ����������...
+rocknet.reconnect.success=�������� ���������� �������� ������
+rocknet.reconnect.failed=�� ������� ����������� ��������: %s
+rocknet.coordinates.parse_error=�� ������� �������� ����������: %s
+rocknet.reply.parse_error=�� ������� �������� ������������ ������: %s
+rocknet.chat.global.id=�����
+rocknet.chat.global.name=���������
+rocknet.menu.friend_placeholder=������ �� �����...
+rocknet.menu.add_friend=������ �����
+rocknet.menu.incoming_requests=����� ������ - %s
+rocknet.menu.chats=����
+rocknet.menu.no_messages=���� ����������
+rocknet.menu.you=��
+rocknet.menu.last_message=%s: %s
+rocknet.menu.friends=���� - %s
+rocknet.menu.coordinates=����������: %s %s %s
+rocknet.menu.geolocation=����������
+rocknet.menu.create_waypoint=�������� ����
+rocknet.menu.reply_to=� ������� %s
+rocknet.menu.subtitle_online=� �����: %s. ������: %s
+rocknet.menu.actions=ĳ�
+rocknet.menu.coordinates_button=����������
+rocknet.menu.reply_button=³�������
+rocknet.menu.open_chat=³������ ���
+rocknet.menu.connect=ϳ����������
+rocknet.status.offline.id=�� � ����
+rocknet.status.main_menu.id=� ������� ����
+rocknet.status.offline=������
+rocknet.status.main_menu=� ��������� ����
+rocknet.auth.login_placeholder=������ ����...
+rocknet.auth.email_placeholder=������ �����...
+rocknet.auth.password_placeholder=������ ������...
+rocknet.auth.login_title=���� �� �������
+rocknet.auth.login_button=�����
+rocknet.auth.have_account=���� ������?
+rocknet.auth.register= ��������������
+rocknet.auth.register_title=���������
+rocknet.auth.register_button=��������������
+rocknet.auth.login_action= �����
+rocknet.auth.open_file=³������ ����
+
+# Aura - �������� ������������
+modules.settings.aura.crit_calc=���������� ����
+modules.settings.aura.crit_calc.old=������
+modules.settings.aura.crit_calc.new=�����
+modules.settings.aura.crit_calc.air=���������
+modules.settings.aura.boost=�����������
+modules.settings.aura.onlyCrits=ҳ���� ����
+
+# Target ESP
+modules.settings.target_esp.ray_trace=��� ��������
+modules.settings.target_esp.color=����
+modules.settings.target_esp.mode.jello=Jello
+
+# Name Protect
+modules.settings.name_protect.friend_fake_name=ͳ� �����
+
+# Inventory Cleaner
+modules.settings.inventory_cleaner.mode=�����
+modules.settings.inventory_cleaner.mode.1_8=1.8
+modules.settings.inventory_cleaner.mode.custom=Custom
+modules.settings.inventory_cleaner.blocks=�����
+modules.settings.inventory_cleaner.leather_armor=������ �����
+
+# World
+modules.settings.world.color=����
+
+# Waypoints
+modules.settings.waypoints.color=����
+
+# View Model
+modules.settings.view_model.size_left=����� ��� ����
+modules.settings.view_model.size_right=����� ����� ����
+
+# Assist
+modules.settings.assist.auto_chorus=���� �����
+modules.settings.assist.buffs_loop=���� �����
+
+# Auto Brew
+modules.settings.auto_brew.potion.invisibility=����������
+modules.settings.auto_brew.enhance=��������
+
+# Swing Animation
+modules.settings.swing_animation.only_aura=ҳ���� � �����
+modules.settings.swing_animation.open_menu=³������ ����
+
+# Chams
+modules.settings.glow.color=����
+
+# Arrows
+modules.settings.arrows.lines=˳��
+modules.settings.arrows.color=����
+modules.settings.arrows.distance=���������
+
+# Test Module
+modules.settings.test.name=�����
+
+# Fast Item Use
+modules.settings.fast_item_use.delay=��������
+
+# Middle Click
+modules.settings.middle_click.actions=ĳ�
+
+# Hitboxes
+modules.settings.hitboxes.size=�����
+
+# Inventory Utils
+modules.settings.inv_utils.targets=������
+modules.settings.inv_utils.item_scroller=������� ��������
+modules.settings.inv_utils.slot_lock=���������� �����
+modules.settings.inv_utils.delay=��������
+
+# XRay
+modules.settings.xray.big_block=�����
+
+
+# Elytra Target - �������� ������������
+modules.settings.elytra_target.adaptive_prediction=��������� ������������
+modules.settings.elytra_target.smart_fireworks=������ ��������
+modules.settings.elytra_target.prediction_smoothness=�������� ������������
+modules.settings.elytra_target.enable_evasion=�������� ��������
+modules.settings.elytra_target.evasion_intensity=������������ ��������
+modules.settings.elytra_target.min_prediction_speed=̳� �������� ������������
+
+# Auto Totem
+modules.settings.auto_totem.stop_using=����� �� ��� ������������
+modules.settings.auto_totem.stop_using.description=���� ����� �� ��� ������������ ��������
+
+# Auto Soup
+modules.settings.auto_soup.health=������'�
+
+# Auto Armor
+modules.settings.auto_armor.delay=��������
+modules.settings.auto_armor.elytra=����� ����
+
+# Aim Bot
+modules.settings.aim_bot.items=��������
+modules.settings.aim_bot.bow=���
+modules.settings.aim_bot.crossbow=�������
+modules.settings.aim_bot.trident=������
+modules.settings.aim_bot.predict=������������
+modules.settings.aim_bot.silent_aim=���� ���������
+modules.settings.aim_bot.distance=���������
+modules.settings.aim_bot.distance.description=����. ������� ���������
+modules.settings.aim_bot.fov=FOV
+
+# Anti Bot
+modules.settings.anti_bot.mode=�����
+modules.settings.anti_bot.mode.rw=ReallyWorld
+modules.settings.anti_bot.mode.default=�� �������������
+modules.settings.anti_bot.remove_from_world=�������� � ����
+
+# Spider
+modules.settings.spider.mode=�����
+modules.settings.spider.mode.water=����
+modules.settings.spider.mode.sphere=�����
+
+# Velocity
+modules.settings.velocity.mode=�����
+
+# Macro Command
+commands.macro.description=��������� ���������
+commands.macro.error_arguments=����������� ���������! ��������������: .macro add <������> <�������>
+commands.macro.error_key=������ ������!
+commands.macro.added=������ ������: %s -> %s
+commands.macro.removed_specific=������ ��������: %s -> %s
+commands.macro.removed_key=�� ������� �� ������ %s ��������
+commands.macro.removed_command=������ � �������� "%s" ��������
+commands.macro.not_found=������ �� ��������!
+commands.macro.list_empty=������ ������� �������!
+commands.macro.list_header=������ �������:
+commands.macro.cleared=�� ������� �������!
+
+# ReHub Command
+commands_rehub.invalid_number=������� ����� �������!
+commands_rehub.ct=������� ������ KT Leave ��� ������������ ���� �������!
+commands_rehub.mode_unknown=�������� ����� �������!
+
+# Strafe
+modules.descriptions.strafe=��������� ��������� ����� � �����
+modules.settings.strafe.auto_jump=���� �������
+modules.settings.strafe.damage_boost=���� �� �����
+modules.settings.strafe.damage_speed=�������� �� �����
+
+# Waypoints
+waypoints.error_coords=�� ������� �������� ����������! ������� ���� �� �������� �����������...
+
+# Middle Click
+middle_click.slime_error=���� ������� �� ����� ������ �� �����!
+
+# Inventory Utils
+inv_utils.damage_received=�������� �����: %s
+
+# Auto Bot
+auto_bot.baritone_required=��� ������ %s ������� ��� baritone
+
+
+# Swing Animation
+swing_anim.delete_error=������� ������� ��� ��������
+swing_anim.preset_list=������ �������:
+swing_anim.preset_item=[%s] %s
+
+# Lua
+lua.script_error=[Lua] ������ %s �������� ����� �������
+
+# Config
+config.deleted=����� %s ������ ��������
+config.delete_error=������� ������� ��� ��������
+config.loaded=����� %s �����������
+config.not_found=������ �� ��������.
+config.list=������ ������:
+
+# Commands
+commands.help.list=������� �������:\n%s
+commands.python.not_found=������� �� ��������.
+commands.python.list=������ �������:
+commands.friends.list_item=[%s] %s
+commands.staff.description=��������� ������� ���������
+commands.staff.added=����� %s %s ������!
+commands.staff.removed=����� %s ��������!
+commands.staff.exists=����� %s ��� � � ������!
+commands.staff.not_exists=����� %s �� �������� � ������!
+commands.staff.list=������ ���������:
+commands.staff.list_item=[%s] %s %s
+commands.staff.empty=������ ��������� ������� :(
+commands.staff.cleared=������ ��������� �������!
+commands.staff.empty_name=������ ��.
+commands.staff.unknown_action=������� �� staff.
+
+# Chat Waypoint
+chat_waypoint.hover=������, ��� ������ ����
+
+# Config Manager
+config.hover_load=��������, ��� ����������� �����
+
+# Macro Command
+macro.hover_delete=��������, ��� �������� ������
+macro.delete=��������
+macro.settings.onlyInRadius=ҳ���� � �����
+macro.settings.onlyInRadius.description=��������������� ����� ���� ���� � �����
+macro.settings.distance=���� �� ���
+macro.settings.distance.description=��������� �� ��� � ��������
+
+# Python Command
+python.hover_disable=��������, ��� ��������
+python.hover_enable=��������, ��� ��������
+
+# Lua/Python status
+status.enabled=[���]
+status.disabled=[����]
+
+# Lua Command
+commands.lua.description=��������� Lua ���������
+commands.lua.save.success=������ %s ������ ���������
+commands.lua.create.success=������ %s ������ ��������
+commands.lua.delete.success=������ %s ������ ��������
+commands.lua.delete.error=������� ������� ��� �������� ������� %s
+commands.lua.not_found=������ %s �� ��������
+commands.lua.load.success=���������� ������ %s
+commands.lua.unload.success=������ %s ������ �����������
+commands.lua.unload.not_loaded=������ %s �� ������������
+commands.lua.dir.error=�� ������� ������� ����� � ���������: %s
+commands.lua.list=������ Lua �������:
+commands.lua.not_found_list=Lua ������� �� ��������.
+
+# Theme Panel
+theme.type_name=������ �����
+theme.expand=����������
+theme.themes=����
+
+theme.colors=�������
+theme.colors.accent=��������
+theme.colors.background=���
+theme.colors.additional=����������
+theme.colors.text=�����
+theme.colors.outline=���������
+
+theme.other=����
+theme.hud_rounding=����������� ����
+theme.blur_strength=���� �����
+
+theme.minimalism=̳������
+theme.opacity=�����������
+
+theme.liquid_glass=г��� ����
+theme.strength=����
+theme.distortion=�����������
+
+theme.additional=���������
+theme.extended_settings=�������� ������������
+theme.icons=������
+
+theme.in_menu=� ����
+theme.enabled_offset=������� ���������
+theme.separators=����������
+
+theme.sync=������������ � �����
+
+# Swap Integration
+swap.item_not_found=������� �� ��������
+swap.item_required=��� ��������� ���� %s � ��������
+
+# HUD Status
+hud.pvp_mode=�� � PVP �����
+
+# UI Components
+ui.range_format=�� %s �� %s
+
+# Rocknet Status
+rocknet.status.main_menu=� ��������� ����
+
+# Mine Helper
+mine_helper.pickaxe_swap=����� ����
+mine_helper.pickaxe_swapped=������ ���� � %.1f%% �� %.1f%%
+
+# Beautifully Module
+modules.settings.beautifully.select=����
+modules.settings.beautifully.smooth_f5=������� �5
+
+# Ambience Module
+modules.settings.ambience.mode=�����
+modules.settings.ambience.mode.gamma=�����
+modules.settings.ambience.mode.effect=�����
+modules.settings.ambience.mode.dynamic=���������
+modules.settings.ambience.dynamic.radius=����� �����
+modules.settings.ambience.dynamic.light=���� �����
+modules.settings.ambience.dynamic.only_in_cave=ҳ���� � �����
+
+# Sounds Module
+modules.settings.sounds.voice.death=��� �����
+
+# Object Info
+object_info.trap=������
+object_info.dragon=������
+object_info.plast=�����
+
+# Auto Potion
+modules.settings.auto_potion.mode.packet=��������
+modules.settings.auto_potion.mode.legit=�������
+
+# Aura Module
+modules.settings.aura.no_hit_inv=�� ���� ��� ��������� ��������
+modules.settings.aura.targeted_move_correction=�����������
+modules.settings.aura.force_targeted_ranged=���������, ���� � ��� ������� ��� ���������
+modules.settings.aura.force_behind_targeted=�������� �� �����
+modules.settings.aura.utilities=���������
+modules.settings.aura.resolver=���������
+
+# Mouse Buttons
+mouse.lmb=���
+mouse.rmb=���
+mouse.mmb=���
+
+# Friend Markers
+modules.settings.friends_markers.sims=ѳ��
+
+# Flight
+modules.settings.flight.elytra_y=����� Y
+
+# Player Utils
+modules.settings.player_utils.block_trap=���� ������
+
+# Speed
+modules.settings.speed.spooky_elytra=Spooky �����
+helper.pickaxe_swap=����� �����
+mine_helper.pickaxe_swapped=������ ����� � %.1f%% �� %.1f%%
+
+# Beautifully Module
+modules.settings.beautifully.select=����
+modules.settings.beautifully.smooth_f5=������� F5
+
+# Ambience Module
+modules.settings.ambience.mode=�����
+modules.settings.ambience.mode.gamma=�����
+modules.settings.ambience.mode.effect=�����
+modules.settings.ambience.mode.dynamic=���������
+modules.settings.ambience.dynamic.radius=����� �����
+modules.settings.ambience.dynamic.light=���� �����
+modules.settings.ambience.dynamic.only_in_cave=ҳ���� � �����
+
+# Sounds Module
+modules.settings.sounds.voice.death=��� �����
+
+# Object Info
+object_info.trap=������
+object_info.dragon=��������
+object_info.plast=�����
+
+# Auto Potion
+modules.settings.auto_potion.mode.packet=��������
+modules.settings.auto_potion.mode.legit=�������
+
+# Aura Module
+modules.settings.aura.no_hit_inv=�� ���� ��� ��������� ��������
+modules.settings.aura.targeted_move_correction=�����������
+modules.settings.aura.force_targeted_ranged=���������, ���� � ��� ������� ��� ������
+modules.settings.aura.force_behind_targeted=�������� �� �����
+modules.settings.aura.utilities=���������
+modules.settings.aura.resolver=���������
+modules.settings.aura.useHit=�� ���� ���� ����
+modules.settings.aura.no_teammates_1_8=�� ���� ���� �������
+modules.settings.aura.hit_dragon_six_blocks=���� ������� �� 6 �����
+modules.settings.aura.sync=�����. ����
+modules.settings.aura.lava_crits=���� � ���
+modules.settings.aura.sync_tps=������������ � TPS
+modules.settings.aura.targets=ֳ�
+modules.settings.aura.targets.players=������
+modules.settings.aura.targets.animals=�������
+modules.settings.aura.targets.mobs=����
+modules.settings.aura.targets.invisibles=�������
+modules.settings.aura.targets.nakedPlayers=��� ������
+modules.settings.aura.targets.defineUsers=����������� Define Visuals
+modules.settings.aura.targets.friends=����
+modules.settings.aura.sorting=����������
+
+# Mouse Buttons
+mouse.lmb=���
+mouse.rmb=���
+mouse.mmb=���
+
+# Friend Markers
+modules.settings.friends_markers.sims=ѳ��
+
+# Flight
+modules.settings.flight.elytra_y=����� Y
+
+# Player Utils
+modules.settings.player_utils.block_trap=���� ����
+
+# Speed
+modules.settings.speed.spooky_elytra=Spooky �����
+
+# Auto Explosion
+modules.settings.auto_explosion.instant_destroy=������ ����������
+
+# Swap Integration
+swap.item_not_found=������� �� ��������
+swap.item_required=��� ��������� ���� %s � ��������
+
+# HUD Status
+hud.pvp_mode=�� � PVP �����
+
+# UI Components
+ui.range_format=�� %s �� %s
+
+# Rocknet Status
+rocknet.status.main_menu=� ��������� ����
+
+# Theme Panel (additional)
+theme.dynamic_island=��������� �����
+theme.color_from_statuses=���� �� �������
+theme.enabled_modules=������� �����
+
+# Rocknet Auth
+rocknet.auth.independent_account=������ Globals � ���������� �� ������� definevisuals
+
+# NameProtect
+modules.settings.name_protect.fake_name=������� ��'�
+modules.settings.name_protect.fake_name.description=��'�, ��� ���� ������������ ������ ������
+modules.settings.name_protect.hide_friends=����������� �����
+modules.settings.name_protect.hide_friends.description=����������� ����� ����� � ���
+modules.settings.name_protect.friend_fake_name=������� ��'� �����
+modules.settings.name_protect.friend_fake_name.description=��'�, ��� ���� ������������ ������ ���� �����
+modules.settings.name_protect.streamer_mode=������� �����
+modules.settings.name_protect.streamer_mode.description=��������� ��� ������� � ��� HolyWorld � ���������
+
+# StorageESP
+modules.settings.storage_esp.blocks=�����
+modules.settings.storage_esp.blocks.chests=�����
+modules.settings.storage_esp.blocks.ender_chests=����� �����
+modules.settings.storage_esp.blocks.trapped_chests=�����-������
+modules.settings.storage_esp.blocks.furnaces=����
+modules.settings.storage_esp.blocks.barrels=�����
+modules.settings.storage_esp.blocks.minecart=���������
+modules.settings.storage_esp.blocks.shulkers=�������
+modules.settings.storage_esp.blocks.droppers=�������
+modules.settings.storage_esp.blocks.dispensers=����������
+modules.settings.storage_esp.blocks.hoppers=�������
+modules.settings.storage_esp.render=������
+modules.settings.storage_esp.render.fill=�������
+modules.settings.storage_esp.render.outline=�������
+modules.settings.storage_esp.render.diagonals=ĳ������
+modules.settings.storage_esp.render.lines=˳��
+modules.settings.storage_esp.max_distance=����. ���������
+modules.settings.storage_esp.max_distance.description=����������� ��������� ����������� ������
+
+# InventoryCleaner
+modules.settings.inventory_cleaner.mode=�����
+modules.settings.inventory_cleaner.mode.1_8=1.8
+modules.settings.inventory_cleaner.mode.custom=Custom
+modules.settings.inventory_cleaner.blocks=�����
+modules.settings.inventory_cleaner.blocks.description=�����, �� ������ ���������� � ���������
+modules.settings.inventory_cleaner.leather_armor=������ �����
+modules.settings.inventory_cleaner.leather_armor.description=�������� ������ �����
+
+# FastItemUse
+modules.settings.fast_item_use.bow=���
+modules.settings.fast_item_use.bow.description=������ ��������� ���
+modules.settings.fast_item_use.trident=������
+modules.settings.fast_item_use.trident.description=������ ��������� ������
+modules.settings.fast_item_use.crossbow=�������
+modules.settings.fast_item_use.crossbow.description=������ ��������� �������
+modules.settings.fast_item_use.delay=��������
+
+# AutoLeave
+modules.settings.auto_leave.leave=�������� ���
+modules.settings.auto_leave.leave.distance=���������
+modules.settings.auto_leave.leave.health=������'�
+modules.settings.auto_leave.leave.ban=���
+modules.settings.auto_leave.distance=���������
+modules.settings.auto_leave.health=������'�
+modules.settings.auto_leave.delay=��������
+modules.settings.auto_leave.mode=�����
+modules.settings.auto_leave.mode.hub=���
+modules.settings.auto_leave.mode.server=������
+modules.settings.auto_leave.mode.spawn=�����
+modules.auto_leave.near_player=������� �����
+modules.auto_leave.low_health=������ ������'�
+modules.auto_leave.banned_word=���������
+
+# AutoEat
+modules.settings.auto_eat.food=�����
+
+# AutoSwap
+modules.settings.auto_swap.button=������
+modules.settings.auto_swap.item=�������
+modules.settings.auto_swap.item.talisman=�������
+modules.settings.auto_swap.item.orb=���
+modules.settings.auto_swap.swap_to=̳���� ��
+modules.settings.auto_swap.swap_to.talisman=�������
+modules.settings.auto_swap.swap_to.orb=���
+modules.settings.auto_swap.auto_cerber=���� ������
+
+# Stealer
+modules.settings.stealer.instant=������
+modules.settings.stealer.instant.description=������ �������� �� ��������
+modules.settings.stealer.delay=��������
+modules.settings.stealer.close=���������
+modules.settings.stealer.close.description=��������� ��������� ���� �����������
+modules.settings.stealer.off=��������
+modules.settings.stealer.off.description=�������� ������ ���� �����������
+modules.settings.stealer.open_mystic=³�������� �����
+modules.settings.stealer.open_mystic.description=����������� ��������� ����� �����
+modules.settings.stealer.mode=�����
+modules.settings.stealer.mode.up=������
+modules.settings.stealer.mode.down=�����
+modules.settings.stealer.mode.center=� ������
+modules.settings.stealer.mode.random=���������
+
+# Hitboxes
+modules.settings.hitboxes.size=�����
+modules.settings.hitboxes.size.description=����� ��������� ��������
+modules.settings.hitboxes.targets=ֳ�
+modules.settings.hitboxes.targets.players=������
+modules.settings.hitboxes.targets.animals=�������
+modules.settings.hitboxes.targets.mobs=����
+modules.settings.hitboxes.targets.invisibles=�������
+modules.settings.hitboxes.targets.naked_players=��� ������
+modules.settings.hitboxes.targets.friends=����
+
+# SuperBow
+modules.settings.super_bow.power=����
+
+# Chams
+modules.settings.glow.color=����
+
+# Nametags
+modules.settings.name_tags.elementsToDisplay=³���������
+modules.settings.name_tags.elementsToDisplay.armor=�����
+modules.settings.name_tags.elementsToDisplay.items=��������
+modules.settings.name_tags.mode=�����
+modules.settings.name_tags.mode.client=�볺�������
+modules.settings.name_tags.mode.minecraft=���������������
+modules.settings.name_tags.enchants=�����������
+modules.settings.name_tags.offFriends=����������� �����
+modules.settings.name_tags.offFriends.description=�� ���������� ���� ��� �������
+modules.settings.name_tags.player_background=��� �������
+modules.settings.name_tags.hand_items=�������� � �����
+modules.settings.name_tags.background=��� ��������
+modules.settings.name_tags.background.description=���������� ��� �� ����������
+modules.settings.name_tags.open_esp_menu=³������ ���� ESP
+
+# Custom Model
+modules.descriptions.custom_model=����� 3D ������ ������
+modules.settings.custom_model.model=������
+modules.settings.custom_model.model.tung_tung_sahur=���� ���� �����
+modules.settings.custom_model.model.fat_guy=������� �����
+modules.settings.custom_model.only_self=ҳ���� �
+modules.settings.custom_model.tint=���� �����
+
+# Waypoints
+modules.settings.waypoints.key=������
+modules.settings.waypoints.player_time=��� ������
+modules.settings.waypoints.player_time.description=��� ����������� ���� ������ (���)
+modules.settings.waypoints.block_time=��� �����
+modules.settings.waypoints.block_time.description=��� ����������� ���� ����� (���)
+modules.settings.waypoints.color=����
+modules.waypoints.from=³� %s
+modules.waypoints.distance=���������: %s
+
+# Strafe
+modules.descriptions.strafe=������� �������� ���� � �����
+modules.settings.strafe.auto_jump=���� �������
+modules.settings.strafe.auto_jump.description=����������� ������ ��� ���
+modules.settings.strafe.damage_boost=���� ��� ����
+modules.settings.strafe.damage_boost.description=��������� ��� �������� �����
+modules.settings.strafe.damage_speed=�������� �����
+modules.settings.strafe.damage_speed.description=�������� ��� �������� �����
+
+# Blink
+modules.settings.blink.pulse=�����
+modules.settings.blink.pulse.description=��������� ���������� ������
+modules.settings.blink.time=���
+modules.settings.blink.time.description=�������� �������� ������ (���)
+modules.settings.blink.only_ground=ҳ���� �� ����
+modules.settings.blink.only_ground.description=³��������� ��������� ������ ����� ���� �����������
+modules.settings.blink.display=³���������
+modules.settings.blink.display.description=���������� ������� ������
+modules.settings.blink.hide_first_person=����������� �� 1 �����
+modules.settings.blink.hide_first_person.description=�� ���������� � ����� �� ����� �����
+
+# SwingAnimation
+modules.settings.swing_animation.only_aura=ҳ���� � Aura
+modules.settings.swing_animation.only_aura.description=������������� ������� ����� ���� Aura �������
+modules.settings.swing_animation.open_menu=³������ ����
+
+# KillEffects
+modules.settings.kill_effects.color=����
+modules.settings.kill_effects.mode=�����
+modules.settings.kill_effects.mode.lightning=���������
+modules.settings.kill_effects.mode.particles=��������
+modules.settings.kill_effects.particlePhysics=Գ���� ��������
+modules.settings.kill_effects.particlePhysics.gravity=���������
+modules.settings.kill_effects.particlePhysics.scatter=�����
+modules.settings.kill_effects.particleCount=�-��� ��������
+
+# ObjectInfo
+object_info.trap=������
+object_info.dragon=��������
+object_info.plast=�����
+
+# TrapESP
+modules.trap_esp.label=������
+modules.trap_esp.depth=�������: %s
+modules.trap_esp.private=� ������
+modules.trap_esp.no_private=���� ������
+
+# ViewModel
+modules.settings.view_model.main_translate_x=������� ����� ����
+modules.settings.view_model.off_translate_x=������� ��� ����
+modules.settings.view_model.off_rotate_x=������� X
+modules.settings.view_model.off_rotate_y=������� Y
+modules.settings.view_model.off_rotate_z=������� Z
+modules.settings.view_model.size_left=����� ���
+modules.settings.view_model.size_right=����� �����
+
+# Ambience
+modules.settings.ambience.change_color=�������� ����
+modules.settings.ambience.change_color.sky=����
+modules.settings.ambience.change_color.clouds=����
+modules.settings.ambience.change_color.stars=ǳ���
+modules.settings.ambience.sky_color=���� ����
+modules.settings.ambience.cloud_color=���� ����
+modules.settings.ambience.stars_color=���� ����
+modules.settings.ambience.custom_time=��� ���
+modules.settings.ambience.custom_time.description=���������� ��� ��� ����
+modules.settings.ambience.time=���
+modules.settings.ambience.bright=���������
+modules.settings.ambience.bright.description=�������� ��������� ����
+modules.settings.ambience.mode=�����
+modules.settings.ambience.mode.gamma=�����
+modules.settings.ambience.mode.effect=�����
+modules.settings.ambience.mode.dynamic=���������
+modules.settings.ambience.dynamic.radius=����� �����
+modules.settings.ambience.dynamic.light=���� �����
+modules.settings.ambience.dynamic.only_in_cave=ҳ���� � �����
+
+# World
+modules.settings.world.color=����
+
+# NoDelay
+modules.settings.no_delay.jump=�������
+modules.settings.no_delay.jump.description=������� �������� �������
+modules.settings.no_delay.right_click=���
+modules.settings.no_delay.right_click.description=������� �������� ������������ ��������
+modules.settings.no_delay.right_click_delay=�������� ���
+modules.settings.no_delay.exp=�������� ������
+modules.settings.no_delay.potions=ǳ���
+modules.settings.no_delay.potions.description=������� �������� ������������ ����
+
+# InvUtils
+modules.settings.inv_utils.targets=������
+modules.settings.inv_utils.item_scroller=�������
+modules.settings.inv_utils.slot_lock=���������� �����
+modules.settings.inv_utils.delay=��������
+modules.settings.slot_lock.lock=�����������
+modules.settings.slot_lock.lock.slot1=���� 1
+modules.settings.slot_lock.lock.slot2=���� 2
+modules.settings.slot_lock.lock.slot3=���� 3
+modules.settings.slot_lock.lock.slot4=���� 4
+modules.settings.slot_lock.lock.slot5=���� 5
+modules.settings.slot_lock.lock.slot6=���� 6
+modules.settings.slot_lock.lock.slot7=���� 7
+modules.settings.slot_lock.lock.slot8=���� 8
+modules.settings.slot_lock.lock.slot9=���� 9
+
+# AntiInvisible
+modules.settings.anti_invisible.opacity=���������
+modules.settings.anti_invisible.opacity.description=��������� ��������� �������
+
+# AutoExplosion
+modules.settings.auto_explosion.bind=������
+modules.settings.auto_explosion.attack_others=��������� ���
+modules.settings.auto_explosion.attack_others.description=��������� �������� ����� �������
+modules.settings.auto_explosion.self_save=����������
+modules.settings.auto_explosion.self_save.description=�� �������� �������� ����� �� �����
+modules.settings.auto_explosion.instant_destroy=������ ��������
+modules.settings.auto_explosion.instant_destroy.description=������ ��������� ��������� ��������
+modules.settings.auto_explosion.delay=��������
+modules.settings.auto_explosion.distance=���������
+
+modules.settings.object_info.particleMode=����� ��������
+modules.settings.object_info.particleMode.description=����� �������� �������� ��� ��������
+modules.settings.object_info.particleMode.gravity=���������
+modules.settings.object_info.particleMode.scatter=�����
+# T
+theme.type_name=������ �����
+theme.themes=����
+theme.expand=����������
+theme.colors=�������
+theme.colors.accent=������
+theme.colors.background=���
+theme.colors.additional=����������
+theme.colors.text=�����
+theme.colors.outline=�������
+theme.other=����
+theme.hud_rounding=������������ HUD
+theme.blur_strength=���� ��������
+theme.dynamic_island=��������� �����
+theme.color_from_statuses=���� �� �������
+theme.minimalism=̳������
+theme.opacity=���������
+theme.liquid_glass=г��� ����
+theme.strength=����
+theme.distortion=�����������
+theme.additional=���������
+theme.extended_settings=�������� ������������
+theme.icons=������
+theme.enabled_modules=������� �����
+theme.in_menu=� ����
+theme.enabled_offset=³����� ���������
+theme.separators=����������
+
+modules.descriptions.globals=������� Globals ��� �����䳿 � �������
+modules.settings.globals.visibility=��������
+modules.settings.globals.visibility.description=��� ���� �� ������ ���� � NameTags
+modules.settings.globals.visibility.all=��� ���
+modules.settings.globals.visibility.friends=ҳ���� ��� �����
+modules.settings.globals.visibility.none=ͳ����
+modules.settings.globals.notifications=���������
+modules.settings.globals.notifications.description=³� ���� ���������� ��������� ��� �����������
+modules.settings.globals.notifications.all=��
+modules.settings.globals.notifications.friends=³� �����
+modules.settings.globals.notifications.none=����
+modules.settings.globals.snowball_bind=����� �����
+modules.settings.globals.snowball_bind.description=������ ��� ������� ����� � �����
+modules.settings.globals.voice.enabled=��������� ���
+modules.settings.globals.voice.enabled.description=�������� ��������� ��� � �������
+modules.settings.globals.voice.push_to_talk=������� � ������
+modules.settings.globals.voice.push_to_talk.description=������ ��� ��������� ��������
+modules.settings.globals.voice.mic_volume=������� ��������
+modules.settings.globals.voice.mic_volume.description=����������� ��������� ��������
+modules.settings.globals.voice.speaker_volume=������� �������
+modules.settings.globals.voice.speaker_volume.description=������� �������� ������
+modules.settings.globals.voice.denoiser=��������������
+modules.settings.globals.voice.denoiser.description=������� ������� ��� � ��������
+modules.settings.globals.voice.loopback=���� ����
+modules.settings.globals.voice.loopback.description=³���������� ��� ����� ��� �������� ��������
+modules.settings.globals.voice.mic_device=̳������
+modules.settings.globals.voice.mic_device.description=���� �������� ��������
+modules.settings.globals.voice.speaker_device=������
+modules.settings.globals.voice.speaker_device.description=���� �������� ���������
+
+defineUsers=����������� Define Visuals
+
+
+esp.targets.players=������
+esp.targets.mobs=����
+esp.targets.animals=�������
+esp.targets.items=��������
+esp.targets.other=����
+
+esp.targets.players.others=����
+esp.targets.players.local=���������
+esp.targets.players.friends=����
+esp.targets.players.definevisuals_users=����������� definevisuals
+esp.targets.items.held=� ����
+esp.targets.items.dropped=�� ����
+
+esp.glow.color=����
+esp.glow.strength=����
+esp.glow.entity_color=���� �������
+esp.glow.players=�����
+esp.glow.mobs=�����
+esp.glow.animals=�����
+esp.glow.items=�����
+esp.glow.other=�����
+esp.glow.players.others=�����
+esp.glow.players.local=�����
+esp.glow.players.friends=�����
+esp.glow.players.definevisuals_users=�����
+
+trigger.attack_mode=��� �����
+trigger.min_cps=̳������� �������� (����� �� �������)
+trigger.max_cps=����������� �������� (����� �� �������)
+trigger.space=����� �� ����
+trigger.sync=������������ � ���
+
+modules.descriptions.aim_assist=�������� ������������� �� ����
+aura.targets_sort=���������� �����
+aura.ts_dist=�� ��������
+aura.ts_health=�� ������'��
+aura.ts_fov=�� ����� ����
+aimassist.strength=���� ���������
+aimassist.aim_speed=�������� ������������
+projectile.smooth_value=�������� ��������
+projectile.vertical_factor=�������� ����������� �������
+aimassist.motor_noise=�������� ����
+motornoise.desc=���� ������� �������� �� ���������
+aimassist.only_on_weapon=ҳ���� ��� ����
+aimassist.target_lock_mode=����� ���������� ���
+aimassist.lock_off=��������
+aimassist.lock_on_attack=���������� �� ��� �����
+aimassist.lock_auto=����������� ����������
+aimassist.lock_timeout=��� ����������
+
+modules.settings.auto_totem.hotbar_only=����� ���� � �������
+autototem.swap_delay=�������� �����
+autototem.keeping=��������� ������
+autototem.keeping_desc=��� ��������� ������ ���� ��������� �������
+
+trigger.exp.base_rt=��� ������� (� ��)
+trigger.exp.rt_variability=����������� ������ (� ��)
+trigger.exp.rt_tail=������� "������" (������ ������ �� �������� �� �������� �����)
+trigger.exp.motor_jitter=Gaussian ����������� �����
+trigger.last_cmbt_value=��� ���� ������� ����� � ��� (� ��)
+trigger.experimental_mode=��������������� ����������������� ��� (�� �²� �����!)
+aimassist.enable_vertical=�������� ����������� ���������
+aimassist.vertical_noise=��� ����������� �� ��� ��������������� ���
+autototem.refill_hotbar=������������ ����� � ������ � ���������
+aimassist.gen=���������� "������"
+aimassist.gen_fov_value=�������� FOV ��� ������� ������
+aimassist.yield_to_mouse=�� ������ ��� ������������ ��������
+
+aimassist.prediction_ticks=������������ ������� � ����
+aimassist.velo_pr_ticks=ҳ�� �������� ��������
+modules.settings.anti_miss.only_crit=ҳ���� �����
+modules.settings.anti_miss.no_cd_hit=������� ����� ��� ��
+modules.descriptions.anti_miss=�� �� ������������ � PvP
+
+aimassist.multipoint=������� �����������
+aimassist.mp_count=ʳ������ �����
+aimassist.mp_spread=������ �����
+aimassist.mp_pattern=������ ��������
+aimassist.mp_random=����������
+aimassist.mp_grid=ѳ���
+aimassist.mp_spiral=������ (����)
+
+trigger.break_shields=������ ����
+aimassist.input_based=³� ��������
+aimassist.input_threshold=���� ��������
+
+aimassist.mp_adaptive=��������� ������� ����� � �������
+aimassist.regen=�������� ���������� �����
+modules.settings.backtrack.autoreset=����������� �������, ���� � ����� �����
+autototem.pull_health=���� ������'�
+aimassist.repit_aim=����� "��������" ������������
+
+trigger.burst_cooldown=�������� ����� ���� �������� ��������� �����
+
+esp.glow.item_color=���� ��������
+esp.glow.gradient=���䳺��
+esp.glow.gradient_color=������� ���䳺���
+esp.glow.strength_items=����
+esp.glow.trail=�����
+esp.glow.trail_length=������� ������
+esp.glow.trail_height=������ ������
+esp.glow.trail_intensity=��������� ������
+esp.flame=�����'�
+esp.flame.strength=����
+esp.flame.rise_speed=�������� ������
+esp.flame.wobble=���������
+esp.flame.fade_rate=������� �����'�
+esp.flame.intensity=���������
+esp.flame.item_color=���� ��������
+esp.flame.color=���� �����'�
+esp.flame.gradient=���䳺��
+esp.flame.gradient_color=������� ���䳺���
+
+modules.descriptions.auto_sell=����������� ����� ������� � ���� �� �������, ���������� ������ � ���������� ������
+modules.settings.auto_sell.title=����-������
+modules.settings.auto_sell.quantity=ʳ������
+modules.settings.auto_sell.price=ֳ��
+modules.settings.auto_sell.confirm=ϳ���������
+modules.settings.auto_sell.relist_cooldown=�� ���������������
+modules.auto_sell.no_item_in_hand=³����� ������� ��� ������� � ����
+modules.auto_sell.no_lime_dye=������ ������������ (lime_dye) �� ��������
+modules.auto_sell.no_storage=� ������� �� �������� ���� �������
+modules.auto_sell.done=�� �������� ������ ������
+
+# AutoFarm
+modules.descriptions.auto_farm=��'������� ��������-������: ���� �����, ���� �����, ����� ����, ��'������� ���� �� ����-������
+modules.settings.auto_farm.mode=�����
+modules.settings.auto_farm.modes.apple=���� �����
+modules.settings.auto_farm.modes.sword=���� �����
+modules.settings.auto_farm.modes.potion=����� ����
+modules.settings.auto_farm.modes.potion_combiner=��'������� ����
+modules.settings.auto_farm.modes.auto_sell=����-������
+modules.settings.auto_farm.modes.crop=���� �������
+modules.settings.crop_farm.crop=��������
+modules.settings.crop_farm.crop.nether_wart=��������� �����
+modules.settings.crop_farm.crop.wheat=�������
+modules.settings.crop_farm.crop.carrots=������
+modules.settings.crop_farm.crop.potatoes=��������
+modules.settings.crop_farm.crop.beetroots=�����
+modules.settings.crop_farm.crop.sugar_cane=������
+modules.settings.crop_farm.scan_radius=����� ����������
+modules.settings.crop_farm.vertical_range=������������ �������
+modules.settings.crop_farm.replant=����������� �����
+modules.settings.crop_farm.use_hoe=������� �������
+modules.settings.crop_farm.pickup=ϳ������� ����
+modules.settings.crop_farm.auto_deposit=�������� � ������
+modules.settings.crop_farm.target_esp=ϳ��������� ����
+modules.settings.crop_farm.action_delay=�������� ��
+modules.crop_farm.newton_missing=Newton �� �� ������������
+modules.crop_farm.no_chest=�� �������� ������ ��� �������������, ���� �����������
+modules.settings.auto_farm.apple.bonemeal_delay=�������� ��������� �������
+modules.settings.auto_farm.sword.price=ֳ�� �������
+modules.settings.auto_farm.sword.relist_cooldown=�� ���������������
+modules.settings.auto_farm.sword.craft_all=�������� ��� ������
+modules.settings.potion_combiner.potions=ǳ���
+modules.settings.potion_combiner.potion.strength=ǳ��� ����
+modules.settings.potion_combiner.potion.speed=ǳ��� ��������
+modules.settings.potion_combiner.potion.strength_speed=���� 3 + �������� 3
+modules.settings.potion_combiner.auto_open=���� �������� �������
+modules.settings.potion_combiner.auto_exp=���� �������� ������
+modules.settings.potion_combiner.refill_to=����������� ����� ��
+
+
+# Added localization coverage
+Delay=��������
+English=���������
+Min TPS=̳�. TPS
+Ping Based=�������� �� ����
+Ping Multiplier=������� ����
+TPS Based=�������� �� TPS
+polski=��������
+�������=��������
+���������=���������
+bot.notification.connected=��� %s ����������
+bot.notification.disconnected=��� %s ����������
+bot.notification.error=������� ���� %s: %s
+bot.notification.title=����
+commands.admin.description=������� �������
+commands.bot.action.attack=���� ���������
+commands.bot.action.cmd=��� %s ������� �������
+commands.bot.action.drop=���� �������� �������
+commands.bot.action.follow=���� ������� �� ����
+commands.bot.action.goto=���� ����� �� %s, %s, %s
+commands.bot.action.jump=���� ���������
+commands.bot.action.say=��� %s ������� �����������
+commands.bot.action.slot=���� ������� ���� %s
+commands.bot.action.sneak=���� ���������� ���������
+commands.bot.action.stop=���� ����������
+commands.bot.action.tp=���� ������������ �� ���
+commands.bot.action.use=���� ����������� �������
+commands.bot.already_exists=��� %s ��� ����
+commands.bot.cleared=³�������� %s ����
+commands.bot.cmd_usage=������������: .bot cmd <��> <�������>
+commands.bot.coords_required=������ ���������� (x y z)
+commands.bot.description=��������� ������
+commands.bot.info.food=�����: %s
+commands.bot.info.header=���������� ��� ���� %s:
+commands.bot.info.health=�������: %s
+commands.bot.info.position=�������: %s, %s, %s
+commands.bot.info.status=������: %s
+commands.bot.invalid_coords=���������� ����������
+commands.bot.invalid_slot=������������ ����� ����� (0-8)
+commands.bot.joining=ϳ������� ���� %s...
+commands.bot.left=��� %s ����������
+commands.bot.list_header=������ ���� (%s):
+commands.bot.nickname_required=������ �� ����
+commands.bot.no_bots=���� �������� ����
+commands.bot.not_connected=�� �� �������� �� �������
+commands.bot.not_found=���� %s �� ��������
+commands.bot.say_usage=������������: .bot say <��> <�����������>
+commands.bot.slot_required=������ ����� ����� (0-8)
+commands.bot.status.connected=ϳ���������
+commands.bot.title=����
+commands.bot.unknown_action=������� ��
+commands.exchange.description=����������� ������� ������ � ���� ���
+commands.goto.description=��� �� ���������: .goto <x> <z> | <x> <y> <z> [elytra]
+commands.inventory.empty=���������� �������� �������
+commands.inventory.invalid_action=������� �� ���������
+commands.invsee.description=������ �������� ������
+commands.mine.description=������ ���������� ����: .mine <block_id>
+commands.neuro.description=ONNX �����-��: ����� / �������� / ������������
+commands.path.description=��������� pathfinder: info / cancel / pause / resume
+lua.script.context.create_error=�� ������� �������� �������� Lua ��� %s
+lua.script.context.creating=������� �������� Lua ��� %s
+lua.script.context.runtime_error=������� ��������� Lua
+lua.script.create_file_error=�� ������� �������� ���� �������: %s
+lua.script.delete.error=�� ������� �������� Lua ������: %s
+lua.script.delete.success=Lua ������ ��������: %s
+lua.script.execution.running=�������� Lua ������ %s
+lua.script.file_missing=���� Lua ������� �� ��������: %s
+lua.script.load.error=�� ������� ����������� Lua ������ %s: %s
+lua.script.load.error_log=�� ������� ����������� Lua ������ %s
+lua.script.load.success=Lua ������ %s �����������
+lua.script.load.success_log=Lua ������ %s ������ �����������
+lua.script.save_error=�� ������� �������� Lua ������
+lua.script.template=-- ����� Lua ������ definevisuals
+lua.script.unload=���������� Lua ������ %s
+modules.descriptions.auto_bot=���������� 䳿 ����� Baritone
+modules.descriptions.beautifully=���� ����� ������� ������ ������
+modules.descriptions.elytra_motion=������� ����������� ���������� �� ������
+modules.descriptions.globals_menu=���� Globals
+modules.descriptions.macro_menu=���� �������
+modules.descriptions.pots_timer=�������� ������� ���� �� ��������, ��������� ��� ���� ������ ��������
+modules.descriptions.super_bow=ϳ������ ������� � ���� �������� ������������
+modules.descriptions.superfirework=������� ����������� ���������� �� ������
+modules.descriptions.tracker=³������ ������ 䳿 ����� �������
+modules.descriptions.water_speed=��������� ��� � ���
+modules.settings.aim_bot.draw_predicted_box=�������� ������������ ����
+modules.settings.aura.neuro_profile=ONNX ������
+modules.settings.aura.smart_criticals=������ �����
+modules.settings.chams.color=����
+modules.settings.elytra_target.air_freeze=��������� � �����
+modules.settings.elytra_target.freeze_distance=��������� ���������
+modules.settings.elytra_target.lead_strength=���� ������������
+modules.settings.elytra_target.prediction_mode=����� ������������
+modules.settings.elytra_target.prediction_mode.motion=�� �����
+modules.settings.elytra_target.prediction_mode.server_pos=�� ��������� ��������
+modules.settings.pots_timer.blast_furnaces=�������� ����
+modules.settings.pots_timer.brewing=ǳ�������
+modules.settings.pots_timer.furnaces=����
+modules.settings.pots_timer.range=�����
+modules.settings.pots_timer.scale=������� ������
+modules.settings.pots_timer.smokers=��������
+modules.settings.target_pearl.aim_speed=�������� ���������
+modules.settings.target_pearl.cooldown=�������
+modules.settings.target_pearl.max_angle=������� ����
+modules.settings.target_pearl.max_landing=����. ��������� �����������
+modules.settings.target_pearl.min_landing=̳�. ��������� �����������
+modules.settings.target_pearl.only_holding=ҳ���� � ����
+modules.settings.target_pearl.only_aura_target=ҳ���� �� �������� Aura
+modules.settings.target_pearl.own_pearls=��� �����
+modules.settings.target_pearl.track_range=����� ����������
+���� ������/��������=���� ����/��������
+����� �����=����� ��� ����
+����� ����=���� ����
+����� ������=����� ������
+����� ������/��������=����� ����/��������
+������� �������� � ����=������ ������� � ���
+�������� ������=�������� ������
+�������� ������=�������� �����
+������=������
+�������������=�����������
+��� ��������=��� ��������
+��������������=����������
+������=�����
+������ ����=������ ������
+����� ��� ����=���� ��� ����
+����� � ������=���� � ������
+����� ������=���� ��������
+�� ��������=�� ��������
+�����=�����
+�������=���������
+�������� �����=�������� �����
+��������=��������
+������� �������=³������ �������
+������� ����=³������ ����
+������� ���=������� ���
+�������=������������
+��������=��������
+�����=�����
+������� ��� ��������=������� ��� ϳ������ ����
+����=����
+������=������
+������������� � TPS=������������ � TPS
+����=����
+������������� ��������=���������� ���䳺��
+�����=��������
+������ Sonar=����� Sonar
+����� ����=����� ���
+
+# Cross-language key parity
+modules.descriptions.free_cam=³���� ������
+modules.settings.ambience.skybox.clear_night=���� ��
+modules.settings.ambience.skybox.nebula=��������� (������)
+modules.settings.ambience.skybox.night_clouds=ͳ�� �����
+modules.settings.ambience.skybox.radiant=������ (������)
+modules.settings.ambience.skybox.ruins=����
+modules.settings.ambience.skybox.spruce=�����
+modules.settings.ambience.skybox.sunset=����� ����� (������)
+modules.settings.aura.forceBehindOnTargeted=�������� �� �����
+modules.settings.aura.forceTargetedOnRanged=���������, ���� � ��� ������� ��� ������
+modules.settings.aura.legit=����
+modules.settings.aura.noHitInv=�� ���� ��� ��������� ��������
+modules.settings.aura.targetedMoveCorrection=�����������
+modules.settings.pots_timer.refresh=����� ���������
+modules.settings.pots_timer.refresh.description=����� ������ ������ �������� ��������� ��� � �����
+modules.settings.pots_timer.silent_peek=����� ��������
+modules.settings.pots_timer.silent_peek.description=������� ������� ����� ��������, ��� �������� �������
+
+
+modules.descriptions.auctionprice=Показує ціни на аукціоні
+modules.descriptions.autoauth=Автоматична авторизація на сервері
+modules.descriptions.compasstooltip=Показує інформацію про компас
+modules.descriptions.death_coords=Виводить координати смерті в чат
+modules.descriptions.deathcoords=Показує координати смерті
+modules.descriptions.healthindicator=Показує HP гравця під ніком
+modules.descriptions.holyevents=Список подій HolyWorld
+modules.descriptions.inventorycleaner=Очищає інвентар від сміття
+modules.descriptions.macromenu=Меню макросів
+modules.descriptions.nameprotect=Приховує твій нік
+modules.descriptions.nocommands=Блокує команди
+modules.descriptions.optimization=Оптимізація FPS
+modules.descriptions.seeinvisibles=Бачить невидимих гравців
+modules.descriptions.sounds=Звуки мода
+modules.descriptions.spawnertooltip=Показує інформацію про спавнер
+modules.descriptions.autosprint=Авто спринт
+modules.descriptions.clanupgrade=Інформація про апгрейди клану
+modules.descriptions.clickfriend=Клік по ніку для додавання в друзі
+modules.descriptions.hw_helper=Показує зони предметів HolyWorld
+modules.descriptions.hwhelper=Помічник для HolyWorld
+modules.descriptions.minehelper=Помічник для майнінгу
+modules.descriptions.nodelay=Прибирає затримку
+modules.descriptions.playerutils=Корисні функції для гравця
+modules.descriptions.ambience=Атмосферні ефекти
+modules.descriptions.autoeventwaypoints=Автоматичні вейпоінти подій
+modules.descriptions.beautifully=Красиві ефекти
+modules.descriptions.bettertab=Покращена табличка
+modules.descriptions.blockoverlay=Оверлей на блоках
+modules.descriptions.crosshair=Кастомний приціл
+modules.descriptions.customfog=Кастомний туман
+modules.descriptions.donateeffects=Ефекти для донатерів
+modules.descriptions.friendmarkers=Маркери друзів
+modules.descriptions.gribochki=Грибочки на сервері
+modules.descriptions.hit_color=Змінює колір гравця при отриманні шкоди
+modules.descriptions.hitcolor=Колір хітбару
+modules.descriptions.interface=Інтерфейс
+modules.descriptions.killeffects=Ефекти при вбивстві
+modules.descriptions.menumodule=Налаштування меню
+modules.descriptions.prediction=Передбачення рухів
+modules.descriptions.removals=Видалення елементів
+modules.descriptions.self_tag=Показує ванільну табличку з нік над вами (від 3-ї особи)
+modules.descriptions.selftag=Кастомний тег над головою
+modules.descriptions.swinganimation=Анімація рук
+modules.descriptions.targetesp=ESP для цілей
+modules.descriptions.viewmodel=Від від першої особи
+modules.descriptions.world=Зміни світу
