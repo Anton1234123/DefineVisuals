@@ -4,6 +4,7 @@ import lombok.Generated;
 import moscow.definevisuals.systems.event.EventListener;
 import moscow.definevisuals.systems.event.impl.player.ClientPlayerTickEvent;
 import moscow.definevisuals.systems.event.impl.window.KeyPressEvent;
+import moscow.definevisuals.systems.event.impl.window.MouseMoveEvent;
 import moscow.definevisuals.systems.event.impl.window.MouseScrollEvent;
 import moscow.definevisuals.systems.modules.api.ModuleCategory;
 import moscow.definevisuals.systems.modules.api.ModuleInfo;
@@ -110,6 +111,20 @@ public class FreeLook extends BaseModule {
         }
     };
 
+    private final EventListener<MouseMoveEvent> onMouseMove = event -> {
+        if (!isActive || mc.player == null) return;
+        
+        float sensitivity = 0.15f;
+        float deltaX = (float)event.getDeltaX() * sensitivity;
+        float deltaY = (float)event.getDeltaY() * sensitivity;
+        
+        targetYaw += deltaX;
+        targetPitch -= deltaY;
+        
+        // Clamp pitch to prevent flipping
+        targetPitch = Math.max(-90.0f, Math.min(90.0f, targetPitch));
+    };
+
     @Override
     public void onEnable() {
         if (this.modeToggle.isSelected()) {
@@ -198,5 +213,10 @@ public class FreeLook extends BaseModule {
     @Generated
     public EventListener<MouseScrollEvent> getOnScroll() {
         return this.onScroll;
+    }
+
+    @Generated
+    public EventListener<MouseMoveEvent> getOnMouseMove() {
+        return this.onMouseMove;
     }
 }

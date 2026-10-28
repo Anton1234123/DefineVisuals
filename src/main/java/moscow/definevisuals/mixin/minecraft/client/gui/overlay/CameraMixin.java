@@ -1,6 +1,7 @@
 package moscow.definevisuals.mixin.minecraft.client.gui.overlay;
 
 import moscow.definevisuals.DefineVisuals;
+import moscow.definevisuals.systems.modules.modules.player.FreeLook;
 import moscow.definevisuals.systems.modules.modules.visuals.Removals;
 import net.minecraft.block.enums.CameraSubmersionType;
 import net.minecraft.client.render.Camera;
@@ -24,6 +25,24 @@ public abstract class CameraMixin {
       Removals removals = DefineVisuals.getInstance().getModuleManager().getModule(Removals.class);
       if (removals.getClip().isSelected() && removals.isEnabled()) {
          info.setReturnValue(desiredCameraDistance);
+      }
+   }
+
+   @Inject(method = "getRotation", at = @At("RETURN"), cancellable = true)
+   private void onGetRotation(CallbackInfoReturnable<Float> ci) {
+      FreeLook freeLook = DefineVisuals.getInstance().getModuleManager().getModule(FreeLook.class);
+      if (freeLook != null && freeLook.isEnabled() && freeLook.isFreeLookActive()) {
+         float original = ci.getReturnValueF();
+         ci.setReturnValue(original + freeLook.getYawOffset());
+      }
+   }
+
+   @Inject(method = "getPitch", at = @At("RETURN"), cancellable = true)
+   private void onGetPitch(CallbackInfoReturnable<Float> ci) {
+      FreeLook freeLook = DefineVisuals.getInstance().getModuleManager().getModule(FreeLook.class);
+      if (freeLook != null && freeLook.isEnabled() && freeLook.isFreeLookActive()) {
+         float original = ci.getReturnValueF();
+         ci.setReturnValue(original + freeLook.getPitchOffset());
       }
    }
 }

@@ -95,7 +95,7 @@ IScaledResolution {
     public ModernScreen() {
         float width = 400.0f;
         float height = 280.0f;
-        this.menuWindow = new Rect(sr.getScaledWidth() / 2.0f - width / 2.0f, sr.getScaledHeight() / 2.0f - height / 2.0f, width, height);
+        this.menuWindow = new Rect((float)mc.getWindow().getScaledWidth() / 2.0f - width / 2.0f, (float)mc.getWindow().getScaledHeight() / 2.0f - height / 2.0f, width, height);
         this.categories.clear();
         this.topLevelCategories.clear();
         for (MenuCategory category : MenuCategory.values()) {
