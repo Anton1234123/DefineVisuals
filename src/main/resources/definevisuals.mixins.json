@@ -56,7 +56,8 @@
     "minecraft.client.render.entity.LivingEntityRendererMixin",
     "minecraft.render.entity.EntityRenderStateMixin",
     "minecraft.world.ClientWorldMixin",
-    "minecraft.world.chunk.ClientChunkManagerMixin"
+    "minecraft.world.chunk.ClientChunkManagerMixin",
+    "minecraft.render.entity.ItemEntityRendererMixin"
   ],
   "mixins": [
     "accessors.EntityS2CPacketAccessor",

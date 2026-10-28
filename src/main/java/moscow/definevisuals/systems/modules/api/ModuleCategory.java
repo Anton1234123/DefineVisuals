@@ -5,5 +5,13 @@ import lombok.Generated;
 public enum ModuleCategory {
    PLAYER,
    VISUALS,
-   OTHER;
+   UTILS,
+   OTHER,
+   INTERFACE,
+   EVENTS,
+   MODULES,
+   SERVER,
+   CLIENT,
+   CONFIGS,
+   THEMES;
 }

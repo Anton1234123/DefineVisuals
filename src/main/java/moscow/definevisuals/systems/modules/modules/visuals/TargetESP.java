@@ -9,8 +9,10 @@ import moscow.definevisuals.systems.event.impl.render.Render3DEvent;
 import moscow.definevisuals.systems.modules.api.ModuleCategory;
 import moscow.definevisuals.systems.modules.api.ModuleInfo;
 import moscow.definevisuals.systems.modules.impl.BaseModule;
+import moscow.definevisuals.systems.setting.settings.BooleanSetting;
 import moscow.definevisuals.systems.setting.settings.ColorSetting;
 import moscow.definevisuals.systems.setting.settings.ModeSetting;
+import moscow.definevisuals.systems.setting.settings.SliderSetting;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.colors.ColorRGBA;
@@ -43,20 +45,49 @@ import org.joml.Vector3f;
 @ModuleInfo(name = "Target ESP", category = ModuleCategory.VISUALS, desc = "Помечает активную цель")
 public class TargetESP extends BaseModule {
    private final ModeSetting mode = new ModeSetting(this, "Режим");
-   private final ModeSetting.Value souls = new ModeSetting.Value(this.mode, "Души");
+   private final ModeSetting.Value ghosts = new ModeSetting.Value(this.mode, "Призраки");
    private final ModeSetting.Value crystals = new ModeSetting.Value(this.mode, "Кристаллы").select();
-   private final ModeSetting.Value marker1 = new ModeSetting.Value(this.mode, "куб 1");
-   private final ModeSetting.Value marker2 = new ModeSetting.Value(this.mode, "рубик 2");
-   private final ModeSetting.Value marker3 = new ModeSetting.Value(this.mode, "кубик 3");
-   private final ModeSetting.Value marker4 = new ModeSetting.Value(this.mode, "кубек 4");
-   private final ColorSetting colorTarget = new ColorSetting(this, "color").color(Colors.ACCENT);
+   private final ModeSetting.Value cube = new ModeSetting.Value(this.mode, "Куб");
+
+   private final ColorSetting ghostsColor = new ColorSetting(this, "Цвет призраков", () -> !this.ghosts.isSelected()).color(Colors.ACCENT);
+   private final SliderSetting ghostsSpeed = new SliderSetting(this, "Скорость призраков", () -> !this.ghosts.isSelected())
+      .min(0.2F).max(3.0F).step(0.1F).currentValue(1.0F);
+   private final SliderSetting ghostsRadius = new SliderSetting(this, "Радиус спирали", () -> !this.ghosts.isSelected())
+      .min(0.5F).max(3.0F).step(0.1F).currentValue(1.5F);
+   private final SliderSetting ghostsStep = new SliderSetting(this, "Плотность призраков", () -> !this.ghosts.isSelected())
+      .min(1.0F).max(6.0F).step(1.0F).currentValue(2.0F);
+   private final SliderSetting ghostsSize = new SliderSetting(this, "Размер призраков", () -> !this.ghosts.isSelected())
+      .min(0.05F).max(0.3F).step(0.01F).currentValue(0.13F);
+
+   private final ColorSetting crystalsColor = new ColorSetting(this, "Цвет кристаллов", () -> !this.crystals.isSelected()).color(Colors.ACCENT);
+   private final SliderSetting crystalsSpeed = new SliderSetting(this, "Скорость кристаллов", () -> !this.crystals.isSelected())
+      .min(0.2F).max(3.0F).step(0.1F).currentValue(1.0F);
+   private final SliderSetting crystalsRadius = new SliderSetting(this, "Радиус кольца", () -> !this.crystals.isSelected())
+      .min(0.5F).max(3.0F).step(0.1F).currentValue(1.5F);
+   private final SliderSetting crystalsAmount = new SliderSetting(this, "Количество кристаллов", () -> !this.crystals.isSelected())
+      .min(8.0F).max(36.0F).step(2.0F).currentValue(18.0F);
+   private final SliderSetting crystalsSize = new SliderSetting(this, "Размер кристаллов", () -> !this.crystals.isSelected())
+      .min(0.05F).max(0.3F).step(0.01F).currentValue(0.10F);
+   private final BooleanSetting crystalsBloom = new BooleanSetting(this, "Свечение кристаллов", () -> !this.crystals.isSelected()).enabled(true);
+
+   private final ModeSetting cubeTexture = new ModeSetting(this, "Текстура", () -> !this.cube.isSelected());
+   private final ModeSetting.Value cube1 = new ModeSetting.Value(this.cubeTexture, "Куб 1");
+   private final ModeSetting.Value rubik2 = new ModeSetting.Value(this.cubeTexture, "Рубик 2");
+   private final ModeSetting.Value cube3 = new ModeSetting.Value(this.cubeTexture, "Кубик 3");
+   private final ModeSetting.Value cube4 = new ModeSetting.Value(this.cubeTexture, "Кубек 4").select();
+   private final ColorSetting cubeColor = new ColorSetting(this, "Цвет куба", () -> !this.cube.isSelected()).color(Colors.ACCENT);
+   private final SliderSetting cubeSize = new SliderSetting(this, "Размер куба", () -> !this.cube.isSelected())
+      .min(0.5F).max(3.0F).step(0.1F).currentValue(1.35F);
+   private final SliderSetting cubeSpeed = new SliderSetting(this, "Скорость куба", () -> !this.cube.isSelected())
+      .min(0.2F).max(3.0F).step(0.1F).currentValue(1.0F);
+   private final BooleanSetting cubeGradient = new BooleanSetting(this, "Градиент", () -> !this.cube.isSelected()).enabled(true);
+
    private final Animation animation = new Animation(300L, 0.0F, Easing.BOTH_CUBIC);
    private final Animation moving = new Animation(70L, 0.0F, Easing.LINEAR);
    private LivingEntity prevTarget;
    
    private final EventListener<Render3DEvent> onRender3D = event -> {
       if (EntityUtility.isInGame()) {
-         // Проверяем наведение на игрока в радиусе 3 блоков
          LivingEntity target = getHoveredTarget();
          
          this.animation.setEasing(Easing.FIGMA_EASE_IN_OUT);
@@ -85,14 +116,8 @@ public class TargetESP extends BaseModule {
             RenderSystem.depthMask(false);
             if (this.crystals.isSelected()) {
                this.drawCrystals(ms, this.prevTarget);
-            } else if (this.marker1.isSelected()) {
-               this.drawMarker(ms, this.prevTarget, 1);
-            } else if (this.marker2.isSelected()) {
-               this.drawMarker(ms, this.prevTarget, 2);
-            } else if (this.marker3.isSelected()) {
-               this.drawMarker(ms, this.prevTarget, 3);
-            } else if (this.marker4.isSelected()) {
-               this.drawMarker(ms, this.prevTarget, 4);
+            } else if (this.cube.isSelected()) {
+               this.drawCube(ms, this.prevTarget);
             } else {
                this.drawGhosts(ms, this.prevTarget);
             }
@@ -110,21 +135,24 @@ public class TargetESP extends BaseModule {
    private LivingEntity getHoveredTarget() {
       if (mc.player == null || mc.world == null) return null;
       
+      LivingEntity managerTarget = DefineVisuals.getInstance().getTargetManager().getLivingTarget();
+      if (managerTarget != null && managerTarget.isAlive()) {
+         return managerTarget;
+      }
+      
       Vec3d eyePos = mc.player.getEyePos();
-      Vec3d lookVec = mc.player.getRotationVec(1.0f).multiply(3.0); // 3 блока дистанция
+      Vec3d lookVec = mc.player.getRotationVec(1.0f).multiply(3.0);
       Vec3d endPos = eyePos.add(lookVec);
       
-      // Рейкаст для поиска сущностей
       for (net.minecraft.entity.Entity entity : mc.world.getEntities()) {
          if (entity == mc.player || !(entity instanceof LivingEntity)) continue;
          
          LivingEntity living = (LivingEntity) entity;
+         if (!living.isAlive()) continue;
          
-         // Проверяем дистанцию
          double distance = mc.player.squaredDistanceTo(entity);
-         if (distance > 9.0) continue; // 3 блока в квадрате = 9
+         if (distance > 9.0) continue;
          
-         // Проверяем наведение через raycast к хитбоксу
          net.minecraft.util.math.Box box = living.getBoundingBox();
          if (box.raycast(eyePos, endPos).isPresent()) {
             return living;
@@ -136,17 +164,20 @@ public class TargetESP extends BaseModule {
 
    private void drawCrystals(MatrixStack ms, LivingEntity target) {
       Camera camera = mc.gameRenderer.getCamera();
-      Vec3d cameraPos = camera.getPos();
-      ColorRGBA color = this.colorTarget.getColor();
-      float width = this.prevTarget.getWidth() * 1.5F;
+      ColorRGBA color = this.crystalsColor.getColor();
+      float width = this.prevTarget.getWidth() * this.crystalsRadius.getCurrentValue();
+      float speed = this.crystalsSpeed.getCurrentValue();
+      float crystalSize = this.crystalsSize.getCurrentValue();
+      int count = Math.max(4, (int)this.crystalsAmount.getCurrentValue());
+      int angleStep = Math.max(1, 360 / count);
+
       RenderUtility.prepareMatrices(ms, this.getRenderPos(this.prevTarget));
       BufferBuilder builder = CrystalRenderer.createBuffer();
 
-      for (int i = 0; i < 360; i += 20) {
+      for (int i = 0; i < 360; i += angleStep) {
          float val = 1.2F - 0.5F * this.animation.getValue();
-         float sin = (float)(MathUtility.sin((float)Math.toRadians(i + this.moving.getValue() * 0.3F)) * width * val);
-         float cos = (float)(MathUtility.cos((float)Math.toRadians(i + this.moving.getValue() * 0.3F)) * width * val);
-         float size = 0.1F;
+         float sin = (float)(MathUtility.sin((float)Math.toRadians(i + this.moving.getValue() * 0.3F * speed)) * width * val);
+         float cos = (float)(MathUtility.cos((float)Math.toRadians(i + this.moving.getValue() * 0.3F * speed)) * width * val);
          ms.push();
          ms.translate(sin, 0.1F + target.getHeight() * Math.abs(MathUtility.sin(i)), cos);
          Vec3d crystalPos = this.getRenderPos(this.prevTarget).add(sin, 1.0, cos);
@@ -158,58 +189,62 @@ public class TargetESP extends BaseModule {
          Vector3f initialDirection = new Vector3f(0.0F, 1.0F, 0.0F);
          Quaternionf rotation = new Quaternionf().rotationTo(initialDirection, directionToTarget);
          ms.multiply(rotation);
-         CrystalRenderer.render(ms, builder, 0.0F, 0.0F, 0.0F, size, color.withAlpha(255.0F * this.animation.getValue()));
+         CrystalRenderer.render(ms, builder, 0.0F, 0.0F, 0.0F, crystalSize, color.withAlpha(255.0F * this.animation.getValue()));
          ms.pop();
       }
 
       BufferRenderer.drawWithGlobalProgram(builder.end());
-      Identifier id = DefineVisuals.id("textures/bloom.png");
-      RenderSystem.setShaderTexture(0, id);
-      RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
-      BufferBuilder buffer = RenderSystem.renderThreadTesselator().begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
-      float bigSize = 1.0F;
 
-      for (int i = 0; i < 360; i += 20) {
-         float val = 1.2F - 0.5F * this.animation.getValue();
-         float sin = (float)(MathUtility.sin((float)Math.toRadians(i + this.moving.getValue() * 0.3F)) * width * val);
-         float cos = (float)(MathUtility.cos((float)Math.toRadians(i + this.moving.getValue() * 0.3F)) * width * val);
-         float size = 0.1F;
-         ms.push();
-         ms.translate(sin, 0.1F + target.getHeight() * Math.abs(MathUtility.sin(i)), cos);
-         ms.multiply(camera.getRotation());
-         DrawUtility.drawImage(
-            ms,
-            buffer,
-            (double)(-bigSize / 2.0F),
-            (double)(-bigSize / 2.0F),
-            0.0,
-            (double)bigSize,
-            (double)bigSize,
-            color.withAlpha(255.0F * this.animation.getValue() * 0.2F)
-         );
-         ms.pop();
+      if (this.crystalsBloom.isEnabled()) {
+         Identifier id = DefineVisuals.id("textures/bloom.png");
+         RenderSystem.setShaderTexture(0, id);
+         RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
+         BufferBuilder buffer = RenderSystem.renderThreadTesselator().begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+         float bigSize = crystalSize * 10.0F;
+
+         for (int i = 0; i < 360; i += angleStep) {
+            float val = 1.2F - 0.5F * this.animation.getValue();
+            float sin = (float)(MathUtility.sin((float)Math.toRadians(i + this.moving.getValue() * 0.3F * speed)) * width * val);
+            float cos = (float)(MathUtility.cos((float)Math.toRadians(i + this.moving.getValue() * 0.3F * speed)) * width * val);
+            ms.push();
+            ms.translate(sin, 0.1F + target.getHeight() * Math.abs(MathUtility.sin(i)), cos);
+            ms.multiply(camera.getRotation());
+            DrawUtility.drawImage(
+               ms,
+               buffer,
+               (double)(-bigSize / 2.0F),
+               (double)(-bigSize / 2.0F),
+               0.0,
+               (double)bigSize,
+               (double)bigSize,
+               color.withAlpha(255.0F * this.animation.getValue() * 0.2F)
+            );
+            ms.pop();
+         }
+
+         RenderUtility.buildBuffer(buffer);
       }
-
-      RenderUtility.buildBuffer(buffer);
    }
 
    private void drawGhosts(MatrixStack ms, LivingEntity target) {
       Camera camera = mc.gameRenderer.getCamera();
-      ColorRGBA color = this.colorTarget.getColor();
+      ColorRGBA color = this.ghostsColor.getColor();
       Identifier id = DefineVisuals.id("textures/bloom.png");
-      float width = this.prevTarget.getWidth() * 1.5F;
+      float width = this.prevTarget.getWidth() * this.ghostsRadius.getCurrentValue();
+      float speed = this.ghostsSpeed.getCurrentValue();
+      float ghostBaseSize = this.ghostsSize.getCurrentValue();
+      int step = Math.max(1, (int)this.ghostsStep.getCurrentValue());
+
       RenderSystem.setShaderTexture(0, id);
       RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
       BufferBuilder builder = RenderSystem.renderThreadTesselator().begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
       RenderUtility.prepareMatrices(ms, this.getRenderPos(this.prevTarget));
-      int step = 2;
       int wormTick = 0;
       int wormCD = 0;
-      int wormCount = 0;
 
       for (int i = 0; i < 360; i += step) {
-         float size = 0.13F + 0.005F * wormTick;
-         float bigSize = 0.7F + 0.005F * wormTick;
+         float size = ghostBaseSize + 0.005F * wormTick;
+         float bigSize = ghostBaseSize * 5.4F + 0.005F * wormTick;
          if (wormCD > 0) {
             wormCD -= step;
          } else {
@@ -217,16 +252,15 @@ public class TargetESP extends BaseModule {
             if (wormTick > 50) {
                wormCD = 100;
                wormTick = 0;
-               wormCount++;
             } else {
                float val = Math.max(0.5F, 1.2F - 0.5F * this.animation.getValue());
-               float sin = (float)(MathUtility.sin((float)Math.toRadians(i + this.moving.getValue() * 1.0F)) * width * val);
-               float cos = (float)(MathUtility.cos((float)Math.toRadians(i + this.moving.getValue() * 1.0F)) * width * val);
+               float sin = (float)(MathUtility.sin((float)Math.toRadians(i + this.moving.getValue() * speed)) * width * val);
+               float cos = (float)(MathUtility.cos((float)Math.toRadians(i + this.moving.getValue() * speed)) * width * val);
                ms.push();
                ms.translate(
                   sin,
                   this.prevTarget.getHeight() / 1.5F
-                     + this.prevTarget.getHeight() / 3.0F * MathUtility.sin(Math.toRadians(i / 2.0F + this.moving.getValue() / 5.0F)),
+                     + this.prevTarget.getHeight() / 3.0F * MathUtility.sin(Math.toRadians(i / 2.0F + this.moving.getValue() * speed / 5.0F)),
                   cos
                );
                ms.multiply(camera.getRotation());
@@ -258,61 +292,66 @@ public class TargetESP extends BaseModule {
       BufferRenderer.drawWithGlobalProgram(builder.end());
    }
 
-   private void drawMarker(MatrixStack ms, LivingEntity target, int markerType) {
+   private void drawCube(MatrixStack ms, LivingEntity target) {
       Camera camera = mc.gameRenderer.getCamera();
-      ColorRGBA color = this.colorTarget.getColor();
       Identifier id;
-      switch (markerType) {
-         case 1:
-            id = DefineVisuals.id("textures/marker/marker1.png");
-            break;
-         case 2:
-            id = DefineVisuals.id("textures/marker/marker2.png");
-            break;
-         case 3:
-            id = DefineVisuals.id("textures/marker/marker3.png");
-            break;
-         case 4:
-            id = DefineVisuals.id("textures/marker/marker.png");
-            break;
-         default:
-            id = DefineVisuals.id("textures/marker/marker.png");
+      if (this.cube1.isSelected()) {
+         id = DefineVisuals.id("textures/marker/marker1.png");
+      } else if (this.rubik2.isSelected()) {
+         id = DefineVisuals.id("textures/marker/marker2.png");
+      } else if (this.cube3.isSelected()) {
+         id = DefineVisuals.id("textures/marker/marker3.png");
+      } else {
+         id = DefineVisuals.id("textures/marker/marker.png");
       }
       
       RenderSystem.setShaderTexture(0, id);
       RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
       BufferBuilder builder = RenderSystem.renderThreadTesselator().begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
       
-      float baseSize = 1.2F;
+      float baseSize = this.cubeSize.getCurrentValue();
       float size = baseSize * this.animation.getValue();
+      float half = size / 2.0F;
+
       Vec3d center = new Vec3d(
          this.getRenderPos(this.prevTarget).x, 
          this.getRenderPos(this.prevTarget).y + target.getHeight() / 2.0, 
          this.getRenderPos(this.prevTarget).z
       );
       
-      long time = System.currentTimeMillis();
-      double sin = Math.sin((double)time / 1000.0);
+      float speed = this.cubeSpeed.getCurrentValue();
+      double sin = Math.sin((double)System.currentTimeMillis() / 1000.0 * speed);
       float rotation = (float)(sin * 360.0);
       
+      ColorRGBA baseColor = this.cubeColor.getColor();
+      float alphaVal = (float)baseColor.getAlpha() * this.animation.getValue() * 0.86F;
+      
+      ColorRGBA c1, c2, c3, c4;
+      if (this.cubeGradient.isEnabled()) {
+         c1 = baseColor.withAlpha(alphaVal);
+         c2 = Colors.getAccent().withAlpha(alphaVal);
+         c3 = baseColor.withAlpha(alphaVal);
+         c4 = Colors.getAccent().withAlpha(alphaVal);
+      } else {
+         c1 = baseColor.withAlpha(alphaVal);
+         c2 = baseColor.withAlpha(alphaVal);
+         c3 = baseColor.withAlpha(alphaVal);
+         c4 = baseColor.withAlpha(alphaVal);
+      }
+
       ms.push();
       ms.translate(center.x, center.y, center.z);
       ms.multiply(camera.getRotation());
-      ms.multiply(new Quaternionf().rotationY((float)Math.toRadians(rotation)));
+      ms.multiply(new Quaternionf().rotationZ((float)Math.toRadians(rotation)));
       
-      DrawUtility.drawImage(
-         ms,
-         builder,
-         (double)(-size / 2.0F),
-         (double)(-size / 2.0F),
-         0.0,
-         (double)size,
-         (double)size,
-         color.withAlpha(1.0F)
-      );
+      Matrix4f matrix = ms.peek().getPositionMatrix();
+      builder.vertex(matrix, -half, -half, 0.0F).texture(0.0F, 0.0F).color(c1.getRGB());
+      builder.vertex(matrix, -half, half, 0.0F).texture(0.0F, 1.0F).color(c2.getRGB());
+      builder.vertex(matrix, half, half, 0.0F).texture(1.0F, 1.0F).color(c3.getRGB());
+      builder.vertex(matrix, half, -half, 0.0F).texture(1.0F, 0.0F).color(c4.getRGB());
       
-      ms.pop();
       BufferRenderer.drawWithGlobalProgram(builder.end());
+      ms.pop();
    }
 
    private Vec3d getRenderPos(LivingEntity target) {

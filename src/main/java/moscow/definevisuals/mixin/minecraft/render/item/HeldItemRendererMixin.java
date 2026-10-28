@@ -2,7 +2,9 @@ package moscow.definevisuals.mixin.minecraft.render.item;
 
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.systems.event.impl.render.HandRenderEvent;
+import moscow.definevisuals.systems.modules.modules.visuals.ShaderHand;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -92,5 +94,30 @@ public abstract class HeldItemRendererMixin {
          int light,
          CallbackInfo ci) {
       matrices.pop();
+   }
+
+   @Inject(
+      method = "renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V",
+      at = @At("HEAD")
+   )
+   private void onRenderFirstPersonItemsHead(float tickDelta, MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers, ClientPlayerEntity player, int light, CallbackInfo ci) {
+      ShaderHand mod = DefineVisuals.getInstance().getModuleManager().getModule(ShaderHand.class);
+      if (mod != null && mod.shouldRender()) {
+         mod.beginRender();
+         ShaderHand.rendering = true;
+      }
+   }
+
+   @Inject(
+      method = "renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V",
+      at = @At("TAIL")
+   )
+   private void onRenderFirstPersonItemsTail(float tickDelta, MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers, ClientPlayerEntity player, int light, CallbackInfo ci) {
+      ShaderHand mod = DefineVisuals.getInstance().getModuleManager().getModule(ShaderHand.class);
+      if (mod != null && ShaderHand.rendering) {
+         vertexConsumers.draw();
+         ShaderHand.rendering = false;
+         mod.draw();
+      }
    }
 }

@@ -37,6 +37,7 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
     private static CustomButton nextBackgroundButton;
     private boolean active;
     private final Animation activeAnimation = new Animation(800L, 0.0f, Easing.FIGMA_EASE_IN_OUT);
+    private final Animation blurAnimation = new Animation(600L, 0.0f, Easing.FIGMA_EASE_IN_OUT);
 
     private float currentParallaxX = 0.0f;
     private float currentParallaxY = 0.0f;
@@ -68,7 +69,9 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         Font unlockFont = Fonts.REGULAR.getFont(10.0f);
 
         this.activeAnimation.update(this.active);
+        this.blurAnimation.update(!this.active);
         float activeVal = this.activeAnimation.getValue();
+        float blurVal = this.blurAnimation.getValue();
         float textAlpha = 255.0f * (0.55f + 0.45f * activeVal);
         float timeOffset = MathUtility.interpolate((float)this.height / 2.0f - 20.0f, 75.0f, activeVal);
 
@@ -89,6 +92,9 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         float bgWidth = (float)this.width + padding * 2.0f;
         float bgHeight = (float)this.height + padding * 2.0f;
 
+        // Capture blur buffer BEFORE rendering background so it can be overlaid on top
+        DrawUtility.blurProgram.draw();
+
         // Base gradient
         context.drawRoundedRect(0.0f, 0.0f, (float)this.width, (float)this.height, BorderRadius.ZERO, new VerticalGradient(new ColorRGBA(22.0f, 28.0f, 42.0f), new ColorRGBA(5.0f, 3.0f, 10.0f)));
 
@@ -103,6 +109,16 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
 
         RenderUtility.end(context.getMatrices());
 
+        // Blur overlay for the clock-only stage (blurVal=1 when !active, fades out as menu opens)
+        // Re-draw blur from the buffer we captured above
+        if (blurVal > 0.01f) {
+            float blurStrength = 40.0f + 20.0f * blurVal;
+            context.drawBlurredRect(0.0f, 0.0f, (float)this.width, (float)this.height, blurStrength, 0.0f, BorderRadius.ZERO, ColorRGBA.WHITE.withAlpha(255.0f * blurVal * 0.85f));
+            // Dark scrim to deepen the frosted-glass effect - disabled
+            // context.drawRoundedRect(0.0f, 0.0f, (float)this.width, (float)this.height, BorderRadius.ZERO,
+            //     new VerticalGradient(new ColorRGBA(0.0f, 0.0f, 0.0f, 60.0f * blurVal), new ColorRGBA(0.0f, 0.0f, 0.0f, 140.0f * blurVal)));
+        }
+
         // Subtle dark vignette overlay for enhanced legibility
         context.drawRoundedRect(0.0f, 0.0f, (float)this.width, (float)this.height, BorderRadius.ZERO, new VerticalGradient(new ColorRGBA(0.0f, 0.0f, 0.0f, 30.0f), new ColorRGBA(0.0f, 0.0f, 0.0f, 120.0f)));
 
@@ -114,7 +130,7 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         context.drawRoundedRect((float)this.width / 2.0f - 36.0f, (float)(this.height - 7) - 3.0f * activeVal, 72.0f, 3.0f, BorderRadius.all(1.5f), ColorRGBA.WHITE.withAlpha(220.0f * activeVal));
         context.drawCenteredText(unlockFont, Localizator.translate("mainmenu.next"), (float)this.width / 2.0f, (float)(this.height - 18) + 3.0f * activeVal, ColorRGBA.WHITE.withAlpha(160.0f * (1.0f - activeVal)));
 
-        // Blur background for active components
+        // Update blur buffer again for glass elements below (buttons etc.)
         DrawUtility.blurProgram.draw();
 
         // Main Navigation Buttons

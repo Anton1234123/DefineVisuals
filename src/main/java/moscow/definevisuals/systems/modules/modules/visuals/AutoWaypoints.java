@@ -27,7 +27,7 @@ public class AutoWaypoints extends BaseModule {
     
     private final Pattern coordPattern = Pattern.compile("Координаты:\\s*(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)", Pattern.CASE_INSENSITIVE);
     private final Pattern eventNamePattern = Pattern.compile("▍\\s*([^▍\\n]+)", Pattern.CASE_INSENSITIVE);
-    private final Pattern compassPattern = Pattern.compile("(-?\\d+)\\s*,\\s*(-?\\d+)", Pattern.CASE_INSENSITIVE);
+    private final Pattern compassPattern = Pattern.compile("(?:Найдено сокровище по координатам:|Стрелка компаса установлена на последний найденный регион по координатам:)\\s*(-?\\d+)\\s*,\\s*(-?\\d+)", Pattern.CASE_INSENSITIVE);
     private final Pattern eventCommandPattern = Pattern.compile("НАХОДИТСЯ НА КООРДИНАТАХ\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)", Pattern.CASE_INSENSITIVE);
     
     private final EventListener<ReceivePacketEvent> onReceivePacket = event -> {

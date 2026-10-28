@@ -1,0 +1,64 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "srcalpha",
+    "dstrgb": "1-srcalpha"
+  },
+  "vertex": "definevisuals:core/fog/data.vsh",
+  "fragment": "definevisuals:core/fog/data.fsh",
+  "attributes": [
+    {
+      "name": "Position",
+      "format": "float3"
+    },
+    {
+      "name": "Color",
+      "format": "float4"
+    }
+  ],
+  "samplers": [],
+  "uniforms": [
+    {
+      "name": "PositionMatrix",
+      "type": "mat4",
+      "count": 1,
+      "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+    },
+    {
+      "name": "ProjectionMatrix",
+      "type": "mat4",
+      "count": 1,
+      "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+    },
+    {
+      "name": "CameraPos",
+      "type": "float3",
+      "count": 1,
+      "values": [0.0, 0.0, 0.0]
+    },
+    {
+      "name": "Time",
+      "type": "float",
+      "count": 1,
+      "values": [0.0]
+    },
+    {
+      "name": "FogColor",
+      "type": "float3",
+      "count": 1,
+      "values": [1.0, 1.0, 1.0]
+    },
+    {
+      "name": "Density",
+      "type": "float",
+      "count": 1,
+      "values": [1.0]
+    },
+    {
+      "name": "Thickness",
+      "type": "float",
+      "count": 1,
+      "values": [1.0]
+    }
+  ]
+}

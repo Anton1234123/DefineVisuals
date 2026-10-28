@@ -32,11 +32,13 @@ extends CustomComponent {
 
     @Override
     public void update(UIContext context) {
-        ModuleComponent component;
         String translatedDescription = Localizator.translateOrEmpty(this.setting.getDescription());
         CustomComponent customComponent = this.parent;
-        if (customComponent instanceof ModuleComponent && ((component = (ModuleComponent)customComponent).getParent().isHovered(context) && this.isHovered(context) || DefineVisuals.getInstance().getMenuScreen() instanceof DropDownScreen)) {
-            ((DropDownScreen)DefineVisuals.getInstance().getMenuScreen()).setDesc(Localizator.translate(translatedDescription));
+        if (customComponent instanceof ModuleComponent component && component.getParent().isHovered(context) && this.isHovered(context)) {
+            moscow.definevisuals.ui.menu.MenuScreen menuScreen = DefineVisuals.getInstance().getMenuScreen();
+            if (menuScreen instanceof DropDownScreen dropDownScreen) {
+                dropDownScreen.setDesc(Localizator.translate(translatedDescription));
+            }
         }
         if (this.parent instanceof Popup && this.isHovered(context)) {
             DefineVisuals.getInstance().getHud().setDesc(Localizator.translate(translatedDescription));

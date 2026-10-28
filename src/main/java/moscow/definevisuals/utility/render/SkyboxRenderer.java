@@ -116,13 +116,14 @@ public final class SkyboxRenderer {
    }
 
    private static void tessellate(VertexConsumer vertexConsumer) {
-      float size = SKYBOX_SIZE;
-      face(vertexConsumer, 1, -size, size, -size, -size, size, size, size, size, size, size, size, -size);
-      face(vertexConsumer, 0, -size, -size, size, -size, -size, -size, size, -size, -size, size, -size, size);
-      face(vertexConsumer, 2, size, size, -size, size, -size, -size, -size, -size, -size, -size, size, -size);
-      face(vertexConsumer, 4, -size, size, size, -size, -size, size, size, -size, size, size, size, size);
-      face(vertexConsumer, 3, -size, size, -size, -size, -size, -size, -size, -size, size, -size, size, size);
-      face(vertexConsumer, 5, size, size, size, size, -size, size, size, -size, -size, size, size, -size);
+      // Fullscreen NDC quad — covers the whole screen with identity ModelView + Proj matrices.
+      // UV coords passed as-is; the fragment shader uses them via Direction (Position) for the sky math.
+      // Using clip-space corners so no camera matrix is needed.
+      Matrix4f identity = new Matrix4f();
+      vertexConsumer.vertex(identity, -1f, -1f, 0f).texture(0f, 0f).color(-1);
+      vertexConsumer.vertex(identity,  1f, -1f, 0f).texture(1f, 0f).color(-1);
+      vertexConsumer.vertex(identity,  1f,  1f, 0f).texture(1f, 1f).color(-1);
+      vertexConsumer.vertex(identity, -1f,  1f, 0f).texture(0f, 1f).color(-1);
    }
 
    private static void face(

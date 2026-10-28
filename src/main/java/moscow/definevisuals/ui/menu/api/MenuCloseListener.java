@@ -21,17 +21,6 @@ public class MenuCloseListener
 implements IMinecraft {
     private final EventListener<HudRenderEvent> onHudRender = event -> {
         MenuScreen menuScreen = DefineVisuals.getInstance().getMenuScreen();
-        if (MenuCloseListener.mc.currentScreen == null) {
-            // if (DefineVisuals.getInstance().getModuleManager().getModule(MenuModule.class).getModern().isSelected()) {
-            //    if (!(menuScreen instanceof ModernScreen)) {
-            //       DefineVisuals.getInstance().setMenuScreen(new ModernScreen());
-            //    }
-            // } else if (!(menuScreen instanceof DropDownScreen)) {
-                if (!(menuScreen instanceof DropDownScreen)) {
-                    DefineVisuals.getInstance().setMenuScreen(new DropDownScreen());
-                }
-            // }
-        }
         if (menuScreen == null) {
             return;
         }

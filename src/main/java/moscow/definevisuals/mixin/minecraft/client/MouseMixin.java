@@ -18,7 +18,7 @@ public class MouseMixin implements IMinecraft {
    @Inject(method = "tick()V", at = @At("RETURN"))
    private void tick(CallbackInfo ci) {
       if (CursorUtility.getCurrentType() != CursorUtility.getPrev()) {
-         GLFW.glfwSetCursor(mc.getWindow().getHandle(), CursorUtility.getCurrentType().getCode());
+         GLFW.glfwSetCursor(mc.getWindow().getHandle(), CursorUtility.getCurrentType().getCursorHandle());
       }
 
       CursorUtility.setPrev(CursorUtility.getCurrentType());

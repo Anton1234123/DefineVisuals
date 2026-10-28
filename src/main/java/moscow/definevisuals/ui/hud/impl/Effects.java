@@ -64,13 +64,14 @@ extends HudList {
             if (realName == null || ServerUtility.isCM()) continue;
             if (this.effects.containsKey(realName)) {
                 this.effects.replace(realName, eff);
-                // Animation anim = ((StatusEffectInstanceAddition)eff).rockstar$getAnimPotion();
-                // if (anim.getValue() != 0.0f) continue;
-                // anim.setValue(1.0f);
                 continue;
             }
             this.effects.put(realName, eff);
         }
+        // Удаляем эффекты, которые уже закончились и больше не активны у игрока
+        this.effects.entrySet().removeIf(entry ->
+            !Effects.mc.player.hasStatusEffect(entry.getValue().getEffectType())
+        );
         if (!this.effects.isEmpty()) {
             this.height += 5.0f;
         }

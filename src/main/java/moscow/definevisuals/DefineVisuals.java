@@ -254,10 +254,19 @@ public enum DefineVisuals implements IMinecraft {
    }
 
    public MenuScreen getMenuScreen() {
-      if (this.menuScreen == null
-            || !(this.menuScreen instanceof moscow.definevisuals.ui.menu.dropdown.DropDownScreen)
-            || this.menuScreen.isClosing()) {
-         this.menuScreen = new moscow.definevisuals.ui.menu.dropdown.DropDownScreen();
+      moscow.definevisuals.systems.modules.modules.visuals.MenuModule menuModule = this.moduleManager != null 
+         ? this.moduleManager.getModule(moscow.definevisuals.systems.modules.modules.visuals.MenuModule.class) 
+         : null;
+      boolean isModern = menuModule != null && menuModule.getModern().isSelected();
+
+      if (isModern) {
+         if (this.menuScreen == null || !(this.menuScreen instanceof moscow.definevisuals.ui.menu.modern.ModernScreen)) {
+            this.menuScreen = new moscow.definevisuals.ui.menu.modern.ModernScreen();
+         }
+      } else {
+         if (this.menuScreen == null || !(this.menuScreen instanceof moscow.definevisuals.ui.menu.dropdown.DropDownScreen)) {
+            this.menuScreen = new moscow.definevisuals.ui.menu.dropdown.DropDownScreen();
+         }
       }
       return this.menuScreen;
    }

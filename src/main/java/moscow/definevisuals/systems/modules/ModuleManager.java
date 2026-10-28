@@ -15,7 +15,6 @@ import moscow.definevisuals.systems.modules.modules.other.SRPSpoof;
 import moscow.definevisuals.systems.modules.modules.other.*;
 import moscow.definevisuals.systems.modules.modules.player.AutoSprint;
 import moscow.definevisuals.systems.modules.modules.player.AutoRespawn;
-import moscow.definevisuals.systems.modules.modules.player.Blink;
 import moscow.definevisuals.systems.modules.modules.player.ClickFriend;
 import moscow.definevisuals.systems.modules.modules.player.ItemScroller;
 import moscow.definevisuals.systems.modules.modules.player.MineHelper;
@@ -48,9 +47,10 @@ import moscow.definevisuals.systems.modules.modules.visuals.Crosshair;
 import moscow.definevisuals.systems.modules.modules.visuals.DonateEffects;
 import moscow.definevisuals.systems.modules.modules.visuals.HitColor;
 import moscow.definevisuals.systems.modules.modules.visuals.SelfTag;
-import moscow.definevisuals.systems.modules.modules.visuals.Gribochki;
 import moscow.definevisuals.systems.modules.modules.visuals.ChinaHat;
-import moscow.definevisuals.systems.modules.modules.visuals.XRay;
+import moscow.definevisuals.systems.modules.modules.visuals.ItemPhysics;
+import moscow.definevisuals.systems.modules.modules.visuals.JumpCircle;
+import moscow.definevisuals.systems.modules.modules.visuals.ShaderHand;
 import net.minecraft.client.MinecraftClient;
 
 public class ModuleManager {
@@ -83,7 +83,6 @@ public class ModuleManager {
    }
    public void registerModules() {
       this.register(new AutoSprint());
-      this.register(new Blink());
       this.register(new MenuModule());
       this.register(new Removals());
       this.register(new Ambience());
@@ -113,9 +112,7 @@ public class ModuleManager {
       this.register(new BetterTab());
       this.register(new BlockOverlay());
       this.register(new Crosshair());
-      this.register(new XRay());
       this.register(new DonateEffects());
-      this.register(new Gribochki());
       this.register(new HolyEvents());
       this.register(new ClanUpgrade());
       this.register(new MacroMenu());
@@ -127,12 +124,16 @@ public class ModuleManager {
       this.register(new SelfTag());
       this.register(new SeeInvisibles());
       this.register(new ChinaHat());
+      this.register(new ItemPhysics());
+      this.register(new ShaderHand());
+      this.register(new JumpCircle());
       this.register(new AntiLud());
       this.register(new AutoGG());
       this.register(new ShulkerSafe());
       this.register(new AspectRatio());
       this.register(new ItemScroller());
       this.register(new SRPSpoof());
+      this.register(new WindowTitle());
    }
    public void enableModules() {
       for (Module module : this.modules) {

@@ -32,6 +32,7 @@ import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.gradient.Gradient;
 import moscow.definevisuals.framework.shader.GlProgram;
 import moscow.definevisuals.framework.shader.impl.BlurProgram;
+import moscow.definevisuals.framework.shader.impl.SkyShaderProgram;
 import moscow.definevisuals.utility.colors.ColorRGBA;
 import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
@@ -47,6 +48,8 @@ import moscow.definevisuals.utility.render.batching.impl.RoundedRectBatching;
 import moscow.definevisuals.utility.render.batching.impl.SquircleBatching;
 import moscow.definevisuals.utility.render.obj.CustomSprite;
 import moscow.definevisuals.utility.render.penis.PenisSprite;
+import moscow.definevisuals.utility.render.RainRenderer;
+import moscow.definevisuals.utility.render.FogRenderer;
 import net.minecraft.client.gl.ShaderProgramKey;
 import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -80,6 +83,10 @@ IWindow {
     private static GlProgram glassProgram;
     private static GlProgram gradientRectangleProgram;
     public static BlurProgram blurProgram;
+    public static SkyShaderProgram skyNebulaProgram;
+    public static SkyShaderProgram skyCausticProgram;
+    public static RainRenderer rainRenderer;
+    public static FogRenderer fogRenderer;
     private static final CustomRenderTarget buffer;
     public static void initializeShaders() {
         rectangleProgram = new GlProgram(DefineVisuals.id("rectangle/data"), VertexFormats.POSITION_COLOR);
@@ -92,6 +99,12 @@ IWindow {
         gradientRectangleProgram = new GlProgram(DefineVisuals.id("gradient_rectangle/data"), VertexFormats.POSITION_COLOR);
         blurProgram = new BlurProgram();
         blurProgram.initShaders();
+        skyNebulaProgram = new SkyShaderProgram(DefineVisuals.id("sky_nebula/data"));
+        skyCausticProgram = new SkyShaderProgram(DefineVisuals.id("sky_caustic/data"));
+        // rainRenderer = new RainRenderer();
+        // rainRenderer.init();
+        // fogRenderer = new FogRenderer();
+        // fogRenderer.init();
     }
 
     public static void updateBuffer() {

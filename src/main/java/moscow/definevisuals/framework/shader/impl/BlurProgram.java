@@ -33,10 +33,6 @@ public class BlurProgram implements IMinecraft, IWindow {
    }
 
    public void draw() {
-      if (!this.timer.finished(25L)) {
-         return;
-      }
-
       Framebuffer mainFbo = mc.getFramebuffer();
       if (mainFbo == null || mainFbo.getColorAttachment() <= 0 || mainFbo.textureWidth <= 0 || mainFbo.textureHeight <= 0) {
          return;
@@ -112,7 +108,7 @@ public class BlurProgram implements IMinecraft, IWindow {
          kawaseUpProgram.updateUniforms(effectiveOffset, source.textureWidth, source.textureHeight);
          this.drawQuad(0.0F, 0.0F, scaledWidth, scaledHeight);
          source.endRead();
-         source.stop();
+         target.stop();
       }
 
       mainFbo.endRead();

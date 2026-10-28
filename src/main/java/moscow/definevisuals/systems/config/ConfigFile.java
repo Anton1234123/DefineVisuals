@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import lombok.Generated;
 import moscow.definevisuals.DefineVisuals;
@@ -26,18 +28,24 @@ import moscow.definevisuals.utility.sounds.ClientSounds;
 import net.minecraft.text.Text;
 
 public class ConfigFile implements IMinecraft {
+   private static final int UNBOUND_KEY = -1;
+   private static final int LEFT_MOUSE_BUTTON = 0;
    private List<Module> modules = DefineVisuals.getInstance().getModuleManager().getModules();
    private File file;
    private String fileName;
 
    public ConfigFile(String fileName) {
+      this(fileName, FileManager.DEFAULT_FILE_TYPE);
+   }
+
+   public ConfigFile(String fileName, String fileType) {
       this.fileName = fileName;
       File configsFolder = new File(FileManager.DIRECTORY, "configs");
       if (!configsFolder.exists()) {
          configsFolder.mkdir();
       }
 
-      this.file = new File(configsFolder, fileName + ".%s".formatted("def"));
+      this.file = new File(configsFolder, fileName + "." + fileType);
    }
 
    public void load() {
@@ -49,6 +57,7 @@ public class ConfigFile implements IMinecraft {
                JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
                if (jsonObject.has("modules")) {
                   JsonArray modulesArray = jsonObject.getAsJsonArray("modules");
+                  boolean hasLegacyLeftClickBinds = this.hasLegacyLeftClickBinds(modulesArray);
                   int loadedModules = 0;
 
                   for (JsonElement moduleElement : modulesArray) {
@@ -56,7 +65,10 @@ public class ConfigFile implements IMinecraft {
                      if (moduleObject.has("name")) {
                         String moduleName = moduleObject.get("name").getAsString();
                         boolean enabled = moduleObject.has("enabled") && moduleObject.get("enabled").getAsBoolean();
-                        int key = moduleObject.has("key") ? moduleObject.get("key").getAsInt() : 0;
+                        int key = moduleObject.has("key") ? moduleObject.get("key").getAsInt() : UNBOUND_KEY;
+                        if (hasLegacyLeftClickBinds && key == LEFT_MOUSE_BUTTON) {
+                           key = UNBOUND_KEY;
+                        }
 
                         try {
                            Module module = DefineVisuals.getInstance().getModuleManager().getModule(moduleName);
@@ -88,6 +100,11 @@ public class ConfigFile implements IMinecraft {
                   DefineVisuals.LOGGER.info("Loaded {} modules from config {}", loadedModules, this.fileName);
                   if (!this.fileName.equals("autosave")) {
                      DefineVisuals.getInstance().getConfigManager().setCurrent(this);
+                  }
+
+                  if (hasLegacyLeftClickBinds) {
+                     this.save();
+                     DefineVisuals.LOGGER.info("Cleared legacy left-click binds in config {}", this.fileName);
                   }
 
                   return;
@@ -136,14 +153,58 @@ public class ConfigFile implements IMinecraft {
    }
 
    public void delete() {
-      if (this.file.exists() && this.file.delete()) {
-         DefineVisuals.getInstance().getConfigManager().getConfigFiles().remove(this);
+      if (this.fileName.equalsIgnoreCase("autosave")) {
+         MessageUtility.error(Text.of("Автосохранение нельзя удалить"));
+         return;
+      }
+
+      boolean deleted = false;
+      try {
+         File configsFolder = new File(FileManager.DIRECTORY, "configs");
+         for (String fileType : new String[]{FileManager.DEFAULT_FILE_TYPE, FileManager.LEGACY_FILE_TYPE}) {
+            Path configPath = new File(configsFolder, this.fileName + "." + fileType).toPath();
+            deleted |= Files.deleteIfExists(configPath);
+         }
+      } catch (IOException exception) {
+         DefineVisuals.LOGGER.error("Failed to delete config file {}", this.file.getAbsolutePath(), exception);
+      }
+
+      if (deleted) {
+         ConfigManager configManager = DefineVisuals.getInstance().getConfigManager();
+         ConfigFile current = configManager.getCurrent();
+         if (current != null && current.getFileName().equalsIgnoreCase(this.fileName)) {
+            configManager.setCurrent(null);
+         }
+         configManager.refresh();
          MessageUtility.info(Text.of("Конфиг " + this.fileName + " успешно удален"));
-         DefineVisuals.LOGGER.info("Config file deleted: {}", this.file.getAbsolutePath());
+         DefineVisuals.LOGGER.info("Config file deleted: {}", this.fileName);
       } else {
          MessageUtility.error(Text.of("Произошла ошибка при удалении"));
          DefineVisuals.LOGGER.warn("Failed to delete config file: {}", this.file.getAbsolutePath());
       }
+   }
+
+   private boolean hasLegacyLeftClickBinds(JsonArray modulesArray) {
+      int configuredModules = 0;
+      int leftClickBinds = 0;
+
+      for (JsonElement moduleElement : modulesArray) {
+         if (!moduleElement.isJsonObject()) {
+            continue;
+         }
+
+         JsonObject moduleObject = moduleElement.getAsJsonObject();
+         if (!moduleObject.has("key")) {
+            continue;
+         }
+
+         configuredModules++;
+         if (moduleObject.get("key").getAsInt() == LEFT_MOUSE_BUTTON) {
+            leftClickBinds++;
+         }
+      }
+
+      return configuredModules >= 10 && configuredModules >= this.modules.size() * 3 / 4 && leftClickBinds == configuredModules;
    }
 
    private JsonArray getModulesJsonArray() {

@@ -11,4 +11,7 @@ public interface FramebufferAccessor {
 
    @Accessor("depthAttachment")
    void setDepthAttachment(int var1);
+
+   @Accessor("fbo")
+   int getFbo();
 }

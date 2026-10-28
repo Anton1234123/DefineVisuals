@@ -93,8 +93,14 @@ extends CustomComponent {
             RenderUtility.scale(context.getMatrices(), x + width / 2.0f, y + height / 2.0f, 0.5f + 0.5f * this.animation.getValue());
             RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)alpha);
         }
-        context.drawBlurredRect(x, y, width, height, 45.0f, 5.0f, BorderRadius.all(11.0f), Colors.WHITE);
-        context.drawSquircle(x, y, width, height, 5.0f, BorderRadius.all(6.0f + 5.0f * alpha), (!dark ? Colors.getBackgroundColor().mix(Colors.getAdditionalColor(), 0.3f) : Colors.getAdditionalColor().mix(Colors.getBackgroundColor(), 0.3f)).mix(dark ? Colors.getAdditionalColor().mulAlpha(0.98f) : Colors.getBackgroundColor().mulAlpha(0.75f), alpha));
+        BorderRadius windowRadius = BorderRadius.all(6.0f + 5.0f * alpha);
+        if (Interface.showMinimalizm()) {
+            context.drawBlurredRect(x, y, width, height, 45.0f, 10.0f, windowRadius, ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.minimalizm()));
+        }
+        if (Interface.showGlass()) {
+            context.drawLiquidGlass(x, y, width, height, 10.0f, 0.08f, windowRadius, Colors.getAccent().withAlpha(255.0f * alpha * Interface.glass()));
+        }
+        context.drawSquircle(x, y, width, height, 10.0f, windowRadius, Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.9f - 0.7f * Interface.glass() : 0.7f)));
         if (this.showing && check) {
             context.drawRoundedRect(x + width - 25.0f, y + 10.5f + 20.0f * alpha, 14.5f, 7.0f, BorderRadius.all(3.0f), Colors.getAdditionalColor().mix(Colors.ACCENT, this.module.getModule().isEnabled() ? 1.0f : 0.0f).mulAlpha(1.0f - alpha));
             context.drawRoundedRect(x + width - 25.0f + 1.0f + (float)(5 * (this.module.getModule().isEnabled() ? 1 : 0)), y + 11.5f + 20.0f * alpha, 7.5f, 5.0f, BorderRadius.all(1.75f), Colors.WHITE.mulAlpha(1.0f - alpha));

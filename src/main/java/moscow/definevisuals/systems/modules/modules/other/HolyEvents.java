@@ -9,7 +9,7 @@ import moscow.definevisuals.systems.setting.settings.BooleanSetting;
 import moscow.definevisuals.systems.setting.settings.ButtonSetting;
 import moscow.definevisuals.ui.holyevents.EventListScreen;
 
-@ModuleInfo(name = "HolyEvents", category = ModuleCategory.OTHER, desc = "Список активных ивентов HolyWorld")
+@ModuleInfo(name = "HolyEvents", category = ModuleCategory.EVENTS, desc = "Список активных ивентов HolyWorld")
 public class HolyEvents extends BaseModule {
     public final List<String> favorites = new ArrayList<>();
 

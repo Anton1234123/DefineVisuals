@@ -61,7 +61,7 @@ implements IScaledResolution {
 
     @Override
     public void onInit() {
-        List<Module> filteredModules = DefineVisuals.getInstance().getModuleManager().getModules().stream().sorted(Comparator.comparing(Module::getName)).filter(module -> module.getCategory().equals((Object)this.category.getCategory())).toList();
+        List<Module> filteredModules = DefineVisuals.getInstance().getModuleManager().getModules().stream().sorted(Comparator.comparing(Module::getName)).filter(module -> module.getCategory().equals((Object)this.category.getCategory()) || (this.category.getCategory() == moscow.definevisuals.systems.modules.api.ModuleCategory.UTILS && (module.getCategory() == moscow.definevisuals.systems.modules.api.ModuleCategory.OTHER || module.getName().equals("HolyEvents")))).toList();
         for (Module module2 : filteredModules) {
             ModuleComponent component = new ModuleComponent(module2, this);
             component.setWidth(this.width);

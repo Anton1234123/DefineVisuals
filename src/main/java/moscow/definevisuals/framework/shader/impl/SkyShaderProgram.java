@@ -1,11 +1,11 @@
 package moscow.definevisuals.framework.shader.impl;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import moscow.definevisuals.framework.shader.GlProgram;
 import moscow.definevisuals.utility.colors.ColorRGBA;
 import net.minecraft.client.gl.GlUniform;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
+import org.joml.Matrix4f;
 
 public class SkyShaderProgram extends GlProgram {
    private GlUniform timeUniform;
@@ -18,13 +18,13 @@ public class SkyShaderProgram extends GlProgram {
    }
 
    public void updateUniforms(float time, ColorRGBA accent) {
-      // ИСПРАВЛЕНО: передаём ModelViewMat и ProjMat из RenderSystem
+      // Pass identity matrices so the fullscreen NDC quad renders as-is (static sky, no camera rotation)
       if (this.modelViewUniform != null) {
-         this.modelViewUniform.set(RenderSystem.getModelViewMatrix());
+         this.modelViewUniform.set(new Matrix4f().identity());
       }
 
       if (this.projMatUniform != null) {
-         this.projMatUniform.set(RenderSystem.getProjectionMatrix());
+         this.projMatUniform.set(new Matrix4f().identity());
       }
 
       if (this.timeUniform != null) {

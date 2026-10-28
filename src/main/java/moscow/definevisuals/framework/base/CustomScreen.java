@@ -1,6 +1,7 @@
 package moscow.definevisuals.framework.base;
 
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.utility.render.DrawUtility;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -12,7 +13,20 @@ public abstract class CustomScreen extends Screen {
 
    public abstract void render(UIContext var1);
 
+   @Override
+   public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+      // Empty to allow transparent real-time world rendering behind custom screens (HUD-like behavior)
+   }
+
+   @Override
+   public boolean shouldPause() {
+      return false;
+   }
+
    public final void render(DrawContext context, int mouseX, int mouseY, float delta) {
+      if (this.client != null && this.client.world != null) {
+         DrawUtility.blurProgram.draw();
+      }
       super.render(context, mouseX, mouseY, delta);
       UIContext uiContext = UIContext.of(context, mouseX, mouseY, delta);
       this.render(uiContext);

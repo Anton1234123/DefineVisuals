@@ -8,17 +8,20 @@
 package moscow.definevisuals.ui.menu.modern.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Generated;
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.framework.base.CustomComponent;
 import moscow.definevisuals.framework.base.UIContext;
+import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
 import moscow.definevisuals.systems.modules.modules.other.Sounds;
+import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.menu.MenuScreen;
 import moscow.definevisuals.ui.menu.dropdown.DropDownScreen;
@@ -49,6 +52,46 @@ extends CustomComponent {
     private final ColorAnimation blockingColorAnimation = new ColorAnimation(500L, ColorRGBA.WHITE, Easing.FIGMA_EASE_IN_OUT);
     private boolean blocking;
     private boolean shakeValue;
+    private float cardHeight = 28.0f;
+
+    public float getCardHeight(float cardWidth) {
+        Font descFont = Fonts.REGULAR.getFont(5.5f);
+        String desc = this.module.getDescription();
+        if (desc == null || desc.isEmpty()) {
+            this.cardHeight = 28.0f;
+            return this.cardHeight;
+        }
+        float maxTextWidth = cardWidth - 14.0f;
+        List<String> lines = this.wrapText(desc, descFont, maxTextWidth);
+        float lineHeight = descFont.height() + 1.5f;
+        float nameHeight = 14.0f;
+        float descHeight = lines.size() * lineHeight;
+        this.cardHeight = nameHeight + descHeight + 8.0f;
+        if (this.cardHeight < 28.0f) this.cardHeight = 28.0f;
+        return this.cardHeight;
+    }
+
+    private List<String> wrapText(String text, Font font, float maxWidth) {
+        List<String> lines = new ArrayList<>();
+        if (text == null || text.isEmpty()) return lines;
+        String[] words = text.split(" ");
+        StringBuilder currentLine = new StringBuilder();
+        for (String word : words) {
+            String test = currentLine.isEmpty() ? word : currentLine + " " + word;
+            if (font.width(test) <= maxWidth) {
+                currentLine = new StringBuilder(test);
+            } else {
+                if (!currentLine.isEmpty()) {
+                    lines.add(currentLine.toString());
+                }
+                currentLine = new StringBuilder(word);
+            }
+        }
+        if (!currentLine.isEmpty()) {
+            lines.add(currentLine.toString());
+        }
+        return lines;
+    }
 
     @Override
     protected void renderComponent(UIContext context) {
@@ -68,25 +111,46 @@ extends CustomComponent {
             this.shakeValue = true;
         }
         boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        context.drawSquircle(this.x, this.y, this.width, this.height, 5.0f, BorderRadius.all(6.0f), (!dark ? Colors.getAdditionalColor().mulAlpha(0.3f) : Colors.getBackgroundColor().mulAlpha(0.3f)).mulAlpha(this.visible.getValue()));
+        float glass = Interface.glass();
+        ColorRGBA base = (dark ? Colors.getBackgroundColor() : Colors.getAdditionalColor()).withAlpha(255.0f * (dark ? 0.16f + 0.14f * Interface.minimalizm() : 0.12f + 0.12f * Interface.minimalizm()));
+        ColorRGBA card = base
+            .mix(Colors.getAccent().withAlpha(255.0f * (0.14f + 0.12f * (1.0f - glass))), this.enableAnimation.getValue() * 0.7f)
+            .mix(Colors.getTextColor().withAlpha(20.0f), this.hoverAnimation.getValue() * 0.35f)
+            .mulAlpha(this.visible.getValue());
+        BorderRadius cardRadius = BorderRadius.all(3.0f);
+        context.drawSquircle(this.x, this.y, this.width, this.height, 3.0f, cardRadius, card);
+        ColorRGBA border = this.module.isEnabled()
+            ? Colors.getAccent().mulAlpha(0.65f + 0.2f * this.hoverAnimation.getValue())
+            : Colors.getOutlineColor().mulAlpha(0.38f + 0.18f * this.hoverAnimation.getValue());
+        context.drawRoundedBorder(this.x, this.y, this.width, this.height, 0.65f, cardRadius, border.mulAlpha(this.visible.getValue()));
     }
 
     public void renderRounds(UIContext context) {
-        context.drawRoundedRect(this.x + this.width - 25.0f, this.y + 10.5f, 14.5f, 7.0f, BorderRadius.all(2.75f), Colors.getAdditionalColor().mix(Colors.ACCENT, this.enableAnimation.getValue()).mulAlpha(this.visible.getValue()));
+        // toggle not shown in new grid layout
     }
 
     public void renderInto(UIContext context) {
-        context.drawRoundedRect(this.x + this.width - 25.0f + 1.0f + 5.0f * this.enableAnimation.getValue(), this.y + 11.5f, 7.5f, 5.0f, BorderRadius.all(1.75f), Colors.WHITE.mulAlpha(this.visible.getValue()));
+        // toggle not shown in new grid layout
     }
 
     public void renderMedium(UIContext context) {
         int key = this.module.getKey();
         Object bindingText = key == -1 ? Localizator.translate("menu.binding") : Localizator.translate("key") + ": " + TextUtility.getKeyName(key);
-        context.drawText(Fonts.MEDIUM.getFont(7.0f), (String)(this.bindingMode ? bindingText : this.module.getName()), this.x + 7.0f + this.shakeAnimation.getValue(), this.y + 8.0f, this.blockingColorAnimation.getColor().mulAlpha(RenderSystem.getShaderColor()[3] * 0.75f + 0.25f * this.enableAnimation.getValue() + 0.25f * this.hoverAnimation.getValue()).mulAlpha(this.visible.getValue()));
+        context.drawFadeoutText(Fonts.MEDIUM.getFont(7.0f), (String)(this.bindingMode ? bindingText : this.module.getName()), this.x + 7.0f + this.shakeAnimation.getValue(), this.y + 7.0f, this.blockingColorAnimation.getColor().mulAlpha(RenderSystem.getShaderColor()[3] * 0.75f + 0.25f * this.enableAnimation.getValue() + 0.25f * this.hoverAnimation.getValue()).mulAlpha(this.visible.getValue()), 0.9f, 1.0f, this.width - 14.0f);
     }
 
     public void renderRegular(UIContext context) {
-        context.drawText(Fonts.REGULAR.getFont(6.0f), this.module.getDescription(), this.x + 7.0f, this.y + 16.0f, Colors.getTextColor().mulAlpha(0.5f * this.visible.getValue()));
+        Font descFont = Fonts.REGULAR.getFont(5.5f);
+        String desc = this.module.getDescription();
+        if (desc == null || desc.isEmpty()) return;
+        float maxTextWidth = this.width - 14.0f;
+        List<String> lines = this.wrapText(desc, descFont, maxTextWidth);
+        float lineHeight = descFont.height() + 1.5f;
+        float startY = this.y + 16.0f;
+        ColorRGBA descColor = Colors.getTextColor().mulAlpha(0.5f * this.visible.getValue());
+        for (int i = 0; i < lines.size(); i++) {
+            context.drawText(descFont, lines.get(i), this.x + 7.0f, startY + i * lineHeight, descColor);
+        }
     }
 
     @Override
@@ -124,9 +188,10 @@ extends CustomComponent {
             }
             this.bindingMode = false;
             MenuScreen menuScreen = DefineVisuals.getInstance().getMenuScreen();
-            if (menuScreen instanceof DropDownScreen) {
-                DropDownScreen dropDownScreen = (DropDownScreen)menuScreen;
+            if (menuScreen instanceof DropDownScreen dropDownScreen) {
                 dropDownScreen.getSearchField().setFocused(false);
+            } else if (menuScreen instanceof ModernScreen modernScreen) {
+                modernScreen.getSearchField().setFocused(false);
             }
         }
         super.onKeyPressed(keyCode, scanCode, modifiers);
@@ -140,7 +205,10 @@ extends CustomComponent {
             this.blocking = true;
             this.shakeValue = true;
         } else {
-            ModernScreen modernScreen = (ModernScreen)DefineVisuals.getInstance().getMenuScreen();
+            MenuScreen menuScreen = DefineVisuals.getInstance().getMenuScreen();
+            if (!(menuScreen instanceof ModernScreen modernScreen)) {
+                return;
+            }
             Rect win = modernScreen.getMenuWindow();
             List<ModernSettings> windows = modernScreen.getWindows();
             float x = win.getX() + win.getWidth() + 10.0f;
@@ -208,4 +276,3 @@ extends CustomComponent {
         this.bindingMode = bindingMode;
     }
 }
-

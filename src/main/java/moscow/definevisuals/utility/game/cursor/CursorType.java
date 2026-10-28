@@ -1,27 +1,34 @@
 package moscow.definevisuals.utility.game.cursor;
 
-import lombok.Generated;
 import org.lwjgl.glfw.GLFW;
 
 public enum CursorType {
-   DEFAULT(GLFW.glfwCreateStandardCursor(221185)),
-   HAND(GLFW.glfwCreateStandardCursor(221188)),
-   ARROW_HORIZONTAL(GLFW.glfwCreateStandardCursor(221189)),
-   ARROW_VERTICAL(GLFW.glfwCreateStandardCursor(221190)),
-   TEXT(GLFW.glfwCreateStandardCursor(221186)),
-   CROSSHAIR(GLFW.glfwCreateStandardCursor(221187)),
-   BLOCK(GLFW.glfwCreateStandardCursor(221194)),
-   RESIZE_ALL(GLFW.glfwCreateStandardCursor(221193));
+    DEFAULT(GLFW.GLFW_ARROW_CURSOR),
+    HAND(GLFW.GLFW_HAND_CURSOR),
+    IBEAM(GLFW.GLFW_IBEAM_CURSOR),
+    TEXT(GLFW.GLFW_IBEAM_CURSOR),
+    CROSSHAIR(GLFW.GLFW_CROSSHAIR_CURSOR),
+    HRESIZE(GLFW.GLFW_HRESIZE_CURSOR),
+    ARROW_HORIZONTAL(GLFW.GLFW_HRESIZE_CURSOR),
+    VRESIZE(GLFW.GLFW_VRESIZE_CURSOR),
+    ARROW_VERTICAL(GLFW.GLFW_VRESIZE_CURSOR);
 
-   private final long code;
+    private final int shape;
+    private long cursorHandle;
 
-   @Generated
-   public long getCode() {
-      return this.code;
-   }
+    CursorType(int shape) {
+        this.shape = shape;
+        this.cursorHandle = 0;
+    }
 
-   @Generated
-   private CursorType(final long code) {
-      this.code = code;
-   }
+    public int getShape() {
+        return shape;
+    }
+
+    public long getCursorHandle() {
+        if (cursorHandle == 0) {
+            cursorHandle = GLFW.glfwCreateStandardCursor(shape);
+        }
+        return cursorHandle;
+    }
 }

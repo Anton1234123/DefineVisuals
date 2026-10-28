@@ -3,13 +3,12 @@ package moscow.definevisuals.mixin.minecraft.client;
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.protection.client.MinecraftClientMixinProtection;
 import moscow.definevisuals.systems.event.impl.game.GameTickEvent;
-import moscow.definevisuals.systems.event.impl.render.AspectRatioEvent;
 import moscow.definevisuals.systems.modules.modules.player.NoDelay;
-import moscow.definevisuals.systems.modules.modules.visuals.AspectRatio;
+import moscow.definevisuals.systems.modules.modules.visuals.ShaderHand;
 import moscow.definevisuals.utility.render.penis.PenisAtlas;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.RunArgs;
-import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,20 +25,16 @@ public class MinecraftClientMixin {
    @Inject(method = "tick", at = @At("HEAD"))
    public void tick(CallbackInfo ci) {
       DefineVisuals.getInstance().getEventManager().triggerEvent(new GameTickEvent());
-      AspectRatio ratioModule = DefineVisuals.getInstance().getModuleManager().getModule(AspectRatio.class);
-      if (!ratioModule.isEnabled()) {
-         GLFW.glfwSetWindowAspectRatio(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_DONT_CARE, GLFW.GLFW_DONT_CARE);
-         return;
-      }
+   }
 
-      AspectRatioEvent event = new AspectRatioEvent(1.7777778F);
-      DefineVisuals.getInstance().getEventManager().triggerEvent(event);
-      float aspectRatio = event.getAspectRatio();
-      if (aspectRatio <= 0.0F) {
-         return;
+   @Inject(method = "getFramebuffer", at = @At("HEAD"), cancellable = true)
+   private void onGetFramebuffer(CallbackInfoReturnable<Framebuffer> cir) {
+      if (ShaderHand.rendering) {
+         ShaderHand mod = DefineVisuals.getInstance().getModuleManager().getModule(ShaderHand.class);
+         if (mod != null && mod.getHandsBuffer() != null) {
+            cir.setReturnValue(mod.getHandsBuffer());
+         }
       }
-      int numerator = Math.max(1, Math.round(aspectRatio * 1000.0F));
-      GLFW.glfwSetWindowAspectRatio(MinecraftClient.getInstance().getWindow().getHandle(), numerator, 1000);
    }
 
    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;onResolutionChanged()V"))

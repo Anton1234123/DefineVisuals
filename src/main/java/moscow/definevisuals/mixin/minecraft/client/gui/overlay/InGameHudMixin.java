@@ -79,9 +79,7 @@ public class InGameHudMixin implements IMinecraft {
    @Inject(method = "renderMainHud", at = @At("TAIL"))
    private void triggerHudRenderEvent(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
       CustomDrawContext customDrawContext = CustomDrawContext.of(context);
-      if (mc.currentScreen == null) {
-         DrawUtility.blurProgram.draw();
-      }
+      DrawUtility.blurProgram.draw();
       DefineVisuals.getInstance().getEventManager().triggerEvent(new HudRenderEvent(customDrawContext, tickCounter.getTickDelta(false)));
    }
 }

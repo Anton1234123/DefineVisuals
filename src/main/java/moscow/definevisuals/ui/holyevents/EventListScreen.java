@@ -56,7 +56,7 @@ public class EventListScreen extends CustomScreen {
 
     private final List<ModernEventCard> eventCards = new ArrayList<>();
 
-    private final ExecutorService networkExecutor = Executors.newSingleThreadExecutor(r -> {
+    private static final ExecutorService NETWORK_EXECUTOR = Executors.newFixedThreadPool(2, r -> {
         Thread t = new Thread(r, "HolyEvents-Network");
         t.setDaemon(true);
         return t;
@@ -122,8 +122,8 @@ public class EventListScreen extends CustomScreen {
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
                 connection.setRequestProperty("Accept", "application/json");
-                connection.setConnectTimeout(8_000);
-                connection.setReadTimeout(8_000);
+                connection.setConnectTimeout(5_000);
+                connection.setReadTimeout(5_000);
 
                 int code = connection.getResponseCode();
                 if (code == 200) {
@@ -141,6 +141,7 @@ public class EventListScreen extends CustomScreen {
                             }
                             MinecraftClient.getInstance().execute(() -> {
                                 this.eventsData = parsed;
+                                this.lastUpdateTime = System.currentTimeMillis();
                                 this.isLoading = false;
                             });
                         } else {
@@ -153,14 +154,19 @@ public class EventListScreen extends CustomScreen {
             } catch (Exception e) {
                 this.setError("Ошибка сети: " + (e.getMessage() != null ? e.getMessage() : "Unknown"));
             } finally {
-                if (connection != null) connection.disconnect();
+                if (connection != null) {
+                    try {
+                        connection.disconnect();
+                    } catch (Exception ignored) {}
+                }
             }
-        }, this.networkExecutor);
+        }, NETWORK_EXECUTOR);
     }
 
     private void setError(String msg) {
         MinecraftClient.getInstance().execute(() -> {
             this.errorMessage = msg;
+            this.lastUpdateTime = System.currentTimeMillis();
             this.isLoading = false;
         });
     }
@@ -536,13 +542,13 @@ public class EventListScreen extends CustomScreen {
 
     private void connectToServer(String serverName) {
         if (serverName == null || serverName.isEmpty()) return;
-        String s = serverName.toLowerCase();
-        if (s.startsWith("lite_anarchy_")) {
-            String num = s.replace("lite_anarchy_", "");
+        String s = serverName.toUpperCase();
+        if (s.startsWith("LITE_ANARCHY_")) {
+            String num = s.replace("LITE_ANARCHY_", "");
             DefineVisuals.getInstance().getCommandManager().dispatch(".rct " + num);
             this.close();
-        } else if (s.startsWith("lite_new_anarchy_")) {
-            String num = s.replace("lite_new_anarchy_", "");
+        } else if (s.startsWith("LITE_NEW_ANARCHY_")) {
+            String num = s.replace("LITE_NEW_ANARCHY_", "");
             if (MinecraftClient.getInstance().player != null) {
                 MinecraftClient.getInstance().player.networkHandler.sendChatCommand("an20 " + num);
             }
@@ -572,15 +578,6 @@ public class EventListScreen extends CustomScreen {
     @Override
     public void close() {
         this.closing = true;
-        this.networkExecutor.shutdown();
-        try {
-            if (!this.networkExecutor.awaitTermination(1, TimeUnit.SECONDS)) {
-                this.networkExecutor.shutdownNow();
-            }
-        } catch (InterruptedException ignored) {
-            this.networkExecutor.shutdownNow();
-        }
-        super.close();
     }
 
     @Override

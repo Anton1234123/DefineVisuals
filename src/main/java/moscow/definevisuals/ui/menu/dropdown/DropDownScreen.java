@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import lombok.Generated;
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.framework.base.UIContext;
@@ -81,7 +82,10 @@ implements IMinecraft {
         this.closing = false;
         this.panelWidth = 115.0f;
         this.panelHeight = 240.0f;
-        this.panels = Arrays.stream(MenuCategory.values()).map(MenuPanel::new).toList();
+        this.panels = Arrays.stream(MenuCategory.values())
+            .filter(cat -> cat == MenuCategory.PLAYER || cat == MenuCategory.VISUALS || cat == MenuCategory.UTILS)
+            .map(MenuPanel::new)
+            .toList();
         for (MenuPanel panel : this.panels) {
             panel.setWidth(this.panelWidth);
             panel.setHeight(this.panelHeight);
@@ -303,10 +307,13 @@ implements IMinecraft {
         if (soundsModule.isEnabled()) {
             ClientSounds.CLICKGUI_OPEN.play(soundsModule.getVolume().getCurrentValue(), 1.0f);
         }
-        DefineVisuals.getInstance().getFileManager().writeFile("client");
-        if (DefineVisuals.getInstance().getConfigManager().getCurrent() != null) {
-            DefineVisuals.getInstance().getConfigManager().getCurrent().save();
-        }
+        // Async file save to prevent freeze
+        CompletableFuture.runAsync(() -> {
+            DefineVisuals.getInstance().getFileManager().writeFile("client");
+            if (DefineVisuals.getInstance().getConfigManager().getCurrent() != null) {
+                DefineVisuals.getInstance().getConfigManager().getCurrent().save();
+            }
+        });
         if (TextField.LAST_FIELD != null) {
             TextField.LAST_FIELD.setFocused(false);
         }
@@ -318,6 +325,7 @@ implements IMinecraft {
     }
 
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+        // Empty to allow world rendering behind GUI (HUD-like behavior)
     }
 
     public boolean shouldCloseOnEsc() {

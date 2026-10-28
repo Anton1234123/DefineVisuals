@@ -79,8 +79,10 @@ public class ConfigManager {
          try (Stream<Path> stream = Files.list(configPath)) {
             stream.filter(x$0 -> Files.isRegularFile(x$0)).filter(path -> path.toString().endsWith(".def") || path.toString().endsWith(".rock")).forEach(path -> {
                String fileName = path.getFileName().toString();
-               String name = fileName.substring(0, fileName.lastIndexOf(46));
-               ConfigFile configFile = new ConfigFile(name);
+               int extensionStart = fileName.lastIndexOf(46);
+               String name = fileName.substring(0, extensionStart);
+               String fileType = fileName.substring(extensionStart + 1);
+               ConfigFile configFile = new ConfigFile(name, fileType);
                this.configFiles.add(configFile);
             });
          } catch (IOException var8) {
