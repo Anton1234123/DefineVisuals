@@ -24,11 +24,11 @@ extends IslandStatus {
         DynamicIsland island = DefineVisuals.getInstance().getHud().getIsland();
         float x = sr.getScaledWidth() / 2.0f - island.getSize().width / 2.0f;
         float y = 7.0f;
-        float width = this.size.width = 20.0f + Fonts.MEDIUM.getFont(7.0f).width("Rockstar");
+        float width = this.size.width = 20.0f + Fonts.MEDIUM.getFont(7.0f).width("Define");
         this.size.height = 15.0f;
         float height = 15.0f;
         context.drawRoundedRect(x - 6.0f + 10.0f * this.animation.getValue(), y + 4.0f, 7.0f, 7.0f, BorderRadius.all(3.0f), new ColorRGBA(115.0f, 0.0f, 255.0f));
-        context.drawText(Fonts.MEDIUM.getFont(7.0f), "Rockstar", x + 25.0f - 10.0f * this.animation.getValue(), y + 5.0f, Colors.getTextColor());
+        context.drawText(Fonts.MEDIUM.getFont(7.0f), "Define", x + 25.0f - 10.0f * this.animation.getValue(), y + 5.0f, Colors.getTextColor());
     }
 
     @Override

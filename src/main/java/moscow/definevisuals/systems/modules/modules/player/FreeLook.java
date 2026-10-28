@@ -8,6 +8,7 @@ import moscow.definevisuals.systems.event.impl.window.MouseScrollEvent;
 import moscow.definevisuals.systems.modules.api.ModuleCategory;
 import moscow.definevisuals.systems.modules.api.ModuleInfo;
 import moscow.definevisuals.systems.modules.impl.BaseModule;
+import moscow.definevisuals.systems.setting.settings.BindSetting;
 import moscow.definevisuals.systems.setting.settings.ModeSetting;
 import moscow.definevisuals.systems.setting.settings.SliderSetting;
 import moscow.definevisuals.utility.animation.base.Animation;
@@ -19,6 +20,8 @@ public class FreeLook extends BaseModule {
     private final ModeSetting mode = new ModeSetting(this, "Режим");
     private final ModeSetting.Value modeToggle = new ModeSetting.Value(this.mode, "Toggle");
     private final ModeSetting.Value modeHold = new ModeSetting.Value(this.mode, "Hold");
+    
+    private final BindSetting keyBind = new BindSetting(this, "Клавиша").key(76); // L key by default
     
     private final SliderSetting zoomLevel = new SliderSetting(this, "Zoom")
         .min(0.5f)
@@ -45,7 +48,6 @@ public class FreeLook extends BaseModule {
 
     private boolean isActive = false;
     private boolean keyHeld = false;
-    private int bindKey = 76; // L key by default
 
     private final EventListener<ClientPlayerTickEvent> onTick = event -> {
         if (mc.player == null || mc.options == null) return;
@@ -87,7 +89,7 @@ public class FreeLook extends BaseModule {
     private final EventListener<KeyPressEvent> onKeyPress = event -> {
         if (mc.player == null) return;
         
-        if (event.getKey() == bindKey && event.getAction() == 1) {
+        if (event.getKey() == keyBind.getKey() && event.getAction() == 1) {
             if (this.modeToggle.isSelected()) {
                 isActive = !isActive;
                 if (!isActive) {
@@ -130,7 +132,7 @@ public class FreeLook extends BaseModule {
 
     private boolean isKeyHeld() {
         if (mc.getWindow() == null) return false;
-        return InputUtil.isKeyPressed(mc.getWindow().getHandle(), bindKey);
+        return InputUtil.isKeyPressed(mc.getWindow().getHandle(), keyBind.getKey());
     }
 
     private float lerp(float start, float end, float alpha) {
@@ -166,6 +168,11 @@ public class FreeLook extends BaseModule {
     @Generated
     public ModeSetting.Value getModeHold() {
         return this.modeHold;
+    }
+
+    @Generated
+    public BindSetting getKeyBind() {
+        return this.keyBind;
     }
 
     @Generated
