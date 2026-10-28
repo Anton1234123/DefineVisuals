@@ -27,6 +27,7 @@ import moscow.definevisuals.systems.modules.modules.player.MacroMenu;
 import moscow.definevisuals.systems.modules.modules.player.AntiLud;
 import moscow.definevisuals.systems.modules.modules.player.AutoGG;
 import moscow.definevisuals.systems.modules.modules.player.ShulkerSafe;
+import moscow.definevisuals.systems.modules.modules.player.FreeLook;
 import moscow.definevisuals.systems.modules.modules.visuals.Ambience;
 import moscow.definevisuals.systems.modules.modules.visuals.AspectRatio;
 import moscow.definevisuals.systems.modules.modules.visuals.CustomFog;
@@ -134,6 +135,7 @@ public class ModuleManager {
       this.register(new ItemScroller());
       this.register(new SRPSpoof());
       this.register(new WindowTitle());
+      this.register(new FreeLook());
    }
    public void enableModules() {
       for (Module module : this.modules) {
