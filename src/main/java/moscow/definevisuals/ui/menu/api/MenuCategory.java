@@ -14,6 +14,7 @@ public enum MenuCategory {
     CLIENT("Client", ModuleCategory.CLIENT, CustomSprite.CLIENT, CustomSprite.BIG_CLIENT, null),
     CONFIGS("Configs", ModuleCategory.CONFIGS, CustomSprite.CONFIGS, CustomSprite.BIG_CONFIGS, CLIENT),
     THEMES("Themes", ModuleCategory.THEMES, CustomSprite.THEMES, CustomSprite.BIG_THEMES, CLIENT),
+    COSMETICS("Cosmetics", ModuleCategory.COSMETICS, CustomSprite.VISUALS, CustomSprite.BIG_VISUALS, CLIENT),
     OTHER("Other", ModuleCategory.OTHER, CustomSprite.OTHER, CustomSprite.BIG_OTHER, CLIENT),
     INTERFACE("Interface", ModuleCategory.INTERFACE, CustomSprite.INTERFACE, CustomSprite.BIG_INTERFACE, CLIENT);
 

@@ -13,5 +13,6 @@ public enum ModuleCategory {
    SERVER,
    CLIENT,
    CONFIGS,
-   THEMES;
+   THEMES,
+   COSMETICS;
 }

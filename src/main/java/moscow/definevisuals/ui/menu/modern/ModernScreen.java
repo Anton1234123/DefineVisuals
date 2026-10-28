@@ -38,6 +38,7 @@ import moscow.definevisuals.ui.menu.dropdown.components.settings.impl.StringSett
 import moscow.definevisuals.ui.menu.modern.components.ModernConfigPanel;
 import moscow.definevisuals.ui.menu.modern.components.ModernEventsPanel;
 import moscow.definevisuals.ui.menu.modern.components.ModernThemePanel;
+import moscow.definevisuals.ui.menu.modern.components.ModernCosmeticsPanel;
 import moscow.definevisuals.ui.menu.modern.components.ModernModule;
 import moscow.definevisuals.ui.menu.modern.components.ModernSettings;
 import moscow.definevisuals.utility.animation.base.Animation;
@@ -87,6 +88,7 @@ IScaledResolution {
     private final ModernConfigPanel configPanel = new ModernConfigPanel();
     private final ModernEventsPanel eventsPanel = new ModernEventsPanel();
     private final ModernThemePanel themePanel = new ModernThemePanel();
+    private final ModernCosmeticsPanel cosmeticsPanel = new ModernCosmeticsPanel();
     private final TextField searchField;
     private final PenisPlayer searchPenis;
     private boolean prevFocused;
@@ -126,8 +128,21 @@ IScaledResolution {
         this.searchPenis = new PenisPlayer(DefineVisuals.id("penises/search.penis"));
         this.searchPenis.stop();
     }
+    @Override
     protected void init() {
         this.closing = false;
+        float width = 400.0f;
+        float height = 280.0f;
+        float screenW = (float)this.width;
+        float screenH = (float)this.height;
+        if (screenW <= 0 && mc.getWindow() != null) screenW = (float)mc.getWindow().getScaledWidth();
+        if (screenH <= 0 && mc.getWindow() != null) screenH = (float)mc.getWindow().getScaledHeight();
+
+        this.menuWindow.setWidth(width);
+        this.menuWindow.setHeight(height);
+        this.menuWindow.setX(Math.max(0.0f, (screenW - width) / 2.0f));
+        this.menuWindow.setY(Math.max(0.0f, (screenH - height) / 2.0f));
+
         for (ModernCategory category : this.categories) {
             if (category.getPenis() == null) continue;
             category.getPenis().stop();
@@ -145,6 +160,17 @@ IScaledResolution {
         this.menuAnimation.update(this.closing ? 0.0f : 1.0f);
         this.menuAnimation.setEasing(!this.closing ? Easing.BAKEK : Easing.BAKEK_BACK);
         this.menuAnimation.setDuration(400L);
+        float screenW = (float)this.width;
+        float screenH = (float)this.height;
+        if (screenW <= 0 && mc.getWindow() != null) screenW = (float)mc.getWindow().getScaledWidth();
+        if (screenH <= 0 && mc.getWindow() != null) screenH = (float)mc.getWindow().getScaledHeight();
+        if (this.menuWindow.getX() <= 0.0f || this.menuWindow.getY() <= 0.0f
+                || this.menuWindow.getX() + this.menuWindow.getWidth() > screenW + 50.0f
+                || this.menuWindow.getY() + this.menuWindow.getHeight() > screenH + 50.0f) {
+            this.menuWindow.setX(Math.max(0.0f, (screenW - this.menuWindow.getWidth()) / 2.0f));
+            this.menuWindow.setY(Math.max(0.0f, (screenH - this.menuWindow.getHeight()) / 2.0f));
+        }
+
         this.scrollHandler.update();
         if (this.searchField.isFocused() && !this.prevFocused) {
             this.searchPenis.playOnce();
@@ -240,6 +266,8 @@ IScaledResolution {
             this.themePanel.render(context, x + 115.0f, y, this.menuWindow.getWidth() - 115.0f, this.menuWindow.getHeight(), alpha);
         } else if (this.current == MenuCategory.EVENTS) {
             this.eventsPanel.render(context, x + 115.0f, y, this.menuWindow.getWidth() - 115.0f, this.menuWindow.getHeight(), alpha);
+        } else if (this.current == MenuCategory.COSMETICS) {
+            this.cosmeticsPanel.render(context, x + 115.0f, y, this.menuWindow.getWidth() - 115.0f, this.menuWindow.getHeight(), alpha);
         } else {
             // --- Search bar at top of right content area ---
             float contentX = x + 115.0f;
@@ -448,6 +476,9 @@ IScaledResolution {
         } else if (this.current == MenuCategory.EVENTS) {
             this.eventsPanel.onMouseClicked(mouseX, mouseY, button, x + 115.0f, y, this.menuWindow.getWidth() - 115.0f, this.menuWindow.getHeight());
             return;
+        } else if (this.current == MenuCategory.COSMETICS) {
+            this.cosmeticsPanel.onMouseClicked(mouseX, mouseY, button, x + 115.0f, y, this.menuWindow.getWidth() - 115.0f, this.menuWindow.getHeight());
+            return;
         } else {
             List<ModernCategory> contentCategories = this.searchField.getBuiltText().isBlank() 
                 ? this.categories.stream().filter(cat -> cat.getCategory() == this.current).toList()
@@ -474,6 +505,8 @@ IScaledResolution {
             this.themePanel.onMouseReleased(mouseX, mouseY, button);
         } else if (this.current == MenuCategory.EVENTS) {
             this.eventsPanel.onMouseReleased(mouseX, mouseY, button);
+        } else if (this.current == MenuCategory.COSMETICS) {
+            this.cosmeticsPanel.onMouseReleased(mouseX, mouseY, button);
         }
         for (ModernSettings window : this.windows) {
             window.onMouseReleased(mouseX, mouseY, button);
@@ -502,6 +535,10 @@ IScaledResolution {
             if (GuiUtility.isHovered(this.menuWindow, mouseX, mouseY)) {
                 this.eventsPanel.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
             }
+        } else if (this.current == MenuCategory.COSMETICS) {
+            if (GuiUtility.isHovered(this.menuWindow, mouseX, mouseY)) {
+                this.cosmeticsPanel.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+            }
         } else if (GuiUtility.isHovered(this.menuWindow, mouseX, mouseY)) {
             this.scrollHandler.scroll(verticalAmount);
         }
@@ -515,6 +552,9 @@ IScaledResolution {
             return true;
         }
         if (this.current == MenuCategory.EVENTS && this.eventsPanel.keyPressed(keyCode, scanCode, modifiers)) {
+            return true;
+        }
+        if (this.current == MenuCategory.COSMETICS && this.cosmeticsPanel.keyPressed(keyCode, scanCode, modifiers)) {
             return true;
         }
         if (!this.searchField.isFocused() && Screen.hasControlDown() && keyCode == 70) {

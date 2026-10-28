@@ -53,6 +53,7 @@ import moscow.definevisuals.systems.modules.modules.visuals.ItemPhysics;
 import moscow.definevisuals.systems.modules.modules.visuals.JumpCircle;
 import moscow.definevisuals.systems.modules.modules.visuals.ShaderHand;
 import moscow.definevisuals.systems.modules.modules.visuals.Lyrics;
+import moscow.definevisuals.systems.modules.modules.visuals.Cosmetics;
 import net.minecraft.client.MinecraftClient;
 
 public class ModuleManager {
@@ -138,6 +139,7 @@ public class ModuleManager {
       this.register(new WindowTitle());
       this.register(new FreeLook());
       this.register(new Lyrics());
+      this.register(new Cosmetics());
    }
    public void enableModules() {
       for (Module module : this.modules) {
