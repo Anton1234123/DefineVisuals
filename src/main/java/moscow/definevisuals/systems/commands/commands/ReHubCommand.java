@@ -1,5 +1,7 @@
 package moscow.definevisuals.systems.commands.commands;
 
+import java.util.ArrayList;
+import java.util.List;
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.systems.commands.Command;
 import moscow.definevisuals.systems.commands.CommandBuilder;
@@ -37,18 +39,25 @@ public class ReHubCommand implements IMinecraft {
       return CommandBuilder.begin("rct")
          .aliases("reconnect", "anarchy")
          .desc("Быстрый переход на анархию HolyWorld")
-         .param("number", p -> p.validator(text -> {
-            try {
-               int num = Integer.parseInt(text);
-               if (num >= 1 && num <= AnReg.getMaxNumber()) {
-                  return ValidationResult.ok(num);
-               } else {
-                  return ValidationResult.error("Номер должен быть от 1 до " + AnReg.getMaxNumber());
+         .param("number", p -> {
+            p.validator(text -> {
+               try {
+                  int num = Integer.parseInt(text);
+                  if (num >= 1 && num <= AnReg.getMaxNumber()) {
+                     return ValidationResult.ok(num);
+                  } else {
+                     return ValidationResult.error("Номер должен быть от 1 до " + AnReg.getMaxNumber());
+                  }
+               } catch (NumberFormatException e) {
+                  return ValidationResult.error("Укажите номер анархии числом");
                }
-            } catch (NumberFormatException e) {
-               return ValidationResult.error("Укажите номер анархии числом");
+            }).optional();
+            List<String> nums = new ArrayList<>();
+            for (int i = 1; i <= AnReg.getMaxNumber(); i++) {
+               nums.add(String.valueOf(i));
             }
-         }).optional())
+            p.suggests(nums);
+         })
          .handler(this::handle)
          .build();
    }

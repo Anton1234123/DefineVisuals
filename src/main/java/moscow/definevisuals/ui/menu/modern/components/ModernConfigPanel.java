@@ -60,6 +60,7 @@ public class ModernConfigPanel implements IMinecraft {
     private static class ConfigCardState {
         final ConfigFile configFile;
         final Animation hoverAnim = new Animation(200L, Easing.QUAD_OUT);
+        final Animation selectAnim = new Animation(250L, Easing.FIGMA_EASE_IN_OUT);
         final Animation loadHover = new Animation(150L, Easing.QUAD_OUT);
         final Animation saveHover = new Animation(150L, Easing.QUAD_OUT);
         final Animation deleteHover = new Animation(150L, Easing.QUAD_OUT);
@@ -154,15 +155,18 @@ public class ModernConfigPanel implements IMinecraft {
                 }
 
                 boolean isActive = (currentActive != null && currentActive.getFileName().equalsIgnoreCase(cfg.getFileName())) || (currentActive == null && cfg.getFileName().equalsIgnoreCase("autosave"));
+                state.selectAnim.update(isActive);
 
-                // Card background
-                ColorRGBA cardBg = isActive
-                        ? accent.mulAlpha(0.12f + 0.06f * state.hoverAnim.getValue())
-                        : Colors.getBackgroundColor().mulAlpha((dark ? 0.18f : 0.14f) + 0.08f * state.hoverAnim.getValue());
+                // Card background (matching module grid style without outline)
+                float glass = Interface.glass();
+                ColorRGBA base = (dark ? Colors.getBackgroundColor() : Colors.getAdditionalColor())
+                        .withAlpha(255.0f * (dark ? 0.16f + 0.14f * Interface.minimalizm() : 0.12f + 0.12f * Interface.minimalizm()));
+                ColorRGBA cardBg = base
+                        .mix(accent.withAlpha(255.0f * (0.25f + 0.15f * (1.0f - glass))), state.selectAnim.getValue() * 0.9f)
+                        .mix(Colors.getTextColor().withAlpha(20.0f), state.hoverAnim.getValue() * 0.35f);
+
                 BorderRadius cardRadius = BorderRadius.all(4.0f);
-                context.drawSquircle(headerX, currentY, cardWidth, cardHeight, 4.0f, cardRadius, cardBg);
-                context.drawRoundedBorder(headerX, currentY, cardWidth, cardHeight, 0.7f, cardRadius,
-                        isActive ? accent.mulAlpha(0.72f) : Colors.getOutlineColor().mulAlpha(0.38f + 0.16f * state.hoverAnim.getValue()));
+                context.drawSquircle(headerX, currentY, cardWidth, cardHeight, 3.0f, cardRadius, cardBg);
 
                 // Left Avatar / Player Head
                 float avatarSize = 18.0f;

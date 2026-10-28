@@ -118,6 +118,7 @@ public enum DefineVisuals implements IMinecraft {
 
       ConfigDropHandler.init();
       TitleBarHelper.setDarkTitleBar();
+      TitleBarHelper.setCustomWindowIcon();
       new EventIntegration();
       this.createAvatar();
       LOGGER.info("{} initialized", NAME);

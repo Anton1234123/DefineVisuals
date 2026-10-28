@@ -1,8 +1,11 @@
 package moscow.definevisuals.mixin.minecraft.client.render;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.systems.event.impl.render.Render3DEvent;
+import moscow.definevisuals.systems.modules.modules.visuals.Ambience;
 import moscow.definevisuals.systems.modules.modules.visuals.CustomFog;
+import moscow.definevisuals.utility.colors.ColorRGBA;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.render.DynamicLightUtility;
 import moscow.definevisuals.utility.render.DrawUtility;
@@ -51,6 +54,30 @@ public class WorldRendererMixin implements IMinecraft {
    )
    private static void applyDynamicFullbright(BlockRenderView world, BlockState state, BlockPos pos, CallbackInfoReturnable<Integer> info) {
       info.setReturnValue(DynamicLightUtility.apply(pos, info.getReturnValueI()));
+   }
+
+   @Inject(method = "renderClouds", at = @At("HEAD"))
+   private void onRenderClouds(
+      net.minecraft.client.render.FrameGraphBuilder frameGraphBuilder,
+      Matrix4f positionMatrix,
+      Matrix4f projectionMatrix,
+      net.minecraft.client.option.CloudRenderMode renderMode,
+      net.minecraft.util.math.Vec3d cameraPos,
+      float ticks,
+      int color,
+      float cloudHeight,
+      CallbackInfo ci
+   ) {
+      Ambience ambience = DefineVisuals.getInstance().getModuleManager().getModule(Ambience.class);
+      if (ambience != null && ambience.isEnabled() && ambience.shouldTintClouds()) {
+         ColorRGBA cloudColor = ambience.getResolvedCloudColor();
+         RenderSystem.setShaderColor(
+            cloudColor.getRed() / 255.0F,
+            cloudColor.getGreen() / 255.0F,
+            cloudColor.getBlue() / 255.0F,
+            cloudColor.getAlpha() / 255.0F
+         );
+      }
    }
 
    private void applyCustomFogDepthBlur(Camera camera) {

@@ -8,6 +8,7 @@ import net.minecraft.client.render.Camera;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Camera.class)
@@ -28,21 +29,42 @@ public abstract class CameraMixin {
       }
    }
 
-   @Inject(method = "getRotation", at = @At("RETURN"), cancellable = true)
-   private void onGetRotation(CallbackInfoReturnable<Float> ci) {
+   @ModifyArg(
+      method = "update",
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V"),
+      index = 0
+   )
+   private float modifyCameraYaw(float yaw) {
       FreeLook freeLook = DefineVisuals.getInstance().getModuleManager().getModule(FreeLook.class);
-      if (freeLook != null && freeLook.isEnabled() && freeLook.isFreeLookActive()) {
-         float original = ci.getReturnValueF();
-         ci.setReturnValue(original + freeLook.getYawOffset());
+      if (freeLook != null && freeLook.isEnabled() && freeLook.isActive()) {
+         return freeLook.getCameraYaw();
       }
+      return yaw;
    }
 
-   @Inject(method = "getPitch", at = @At("RETURN"), cancellable = true)
-   private void onGetPitch(CallbackInfoReturnable<Float> ci) {
+   @ModifyArg(
+      method = "update",
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V"),
+      index = 1
+   )
+   private float modifyCameraPitch(float pitch) {
       FreeLook freeLook = DefineVisuals.getInstance().getModuleManager().getModule(FreeLook.class);
-      if (freeLook != null && freeLook.isEnabled() && freeLook.isFreeLookActive()) {
-         float original = ci.getReturnValueF();
-         ci.setReturnValue(original + freeLook.getPitchOffset());
+      if (freeLook != null && freeLook.isEnabled() && freeLook.isActive()) {
+         return freeLook.getCameraPitch();
       }
+      return pitch;
+   }
+
+   @ModifyArg(
+      method = "update",
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;clipToSpace(F)F"),
+      index = 0
+   )
+   private float modifyCameraDistance(float distance) {
+      FreeLook freeLook = DefineVisuals.getInstance().getModuleManager().getModule(FreeLook.class);
+      if (freeLook != null && freeLook.isEnabled() && freeLook.isActive()) {
+         return freeLook.getCameraDistance();
+      }
+      return distance;
    }
 }

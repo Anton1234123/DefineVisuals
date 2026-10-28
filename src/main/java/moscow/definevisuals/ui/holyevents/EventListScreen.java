@@ -545,7 +545,8 @@ public class EventListScreen extends CustomScreen {
         String s = serverName.toUpperCase();
         if (s.startsWith("LITE_ANARCHY_")) {
             String num = s.replace("LITE_ANARCHY_", "");
-            DefineVisuals.getInstance().getCommandManager().dispatch(".rct " + num);
+            String prefix = DefineVisuals.getInstance().getCommandManager().getPrefix();
+            DefineVisuals.getInstance().getCommandManager().dispatch(prefix + "rct " + num);
             this.close();
         } else if (s.startsWith("LITE_NEW_ANARCHY_")) {
             String num = s.replace("LITE_NEW_ANARCHY_", "");
@@ -615,16 +616,16 @@ public class EventListScreen extends CustomScreen {
                 String[] parts = s.split("_");
                 if (parts.length >= 3) {
                     int serverNum = Integer.parseInt(parts[2]);
-                    if (serverNum >= 1 && serverNum <= 12) {
+                    if (serverNum >= 1 && serverNum <= 9) {
                         return this.module.showSoloLight.isEnabled();
                     }
-                    if (serverNum >= 13 && serverNum <= 26) {
+                    if (serverNum >= 10 && serverNum <= 19) {
                         return this.module.showDuoLight.isEnabled();
                     }
-                    if (serverNum >= 27 && serverNum <= 39) {
+                    if (serverNum >= 20 && serverNum <= 29) {
                         return this.module.showTrioLight.isEnabled();
                     }
-                    if (serverNum >= 40 && serverNum <= 51) {
+                    if (serverNum >= 30 && serverNum <= 36) {
                         return this.module.showClanLight.isEnabled();
                     }
                     return this.module.showAnarchy116.isEnabled();

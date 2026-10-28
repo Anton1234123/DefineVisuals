@@ -33,16 +33,18 @@ public final class AnReg {
       if (entry != null) {
          return entry.key();
       } else {
-         if (number >= 40) return "clans";
+         if (number >= 30) return "clans";
+         if (number >= 20) return "trio";
+         if (number >= 10) return "duo";
          return "solo";
       }
    }
 
    public static int catSlotOf(int number) {
-      if (number >= 1 && number <= 12) return 0; // Solo
-      if (number >= 13 && number <= 26) return 1; // Duo
-      if (number >= 27 && number <= 39) return 2; // Trio
-      return 3; // Clans (40-51+)
+      if (number >= 1 && number <= 9) return 0; // Solo
+      if (number >= 10 && number <= 19) return 1; // Duo
+      if (number >= 20 && number <= 29) return 2; // Trio
+      return 3; // Clans (30-36)
    }
 
    public static String keyOf(int number) {
@@ -61,8 +63,10 @@ public final class AnReg {
             default -> prefix = "Анархия";
          }
       } else {
-         if (number >= 40) prefix = "Кланы";
-         else prefix = "Анархия";
+         if (number >= 30) prefix = "Кланы";
+         else if (number >= 20) prefix = "Трио";
+         else if (number >= 10) prefix = "Дуо";
+         else prefix = "Соло";
       }
 
       return prefix + " #" + number;

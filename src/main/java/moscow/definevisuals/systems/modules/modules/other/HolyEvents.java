@@ -18,10 +18,10 @@ public class HolyEvents extends BaseModule {
 
     public final BooleanSetting showAnarchy120 = new BooleanSetting(this, "1.20 Анархия").enabled(true);
     public final BooleanSetting showAnarchy116 = new BooleanSetting(this, "1.16 Анархия").enabled(true);
-    public final BooleanSetting showSoloLight = new BooleanSetting(this, "Соло Лайт (1-12)").enabled(true);
-    public final BooleanSetting showDuoLight = new BooleanSetting(this, "Дуо Лайт (13-26)").enabled(true);
-    public final BooleanSetting showTrioLight = new BooleanSetting(this, "Трио Лайт (27-39)").enabled(true);
-    public final BooleanSetting showClanLight = new BooleanSetting(this, "Клан Лайт (40-51)").enabled(true);
+    public final BooleanSetting showSoloLight = new BooleanSetting(this, "Соло Лайт (1-9)").enabled(true);
+    public final BooleanSetting showDuoLight = new BooleanSetting(this, "Дуо Лайт (10-19)").enabled(true);
+    public final BooleanSetting showTrioLight = new BooleanSetting(this, "Трио Лайт (20-29)").enabled(true);
+    public final BooleanSetting showClanLight = new BooleanSetting(this, "Клан Лайт (30-36)").enabled(true);
 
     public HolyEvents() {
     }

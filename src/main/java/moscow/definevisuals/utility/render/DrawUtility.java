@@ -85,6 +85,8 @@ IWindow {
     public static BlurProgram blurProgram;
     public static SkyShaderProgram skyNebulaProgram;
     public static SkyShaderProgram skyCausticProgram;
+    public static SkyShaderProgram skyGalaxyProgram;
+    public static SkyShaderProgram skySpaceProgram;
     public static RainRenderer rainRenderer;
     public static FogRenderer fogRenderer;
     private static final CustomRenderTarget buffer;
@@ -101,6 +103,8 @@ IWindow {
         blurProgram.initShaders();
         skyNebulaProgram = new SkyShaderProgram(DefineVisuals.id("sky_nebula/data"));
         skyCausticProgram = new SkyShaderProgram(DefineVisuals.id("sky_caustic/data"));
+        skyGalaxyProgram = new SkyShaderProgram(DefineVisuals.id("sky_radiant/data"));
+        skySpaceProgram = new SkyShaderProgram(DefineVisuals.id("sky_sunset/data"));
         // rainRenderer = new RainRenderer();
         // rainRenderer.init();
         // fogRenderer = new FogRenderer();

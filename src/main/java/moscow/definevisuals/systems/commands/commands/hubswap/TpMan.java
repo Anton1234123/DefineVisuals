@@ -12,9 +12,13 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public final class TpMan implements IMinecraft {
     private static final String TYPE_KEY = "advancedserverselecter:server-type";
     private static final String SERVER_KEY = "advancedserverselecter:server";
+    private static final Pattern SERVER_NUM_PATTERN = Pattern.compile("(?:#|№|\\s|^)(\\d+)(?!\\d)");
 
     private State state = State.IDLE;
     private int num;
@@ -138,22 +142,7 @@ public final class TpMan implements IMinecraft {
         int containerSlots = handler.slots.size() - 36;
         if (containerSlots <= 0) return false;
 
-        // Try direct slot index first (slots 0-3 on top row)
-        if (this.catSlot < containerSlots && this.catSlot < 9) {
-            Slot slot = handler.getSlot(this.catSlot);
-            if (!slot.getStack().isEmpty()) {
-                mc.interactionManager.clickSlot(
-                        handler.syncId,
-                        slot.getIndex(),
-                        0,
-                        SlotActionType.PICKUP,
-                        mc.player
-                );
-                return true;
-            }
-        }
-
-        // Search top row slots 0-8 for matching category
+        // 1. Search top row slots 0-8 for matching category by NBT or name
         for (int i = 0; i < Math.min(9, containerSlots); ++i) {
             Slot slot = handler.getSlot(i);
             ItemStack stack = slot.getStack();
@@ -189,6 +178,22 @@ public final class TpMan implements IMinecraft {
                 return true;
             }
         }
+
+        // 2. Fallback to direct slot index if within bounds and not empty
+        if (this.catSlot < containerSlots && this.catSlot < 9) {
+            Slot slot = handler.getSlot(this.catSlot);
+            if (!slot.getStack().isEmpty()) {
+                mc.interactionManager.clickSlot(
+                        handler.syncId,
+                        slot.getIndex(),
+                        0,
+                        SlotActionType.PICKUP,
+                        mc.player
+                );
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -207,20 +212,20 @@ public final class TpMan implements IMinecraft {
 
             // 1. Check server NBT key
             String nbtVal = readNbt(stack, SERVER_KEY);
-            if (this.key.equalsIgnoreCase(nbtVal)) {
+            if (this.key.equalsIgnoreCase(nbtVal) || (this.num == 1 && "lanarchy1".equalsIgnoreCase(nbtVal))) {
                 match = true;
             }
 
-            // 2. Check item name
+            // 2. Check item name with exact number parsing to avoid prefix conflicts (e.g., #1 matching #10)
             if (!match) {
                 String stackName = stack.getName().getString().toLowerCase();
-                if (stackName.contains("#" + this.num) || stackName.contains("# " + this.num) || stackName.endsWith(" " + this.num) || stackName.equals(String.valueOf(this.num))) {
+                if (matchesServerName(stackName, this.num)) {
                     match = true;
                 }
             }
 
-            // 3. Check stack count
-            if (!match && stack.getCount() == this.num) {
+            // 3. Fallback stack count match (only if item count matches and count > 1 to avoid false positives with count 1)
+            if (!match && this.num > 1 && stack.getCount() == this.num) {
                 match = true;
             }
 
@@ -234,6 +239,18 @@ public final class TpMan implements IMinecraft {
                 );
                 return true;
             }
+        }
+        return false;
+    }
+
+    private static boolean matchesServerName(String stackName, int targetNum) {
+        if (stackName == null || stackName.isEmpty()) return false;
+        Matcher m = SERVER_NUM_PATTERN.matcher(stackName);
+        while (m.find()) {
+            try {
+                int parsed = Integer.parseInt(m.group(1));
+                if (parsed == targetNum) return true;
+            } catch (NumberFormatException ignored) {}
         }
         return false;
     }

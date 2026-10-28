@@ -29,6 +29,7 @@ import moscow.definevisuals.utility.sounds.ClientSounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Identifier;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -40,6 +41,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ModernEventsPanel implements IMinecraft {
+    private static final Identifier CHECK_ICON = DefineVisuals.id("icons/check.png");
     private final Gson gson = new Gson();
     private final HolyEvents module;
     private Map<String, JsonArray> eventsData = new HashMap<>();
@@ -181,15 +183,15 @@ public class ModernEventsPanel implements IMinecraft {
         currentSettingY += 14.0f;
         this.renderSettingToggle(context, headerX, currentSettingY, settingW, "1.16 Анархия", this.module.showAnarchy116.isEnabled(), dark, accent, textColor);
         currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "Трио Лайт (27-39)", this.module.showTrioLight.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "Трио Лайт (20-29)", this.module.showTrioLight.isEnabled(), dark, accent, textColor);
         
         // Правая колонка
         currentSettingY = settingsListY - (float)this.settingsScrollHandler.getValue();
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Клан Лайт (40-51)", this.module.showClanLight.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Клан Лайт (30-36)", this.module.showClanLight.isEnabled(), dark, accent, textColor);
         currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Соло Лайт (1-12)", this.module.showSoloLight.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Соло Лайт (1-9)", this.module.showSoloLight.isEnabled(), dark, accent, textColor);
         currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Дуо Лайт (13-26)", this.module.showDuoLight.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Дуо Лайт (10-19)", this.module.showDuoLight.isEnabled(), dark, accent, textColor);
 
         this.settingsScrollHandler.setMax(0.0f);
         ScissorUtility.pop();
@@ -295,15 +297,21 @@ public class ModernEventsPanel implements IMinecraft {
         float checkboxX = x + w - checkboxSize - 6.0f;
         float checkboxY = y + 1.0f;
 
-        ColorRGBA checkboxBg = enabled ? accent : textColor.mulAlpha(0.25f);
-        ColorRGBA checkboxBorder = enabled ? accent : textColor.mulAlpha(0.35f);
-        context.drawRoundedRect(checkboxX, checkboxY, checkboxSize, checkboxSize, BorderRadius.all(2.0f), checkboxBg.mulAlpha(0.3f));
-        context.drawRoundedBorder(checkboxX, checkboxY, checkboxSize, checkboxSize, 0.7f, BorderRadius.all(2.0f), checkboxBorder);
+        ColorRGBA checkboxBg = enabled
+                ? accent.mulAlpha(hovered ? 0.55f : 0.45f)
+                : Colors.getBackgroundColor().mulAlpha(hovered ? 0.3f : 0.2f);
+        ColorRGBA checkboxBorder = enabled
+                ? accent.mulAlpha(0.85f)
+                : Colors.getOutlineColor().mulAlpha(hovered ? 0.55f : 0.38f);
+
+        BorderRadius boxRadius = BorderRadius.all(2.5f);
+        context.drawSquircle(checkboxX, checkboxY, checkboxSize, checkboxSize, 2.5f, boxRadius, checkboxBg);
+        context.drawRoundedBorder(checkboxX, checkboxY, checkboxSize, checkboxSize, 0.7f, boxRadius, checkboxBorder);
+
         if (enabled) {
-            float checkX = checkboxX + 2.0f;
-            float checkY = checkboxY + 2.0f;
-            context.drawRoundedRect(checkX, checkY + 2.0f, 2.0f, 4.0f, BorderRadius.all(1.0f), Colors.WHITE);
-            context.drawRoundedRect(checkX + 2.0f, checkY + 4.0f, 4.0f, 2.0f, BorderRadius.all(1.0f), Colors.WHITE);
+            float iconSize = 7.0f;
+            float iconOffset = (checkboxSize - iconSize) / 2.0f;
+            context.drawTexture(CHECK_ICON, checkboxX + iconOffset, checkboxY + iconOffset, iconSize, iconSize, Colors.WHITE);
         }
 
         context.drawText(Fonts.MEDIUM.getFont(5.5f), text, x + 6.0f, y + 3.5f, textColor.mulAlpha(0.85f));
@@ -473,16 +481,16 @@ public class ModernEventsPanel implements IMinecraft {
                 String[] parts = s.split("_");
                 if (parts.length >= 3) {
                     int serverNum = Integer.parseInt(parts[2]);
-                    if (serverNum >= 1 && serverNum <= 12) {
+                    if (serverNum >= 1 && serverNum <= 9) {
                         return this.module.showSoloLight.isEnabled();
                     }
-                    if (serverNum >= 13 && serverNum <= 26) {
+                    if (serverNum >= 10 && serverNum <= 19) {
                         return this.module.showDuoLight.isEnabled();
                     }
-                    if (serverNum >= 27 && serverNum <= 39) {
+                    if (serverNum >= 20 && serverNum <= 29) {
                         return this.module.showTrioLight.isEnabled();
                     }
-                    if (serverNum >= 40 && serverNum <= 51) {
+                    if (serverNum >= 30 && serverNum <= 36) {
                         return this.module.showClanLight.isEnabled();
                     }
                     return this.module.showAnarchy116.isEnabled();
@@ -600,7 +608,8 @@ public class ModernEventsPanel implements IMinecraft {
         String s = serverName.toLowerCase();
         if (s.startsWith("lite_anarchy_")) {
             String num = s.replace("lite_anarchy_", "");
-            DefineVisuals.getInstance().getCommandManager().dispatch(".rct " + num);
+            String prefix = DefineVisuals.getInstance().getCommandManager().getPrefix();
+            DefineVisuals.getInstance().getCommandManager().dispatch(prefix + "rct " + num);
         } else if (s.startsWith("lite_new_anarchy_")) {
             String num = s.replace("lite_new_anarchy_", "");
             if (mc.player != null) {
@@ -639,3 +648,4 @@ public class ModernEventsPanel implements IMinecraft {
         return false;
     }
 }
+

@@ -388,7 +388,7 @@ IScaledResolution {
         float width = 93.0f;
         float y = menuY + 5.0f + 270.0f - 10.0f - height;
         context.drawRoundedRect(x, y - 6.0f, width, 0.8f, BorderRadius.all(1.0f), Colors.getTextColor().mulAlpha(0.1f));
-        DrawUtility.drawRoundedTextureWithUV(context.getMatrices(), DefineVisuals.id("icon.png"), x, y + (height - logo) / 2.0f, logo, logo, BorderRadius.all(4.0f), Colors.WHITE, 0.14f, 0.10f, 0.86f, 0.82f);
+        context.drawTexture(DefineVisuals.id("icon.png"), x, y + (height - logo) / 2.0f, logo, logo, Colors.WHITE);
         float textX = x + logo + 6.0f;
         context.drawText(titleFont, title, textX, y + 6.0f, Colors.getTextColor());
         context.drawFadeoutText(infoFont, info, textX, y + 17.5f, Colors.getTextColor().mulAlpha(0.45f), 0.7f, 1.0f, width - logo - 8.0f);

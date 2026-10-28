@@ -14,7 +14,7 @@ import net.fabricmc.loader.api.FabricLoader;
 public final class RangeCfg {
    private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("DefineVisuals-hubswap-ranges.txt");
    private final List<RangeEntry> ranges = new ArrayList();
-   private int total = 51;
+   private int total = 36;
 
    public RangeCfg() {
       this.resetDefaults();
@@ -23,11 +23,11 @@ public final class RangeCfg {
 
    private void resetDefaults() {
       this.ranges.clear();
-      this.ranges.add(new RangeEntry("solo", "", 1, 12));
-      this.ranges.add(new RangeEntry("duo", "", 13, 26));
-      this.ranges.add(new RangeEntry("trio", "", 27, 39));
-      this.ranges.add(new RangeEntry("clans", "", 40, 51));
-      this.total = 51;
+      this.ranges.add(new RangeEntry("solo", "", 1, 9));
+      this.ranges.add(new RangeEntry("duo", "", 10, 19));
+      this.ranges.add(new RangeEntry("trio", "", 20, 29));
+      this.ranges.add(new RangeEntry("clans", "", 30, 36));
+      this.total = 36;
    }
 
    public List<RangeEntry> getRanges() {
@@ -97,7 +97,7 @@ public final class RangeCfg {
       try {
          if (Files.exists(FILE, new LinkOption[0])) {
             List<String> lines = Files.readAllLines(FILE, StandardCharsets.UTF_8);
-            int loadedTotal = 51;
+            int loadedTotal = 36;
             List<RangeEntry> loaded = new ArrayList();
 
             for(String line : lines) {
@@ -126,9 +126,19 @@ public final class RangeCfg {
             }
 
             if (!loaded.isEmpty()) {
-               this.total = loadedTotal;
-               this.ranges.clear();
-               this.ranges.addAll(loaded);
+               boolean isOldDefault = (loadedTotal == 51 && loaded.size() == 4
+                   && loaded.get(0).min() == 1 && loaded.get(0).max() == 12
+                   && loaded.get(1).min() == 13 && loaded.get(1).max() == 26
+                   && loaded.get(2).min() == 27 && loaded.get(2).max() == 39
+                   && loaded.get(3).min() == 40 && loaded.get(3).max() == 51);
+               if (isOldDefault) {
+                  this.resetDefaults();
+                  this.save();
+               } else {
+                  this.total = loadedTotal;
+                  this.ranges.clear();
+                  this.ranges.addAll(loaded);
+               }
             }
          }
       } catch (IOException var12) {

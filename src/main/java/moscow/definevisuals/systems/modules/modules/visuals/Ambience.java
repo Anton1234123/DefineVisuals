@@ -358,14 +358,27 @@ public class Ambience extends BaseModule {
       if (this.skybox.is(this.defaultSkybox)) {
          return null;
       }
-      int index = this.skybox.getValues().indexOf(this.skybox.getValue());
-      if (index <= 0) return null;
-      return DefineVisuals.id("sky/" + index + ".png");
+      if (this.skybox.is(this.brightCloudsSkybox)) {
+         return DefineVisuals.id("sky/1.png");
+      } else if (this.skybox.is(this.lakeSkybox)) {
+         return DefineVisuals.id("sky/2.png");
+      } else if (this.skybox.is(this.cloudSpaceSkybox)) {
+         return DefineVisuals.id("sky/3.png");
+      } else if (this.skybox.is(this.clearEveningSkybox)) {
+         return DefineVisuals.id("sky/4.png");
+      } else if (this.skybox.is(this.underwaterSkybox)) {
+         return DefineVisuals.id("sky/5.png");
+      }
+      return null;
    }
 
    public SkyShaderProgram getSkyShaderProgram() {
       if (this.causticShader.isSelected()) {
          return DrawUtility.skyCausticProgram;
+      } else if (this.galaxyShader.isSelected()) {
+         return DrawUtility.skyGalaxyProgram;
+      } else if (this.spaceShader.isSelected()) {
+         return DrawUtility.skySpaceProgram;
       } else {
          return DrawUtility.skyNebulaProgram;
       }

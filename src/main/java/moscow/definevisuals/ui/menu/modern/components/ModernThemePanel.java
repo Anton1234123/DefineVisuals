@@ -9,6 +9,7 @@ import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.systems.modules.modules.other.Sounds;
+import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.notifications.NotificationType;
 import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.components.ColorPicker;
@@ -32,6 +33,7 @@ public class ModernThemePanel implements IMinecraft {
         private ColorRGBA color1;
         private ColorRGBA color2;
         private final Animation hoverAnim = new Animation(200L, Easing.QUAD_OUT);
+        private final Animation selectAnim = new Animation(250L, Easing.FIGMA_EASE_IN_OUT);
 
         public ThemePreset(String name, ColorRGBA color1, ColorRGBA color2) {
             this.name = name;
@@ -61,6 +63,10 @@ public class ModernThemePanel implements IMinecraft {
 
         public Animation getHoverAnim() {
             return this.hoverAnim;
+        }
+
+        public Animation getSelectAnim() {
+            return this.selectAnim;
         }
     }
 
@@ -156,21 +162,18 @@ public class ModernThemePanel implements IMinecraft {
             }
 
             boolean isSelected = (this.selectedPreset == preset);
+            preset.getSelectAnim().update(isSelected);
 
-            // Card background
-            ColorRGBA cardBg = isSelected
-                    ? accent.mulAlpha(0.12f + 0.06f * preset.getHoverAnim().getValue())
-                    : Colors.getBackgroundColor().mulAlpha((dark ? 0.18f : 0.14f) + 0.08f * preset.getHoverAnim().getValue());
+            // Card background (matching module grid style without outline)
+            float glass = Interface.glass();
+            ColorRGBA base = (dark ? Colors.getBackgroundColor() : Colors.getAdditionalColor())
+                    .withAlpha(255.0f * (dark ? 0.16f + 0.14f * Interface.minimalizm() : 0.12f + 0.12f * Interface.minimalizm()));
+            ColorRGBA cardBg = base
+                    .mix(accent.withAlpha(255.0f * (0.25f + 0.15f * (1.0f - glass))), preset.getSelectAnim().getValue() * 0.9f)
+                    .mix(Colors.getTextColor().withAlpha(20.0f), preset.getHoverAnim().getValue() * 0.35f);
+
             BorderRadius cardRadius = BorderRadius.all(4.0f);
-            context.drawSquircle(cardX, cardY, cardWidth, cardHeight, 4.0f, cardRadius, cardBg);
-            context.drawRoundedBorder(cardX, cardY, cardWidth, cardHeight, 0.7f, cardRadius,
-                    isSelected ? accent.mulAlpha(0.72f) : Colors.getOutlineColor().mulAlpha(0.38f + 0.16f * preset.getHoverAnim().getValue()));
-
-            if (isSelected) {
-                // White dot indicator on right
-                float indSize = 4.0f;
-                context.drawRoundedRect(cardX + cardWidth - 12.0f, cardY + (cardHeight - indSize) / 2.0f, indSize, indSize, BorderRadius.all(indSize / 2.0f), Colors.WHITE);
-            }
+            context.drawSquircle(cardX, cardY, cardWidth, cardHeight, 3.0f, cardRadius, cardBg);
 
             // Theme Name
             context.drawText(Fonts.MEDIUM.getFont(6.5f), preset.getName(), cardX + 7.0f, cardY + 5.0f, textColor);

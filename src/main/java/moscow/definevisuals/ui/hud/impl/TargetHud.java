@@ -25,6 +25,7 @@ import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.setting.settings.BooleanSetting;
 import moscow.definevisuals.systems.setting.settings.ModeSetting;
+import moscow.definevisuals.systems.setting.settings.SliderSetting;
 import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.hud.HudElement;
 import moscow.definevisuals.utility.animation.base.Animation;
@@ -34,6 +35,7 @@ import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.game.EntityUtility;
 import moscow.definevisuals.utility.game.TextUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
+import moscow.definevisuals.utility.interfaces.IScaledResolution;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.time.Timer;
@@ -43,12 +45,18 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 
 public class TargetHud
 extends HudElement {
-    private final BooleanSetting rayTrace = new BooleanSetting(this, "hud.targethud.look");
+    private final BooleanSetting rayTrace = new BooleanSetting(this, "hud.targethud.look").enabled(true);
+    private final SliderSetting stayTime = new SliderSetting(this, "hud.targethud.staytime", "hud.targethud.staytime.description")
+        .min(0.5f).max(5.0f).step(0.5f).currentValue(2.0f);
     private final ModeSetting armor = new ModeSetting(this, "hud.targethud.armor");
     private final ModeSetting.Value armorNone = new ModeSetting.Value(this.armor, "hud.targethud.armor.none");
     private final ModeSetting.Value armorNumber = new ModeSetting.Value(this.armor, "hud.targethud.armor.number").select();
@@ -64,11 +72,14 @@ extends HudElement {
     private final Animation pulseIntensity = new Animation(50L, 0.0f, Easing.SINE_IN_OUT);
     private final Animation[] items = new Animation[4];
     private LivingEntity target;
+    private LivingEntity currentLookTarget;
+    private long lastTargetTime;
     private final Timer copyTimer = new Timer();
     private boolean copied;
 
     public TargetHud() {
         super("hud.targethud", "icons/hud/target.png");
+        this.showing = true;
         for (int i = 0; i < this.items.length; ++i) {
             this.items[i] = new Animation(300L, 0.0f, Easing.BAKEK);
         }
@@ -79,6 +90,10 @@ extends HudElement {
         super.update(context);
         this.width = 103.0f;
         this.height = 31.0f;
+        if (this.x == 0.0f && this.y == 0.0f && IScaledResolution.sr != null) {
+            this.x = IScaledResolution.sr.getScaledWidth() / 2.0f + 10.0f;
+            this.y = IScaledResolution.sr.getScaledHeight() / 2.0f + 10.0f;
+        }
     }
 
     @Override
@@ -108,7 +123,7 @@ extends HudElement {
         }
         this.copy.update(hover);
         this.success.update(this.copied);
-        this.content.update(this.animation.getValue() * this.visible.getValue() >= 1.0f);
+        this.content.update(this.animation.getValue() * this.visible.getValue() >= 0.5f);
         LivingEntity livingEntity = this.target;
         if (livingEntity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)livingEntity;
@@ -158,46 +173,28 @@ extends HudElement {
                 boolean isIcon = this.armorIcon.isSelected();
                 float panelWidth = isIcon ? 11.0f : 5.0f + semibold6.width(percent);
                 float panelHeight = isIcon ? 11.0f : 9.0f;
-                float panelX = this.x + this.width / 2.0f + xOffset;
-                float panelY = this.y + this.height - 4.0f + 6.0f * anim;
-                RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)(prev * anim));
-                context.drawBlurredRect(panelX, panelY, panelWidth, panelHeight, 5.0f, BorderRadius.all(1.5f), ColorRGBA.WHITE.withAlpha(255.0f * this.animation.getValue()));
-                RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)prev);
-                context.drawRoundedRect(panelX, panelY, panelWidth, panelHeight, BorderRadius.all(1.5f), bgColor.withAlpha(bgColor.getAlpha() * anim));
-                ScissorUtility.push(context.getMatrices(), panelX, panelY, panelWidth, panelHeight);
-                RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)(prev * anim * 0.5f));
-                if (this.armorNumber.isSelected()) {
-                    context.drawItem(itemStack, panelX - 11.0f + panelWidth / 2.0f + 2.0f, panelY - 4.0f, 1.0f);
+                ColorRGBA itemBgColor = Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.8f - 0.6f * Interface.glass() : 0.7f) * anim);
+                context.drawSquircle(this.x + this.width / 2.0f + xOffset, this.y - 12.0f * this.content.getValue(), panelWidth, panelHeight, 2.0f, BorderRadius.all(2.5f), itemBgColor);
+                if (isIcon) {
+                    RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)anim);
+                    context.drawItem(itemStack, this.x + this.width / 2.0f + xOffset + 1.0f, this.y - 11.0f * this.content.getValue(), 0.55f);
+                    RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
                 } else {
-                    context.drawItem(itemStack, panelX - 11.0f + panelWidth / 2.0f + 5.5f, panelY, 0.7f);
+                    context.drawCenteredText(semibold6, percent, this.x + this.width / 2.0f + xOffset + panelWidth / 2.0f, this.y - 12.0f * this.content.getValue() + 3.0f, Colors.ACCENT.withAlpha(255.0f * anim));
                 }
-                RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)prev);
-                ScissorUtility.pop();
-                if (this.armorNumber.isSelected()) {
-                    context.drawText(semibold6, percent, panelX + 3.0f, panelY + 2.5f, Colors.getTextColor().withAlpha(255.0f * anim));
-                }
-                xOffset += (panelWidth + 2.0f) * anim;
+                xOffset += (panelWidth + 2.0f) * this.content.getValue();
                 ++i;
             }
-            float handWidth = Arrays.stream(handItems).mapToInt(item -> item.isEmpty() ? 0 : (int)(itemSize + 2.0f)).sum() - 2;
-            float handX = this.armorNumber.isSelected() ? -handWidth / 2.0f : xOffset;
-            for (ItemStack handItem : handItems) {
-                if (handItem.isEmpty()) continue;
-                float handItemX = this.x + this.width / 2.0f + handX;
-                float handItemY = this.y + this.height - 4.0f + 6.0f * this.content.getValue() + (float)(this.armorNumber.isSelected() ? 12 : 0);
-                float alpha = this.content.getValue() * (isEating && this.target.getActiveItem() == handItem ? 0.5f + 0.7f * this.pulseIntensity.getValue() : 1.0f);
-                RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)(prev * alpha));
-                context.drawBlurredRect(handItemX, handItemY, itemSize, itemSize, 5.0f, BorderRadius.all(1.5f), ColorRGBA.WHITE.withAlpha(255.0f * this.animation.getValue()));
-                RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)prev);
-                context.drawRoundedRect(handItemX, handItemY, itemSize, itemSize, BorderRadius.all(1.5f), bgColor.withAlpha(bgColor.getAlpha() * alpha));
-                ScissorUtility.push(context.getMatrices(), handItemX, handItemY, itemSize, itemSize);
-                RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)(prev * alpha));
-                context.drawItem(handItem, handItemX - 11.0f + itemSize / 2.0f + 5.5f, handItemY, 0.7f);
-                RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)prev);
-                ScissorUtility.pop();
-                handX += itemSize + 2.0f;
-                if (!this.armorIcon.isSelected()) continue;
-                xOffset += (itemSize + 2.0f) * this.content.getValue();
+            if (this.armorIcon.isSelected()) {
+                for (ItemStack handItem : handItems) {
+                    if (handItem.isEmpty()) continue;
+                    ColorRGBA itemBgColor = Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.8f - 0.6f * Interface.glass() : 0.7f) * this.content.getValue());
+                    context.drawSquircle(this.x + this.width / 2.0f + xOffset, this.y - 12.0f * this.content.getValue(), itemSize, itemSize, 2.0f, BorderRadius.all(2.5f), itemBgColor);
+                    RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)this.content.getValue());
+                    context.drawItem(handItem, this.x + this.width / 2.0f + xOffset + 1.0f, this.y - 11.0f * this.content.getValue(), 0.55f);
+                    RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+                    xOffset += (itemSize + 2.0f) * this.content.getValue();
+                }
             }
         }
         context.drawShadow(this.x - 5.0f, this.y - 5.0f, this.width + 10.0f, this.height + 10.0f, 15.0f, BorderRadius.all(6.0f), ColorRGBA.BLACK.withAlpha(63.75f * this.dragAnim.getValue()));
@@ -245,32 +242,80 @@ extends HudElement {
         return String.format("%.0f%%", durabilityPercent);
     }
 
-    private LivingEntity getTarget() {
-        Entity entity;
-        LivingEntity target2;
-        LivingEntity mainTarget;
+    private LivingEntity findActiveTarget() {
         Entity target1 = DefineVisuals.getInstance().getTargetManager().getCurrentTarget();
-        LivingEntity livingEntity = mainTarget = target1 instanceof LivingEntity ? (target2 = (LivingEntity)target1) : null;
-        if (mainTarget != null) {
-            return mainTarget;
+        if (target1 instanceof LivingEntity living && living.isAlive()) {
+            return living;
         }
-        if (this.rayTrace.isEnabled() && (entity = TargetHud.mc.targetedEntity) instanceof LivingEntity) {
-            LivingEntity livingEntity2 = (LivingEntity)entity;
-            return livingEntity2;
+
+        if (this.rayTrace.isEnabled() && mc.player != null && mc.world != null) {
+            double reach = 3.0;
+            Vec3d eyePos = mc.player.getEyePos();
+
+            if (mc.targetedEntity instanceof LivingEntity living && living.isAlive() && living != mc.player) {
+                if (mc.player.distanceTo(living) <= reach || (mc.crosshairTarget != null && mc.crosshairTarget.getPos().squaredDistanceTo(eyePos) <= reach * reach)) {
+                    return living;
+                }
+            }
+
+            Vec3d lookVec = mc.player.getRotationVec(1.0f);
+            Vec3d reachVec = eyePos.add(lookVec.multiply(reach));
+            Box searchBox = mc.player.getBoundingBox().stretch(lookVec.multiply(reach)).expand(1.0);
+
+            EntityHitResult hitResult = ProjectileUtil.raycast(
+                mc.player,
+                eyePos,
+                reachVec,
+                searchBox,
+                entity -> entity instanceof LivingEntity && entity.isAlive() && entity != mc.player && !entity.isSpectator(),
+                reach * reach
+            );
+
+            if (hitResult != null && hitResult.getEntity() instanceof LivingEntity living) {
+                if (mc.player.distanceTo(living) <= reach || hitResult.getPos().squaredDistanceTo(eyePos) <= reach * reach) {
+                    return living;
+                }
+            }
         }
+
+        return null;
+    }
+
+    private LivingEntity getTarget() {
         if (TargetHud.mc.currentScreen instanceof ChatScreen) {
             return TargetHud.mc.player;
         }
+
+        LivingEntity active = this.findActiveTarget();
+        long now = System.currentTimeMillis();
+
+        if (active != null) {
+            this.currentLookTarget = active;
+            this.lastTargetTime = now;
+            return active;
+        }
+
+        if (this.currentLookTarget != null) {
+            long elapsed = now - this.lastTargetTime;
+            long lingerMs = (long)(this.stayTime.getCurrentValue() * 1000.0f);
+            if (this.currentLookTarget.isAlive() && !this.currentLookTarget.isRemoved() && elapsed < lingerMs) {
+                return this.currentLookTarget;
+            }
+            this.currentLookTarget = null;
+        }
+
         return null;
     }
 
     @Override
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button) {
         if (GuiUtility.isHovered((double)(this.x + 30.0f), (double)(this.y + 3.0f + 6.0f * this.content.getValue()), 60.0, 6.0, mouseX, mouseY)) {
-            TextUtility.copyText(TargetHud.mc.player.getName().getString());
-            this.copyTimer.reset();
-            this.copied = true;
-            return;
+            if (this.target != null) {
+                TextUtility.copyText(this.target.getName().getString());
+                this.copyTimer.reset();
+                this.copied = true;
+                return;
+            }
         }
         super.onMouseClicked(mouseX, mouseY, button);
     }

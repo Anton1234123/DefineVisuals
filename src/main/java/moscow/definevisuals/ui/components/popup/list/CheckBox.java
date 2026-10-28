@@ -46,7 +46,7 @@ extends PopupComponent {
         context.drawFadeoutText(nameFont, this.text, this.x + nameLeftPadding, this.y + GuiUtility.getMiddleOfBox(nameHeight, this.height), Colors.getTextColor().withAlpha(RenderSystem.getShaderColor()[3] * 255.0f * (0.75f + 0.25f * this.enableAnimation.getValue() + 0.25f * this.hoverAnimation.getValue())), 0.8f, 1.0f, this.width - 12.0f - 12.0f * this.enableAnimation.getValue());
         float alpha = this.enableAnimation.getValue() * (RenderSystem.getShaderColor()[3] * 255.0f);
         if (this.enableAnimation.getValue() >= 0.0f) {
-            context.drawTexture(DefineVisuals.id("icons/check.png"), this.x + this.width - 13.0f - this.enableAnimation.getValue() * 2.0f, this.y + 7.0f, 6.0f, 6.0f, Colors.getTextColor().withAlpha(alpha));
+            context.drawTexture(DefineVisuals.id("icons/success.png"), this.x + this.width - 13.0f - this.enableAnimation.getValue() * 2.0f, this.y + 7.0f, 6.0f, 6.0f, Colors.getTextColor().withAlpha(alpha));
         }
     }
 

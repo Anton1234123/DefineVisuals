@@ -16,7 +16,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import moscow.definevisuals.systems.modules.modules.player.FreeLook;
 
 @Mixin(Entity.class)
 public class EntityMixin implements IMinecraft {
@@ -39,4 +41,14 @@ public class EntityMixin implements IMinecraft {
                   : instance.getYaw();
    }
 
+   @Inject(method = "changeLookDirection", at = @At("HEAD"), cancellable = true)
+   public void onChangeLookDirection(double cursorDeltaX, double cursorDeltaY, CallbackInfo ci) {
+      if (mc.player != null && (Object) this == mc.player) {
+         FreeLook freeLook = DefineVisuals.getInstance().getModuleManager().getModule(FreeLook.class);
+         if (freeLook != null && freeLook.isEnabled() && freeLook.isActive()) {
+            freeLook.updateCameraAngles(cursorDeltaX, cursorDeltaY);
+            ci.cancel();
+         }
+      }
+   }
 }

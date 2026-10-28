@@ -17,7 +17,7 @@ public class SkyRenderingMixin {
    @Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
    private void renderCustomSkybox(float red, float green, float blue, CallbackInfo info) {
       Ambience ambience = this.getAmbience();
-      if (ambience != null && ambience.shouldRenderCustomSkybox()) {
+      if (ambience != null && ambience.isEnabled() && ambience.shouldRenderCustomSkybox()) {
          ColorRGBA color = ambience.shouldTintSky() ? ambience.getResolvedSkyColor() : ColorRGBA.WHITE;
          if (ambience.hasCustomSkybox()) {
             SkyboxRenderer.render(ambience.getSkyboxTexture(), color);
@@ -25,7 +25,7 @@ public class SkyRenderingMixin {
 
          if (ambience.hasShaderSkybox()) {
             float time = (float)(System.currentTimeMillis() % 100000000L) / 1000.0F;
-            float opacity = ambience.hasCustomSkybox() ? ambience.getShaderOpacity() : 1.0F;
+            float opacity = ambience.getShaderOpacity();
             SkyboxRenderer.render(ambience.getSkyShaderProgram(), color, time, opacity);
          }
 

@@ -56,6 +56,8 @@ dependencies {
     // Media Player Info
     implementation "dev.redstones.mediaplayerinfo:media-player-info:0.1.0"
     include "dev.redstones.mediaplayerinfo:media-player-info:0.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
+    include "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
 
     // Встроенный сторонний мод
     modImplementation name: 'chat_heads-0.13.8-fabric-1.21.4', ext: 'jar'
@@ -64,6 +66,15 @@ dependencies {
 
 loom {
     accessWidenerPath = file('src/main/resources/definevisuals.accesswidener')
+}
+
+// Include native libraries
+tasks.withType(ProcessResources).configureEach {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
 }
 
 // 5. Настройка Java 21 под Minecraft 1.21.4

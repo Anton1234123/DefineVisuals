@@ -31,7 +31,9 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.VertexFormat.DrawMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult.Type;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -139,22 +141,31 @@ public class TargetESP extends BaseModule {
       if (managerTarget != null && managerTarget.isAlive()) {
          return managerTarget;
       }
-      
+
+      double reach = 3.0;
       Vec3d eyePos = mc.player.getEyePos();
-      Vec3d lookVec = mc.player.getRotationVec(1.0f).multiply(3.0);
-      Vec3d endPos = eyePos.add(lookVec);
+
+      if (mc.targetedEntity instanceof LivingEntity living && living.isAlive() && living != mc.player) {
+         if (mc.player.distanceTo(living) <= reach || (mc.crosshairTarget != null && mc.crosshairTarget.getPos().squaredDistanceTo(eyePos) <= reach * reach)) {
+            return living;
+         }
+      }
       
-      for (net.minecraft.entity.Entity entity : mc.world.getEntities()) {
-         if (entity == mc.player || !(entity instanceof LivingEntity)) continue;
-         
-         LivingEntity living = (LivingEntity) entity;
-         if (!living.isAlive()) continue;
-         
-         double distance = mc.player.squaredDistanceTo(entity);
-         if (distance > 9.0) continue;
-         
-         net.minecraft.util.math.Box box = living.getBoundingBox();
-         if (box.raycast(eyePos, endPos).isPresent()) {
+      Vec3d lookVec = mc.player.getRotationVec(1.0f);
+      Vec3d reachVec = eyePos.add(lookVec.multiply(reach));
+      net.minecraft.util.math.Box searchBox = mc.player.getBoundingBox().stretch(lookVec.multiply(reach)).expand(1.0);
+      
+      EntityHitResult hitResult = ProjectileUtil.raycast(
+         mc.player,
+         eyePos,
+         reachVec,
+         searchBox,
+         entity -> entity instanceof LivingEntity && entity.isAlive() && entity != mc.player && !entity.isSpectator(),
+         reach * reach
+      );
+      
+      if (hitResult != null && hitResult.getEntity() instanceof LivingEntity living) {
+         if (mc.player.distanceTo(living) <= reach || hitResult.getPos().squaredDistanceTo(eyePos) <= reach * reach) {
             return living;
          }
       }
@@ -305,19 +316,11 @@ public class TargetESP extends BaseModule {
          id = DefineVisuals.id("textures/marker/marker.png");
       }
       
-      RenderSystem.setShaderTexture(0, id);
-      RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
-      BufferBuilder builder = RenderSystem.renderThreadTesselator().begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
-      
       float baseSize = this.cubeSize.getCurrentValue();
       float size = baseSize * this.animation.getValue();
       float half = size / 2.0F;
 
-      Vec3d center = new Vec3d(
-         this.getRenderPos(this.prevTarget).x, 
-         this.getRenderPos(this.prevTarget).y + target.getHeight() / 2.0, 
-         this.getRenderPos(this.prevTarget).z
-      );
+      Vec3d center = this.getRenderPos(this.prevTarget).add(0.0, target.getHeight() / 2.0, 0.0);
       
       float speed = this.cubeSpeed.getCurrentValue();
       double sin = Math.sin((double)System.currentTimeMillis() / 1000.0 * speed);
@@ -339,16 +342,23 @@ public class TargetESP extends BaseModule {
          c4 = baseColor.withAlpha(alphaVal);
       }
 
+      RenderSystem.setShaderTexture(0, id);
+      RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
+      RenderSystem.enableBlend();
+      RenderSystem.defaultBlendFunc();
+      
+      BufferBuilder builder = RenderSystem.renderThreadTesselator().begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+
       ms.push();
-      ms.translate(center.x, center.y, center.z);
+      RenderUtility.prepareMatrices(ms, center);
       ms.multiply(camera.getRotation());
       ms.multiply(new Quaternionf().rotationZ((float)Math.toRadians(rotation)));
       
       Matrix4f matrix = ms.peek().getPositionMatrix();
-      builder.vertex(matrix, -half, -half, 0.0F).texture(0.0F, 0.0F).color(c1.getRGB());
       builder.vertex(matrix, -half, half, 0.0F).texture(0.0F, 1.0F).color(c2.getRGB());
       builder.vertex(matrix, half, half, 0.0F).texture(1.0F, 1.0F).color(c3.getRGB());
       builder.vertex(matrix, half, -half, 0.0F).texture(1.0F, 0.0F).color(c4.getRGB());
+      builder.vertex(matrix, -half, -half, 0.0F).texture(0.0F, 0.0F).color(c1.getRGB());
       
       BufferRenderer.drawWithGlobalProgram(builder.end());
       ms.pop();

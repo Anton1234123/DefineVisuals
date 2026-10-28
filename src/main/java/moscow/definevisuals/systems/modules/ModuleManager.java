@@ -52,6 +52,7 @@ import moscow.definevisuals.systems.modules.modules.visuals.ChinaHat;
 import moscow.definevisuals.systems.modules.modules.visuals.ItemPhysics;
 import moscow.definevisuals.systems.modules.modules.visuals.JumpCircle;
 import moscow.definevisuals.systems.modules.modules.visuals.ShaderHand;
+import moscow.definevisuals.systems.modules.modules.visuals.Lyrics;
 import net.minecraft.client.MinecraftClient;
 
 public class ModuleManager {
@@ -136,6 +137,7 @@ public class ModuleManager {
       this.register(new SRPSpoof());
       this.register(new WindowTitle());
       this.register(new FreeLook());
+      this.register(new Lyrics());
    }
    public void enableModules() {
       for (Module module : this.modules) {
@@ -191,3 +193,4 @@ public class ModuleManager {
       return this.onMouseButtonPress;
    }
 }
+
