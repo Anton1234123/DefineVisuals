@@ -114,15 +114,11 @@ extends CustomComponent {
         float glass = Interface.glass();
         ColorRGBA base = (dark ? Colors.getBackgroundColor() : Colors.getAdditionalColor()).withAlpha(255.0f * (dark ? 0.16f + 0.14f * Interface.minimalizm() : 0.12f + 0.12f * Interface.minimalizm()));
         ColorRGBA card = base
-            .mix(Colors.getAccent().withAlpha(255.0f * (0.14f + 0.12f * (1.0f - glass))), this.enableAnimation.getValue() * 0.7f)
+            .mix(Colors.getAccent().withAlpha(255.0f * (0.25f + 0.15f * (1.0f - glass))), this.enableAnimation.getValue() * 0.9f)
             .mix(Colors.getTextColor().withAlpha(20.0f), this.hoverAnimation.getValue() * 0.35f)
             .mulAlpha(this.visible.getValue());
         BorderRadius cardRadius = BorderRadius.all(3.0f);
         context.drawSquircle(this.x, this.y, this.width, this.height, 3.0f, cardRadius, card);
-        ColorRGBA border = this.module.isEnabled()
-            ? Colors.getAccent().mulAlpha(0.65f + 0.2f * this.hoverAnimation.getValue())
-            : Colors.getOutlineColor().mulAlpha(0.38f + 0.18f * this.hoverAnimation.getValue());
-        context.drawRoundedBorder(this.x, this.y, this.width, this.height, 0.65f, cardRadius, border.mulAlpha(this.visible.getValue()));
     }
 
     public void renderRounds(UIContext context) {
