@@ -16,6 +16,7 @@ import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class ButtonSettingComponent
 extends MenuSettingComponent<ButtonSetting> {
@@ -59,6 +60,7 @@ extends MenuSettingComponent<ButtonSetting> {
     @Override
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button) {
         if (this.isHovered(mouseX, mouseY) && button == MouseButton.LEFT) {
+            UiSound.CLICK.play();
             ((ButtonSetting)this.setting).getAction().run();
         }
         super.onMouseReleased(mouseX, mouseY, button);
@@ -70,4 +72,3 @@ extends MenuSettingComponent<ButtonSetting> {
         return 24.0f;
     }
 }
-

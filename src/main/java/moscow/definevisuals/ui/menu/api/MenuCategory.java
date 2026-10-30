@@ -1,6 +1,7 @@
 package moscow.definevisuals.ui.menu.api;
 
 import lombok.Generated;
+import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.api.ModuleCategory;
 import moscow.definevisuals.utility.render.obj.CustomSprite;
 
@@ -27,6 +28,10 @@ public enum MenuCategory {
     @Generated
     public String getName() {
         return this.name;
+    }
+
+    public String getDisplayName() {
+        return Localizator.translate("menu.category." + this.name.toLowerCase());
     }
 
     @Generated
@@ -63,4 +68,3 @@ public enum MenuCategory {
         this.parent = parent;
     }
 }
-

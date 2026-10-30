@@ -7,7 +7,7 @@ import moscow.definevisuals.systems.modules.api.ModuleCategory;
 import moscow.definevisuals.systems.modules.api.ModuleInfo;
 import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.systems.setting.settings.SliderSetting;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 // cracked by t.me/pasterendnew
 @ModuleInfo(name = "Sounds", category = ModuleCategory.OTHER, enabledByDefault = true, desc = "Добавляет звуки клиента")
@@ -17,7 +17,7 @@ public class Sounds extends BaseModule {
       if (event.getPacket() instanceof GameMessageS2CPacket packet) {
          String msg = packet.content().getString();
          if (msg.contains("Вы успешно купили") || msg.contains("отправлено игроку")) {
-            ClientSounds.APPLEPAY.play(this.volume.getCurrentValue(), 1.0F);
+             UiSound.PAYMENT.play();
          }
       }
    };

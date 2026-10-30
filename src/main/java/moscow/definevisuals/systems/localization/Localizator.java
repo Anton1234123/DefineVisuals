@@ -15,25 +15,37 @@ public final class Localizator {
    private static final Language DEFAULT_LANG = Language.RU_RU;
    private static Language currentLanguage = DEFAULT_LANG;
    private static final Map<String, String> translations = new HashMap<>();
+   private static final Map<String, String> fallbackTranslations = new HashMap<>();
 
    public static void loadTranslations() {
-      String langFile = "/assets/" + DefineVisuals.MOD_ID + "/lang/" + currentLanguage.getCode() + ".lang";
+      translations.clear();
+      fallbackTranslations.clear();
+      loadLanguage(currentLanguage, translations);
+
+      for (Language fallbackLanguage : fallbackOrder(currentLanguage)) {
+         Map<String, String> loadedFallback = new HashMap<>();
+         loadLanguage(fallbackLanguage, loadedFallback);
+         loadedFallback.forEach(fallbackTranslations::putIfAbsent);
+      }
+   }
+
+   private static void loadLanguage(Language language, Map<String, String> destination) {
+      String langFile = "/assets/" + DefineVisuals.MOD_ID + "/lang/" + language.getCode() + ".lang";
 
       try {
          InputStream inputStream = Localizator.class.getResourceAsStream(langFile);
          if (inputStream == null) {
             throw new RuntimeException("Language file not found: " + langFile);
          } else {
-            translations.clear();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             int lineNumber = 0;
 
             String line;
             while ((line = reader.readLine()) != null) {
                lineNumber++;
-               line = removeComments(line).trim();
+               line = removeCommentLine(line).trim();
                if (!line.isEmpty()) {
-                  parseLine(line, lineNumber, langFile);
+                  parseLine(line, lineNumber, langFile, destination);
                }
             }
 
@@ -41,7 +53,7 @@ public final class Localizator {
             inputStream.close();
          }
       } catch (IOException var5) {
-         throw new RuntimeException("Failed to load translations for language: " + currentLanguage.getCode(), var5);
+         throw new RuntimeException("Failed to load translations for language: " + language.getCode(), var5);
       }
    }
 
@@ -51,16 +63,45 @@ public final class Localizator {
    }
 
    public static String translate(String key) {
-      return translations.getOrDefault(key, fallback(key, key));
+      String value = resolve(key);
+      return value != null ? value : fallback(key, key);
    }
 
    public static String translate(String key, Object... args) {
-      String format = translations.getOrDefault(key, fallback(key, key));
+      String resolved = resolve(key);
+      String format = resolved != null ? resolved : fallback(key, key);
       return String.format(format, args);
    }
 
    public static String translateOrEmpty(String key) {
-      return translations.getOrDefault(key, fallback(key, " "));
+      String value = resolve(key);
+      return value != null ? value : fallback(key, " ");
+   }
+
+   public static boolean hasTranslation(String key) {
+      return resolve(key) != null;
+   }
+
+   private static String resolve(String key) {
+      String value = translations.get(key);
+      if (isUsable(value)) {
+         return value;
+      }
+      value = fallbackTranslations.get(key);
+      return isUsable(value) ? value : null;
+   }
+
+   private static boolean isUsable(String value) {
+      return value != null && !value.isBlank() && value.indexOf('\uFFFD') < 0;
+   }
+
+   private static Language[] fallbackOrder(Language language) {
+      return switch (language) {
+         case UK_UA -> new Language[]{Language.RU_RU, Language.EN_US};
+         case PL_PL -> new Language[]{Language.EN_US, Language.RU_RU};
+         case EN_US -> new Language[]{Language.RU_RU};
+         case RU_RU -> new Language[]{Language.EN_US};
+      };
    }
 
    private static String fallback(String key, String defaultValue) {
@@ -110,7 +151,7 @@ public final class Localizator {
 
       return defaultValue;
    }
-   private static void parseLine(String line, int lineNumber, String fileName) {
+   private static void parseLine(String line, int lineNumber, String fileName, Map<String, String> destination) {
       int equalIndex = line.indexOf(61);
       if (equalIndex == -1) {
          DefineVisuals.LOGGER.warn("Warning: Invalid line format at line {} in {}: {}", new Object[]{lineNumber, fileName, line});
@@ -119,15 +160,16 @@ public final class Localizator {
          String value = line.substring(equalIndex + 1).trim();
          if (key.isEmpty()) {
             DefineVisuals.LOGGER.warn("Warning: Empty key at line {} in {}", lineNumber, fileName);
+         } else if (!isUsable(value)) {
+            DefineVisuals.LOGGER.warn("Warning: Invalid translation for key {} at line {} in {}", key, lineNumber, fileName);
          } else {
-            translations.put(key, value);
+            destination.put(key, value);
          }
       }
    }
 
-   private static String removeComments(String line) {
-      int commentIndex = line.indexOf("#");
-      return commentIndex != -1 ? line.substring(0, commentIndex) : line;
+   private static String removeCommentLine(String line) {
+      return line.trim().startsWith("#") ? "" : line;
    }
 
    @Generated

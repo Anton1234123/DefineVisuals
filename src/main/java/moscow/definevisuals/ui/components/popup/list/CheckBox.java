@@ -20,6 +20,7 @@ import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class CheckBox
 extends PopupComponent {
@@ -54,6 +55,7 @@ extends PopupComponent {
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button) {
         if (this.isHovered(mouseX, mouseY) && button == MouseButton.LEFT) {
             boolean bl = this.enabled = !this.enabled;
+            (this.enabled ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
             if (this.action != null) {
                 this.action.handleAction(this.enabled);
             }

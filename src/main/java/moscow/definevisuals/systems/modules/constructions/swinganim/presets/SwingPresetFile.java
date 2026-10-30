@@ -128,19 +128,21 @@ public class SwingPresetFile implements IMinecraft {
       }
    }
 
-   public void delete() {
+   public boolean delete() {
       Path filePath = this.file.toPath();
 
       try {
          Files.delete(filePath);
          DefineVisuals.getInstance().getSwingPresetManager().getSwingPresetFiles().remove(this);
          DefineVisuals.LOGGER.info("Config file deleted: {}", filePath);
+         return true;
       } catch (NoSuchFileException var3) {
          DefineVisuals.LOGGER.warn("Tried to delete a file that does not exist: {}", filePath);
       } catch (IOException var4) {
          MessageUtility.error(Text.of("Произошла ошибка при удалении"));
          DefineVisuals.LOGGER.warn("Failed to delete config file: {}. Reason: {}", filePath, var4.getMessage());
       }
+      return false;
    }
 
    private JsonObject getSettingsJsonObject(Module module) {

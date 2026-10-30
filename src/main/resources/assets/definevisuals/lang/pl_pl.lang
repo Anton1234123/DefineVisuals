@@ -1,8 +1,9 @@
-﻿
-# ��������
-modules.descriptions.no_description=Ta funkcja nie ma opisu
-modules.descriptions.russian_roulette=Rosyjska ruletka, jak to bywa w zyciu :)
-modules.descriptions.free_camera=Umozliwia zwiedzanie terenu
+
+modules.settings.zoom.key=Klawisz przyblizenia
+modules.settings.zoom.amount=Sila przyblizenia
+modules.settings.zoom.smooth=Plynne przejscie
+modules.settings.zoom.duration=Szybkosc przejscia
+modules.settings.zoom.scroll=Regulacja kolkiem myszy
 modules.descriptions.tracers=Wyswietla linie do jednostek
 modules.descriptions.auto_totem=Automatycznie bierze Totem w lewa reke w razie niebezpieczenstwa
 modules.descriptions.criticals=Pozwala bic Kretami, Kiedy to jest niemozliwe
@@ -20,7 +21,6 @@ modules.settings.knockback_tweaks.fake_sprint=Falszywy sprint
 modules.settings.knockback_tweaks.fake_sprint.description=Wysyla pakiety sprintu przy uderzeniu bytu
 modules.descriptions.auto_armor=Automatycznie zaklada najlepsza zbroje
 modules.descriptions.no_web=Przyspiesza w sieci
-modules.descriptions.clan_upgrade=Automatycznie pompuje klan za pomoca pochodni
 modules.descriptions.hitboxes=Zwieksza rozmiar hitboxow
 modules.descriptions.wind_hop=Podczas skoku automatycznie wykorzystuje ladunek wiru
 modules.descriptions.flight=Pozwala latac
@@ -28,7 +28,6 @@ modules.descriptions.speed=Przyspiesza przy kontakcie z entity
 modules.descriptions.timer=Przyspiesza swiat dla Ciebie
 modules.descriptions.no_slow=Usuwa spowolnienie podczas uzywania przedmiotow
 modules.descriptions.spider=Pozwala wspinac sie po scianach
-modules.descriptions.menu=Menu funkcji klienta
 modules.descriptions.esp=Pozwala skonfigurowac widocznosc graczy
 modules.settings.esp.open_menu=Otworz menu
 
@@ -58,8 +57,6 @@ esp.boxes.mode.outline=Kontur
 esp.boxes.mode.fill=Wypelnienie
 
 modules.descriptions.name_tags=Wyswietla informacje o przydmiotach/ graczach
-modules.descriptions.ambience=Zmienia otoczenie swiata
-modules.descriptions.swing_animation=Zmienia animacje rak podczas machania
 modules.descriptions.sound_esp=Pokazuje, gdzie zostal odtworzony dzwiek trojzebu lub dynamitu
 modules.descriptions.arrows=Wyswietla kierunek do jednostek
 modules.descriptions.tnt_timer=Wyswietla czas do wybuchu dynamitu
@@ -75,11 +72,8 @@ modules.settings.xray.blocks.gold_ore=Ruda zlota
 modules.settings.xray.blocks.ancient_debris=Starozytne szczatki
 modules.settings.xray.blocks.lapis_ore=Ruda lazurytu
 modules.descriptions.anti_invisible=Pozwala zobaczyc niewidzialnych graczow
-modules.descriptions.see_invisibles=Pokazuje nicki nad niewidzialnymi graczami
-modules.descriptions.world=Wizualne dodatki swiata
 modules.descriptions.inventory_cleaner=Czysci inwentarz z wybranych blokow
 modules.descriptions.auto_invisible=Automatycznie pije miksture niewidzialnosci
-modules.descriptions.mine_helper=Funkcje pomocnicze dla kopalni
 modules.descriptions.middle_click=Wykonuje akcje po kliknieciu koleczka myszy
 modules.settings.middle_click.pearl=Rzucac perle
 modules.settings.middle_click.friend=Dodawac znajomych
@@ -87,24 +81,14 @@ modules.settings.middle_click.friend_key=Klawisz znajomych
 modules.settings.middle_click.pearl_key=Klawisz perly
 modules.descriptions.auto_brew=Automatycznie warzy mikstury
 modules.descriptions.potion_farm=Automatycznie napelnia warzelniki, wymienia skladniki i odklada gotowe mikstury do skrzyn
-modules.descriptions.auto_farm=Automatycznie uprawia kulture za pomoca ogrodnika
 modules.descriptions.auto_eat=Automatycznie zjada jedzenie przy okreslonej wartosci glodu
 modules.descriptions.free_camera=Umozliwia zwiedzanie terenu
-modules.descriptions.no_delay=Usuwa opoznienia
 modules.descriptions.player_utils=Funkcje pomocnicze dla gracza
 modules.descriptions.no_push=Usuwa kolizje z czynnikow zewnetrznych
 modules.descriptions.item_pickup=Powiadamia o podniesieniu przedmiotu donatnego
 modules.descriptions.object_info=Pokazuje informacje o trapach i warstwach na swiecie
-modules.settings.object_info.particleMode=Tryb czasteczek
-modules.settings.object_info.particleMode.description=Tryb animacji czasteczek przy znikaniu
-modules.settings.object_info.particleMode.gravity=Grawitacja
-modules.settings.object_info.particleMode.scatter=Rozproszenie
-object_info.trap=Trapka
-object_info.dragon=Smok
-object_info.plast=Plast
 object_info.boom_trap=Wybuchowa trapka
 object_info.stan=Ogluszenie
-modules.descriptions.donate_effects=Efekty wizualne przy uzyciu przedmiotow donatnych
 modules.settings.donate_effects.sonar=Sonar
 modules.settings.donate_effects.sonar.description=Fala po powierzchniach przy uzyciu przedmiotu
 modules.settings.donate_effects.potions=Czastki mikstur
@@ -124,7 +108,6 @@ modules.settings.nuker.swap_delay.description=Opoznienie przed rozpoczeciem nisz
 modules.descriptions.slot_lock=Zabrania wyrzucania przedmiotow z hotbaru
 modules.descriptions.no_rotate=Uniemozliwia serwerowi obracanie waszej kamery
 modules.descriptions.effect_remover=Usuwa wybrane efekty
-modules.descriptions.name_protect=Wizualnie zmienia pseudonim gracza
 modules.descriptions.elytra_utils=Funkcje pomocnicze dla elitry
 modules.descriptions.boots_swap=Uzywane do zamiany butow skoczka i zwyklych butow
 modules.descriptions.fast_item_use=Szybko uzywa luku lub trojzebu
@@ -134,7 +117,6 @@ modules.descriptions.death_cords=Wysyla wspolrzedne smierci do czatu
 modules.descriptions.auto_leave=Automatycznie wylogowuje sie z serwera jesli gracz jest w poblizu
 modules.descriptions.auto_swap=Automatycznie zastepuje przedmioty w lewej rece
 modules.descriptions.auto_duels=Automatycznie rzuca pojedynki
-modules.descriptions.auto_auth=Automatycznie rejestruje i loguje sie na konto na serwerze
 modules.descriptions.auto_join=automatycznie wchodzi w tryb na serwerze
 
 modules.settings.elytra_motion.algorithm=Algorytm
@@ -144,18 +126,12 @@ modules.settings.elytra_motion.algorithm.advanced-stable=Zaawansowany (Stabilny)
 modules.settings.elytra_motion.boost_strength=Moc boostu
 
 modules.settings.elytra_target.auto_fireworks=Auto fajerwerki
-modules.settings.elytra_target.smart_fireworks=Inteligentne fajerwerki
-modules.settings.elytra_target.fireworkSlot=Slot na fajerwerki
-modules.settings.elytra_target.fireworkDelay=Opoznienie
-modules.settings.elytra_target.predict_key=Klawisz predykcji
-modules.settings.elytra_target.leadStrength=Moc prowadzenia
 
 modules.settings.auto_join.mode=Tryb
 modules.settings.auto_join.mode.duels_st=Pojedynki (SpookyTime)
 modules.settings.auto_join.mode.grief=Anarchy FT/Spooky
 modules.settings.auto_join.anarchy_number=Numer anarchii
 modules.descriptions.assist=Asystent dla roznych serwerow
-modules.descriptions.sounds=Dodaje klientowi dzwieki
 modules.settings.sounds.volume=Glosnosc dzwieku
 modules.settings.sounds.voice=Glos
 modules.settings.sounds.voice.kill=Zabic
@@ -166,12 +142,10 @@ modules.descriptions.test=Ta funkcja nie ma opisu
 modules.descriptions.recorder=Ta funkcja nie ma opisu
 modules.descriptions.player=Ta funkcja nie ma opisu
 modules.descriptions.no_fall=Usuwa damage od upadku
-modules.descriptions.kill_effects=Piekny efekt gdy istoty umieraja
 modules.descriptions.auto_soup=Automatycznie leczy zupami
 modules.descriptions.auto_explosion=Automatycznie eksploduje i umieszcza krysztaly
 modules.descriptions.auto_crystal=Automatycznie wysadza krysztaly w zasiegu dzialania
 modules.settings.auto_crystal.place=Stawianie
-modules.descriptions.friend_markers=Wizualnie oznacza znajomych
 modules.descriptions.scaffold=Automatycznie buduje
 modules.settings.scaffold.place_delay=Opoznienie stawiania
 modules.settings.scaffold.place_delay.description=Minimalne opoznienie miedzy stawianiem blokow
@@ -244,7 +218,6 @@ modules.sword_farm.recipe_not_found=Nie znaleziono receptury szmaragdowego miecz
 modules.sword_farm.no_lime_dye=Nie znaleziono przycisku potwierdzenia (lime_dye)
 modules.sword_farm.no_storage=Nie znaleziono slotu magazynu na aukcji
 
-modules.descriptions.auto_sprint=Automatycznie naciska Sprint
 modules.settings.keepSprint=Zachowac sprint
 modules.settings.auto_sprint.ignore_hunger=Ignoruj glod
 modules.settings.keepSprint.description=Nie przestaniesz sprintowac po uderzeniu jednostki
@@ -256,7 +229,6 @@ modules.settings.backtrack.delay=Backtrack Time
 modules.settings.backtrack.delay.description=Time in milliseconds during which past positions are stored
 
 # Target ESP
-modules.descriptions.target_esp=Oznacza aktywny cel
 modules.settings.target_esp.mode=Tryb
 modules.settings.target_esp.mode.souls=Dusze
 modules.settings.target_esp.mode.crystals=Krysztaly
@@ -380,9 +352,10 @@ shieldbreaker.title=Sukces
 shieldbreaker.desc=Tarcza przeciwnika zniszczona
 
 # Interface
-modules.descriptions.interface=Elementy interfejsu cheata
 modules.settings.interface.liquidGlass=Plynne szklo
 modules.settings.interface.minimalism=Minimalizm
+modules.settings.interface.modernMinimalism=Nowoczesny minimalizm
+modules.settings.interface.glass=Szklo
 modules.settings.interface.language=Jezyk
 modules.settings.interface.mode=Styl
 modules.settings.interface.theme=Temat
@@ -391,7 +364,6 @@ modules.settings.interface.light=Jasny
 modules.settings.interface.hud=Aby wlaczyc HUD, kliknij prawym przyciskiem myszy na czacie
 
 # Removals
-modules.descriptions.removals=Usuwa rozne elementy gry
 modules.settings.removals.effects=Usuwac
 modules.settings.removals.hurtCam=Trzesienie kamery przy obrazeniach
 modules.settings.removals.scoreboard=Tablica wynikow
@@ -480,7 +452,6 @@ modules.settings.speed.mode=Tryb
 modules.settings.speed.vanilla=Waniliowy
 modules.settings.speed.collision=Kolizja
 modules.settings.speed.entities=Entity
-modules.settings.speed.spooky_elytra=SpookyTime Elytra
 modules.settings.speed.collision_target=Kolizja cel
 modules.settings.speed.ice=Lod
 modules.settings.speed.distance=Dystans
@@ -525,7 +496,6 @@ modules.settings.wind_hop.predictJump=Predykcja Skoku
 modules.settings.wind_hop.predictJump.description=Jesli spacja jest wcisnieta, gracz uzyje ladunku wiru przed ladowaniem, co pozwala skakac wyzej
 
 # CustomFog
-modules.descriptions.custom_fog=Ustawienia mgly
 modules.settings.custom_fog.distance=Od/do
 modules.settings.custom_fog.distance.description=Ustawia poczatek i koniec mgly
 modules.settings.custom_fog.color_enabled=Kolor mgly
@@ -699,7 +669,7 @@ modules.settings.assist.auto_stop=Auto stop
 modules.settings.assist.heal_helper=Pomocnik w leczeniu
 modules.settings.assist.stan=Stan
 modules.settings.assist.snow=Sniezka
-modules.settings.assist.trap=�������
+modules.settings.assist.trap=Ëîâóøøêà
 modules.settings.assist.anti_flight=Anti flight
 modules.settings.assist.dark_pulse=Dark pulse
 modules.settings.assist.experience_scroll=Experience scroll
@@ -778,7 +748,6 @@ alerts.donate_picked=Podniosles przedmiot donatorski:
 modules.settings.anti_afk.delay.description=Opoznienie miedzy dzialaniami
 player_utils.hello_message=Witam wszystkich %s !
 # Prediction
-modules.descriptions.prediction=Wyswietla trajektorie lotu perel kresu, trojzebow itp.
 modules.settings.prediction.helper=Pomocnik
 modules.settings.prediction.helper.description=Pokazuje punkt celowania dla perel kresu
 modules.settings.prediction.assist=Autodopasowanie
@@ -868,21 +837,18 @@ modules.settings.auto_totem.crystal_distance.description=Dystans wykrywania krys
 modules.settings.auto_gapple.health=Zdrowie
 modules.settings.auto_gapple.health.description=Przy jakiej wartosci zdrowia nalezy zaczac jesc zlote jablko
 
-# -------- ��� --------
 hud.keybinds=Klawiszy
 hud.staff_list=Staff List
 staff.herobrine=Herobrine
 
 hud.always_display=Pokazywac zawsze
 
-# > �������
 hud.effects=Efekty
 hud.effects.alert=Powiadomienie o zakonczeniu
 hud.effects.grouping=Grupowanie
 hud.effects.ended=Efekt %s zakonczony
 hud.effects.ended.desc=Dzialanie efektu zakonczone
 
-# > ���������
 hud.targethud=Cel
 hud.targethud.look=Przy naprowadzenie
 hud.targethud.look.description=Pokazuje cel, jesli na niego naprowadzeni
@@ -892,7 +858,6 @@ hud.targethud.armor.none=Nie wyswietlacz
 hud.targethud.armor.number=Procenty wytrzymalosci
 hud.targethud.armor.icon=Ikonamy
 
-# > ������� ������
 hud.dynamic_island=Dynamiczna Wyspa
 hud.dynamic_island.statuses=Statusy
 hud.dynamic_island.statuses.alerts=Powiadomienie
@@ -932,8 +897,7 @@ whatadd=Co dodajemy?
 enabled=wlaczony
 disabled=wylaczony
 
-# ����
-targets=�el
+targets=Cele
 players=Gracze
 animals=Zwierzeta
 mobs=Moby
@@ -941,13 +905,11 @@ invisibles=Niewidzialni
 nakedPlayers=Gracze bez zbroi
 friends=Koledzy
 
-# �������� ���������
 slot=slot
 sec=sec
 block=blok
 big_block=Blok
 
-# ��������
 mainmenu.next=Kliknij, aby kontynuowac
 mainmenu.wallpaper.day1=Sasiedzi z dachu
 mainmenu.wallpaper.day2=Kryjowka w kwiatach
@@ -965,7 +927,6 @@ mainmenu.accounts.title=Konta
 mainmenu.accounts.empty=Brak kont
 mainmenu.accounts.placeholder=Wpisz nick
 
-# ��� ������
 time.days.monday=Poniedzialek
 time.days.tuesday=Wtorek
 time.days.wednesday=Sroda
@@ -974,7 +935,6 @@ time.days.friday=Piatek
 time.days.saturday=Sobota
 time.days.sunday=Niedziela
 
-# ������ (� ����������� ������)
 time.months.january=Stycznia
 time.months.february=Lutego
 time.months.march=Marzeca
@@ -988,16 +948,13 @@ time.months.october=Pazdziernika
 time.months.november=Listopada
 time.months.december=Grudzienia
 
-# ��������
 type_text=Wprowadz tekst
 setting_of=z
 
-# ����������
 colorpicker.opacity=Przezroczystosc
 colorpicker.click_to_sample=Kliknij, aby wybrac kolor
 
 search=Search
-# �����
 search.tooltip=Aby otworzyc wyszukiwanie, nacisnij Ctrl + F
 search.tooltip.tab=Tab - Otworz ustawienia
 search.tooltip.enter=Enter - Wlacz/Wylacz
@@ -1006,19 +963,13 @@ modules=Modules
 # Menu
 menu.binding=Nacisnij dowolny klawisz
 
-# �����
 configs.loaded=Konfiguracja zostala pomyslnie zaladowana
 
 friend=Przyjaciel
 enemy=wrog
 copy=skopiowac
 
-modules.settings.name_tags.elementsToDisplay=Elementy
-modules.settings.name_tags.elementsToDisplay.armor=zbroja
-modules.settings.name_tags.elementsToDisplay.items=obiekty
 
-modules.settings.name_tags.offFriends=Ukryj znajomych
-modules.settings.name_tags.background=tlo obiektow
 
 swing.only_aura=tylko z  Aura
 swing.open_menu=otworz menu
@@ -1040,7 +991,6 @@ swing.moveZ=odchylenie Z
 swing.rotateX=Zakret X
 swing.rotateY=Zakret Y
 swing.rotateZ=Zakret Z
-# �������
 swings.block_hit=Pod katem
 swings.from_me=Od siebie
 swings.rotate_360=Obrot o 360 stopni
@@ -1065,15 +1015,12 @@ bow=Luk
 crossbow=Kusza
 trident=Trojzab
 
-delay=Opoznienie
 ms=ms
 mode=Tryb
 size=Rozmiar
 
 elements=Elementy
 
-modules.settings.name_protect.fake_name=Fake name
-modules.settings.name_protect.hide_friends=Ukrywaj znajomych
 
 health=Zdrowie
 key=Klawisz
@@ -1092,7 +1039,7 @@ commands.auth.password=Password
 commands.autopilot.description=Automatycznie leci do podanych wspolrzednych
 commands.autopilot.invalid=Nieprawidlowe wspolrzedne!
 commands.autopilot.stopping=Zatrzymuje sie...
-commands.autopilot.stopped=Swietna podroz! Dziekujemy za skorzystanie z uslugi �Dimamic�
+commands.autopilot.stopped=Świetna wycieczka! Dziękujemy za skorzystanie z usługi „Dimamik”.
 commands.autopilot.start=Rozpoczynam lot do wspolrzednych %s, %s, %s
 commands.autopilot.not_active=Autopilot nie jest aktywny!
 
@@ -1148,7 +1095,6 @@ commands.python.save.success=Skrypt %s zostal zapisany
 commands.python.create.success=Skrypt %s zostal utworzony
 commands.python.delete.success=Skrypt %s zostal usuniety
 commands.python.delete.error=Wystapil blad podczas usuwania skryptu %s
-commands.python.not_found=Skrypt %s nie zostal znaleziony
 commands.python.load.success=Ladowanie skryptu %s
 commands.python.unload.success=Skrypt %s zostal wyladowany
 commands.python.unload.not_loaded=Skrypt %s nie jest zaladowany
@@ -1156,7 +1102,6 @@ commands.python.dir.error=Nie udalo sie otworzyc folderu ze skryptami: %s
 
 # ReHub
 commands.rehub.description=Ponownie laczy z serwerem
-commands_rehub.ct=Nie mozesz uzywac tej komendy w trybie kucania!
 
 # Toggle
 commands.toggle.description=Wlacza/wylacza modul
@@ -1205,7 +1150,6 @@ commands.bind.create.download=Bind ustawiono na klawisz
 commands.bind.module_required=Podaj modul!
 
 # Auto Farm
-modules.settings.auto_farm.mode=tryb
 modules.settings.auto_farm.mode.carrot=marchew
 modules.settings.auto_farm.mode.potato=ziemniaki
 modules.settings.auto_farm.mode.beetroot=buraczany
@@ -1223,53 +1167,26 @@ modules.auto_farm.screen.select_section=? wybierz sekcje
 modules.auto_farm.screen.food_seller=kupiec zywnosci
 
 # Auto Swap
-modules.settings.auto_swap.button=przycisk
-modules.settings.auto_swap.item=przydmiot
-modules.settings.auto_swap.item.talisman=talisman
-modules.settings.auto_swap.item.orb=sfera
-modules.settings.auto_swap.swap_to=zamien na
-modules.settings.auto_swap.swap_to.talisman=talisman
-modules.settings.auto_swap.swap_to.orb=sfera
 
 # Auto Eat
-modules.settings.auto_eat.food=poziom glodu
 modules.settings.auto_eat.food.description=Przy jakim poziomie glodu nalezy zaczac jesc
 
 # Blink
-modules.settings.blink.pulse=Pulsacja
-modules.settings.blink.time=czas
-modules.settings.blink.display=Wyswietlac
-modules.settings.blink.hide_first_person=Ukryj przed pierwszym
-modules.settings.blink.hide_first_person.description=Ukrywa gracza w widoku z pierwszej osoby
 
 # Auto Leave
-modules.settings.auto_leave.leave=wyjsc przy
-modules.settings.auto_leave.leave.distance=dystans
-modules.settings.auto_leave.leave.health=zdrowie
-modules.settings.auto_leave.leave.ban=bana gracza
-modules.settings.auto_leave.distance=dystans
 modules.settings.auto_leave.distance.description=Odleglosc do gracza, w ktorej zostanie wykonana akcja
-modules.settings.auto_leave.health=zdrowie
 modules.settings.auto_leave.health.description=Stan zdrowia, w ktorym bedzie wykonywana akcja
-modules.settings.auto_leave.delay=opoznienie
 modules.settings.auto_leave.delay.description=Czas, po ktorym gracz zostanie ponownie wpuszczony na serwer po otrzymaniu bana
-modules.settings.auto_leave.mode=co robic
-modules.settings.auto_leave.mode.hub=wychodzic  w /hub
-modules.settings.auto_leave.mode.server=wychodzic z serwerza
-modules.settings.auto_leave.mode.spawn=Teleportacja do spawnu
-modules.auto_leave.near_player=W poblizu jest gracz!
-modules.auto_leave.low_health=Slabe zdrowie!
-modules.auto_leave.banned_word=zbanowany
 
 
 # Waypoints
 modules.descriptions.waypoints=Wyswietla znaczniki na swiecie
 modules.waypoints.base_name=znak
 modules.waypoints.player_removed=znak na gracze %s zostal usuniety, poniewaz jest niedostepny
-modules.waypoints.exists=znak �%s� juz istnieje
-modules.waypoints.added=Dodano znak �%s� do %d, %d, %d
-modules.waypoints.deleted=Usunieto znak �%s�
-modules.waypoints.not_found=Nie znaleziono znaka �%s�
+modules.waypoints.exists=Punkt trasy „%s” już istnieje
+modules.waypoints.added=Dodano punkt trasy „%s” w %d, %d, %d
+modules.waypoints.deleted=Usunięto punkt trasy „%s”
+modules.waypoints.not_found=Nie znaleziono punktu trasy „%s”.
 modules.waypoints.cleared=Wszystkie znaki zostaly usuniete
 commands.way.list_empty=Brak znacznikow
 commands.way.list_header=Lista znacznikow:
@@ -1277,41 +1194,14 @@ commands.way.list_coordinates=na %d, %d, %d
 commands.way.list_hover=Kliknij, aby usunac znacznik
 
 # Slot Lock
-modules.settings.slot_lock.lock=Blokowac
-modules.settings.slot_lock.lock.slot1=gniazdo 1
-modules.settings.slot_lock.lock.slot2=gniazdo 2
-modules.settings.slot_lock.lock.slot3=gniazdo 3
-modules.settings.slot_lock.lock.slot4=gniazdo 4
-modules.settings.slot_lock.lock.slot5=gniazdo 5
-modules.settings.slot_lock.lock.slot6=gniazdo 6
-modules.settings.slot_lock.lock.slot7=gniazdo 7
-modules.settings.slot_lock.lock.slot8=gniazdo 8
-modules.settings.slot_lock.lock.slot9=gniazdo 9
 
-modules.settings.stealer.delay=Delay
-modules.settings.stealer.close=Close
-modules.settings.stealer.close.description=Closes the chest after it is emptied
-modules.settings.stealer.off=Turn off
-modules.settings.stealer.off.description=Disables the module after use
-modules.settings.stealer.open_mystic=Open mystics
-modules.settings.stealer.open_mystic.description=Module for working only with mystic chests
-modules.settings.stealer.mode=Looting mode
-modules.settings.stealer.mode.up=From top
-modules.settings.stealer.mode.down=From bottom
-modules.settings.stealer.mode.center=From center
-modules.settings.stealer.mode.random=Random
 
 modules.settings.effect_remover.remove=Remove
 modules.settings.effect_remover.remove.levitation=Levitation
 modules.settings.effect_remover.remove.jump_boost=Jump Boost
 modules.settings.effect_remover.remove.slow_fall=Slow Falling
 
-modules.settings.anti_invisible.opacity=Opacity
 
-modules.trap_esp.label=Trap
-modules.trap_esp.depth=Depth of %s blocks
-modules.trap_esp.private=Private
-modules.trap_esp.no_private=No private
 
 # Sound ESP
 modules.settings.sound_esp.select=Wyswietlac
@@ -1319,24 +1209,6 @@ modules.settings.sound_esp.select.trident=Trojzab
 modules.settings.sound_esp.select.tnt=TNT
 modules.settings.sound_esp.select.fireworks=Fajerwerki
 
-modules.settings.storage_esp.blocks=Highlight
-modules.settings.storage_esp.blocks.chests=Chests
-modules.settings.storage_esp.blocks.ender_chests=Ender Chests
-modules.settings.storage_esp.blocks.trapped_chests=Trapped Chests
-modules.settings.storage_esp.blocks.furnaces=Furnaces
-modules.settings.storage_esp.blocks.barrels=Barrels
-modules.settings.storage_esp.blocks.minecart=Minecarts
-modules.settings.storage_esp.blocks.shulkers=Shulkers
-modules.settings.storage_esp.blocks.droppers=Droppers
-modules.settings.storage_esp.blocks.dispensers=Dispensers
-modules.settings.storage_esp.blocks.hoppers=Hoppers
-modules.settings.storage_esp.render=Render
-modules.settings.storage_esp.render.fill=Fill
-modules.settings.storage_esp.render.outline=Outline
-modules.settings.storage_esp.render.diagonals=Diagonals
-modules.settings.storage_esp.render.lines=Lines from player
-modules.settings.storage_esp.max_distance=Max distance
-modules.settings.storage_esp.max_distance.description=Maximum distance at which blocks will be highlighted
 modules.settings.storage_esp.connect=Connect
 modules.settings.storage_esp.connect.description=Merges adjacent blocks when rendering highlights
 
@@ -1368,22 +1240,12 @@ modules.settings.ambience.shader_type.nebula=Mglawica
 modules.settings.ambience.shader_type.caustic=Kaustyka
 modules.settings.ambience.shader_opacity=Przezroczystosc shadera
 modules.settings.ambience.skybox_color=Kolor skyboxa
-modules.settings.ambience.custom_time=zmiana czasu
-modules.settings.ambience.time=czas
-modules.settings.ambience.bright=wlaczyc jasnosc
 
 modules.settings.ambience.night_mode=Tryb nocny
 modules.settings.ambience.night_mode.sync=Synchronizacja motywu
 modules.settings.ambience.night_mode.color=Kolor odcienia
 modules.settings.ambience.night_mode.strength=Sila odcienia
 
-modules.settings.ambience.change_color=Zmieniaj kolor
-modules.settings.ambience.change_color.sky=Nieba
-modules.settings.ambience.change_color.clouds=Chmur
-modules.settings.ambience.change_color.stars=Gwiazd
-modules.settings.ambience.sky_color=Kolor nieba
-modules.settings.ambience.cloud_color=Kolor chmur
-modules.settings.ambience.stars_color=Kolor gwiazd
 
 # Menu
 modules.settings.menu.mode=tryb
@@ -1391,47 +1253,22 @@ modules.settings.menu.mode.dropdown=panele
 modules.settings.menu.mode.modern=nowy
 
 # View Model
-modules.settings.view_model.main_translate_x=Prawy X
 modules.settings.view_model.main_translate_y=Prawe przesuniecie Y
 modules.settings.view_model.main_translate_z=Prawe przesuniecie Z
 modules.settings.view_model.main_rotate_x=Skret w prawo X
 modules.settings.view_model.main_rotate_y=Skret w prawo Y
 modules.settings.view_model.main_rotate_z=Skret w prawo Z
-modules.settings.view_model.off_translate_x=Lewy X
 modules.settings.view_model.off_translate_y=Lewe przesuniecie Y
 modules.settings.view_model.off_translate_z=Lewe przesuniecie Z
-modules.settings.view_model.off_rotate_x=Skret w lewo X
-modules.settings.view_model.off_rotate_y=Skret w lewo Y
-modules.settings.view_model.off_rotate_z=Skret w lewo Z
 
 # Kill Effects
-modules.settings.kill_effects.color=kolor
 
 # No Delay
-modules.settings.no_delay.jump=skok
-modules.settings.no_delay.jump.description=Usuwa opoznienie skokow
-modules.settings.no_delay.right_click=prawy przycisk myszy
-modules.settings.no_delay.right_click.description=Umozliwia szybkie umieszczanie blokow lub uzywanie przedmiotow
-modules.settings.no_delay.right_click_delay=Opoznienie PPM
-modules.settings.no_delay.exp=Butelka doswiadczenia
-modules.settings.no_delay.potions=Mikstury
-modules.settings.no_delay.potions.description=Usuwa opoznienie uzywania mikstur
 
 # Fast Item Use
-modules.settings.fast_item_use.bow=luk
-modules.settings.fast_item_use.bow.description=Automatycznie wysyla spam lukowy
-modules.settings.fast_item_use.trident=trojzab
-modules.settings.fast_item_use.trident.description=Automatycznie wysyla spam trojzabe
-modules.settings.fast_item_use.crossbow=kusza
-modules.settings.fast_item_use.crossbow.description=Automatycznie spamuje kusza
 
 # Auto Explosion
-modules.settings.auto_explosion.bind=Przycisk wybuchu
-modules.settings.auto_explosion.attack_others=bic innych
-modules.settings.auto_explosion.self_save=nie wysadzac sie
-modules.settings.auto_explosion.delay=opoznienie
 
-# # ������ � ���������
 inventory.button.drop_all=Wyrzuc wszystko
 inventory.button.move=Przenies wszystko
 inventory.button.steal=Zabierz wszystko
@@ -1458,8 +1295,8 @@ python.script.file_missing=Plik skryptu nie zostal znaleziony, tworze nowy: %s
 python.script.context.creating=Tworzenie kontekstu Pythona dla skryptu "%s"...
 python.script.execution.running=Wykonywanie skryptu Pythona "%s"...
 python.script.load.success_log=Skrypt "%s" zostal pomyslnie zaladowany!
-python.script.load.success=�aSkrypt %s zostal pomyslnie zaladowany.
-python.script.load.error=�cNie udalo sie zaladowac skryptu %s: %s
+python.script.load.success=Załadowano pomyślnie §aSkrypt %s.
+python.script.load.error=§cNie udało się załadować skryptu %s: %s
 python.script.load.error_log=Nie udalo sie zaladowac skryptu "%s"
 python.script.unload=Skrypt "%s" zostal wyladowany.
 python.script.create_file_error=Nie udalo sie utworzyc pliku skryptu: %s
@@ -1467,11 +1304,6 @@ python.script.template=# Ten skrypt jest na razie pusty... Czas to zmienic!
 python.script.save_error=Nie udalo sie zapisac pliku skryptu
 python.script.delete.success=Plik skryptu usuniety: %s
 python.script.delete.error=Nie udalo sie usunac pliku skryptu: %s
-modules.settings.waypoints.key=Klawisz znacznika
-modules.settings.waypoints.player_time=Czas znacznika na graczu
-modules.settings.waypoints.block_time=Czas znacznika na bloku
-modules.waypoints.from=Od %s
-modules.waypoints.distance=%s m
 rocknet.activity.main_menu=W menu glownym
 rocknet.activity.online=Online
 rocknet.activity.singleplayer=W trybie jednoosobowym
@@ -1481,7 +1313,7 @@ rocknet.reconnect.success=Pomyslnie polaczono ponownie
 rocknet.reconnect.failed=Nie udalo sie polaczyc ponownie: %s
 rocknet.coordinates.parse_error=Nie udalo sie odczytac wspolrzednych: %s
 rocknet.reply.parse_error=Nie udalo sie odczytac identyfikatora odpowiedzi: %s
-rocknet.chat.global.id=�����
+rocknet.chat.global.id=Îáùèé
 rocknet.chat.global.name=Ogolny
 rocknet.menu.friend_placeholder=Wpisz nick znajomego...
 rocknet.menu.add_friend=Dodaj znajomego
@@ -1501,10 +1333,9 @@ rocknet.menu.coordinates_button=Wspolrzedne
 rocknet.menu.reply_button=Odpowiedz
 rocknet.menu.open_chat=Otworz czat
 rocknet.menu.connect=Polacz
-rocknet.status.offline.id=�� � ����
-rocknet.status.main_menu.id=� ������� ����
+rocknet.status.offline.id=Íå â ñåòè
+rocknet.status.main_menu.id=Â ãëàâíìì ìåíþ
 rocknet.status.offline=Offline
-rocknet.status.main_menu=W menu glownym
 rocknet.auth.login_placeholder=Wpisz login...
 rocknet.auth.email_placeholder=Wpisz e-mail...
 rocknet.auth.password_placeholder=Wpisz haslo...
@@ -1531,24 +1362,14 @@ modules.settings.target_esp.color=Kolor
 modules.settings.target_esp.mode.jello=Jello
 
 # Name Protect
-modules.settings.name_protect.friend_fake_name=Nick przyjaciela
 
 # Inventory Cleaner
-modules.settings.inventory_cleaner.mode=Tryb
-modules.settings.inventory_cleaner.mode.1_8=1.8
-modules.settings.inventory_cleaner.mode.custom=Custom
-modules.settings.inventory_cleaner.blocks=Bloki
-modules.settings.inventory_cleaner.leather_armor=Skorzana zbroja
 
 # World
-modules.settings.world.color=Kolor
 
 # Waypoints
-modules.settings.waypoints.color=Kolor
 
 # View Model
-modules.settings.view_model.size_left=Rozmiar lewej reki
-modules.settings.view_model.size_right=Rozmiar prawej reki
 
 # Assist
 modules.settings.assist.auto_chorus=Auto Chorus
@@ -1559,11 +1380,8 @@ modules.settings.auto_brew.potion.invisibility=Niewidzialnosc
 modules.settings.auto_brew.enhance=Wzmocnic
 
 # Swing Animation
-modules.settings.swing_animation.only_aura=Tylko z Aura
-modules.settings.swing_animation.open_menu=Otworz menu
 
 # Chams
-modules.settings.glow.color=Kolor
 
 # Arrows
 modules.settings.arrows.lines=Linie
@@ -1574,19 +1392,13 @@ modules.settings.arrows.distance=Dystans
 modules.settings.test.name=Nazwa
 
 # Fast Item Use
-modules.settings.fast_item_use.delay=Opoznienie
 
 # Middle Click
 modules.settings.middle_click.actions=Akcje
 
 # Hitboxes
-modules.settings.hitboxes.size=Rozmiar
 
 # Inventory Utils
-modules.settings.inv_utils.targets=Narzedzia
-modules.settings.inv_utils.item_scroller=Przewijanie przedmiotow
-modules.settings.inv_utils.slot_lock=Blokada slotow
-modules.settings.inv_utils.delay=Opoznienie
 
 # XRay
 modules.settings.xray.big_block=Bloki
@@ -1655,10 +1467,6 @@ commands_rehub.ct=Wlacz modul KT Leave, aby uzyc tej komendy!
 commands_rehub.mode_unknown=Nieznany tryb serwera!
 
 # Strafe
-modules.descriptions.strafe=Ulepszona kontrola ruchu w powietrzu
-modules.settings.strafe.auto_jump=Auto Skok
-modules.settings.strafe.damage_boost=Boost od obrazen
-modules.settings.strafe.damage_speed=Predkosc od obrazen
 
 # Waypoints
 waypoints.error_coords=Nie udalo sie uzyskac wspolrzednych! Tworzenie punktu na zerowych wspolrzednych...
@@ -1742,106 +1550,46 @@ commands.lua.list=Lista skryptow Lua:
 commands.lua.not_found_list=Nie znaleziono skryptow Lua.
 
 # Theme Panel
-theme.type_name=Wpisz nazwe
-theme.expand=Rozwin
-theme.themes=Motywy
 
-theme.colors=Kolory
-theme.colors.accent=Glowny
-theme.colors.background=Tlo
-theme.colors.additional=Dodatkowy
-theme.colors.text=Tekst
-theme.colors.outline=Obramowanie
 
-theme.other=Inne
-theme.hud_rounding=Zaokraglenie HUD
-theme.blur_strength=Sila rozmycia
 
-theme.minimalism=Minimalizm
-theme.opacity=Nieprzezroczystosc
 
-theme.liquid_glass=Plynne szklo
-theme.strength=Sila
-theme.distortion=Znieksztalcenie
 
-theme.additional=Dodatkowo
-theme.extended_settings=Rozszerzone ustawienia
-theme.icons=Ikony
 
-theme.in_menu=W menu
-theme.enabled_offset=Przesuniecie wlaczonych
-theme.separators=Separatory
 
 theme.sync=Synchronizacja z motywem
 
 # Swap Integration
-swap.item_not_found=Przedmiot nie znaleziony
-swap.item_required=Musisz miec %s w ekwipunku
 
 # HUD Status
-hud.pvp_mode=Jestes w trybie PVP
 
 # UI Components
-ui.range_format=od %s do %s
 
 # Rocknet Status
-rocknet.status.main_menu=W menu glownym
 
 # Mine Helper
-mine_helper.pickaxe_swap=Zamiana kilofa
-mine_helper.pickaxe_swapped=Zamieniono kilof z %.1f%% na %.1f%%
 
 # Beautifully Module
-modules.settings.beautifully.select=Wybor
-modules.settings.beautifully.smooth_f5=Plynny F5
 
 # Ambience Module
-modules.settings.ambience.mode=Tryb
-modules.settings.ambience.mode.gamma=Gamma
-modules.settings.ambience.mode.effect=Efekt
-modules.settings.ambience.mode.dynamic=Dynamiczny
-modules.settings.ambience.dynamic.radius=Promien swiatla
-modules.settings.ambience.dynamic.light=Sila swiatla
-modules.settings.ambience.dynamic.only_in_cave=Tylko w jaskini
 
 # Sounds Module
-modules.settings.sounds.voice.death=Przy smierci
 
 # Object Info
-object_info.trap=Pulapka
-object_info.dragon=Smok
-object_info.plast=Warstwa
 
 # Auto Potion
-modules.settings.auto_potion.mode.packet=Pakietowy
-modules.settings.auto_potion.mode.legit=Legalny
 
 # Aura Module
-modules.settings.aura.no_hit_inv=Nie bij z otwartym ekwipunkiem
-modules.settings.aura.targeted_move_correction=Celowany
-modules.settings.aura.force_targeted_ranged=Celuj, jesli cel ma kusze lub trojzab
-modules.settings.aura.force_behind_targeted=Idz za plecy
-modules.settings.aura.utilities=Dodatkowe
-modules.settings.aura.resolver=Resolver
 
 # Mouse Buttons
-mouse.lmb=LPM
-mouse.rmb=PPM
-mouse.mmb=SPM
-mouse.mmb=SPM
 
 # Friend Markers
-modules.settings.friends_markers.sims=Sims
 
 # Flight
-modules.settings.flight.elytra_y=Elytra Y
 
 # Player Utils
-modules.settings.player_utils.block_trap=Pulapka blokowa
 
 # Speed
-modules.settings.speed.spooky_elytra=Spooky Elytra
-theme.separators=Separatory
 
 # Swap Integration
 swap.item_not_found=Przedmiot nie znaleziony
@@ -1865,21 +1613,11 @@ modules.settings.beautifully.select=Wybierz
 modules.settings.beautifully.smooth_f5=Plynny F5
 
 # Ambience Module
-modules.settings.ambience.mode=Tryb
-modules.settings.ambience.mode.gamma=Gamma
-modules.settings.ambience.mode.effect=Efekt
-modules.settings.ambience.mode.dynamic=Dynamiczny
-modules.settings.ambience.dynamic.radius=Promien swiatla
-modules.settings.ambience.dynamic.light=Sila swiatla
-modules.settings.ambience.dynamic.only_in_cave=Tylko w jaskini
 
 # Sounds Module
 modules.settings.sounds.voice.death=Przy smierci
 
 # Object Info
-object_info.trap=Trapka
-object_info.dragon=Smok
-object_info.plast=Plast
 
 # Auto Potion
 modules.settings.auto_potion.mode.packet=Pakietowy
@@ -1926,12 +1664,8 @@ modules.settings.player_utils.block_trap=Block Trap
 modules.settings.speed.spooky_elytra=Spooky Elytra
 
 # Auto Explosion
-modules.settings.auto_explosion.instant_destroy=Natychmiastowe niszczenie
 
 # Theme Panel (additional)
-theme.dynamic_island=Dynamiczna Wyspa
-theme.color_from_statuses=Kolor ze statusow
-theme.enabled_modules=Wlaczone moduly
 
 # Rocknet Auth
 rocknet.auth.independent_account=Konto Globals jest niezalezne od konta definevisuals
@@ -2239,7 +1973,6 @@ modules.settings.globals.visibility=Widocznosc
 modules.settings.globals.visibility.description=Dla kogo bedziesz widoczny w NameTags
 modules.settings.globals.visibility.all=Dla wszystkich
 modules.settings.globals.visibility.friends=Tylko dla przyjaciol
-modules.settings.globals.visibility.none=Dla nikogo
 modules.settings.globals.notifications=Powiadomienia
 modules.settings.globals.notifications.description=Od kogo otrzymywac powiadomienia o wiadomosciach
 modules.settings.globals.notifications.all=Wszyscy
@@ -2350,8 +2083,8 @@ aimassist.mp_grid=Siatka
 aimassist.mp_spiral=Spirala (test)
 
 trigger.break_shields=Lam Tarcze
-aimassist.input_based=³� ��������
-aimassist.input_threshold=���� ��������
+aimassist.input_based=Oparte na danych wejściowych
+aimassist.input_threshold=Próg wejściowy
 
 aimassist.mp_adaptive=Adaptatywna liczba punktow i rozrzutu
 aimassist.regen=Interwal odnawiania punktow
@@ -2438,8 +2171,6 @@ Ping Based=Zalezne od pingu
 Ping Multiplier=Mnoznik pingu
 TPS Based=Zalezne od TPS
 polski=Polski
-�������=Rosyjski
-���������=Ukrainski
 bot.notification.connected=Bot %s polaczony
 bot.notification.disconnected=Bot %s rozlaczony
 bot.notification.error=Blad bota %s: %s
@@ -2505,10 +2236,8 @@ lua.script.save_error=Nie udalo sie zapisac skryptu Lua
 lua.script.template=-- Nowy skrypt Lua definevisuals
 lua.script.unload=Wyladowywanie skryptu Lua %s
 modules.descriptions.auto_bot=Automatyzuje akcje przez Baritone
-modules.descriptions.beautifully=Dodaje plynne efekty kamery
 modules.descriptions.elytra_motion=Ulepsza przyspieszenie fajerwerkami na elytrze
 modules.descriptions.globals_menu=Menu Globals
-modules.descriptions.macro_menu=Menu makr
 modules.descriptions.pots_timer=Po cichu podglada piece i statywy alchemiczne, pokazujac nad nimi timer postepu
 modules.descriptions.super_bow=Wzmacnia strzaly z luku przyspieszeniem pakietowym
 modules.descriptions.superfirework=Ulepsza przyspieszenie fajerwerkami na elytrze
@@ -2539,43 +2268,6 @@ modules.settings.target_pearl.only_holding=Tylko w rece
 modules.settings.target_pearl.only_aura_target=Tylko za celem Aura
 modules.settings.target_pearl.own_pearls=Wlasne perly
 modules.settings.target_pearl.track_range=Zasieg sledzenia
-���� ������/��������=Auto wrath/punisher
-����� �����=Stojak na zbroje
-����� ����=Boska aura
-����� ������=Brac Cerbera
-����� ������/��������=Brac wrath/punisher
-������� �������� � ����=Szybkie wynurzanie w wodzie
-�������� ������=Wybuchowa pulapka
-�������� ������=Wybuchowa rzecz
-������=Zawsze
-�������������=Dezorientacja
-��� ��������=Dla przedmiotu
-��������������=Dodatkowy
-������=Znajomych
-������ ����=Klawisz wyjscia
-����� ��� ����=Gdy bez miecza
-����� � ������=Gdy w elytrze
-����� ������=Gdy wychodzi
-�� ��������=Nie wysadzac
-�����=Bypass
-�������=Domyslny
-�������� �����=Ognisty wir
-��������=Glowny
-������� �������=Otworz makra
-������� ����=Otworz menu
-������� ���=Czysc wszystko
-�������=Predykcja
-��������=Przedmioty
-�����=Tryb
-������� ��� ��������=Zamien bez Glebinowego Wedrowca
-����=Siebie
-������=Serwer
-������������� � TPS=Synchronizacja z TPS
-����=Ogluszenie
-������������� ��������=Testowany gradient
-�����=Inteligentny
-������ Sonar=Efekt Sonar
-����� ����=Widoczny pyl
 
 # Cross-language key parity
 helper.pickaxe_swap=Zamiana kilofa
@@ -2600,47 +2292,497 @@ modules.settings.pots_timer.silent_peek.description=Krotko otwiera ekran niewido
 
 modules.descriptions.auctionprice=Pokazuje ceny na aukcji
 modules.descriptions.autoauth=Automatyczna autoryzacja na serwerze
-modules.descriptions.compasstooltip=Pokazuje informacje o kompasie
-modules.descriptions.death_coords=Wysyla wspolrzedne smierci do czatu
 modules.descriptions.deathcoords=Pokazuje wspolrzedne smierci
 modules.descriptions.healthindicator=Pokazuje HP gracza pod nickiem
-modules.descriptions.holyevents=Lista wydarzeń HolyWorld
 modules.descriptions.inventorycleaner=Czyści ekwipunek ze śmieci
 modules.descriptions.macromenu=Menu makr
 modules.descriptions.nameprotect=Ukrywa twój nick
-modules.descriptions.nocommands=Blokuje komendy
-modules.descriptions.optimization=Optymalizacja FPS
 modules.descriptions.seeinvisibles=Widzi niewidzialnych graczy
-modules.descriptions.sounds=Dźwięki moda
 modules.descriptions.spawnertooltip=Pokazuje informacje o spawnerze
 modules.descriptions.autosprint=Auto sprint
 modules.descriptions.clanupgrade=Informacje o ulepszeniach klanu
 modules.descriptions.clickfriend=Kliknij nick aby dodać do znajomych
-modules.descriptions.hw_helper=Pokazuje strefy przedmiotow HolyWorld
 modules.descriptions.hwhelper=Pomocnik dla HolyWorld
 modules.descriptions.minehelper=Pomocnik do kopania
 modules.descriptions.nodelay=Usuwa opóźnienie
 modules.descriptions.playerutils=Przydatne funkcje dla gracza
-modules.descriptions.ambience=Efekty atmosferyczne
 modules.descriptions.autoeventwaypoints=Auto waypointy wydarzeń
-modules.descriptions.beautifully=Piękne efekty
 modules.descriptions.bettertab=Ulepszona lista graczy
-modules.descriptions.blockoverlay=Overlay na blokach
-modules.descriptions.crosshair=Własny celownik
 modules.descriptions.customfog=Własna mgła
 modules.descriptions.donateeffects=Efekty dla donatorów
 modules.descriptions.friendmarkers=Markery przyjaciół
 modules.descriptions.gribochki=Grzyby na serwerze
-modules.descriptions.hit_color=Zmienia kolor gracza przy otrzymywaniu obrazen
 modules.descriptions.hitcolor=Kolor paska trafien
-modules.descriptions.interface=Interfejs
 modules.descriptions.killeffects=Efekty przy zabójstwie
 modules.descriptions.menumodule=Ustawienia menu
-modules.descriptions.prediction=Przewidywanie ruchów
-modules.descriptions.removals=Usuwanie elementów
-modules.descriptions.self_tag=Pokazuje wanzilowa tabliczke z nickiem nad toba (z 3. osoby)
 modules.descriptions.selftag=Wlasny tag nad glowa
 modules.descriptions.swinganimation=Animacja rąk
 modules.descriptions.targetesp=ESP dla celów
+
+# ---- Completed localization keys ----
+hud.targethud.staytime=Czas odpoczynku
+hud.targethud.staytime.description=Czas trwania po odwróceniu wzroku od celu (s)
+modules.descriptions.SRPSpoo=pozwala ominąć serwery pakietów zasobów
+modules.descriptions.VievModel=niestandardowe ułożenie dłoni
+modules.descriptions.animations=Animacje interfejsu (czat, ekwipunek, podpowiedzi, ESC, pasek skrótów, pasek bossów)
+modules.descriptions.anti_lud=Blokuje polecenia /casino i /create, zapobiegając uzależnieniu od hazardu
+modules.descriptions.aspect_ratio=Zmienia proporcje ekranu
+modules.descriptions.auto_gg=Automatycznie wysyła GG po zabiciu gracza
+modules.descriptions.auto_waypoints=Automatycznie oznacza wydarzenia i skarby
+modules.descriptions.compass_tooltip=Pokazuje czas odnowienia specjalnych kompasów
+modules.descriptions.shulker_safe=Chroni przed wyjściami z shulkerami i cennymi przedmiotami na serwerze sprzętowym
+modules.settings.ambience.color_isolation=Izolacja kolorów
+modules.settings.ambience.color_isolation.background=Tło
+modules.settings.ambience.color_isolation.color=Kolor izolacji
+modules.settings.ambience.color_isolation.mode=Tryb izolacji
+modules.settings.ambience.color_isolation.mode.balanced=Zrównoważony
+modules.settings.ambience.color_isolation.mode.custom=Niestandardowe
+modules.settings.ambience.color_isolation.mode.loose=Miękkie
+modules.settings.ambience.color_isolation.mode.strict=Surowe
+modules.settings.ambience.color_isolation.sensitivity=Czułość
+modules.settings.ambience.fog=Mgła
+modules.settings.ambience.fog.color=Kolor mgły
+modules.settings.ambience.fog.color_mode=Tryb koloru mgły
+modules.settings.ambience.fog.color_mode.biome=Biom
+modules.settings.ambience.fog.color_mode.custom=Niestandardowe
+modules.settings.ambience.fog.color_mode.theme=Temat
+modules.settings.ambience.fog.coverage=Zasięg
+modules.settings.ambience.fog.density=Gęstość
+modules.settings.ambience.fog.level=Poziom
+modules.settings.ambience.fog.quality=Jakość
+modules.settings.ambience.fog.quality.high=Wysoka
+modules.settings.ambience.fog.quality.low=Niski
+modules.settings.ambience.fog.thickness=Grubość
+modules.settings.ambience.rain=Deszcz
+modules.settings.ambience.rain.density=Gęstość
+modules.settings.ambience.rain.drops=Krople
+modules.settings.ambience.rain.opacity=Przejrzystość
+modules.settings.ambience.rain.splashes=plamy
+modules.settings.ambience.shader_type.galaxy=Galaktyka
+modules.settings.ambience.shader_type.space=Przestrzeń
+modules.settings.ambience.wet_world=Mokry świat
+modules.settings.ambience.wet_world.amount=Ilość
+modules.settings.ambience.wet_world.quality=Jakość
+modules.settings.ambience.wet_world.quality.high=Wysoka
+modules.settings.ambience.wet_world.quality.low=Niski
+modules.settings.ambience.wet_world.quality.medium=Średnia
+modules.settings.ambience.wet_world.reflection=Odbicie
+modules.settings.animations.effects=Efekty
+modules.settings.bettertab.maxColumns=Maks. głośniki
+modules.settings.bettertab.maxPlayers=Maks. gracze
+modules.settings.blockoverlay.color=Kolor
+modules.settings.blockoverlay.fillAlpha=Przejrzystość
+modules.settings.blockoverlay.filled=Wypełnij
+modules.settings.blockoverlay.smooth=Płynna animacja
+modules.settings.blockoverlay.smoothSpeed=Szybkość animacji
+modules.settings.crosshair.adaptive=Możliwość adaptacji
+modules.settings.crosshair.centerDot=Znak środka
+modules.settings.crosshair.gap=Odległość od centrum
+modules.settings.crosshair.length=Długość segmentu
+modules.settings.crosshair.outline=Kontur
+modules.settings.health_indicator.lowHpScale=Skala (niskie HP)
+modules.settings.health_indicator.normalScale=Skala (normalna)
+modules.settings.health_indicator.relativeX=Pozycja X
+modules.settings.health_indicator.relativeY=Pozycja Y
+modules.settings.health_indicator.targetDelay=Pokaż czas
+Àâòî ÿðîñòü/êàðàòåëü=Automatyczny gniew/kara
+Àðìîð ñòåíä=Stojak na zbroję
+Áîæüÿ àóðà=Boska Aura
+Áðàòü Öåðáåð=Weź Cerbera
+Áðàòü ÿðîñòü/êàðàòåëÿ=Przyjmij gniew/karę
+Áûñòðîå ïîäíÿòèå â âîäå=Szybki wzrost poziomu wody
+Âçðûâíàÿ òðàïêà=Wybuchowa pułapka
+Âçðûâíàÿ øòó÷êà=Wybuchowa rzecz
+Âñåãäà=Zawsze
+Äåçîðèåíòàöèÿ=Dezorientacja
+Äëÿ ïðåäìåòà=Dla przedmiotu
+Äîïîëíèòåëüíûé=Dodatkowe
+Äðóçåé=Przyjaciele
+Êíîïêà ëèâà=Zostaw klucz
+Êîãäà áåç ìå÷à=Kiedy bez miecza
+Êîãäà â ýëèòðå=Kiedy jesteś w elytrze
+Êîãäà ëèâàåò=Kiedy wychodzisz
+Íå âçðûâàòü=Nie eksploduj
+Îáõîä=Obejście
+Îáû÷íûé=Domyślne
+Îãíåííûé ñìåð÷=Ognista trąba powietrzna
+Îñíîâíîé=Główny
+Îòêðûòü ìàêðîñû=Otwórz makra
+Îòêðûòü ìåíþ=Otwórz menu
+Î÷èùàòü âñå=Wyczyść wszystko
+Ïðåäèêò=Przewidywanie
+Ïðåäìåòû=Przedmioty
+Ðåæèì=Tryb
+Ðóññêèé=Rosyjski
+Ñâàïàòü áåç ïîäâîäêè=Zamień bez Depth Stridera
+Ñåáÿ=Ja
+Ñåðâåð=Serwer
+Ñèíõðîíèçàöèÿ ñ TPS=Synchronizacja TPS
+Ñòàí=Ogłuszenie
+Òåñòèðîâàííûé ãðàäèåíò=Testowany gradient
+Óêðà¿íñüêà=ukraiński
+Óìíûé=Inteligentny
+Ýôôåêò Sonar=Efekt sonaru
+ßâíàÿ ïûëü=Widoczny pył
+Авто ярость/каратель=Авто ярость/каратель
+Армор стенд=Армор стенд
+Божья аура=Божья аура
+Брать Цербер=Брать Цербер
+Брать ярость/карателя=Брать ярость/карателя
+Быстрое поднятие в воде=Быстрое поднятие в воде
+Всегда=Всегда
+Дезориентация=Дезориентация
+Для предмета=Для предмета
+Дополнительный=Дополнительный
+Друзей=Друзей
+Кнопка лива=Кнопка лива
+Когда без меча=Когда без меча
+Когда в элитре=Когда в элитре
+Когда ливает=Когда ливает
+Не взрывать=Не взрывать
+Обход=Обход
+Огненный смерч=Огненный смерч
+Основной=Основной
+Открыть макросы=Открыть макросы
+Открыть меню=Открыть меню
+Очищать все=Очищать все
+Предикт=Предикт
+Предметы=Предметы
+Свапать без подводки=Свапать без подводки
+Себя=Себя
+Сервер=Сервер
+Синхронизация с TPS=Синхронизация с TPS
+Тестированный градиент=Тестированный градиент
+Умный=Умный
+Эффект Sonar=Эффект Sonar
+Явная пыль=Явная пыль
+
+# ---- Current module descriptions ----
+
+# ---- Completed localization keys ----
+
+# ---- Current module descriptions ----
+modules.descriptions.ambience=Efekty atmosferyczne
+modules.descriptions.antilud=Nie bądź hazardzistą!!
+modules.descriptions.aspectratio=Zmienia proporcje ekranu
+modules.descriptions.auction_price=Pokazuje cenę w monetach na aukcji HolyWorld
+modules.descriptions.auto_auth=Automatycznie rejestruje i loguje sie na konto na serwerze
+modules.descriptions.auto_respawn=Automatycznie odradza się po śmierci
+modules.descriptions.auto_sprint=Automatycznie naciska Sprint
+modules.descriptions.autogg=Automatyczna wiadomość na czacie po wygranej
+modules.descriptions.autowaypoints=Automatycznie oznacza wydarzenia i skarby
+modules.descriptions.beautifully=Piękne efekty
+modules.descriptions.better_tab=Pokazuje wszystkich graczy w zakładce
+modules.descriptions.blockoverlay=Overlay na blokach
+modules.descriptions.china_hat=Piękna chińska czapka
+modules.descriptions.clan_upgrade=Automatycznie pompuje klan za pomoca pochodni
+modules.descriptions.click_friend=Dodaje znajomych po naciśnięciu klawisza
+modules.descriptions.compasstooltip=Pokazuje informacje o kompasie
+modules.descriptions.cosmetics=Kosmetyka 3D postaci: skrzydła, czapki, zwierzaki i stroje
+modules.descriptions.crosshair=Własny celownik
+modules.descriptions.custom_fog=Ustawienia mgly
+modules.descriptions.death_coords=Wysyla wspolrzedne smierci do czatu
+modules.descriptions.donate_effects=Efekty wizualne przy uzyciu przedmiotow donatnych
+modules.descriptions.freelook=Swobodny widok z kamery dookoła podczas jazdy
+modules.descriptions.friend_markers=Wizualnie oznacza znajomych
+modules.descriptions.health_indicator=Pokazuje HP gracza po trafieniu
+modules.descriptions.hit_color=Zmienia kolor gracza przy otrzymywaniu obrazen
+modules.descriptions.holyevents=Lista wydarzeń HolyWorld
+modules.descriptions.hw_helper=Pokazuje strefy przedmiotow HolyWorld
+modules.descriptions.interface=Interfejs
+modules.descriptions.item_physics=Realistyczna fizyka leżących i obracających się obiektów na ziemi
+modules.descriptions.itemscroller=Szybko przenosi przedmioty podczas przeciagania z wcisnietym Shift
+modules.descriptions.jump_circle=Spektakularne koła i zniekształcenia przestrzenne podczas skoków
+modules.descriptions.kill_effects=Piekny efekt gdy istoty umieraja
+modules.descriptions.lyrics=Renderuje teksty utworów w świecie 3D z dokładnym wyrównaniem bloków i precyzyjnym synchronizacją
+modules.descriptions.macro_menu=Menu makr
+modules.descriptions.menu=Menu funkcji klienta
+modules.descriptions.mine_helper=Funkcje pomocnicze dla kopalni
+modules.descriptions.name_protect=Wizualnie zmienia pseudonim gracza
+modules.descriptions.no_delay=Usuwa opoznienia
+modules.descriptions.no_friend_damage=Nie pozwala na bicie znajomych
+modules.descriptions.nocommands=Blokuje komendy
+modules.descriptions.optimization=Optymalizacja FPS
+modules.descriptions.prediction=Przewidywanie ruchów
+modules.descriptions.removals=Usuwanie elementów
+modules.descriptions.see_invisibles=Pokazuje nicki nad niewidzialnymi graczami
+modules.descriptions.self_tag=Pokazuje wanzilowa tabliczke z nickiem nad toba (z 3. osoby)
+modules.descriptions.shader_hand=Najlepsze shadery i efekty blasku dla dłoni i obiektów
+modules.descriptions.shulkersafe=Plecaka nie zgubisz tak łatwo)
+modules.descriptions.sounds=Dźwięki moda
+modules.descriptions.spawner_tooltip=Pokazuje informacje o spawnerach
+modules.descriptions.srpspoof=Zastępuje informację o zainstalowanym pakiecie zasobów serwera
+modules.descriptions.swing_animation=Zmienia animacje rak podczas machania
+modules.descriptions.target_esp=Oznacza aktywny cel
 modules.descriptions.viewmodel=Widok z pierwszej osoby
+modules.descriptions.window_title=Zmienia tytuł okna Minecrafta
 modules.descriptions.world=Zmiany świata
+modules.descriptions.zoom=Plynne przyblizenie kamery jak w OptiFine i Zoomify
+
+# ---- Current literal setting names ----
+1-е лицо=1. osoba
+3-е лицо=Trzecia osoba
+3D Модели=Modele 3D
+Авто замена=Automatyczna wymiana
+Авто замена.description=Automatycznie zmienia kilof, gdy wytrzymałość jest niska
+Авто починка=Naprawa samochodów
+Авто починка.description=Naprawia kilof wykorzystując doświadczenie
+Авто продажа=Sprzedaż samochodów
+Анимация=Animacja
+Анимация.description=Styl wyglądu tekstu
+Белый=Biały
+Вейпоинты ивентов=Punkty orientacyjne zdarzeń
+Вейпоинты ивентов.description=Automatycznie taguj wydarzenia na czacie
+Вейпоинты сокровищ=Punkty orientacyjne skarbów
+Вейпоинты сокровищ.description=Automatycznie oznaczaj skarby za pomocą kompasu
+Взрывная трапка=Wybuchowa drabina
+Взрывная штучка=Wybuchowa rzecz
+Внешнее свечение=Zewnętrzny blask
+Внутреннее свечение=Wewnętrzny blask
+Все игроки=Wszyscy gracze
+Все игроки.description=Pokaż wszystkich graczy na serwerze
+Выключен=Wyłączone
+Высота=Wysokość
+Высота подъема=Wysokość podnoszenia
+Высота подъема.description=Wysokość pływająca tekstu
+Высота.description=Wysokość stożka kapelusza
+Голова Джека=Głowa Jacka
+Головы игроков=Głowy graczy
+Головы игроков.description=Pokaż głowy graczy w zakładce
+Градиент=Gradientowe
+Громкость звука=Głośność dźwięku
+Дебаг режим=Tryb debugowania
+Дистанция=Odległość
+Дистанция.description=Odległość wyświetlania tekstu od odtwarzacza
+Дуо Лайт (10-19)=Światło Duo (10-19)
+Задержка=Opóźnienie
+Задержка биндов (мс)=Opóźnienie wiązania (ms)
+Задержка биндов (мс).description=Opóźnienie między użyciami powiązań
+Зелья=Mikstury
+Значение=Znaczenie
+Иероглифы=Hieroglify
+Инверсия Y=Inwersja Y
+Искажение=Zniekształcenie
+Кастомное=Niestandardowe
+Кастомный=Niestandardowe
+Кастомный цвет=Kolor niestandardowy
+Клавиша=Klucz
+Клан Лайт (30-36)=Światło klanu (30-36)
+Кнопка починки=Przycisk naprawy
+Количество кристаллов=Liczba kryształów
+Кристаллы=Kryształy
+Куб=Sześcian
+Куб 1=Kostka 1
+Кубек 4=Kubek 4
+Кубик 3=Kostka 3
+Куллинг существ=Odstrzał stworzeń
+Куллинг существ.description=Nie renderuj stworzeń całkowicie ukrytych za blokami.
+Левая рука X=Lewa ręka X
+Левая рука Y=Lewa ręka Y
+Левая рука Z=Lewa ręka Z
+Лимит строк=Limit linii
+Лимит строк.description=Maksymalna liczba jednocześnie widocznych linii
+Масштаб=Skala
+Масштаб.description=Skala wyświetlania pozycji
+Не сбрасывать в меню=Nie resetuj do menu
+Обод=Obręcz
+Огонь=ogień
+Ограничение прорисовки=Ograniczenie rysunku
+Ограничение прорисовки.description=Medium – do 12 kawałków, Ultra – do 8.
+Оригинальный цвет=Oryginalny kolor
+Открыть список=Otwórz listę
+Пароль=Hasło
+Перспектива=Perspektywa
+Плавный F5=Gładka F5
+Плотность призраков=Gęstość duchów
+Подсвечивать без КД=Zaznacz bez płyty CD
+Поиск предмета=Wyszukaj przedmiot
+Правая рука X=Prawa ręka X
+Правая рука Y=Prawa ręka Y
+Правая рука Z=Prawa ręka Z
+Предпросмотр зоны=Podgląd strefy
+Предпросмотр зоны.description=Pokaż obszar pułapki, trzymając obiekt
+Призраки=Duchy
+Прозрачность стекла=Przezroczystość szkła
+Прозрачность стекла.description=Stopień przezroczystości efektu szkła
+Прочность=Siła
+Радиус=Promień
+Радиус кольца=Promień pierścienia
+Радиус свечения=Promień blasku
+Радиус свечения.description=Promień rozmycia Kawase Bloom
+Радиус спирали=Promień spirali
+Радиус.description=Promień okręgu skoku
+Разбиение=Dzielenie
+Разбиение.description=Tryb podziału linii
+Размер кристаллов=Rozmiar kryształu
+Размер куба=Rozmiar kostki
+Размер призраков=Rozmiar ducha
+Размытие фона=Rozmycie tła
+Рандом=Losowe
+Режим=Tryb
+Режим.description=Agresywna optymalizacja.
+Рубик 2=Rubika 2
+Русский=Rosyjski
+Свечение=Blask
+Свечение кристаллов=Kryształowy blask
+Сила искажения=Siła zniekształcenia
+Сила искажения.description=Intensywność modułu cieniującego zniekształcenia
+Сила размытия=Siła rozmycia
+Сила размытия.description=Intensywność rozmycia
+Сила шлейфа=Siła pętli
+Сила шлейфа.description=Resztkowa intensywność smugi
+Скорость вращения=Prędkość obrotowa
+Скорость вращения.description=Prędkość obrotu obiektów w powietrzu
+Скорость кристаллов=Szybkość kryształu
+Скорость куба=Szybkość kostki
+Скорость призраков=Prędkość ducha
+Скрывать в первом лице=Ukryj się w pierwszej osobie
+Следующая косметика (F9)=Następne kosmetyki (F9)
+Слов в строке=Słowa w wierszu
+Слов в строке.description=Liczba słów w jednym wierszu na świecie
+Смещение (мс)=Przesunięcie (ms)
+Смещение (мс).description=Przesunięcie czasu zegara audio
+Снежок=Śnieżka
+Соло Лайт (1-9)=Światło solo (1-9)
+Сонар=Sonar
+Соотношение=Stosunek
+Сохранять кирку=Zachowaj kilof
+Сохранять кирку.description=Zapobiega rozbiciu bloku, jeśli przedmiot osiągnął określoną siłę
+Средний=Średni
+Стан=Stana
+Стекло=Szkło
+Стиль=Styl
+Текстура=Tekstura
+Тема=Temat
+Только с игроком внутри=Tylko z graczem w środku
+Только с игроком внутри.description=Z rampy korzystaj tylko wtedy, gdy w środku znajduje się inny gracz
+Трапка=Drabina
+Трио Лайт (20-29)=Światło Trio (20-29)
+Угол разброса=Kąt rozłożenia
+Угол разброса.description=Kąt rozproszenia wokół spojrzenia (stopnie)
+Українська=ukraiński
+Ультра=Ultra
+Хроматизм=Chromatyzm
+Цвет=Kolor
+Цвет верха=Najlepszy kolor
+Цвет кристаллов=Kolor kryształu
+Цвет куба=Kolor kostki
+Цвет низа=Kolor dołu
+Цвет призраков=Kolor ducha
+Цвет темы=Kolor motywu
+Цвет урона=Kolor uszkodzeń
+Цвет.description=Schemat kolorów tekstu
+Шлейф движения=Ślad ruchu
+Шрифт=Czcionka
+Шрифт.description=Czcionka do renderowania tekstu
+Эффекты=Efekty
+Яркость внешнего=Jasność zewnętrzna
+Яркость внешнего.description=Zewnętrzna intensywność halo
+Яркость внутреннего=Wewnętrzna jasność
+Яркость внутреннего.description=Intensywność blasku wewnętrznego
+
+# ---- Modern UI texts ----
+" уже существует=„już istnieje
+"autosave" — зарезервированное имя=„autozapis” to nazwa zastrzeżona
+1.16 Анархия=1.16 Anarchia
+1.20 Анархия=1.20 Anarchia
+1.20 Анархия #1=1.20 Anarchia nr 1
+1.20 Анархия #2=1.20 Anarchia #2
+1.20 Анархия #3=1.20 Anarchia #3
+Автосохранение=Autozapis
+Активен=Aktywny
+Активные события=Aktywne wydarzenia
+Анархия #=Anarchia #
+ВЗРЫВНОЙ=WYBUCHOWY
+Введите название конфига=Wpisz nazwę konfiguracji
+Введите название нового конфига:=Wpisz nazwę nowej konfiguracji:
+Весенняя=Wiosna
+Водяная=Woda
+Все категории=Wszystkie kategorie
+Все модули и бинды вернутся к заводским.=Wszystkie moduły i powiązania powrócą do ustawień fabrycznych.
+Голубо-розовая=Niebieski różowy
+Готов=Gotowy
+Другое=Inne
+Дуо Лайт · 10–19=Światło Duo · 10–19
+ЗАЖИТОЧНЫЙ=BOGATY
+Загрузить=Pobierz
+Загрузка событий...=Ładowanie wydarzeń...
+Закатная=Zachód słońca
+Зимняя=Zima
+Клан Лайт · 30–36=Światło Klanu · 30–36
+Клиентская=Klient
+Конфиг "=Konfiguracja”
+Конфигов пока нет(=Nie ma jeszcze konfiguracji (
+Конфигурации=Konfiguracje
+Косметика=Kosmetyki
+Косметика сброшена=Reset kosmetyków
+Крылья=Skrzydła
+ЛЕГЕНДАРНЫЙ=LEGENDARNY
+Лавандовая=Lawenda
+Летняя=Lato
+МИРНЫЙ=SPOKOJNE
+МИФИЧЕСКИЙ=MITYCZNE
+Мои конфиги=Moje konfiguracje
+Мониторинг событий HolyWorld=Monitorowanie wydarzeń HolyWorld
+Нажмите, чтобы перейти=Kliknij, aby przejść
+Название конфига=Nazwa konfiguracji
+Настройки сброшены к заводским=Ustawienia zresetowane do ustawień fabrycznych
+Не удалось загрузить события=Nie udało się załadować wydarzeń
+Некорректный ответ JSON=Nieprawidłowa odpowiedź JSON
+Нет активных событий=Brak aktywnych wydarzeń
+ОБЫЧНЫЙ=REGULARNE
+ОБЫЧНЫЙ КОРАБЛЬ=ZWYKŁY STATEK
+Обновить=Aktualizacja
+Отмена=Anuluj
+Ошибка соединения=Błąd połączenia
+Папка=Folder
+Перейти=Idź
+Питомец=Zwierzę domowe
+Питомцы=Zwierzęta
+Подключение к HolyWorld API=Łączenie z interfejsem API HolyWorld
+Поиск=Szukaj
+Полуночная=Północ
+Проверьте фильтры серверов=Sprawdź filtry serwera
+Проверьте фильтры серверов в ClickGUI=Sprawdź filtry serwera w ClickGUI
+РЕДКИЙ=RZADKO
+РОСКОШНЫЙ=LUKSUS
+Рассветная=Rasswietnaja
+СМЕРТЕЛЬНЫЙ=ŚMIERTELNY
+Сбросить=Zresetuj
+Сбросить всё=Zresetuj wszystko
+Сбросить настройки?=Zresetować ustawienia?
+Светлая=Światło
+Сине-зелёная=Niebiesko-zielony
+События HolyWorld в реальном времени=Wydarzenia HolyWorld w czasie rzeczywistym
+Создать=Utwórz
+Создать конфигурацию=Utwórz konfigurację
+Соло Лайт · 1–9=Światło solo · 1–9
+Сохранить=Zapisz
+Текущая категория=Aktualna kategoria
+Тело=Ciało
+Темы=Tematy
+Трио Лайт · 20–29=Światło Trio · 20–29
+Тёмная=Ciemny
+Тёмно-синяя=Ciemnoniebieski
+Фильтры серверов=Filtry serwerowe
+Фиолетовая=Fioletowy
+Функции=Funkcje
+Цветовые палитры=Palety kolorów
+Чёрно-белая=Czarno-biały
+Шляпа=Kapelusz
+Шляпы=Kapelusze
+ЭПИЧЕСКИЙ=EPICKI
+тут пока что ничего нету(=jeszcze nic tu nie ma (
+menu.category.modules=Moduły
+menu.category.player=Gracz
+menu.category.visuals=Wizualne
+menu.category.utils=Narzędzia
+menu.category.server=Serwer
+menu.category.events=Wydarzenia
+menu.category.client=Klient
+menu.category.configs=Konfiguracje
+menu.category.themes=Motywy
+menu.category.cosmetics=Kosmetyka
+menu.category.other=Inne
+menu.category.interface=Interfejs
+Активно=Aktywne

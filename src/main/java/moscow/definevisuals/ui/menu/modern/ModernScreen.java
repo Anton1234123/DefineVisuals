@@ -15,9 +15,10 @@ import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.framework.objects.gradient.impl.VerticalGradient;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
+import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
 import moscow.definevisuals.systems.modules.api.ModuleCategory;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
 import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.modules.modules.visuals.MenuModule;
 import moscow.definevisuals.systems.theme.Theme;
@@ -62,7 +63,7 @@ import moscow.definevisuals.utility.render.batching.impl.RoundedRectBatching;
 import moscow.definevisuals.utility.render.batching.impl.SquircleBatching;
 import moscow.definevisuals.utility.render.obj.Rect;
 import moscow.definevisuals.utility.render.penis.PenisPlayer;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import moscow.definevisuals.utility.time.Timer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -126,7 +127,7 @@ IScaledResolution {
             append.put(module2.getName(), action);
         }
         this.searchField.setAppend(append);
-        this.searchField.setPreview("\u041f\u043e\u0438\u0441\u043a");
+        this.searchField.setPreview(Localizator.translate("search"));
         this.searchPenis = new PenisPlayer(DefineVisuals.id("penises/search.penis"));
         this.searchPenis.stop();
     }
@@ -190,18 +191,33 @@ IScaledResolution {
         float sidebarY = this.menuWindow.getY() + 5.0f;
         float sidebarW = 109.0f;
         float sidebarH = 270.0f;
-        if (Interface.showMinimalizm()) {
-            // Minimalism: flat themed panel instead of blur, with a subtle border and divider
+        Interface.StyleWeights styleWeights = Interface.styleWeights();
+        float modernStyle = styleWeights.modernMinimalism();
+        float minimalStyle = styleWeights.minimalism();
+        float blurGlassStyle = styleWeights.blurGlass();
+        float liquidStyle = styleWeights.liquidGlass();
+        if (modernStyle > 0.001f) {
             ColorRGBA sideFill = Colors.getAdditionalColor()
                 .mix(Colors.getAccent(), 0.08f)
                 .mix(Colors.getTextColor(), dark ? 0.06f : 0.10f)
-                .withAlpha(255.0f * alpha * (dark ? 0.55f : 0.5f) * Interface.minimalizm());
+                .withAlpha(255.0f * alpha * (dark ? 0.55f : 0.5f) * modernStyle);
             context.drawSquircle(sidebarX, sidebarY, sidebarW, sidebarH, 8.0f, BorderRadius.all(9.0f), sideFill);
-            context.drawRoundedBorder(sidebarX, sidebarY, sidebarW, sidebarH, 0.7f, BorderRadius.all(9.0f), Colors.getAccent().withAlpha(255.0f * alpha * 0.18f * Interface.minimalizm()));
-            context.drawRoundedRect(sidebarX + sidebarW - 0.6f, sidebarY + 10.0f, 0.8f, sidebarH - 20.0f, BorderRadius.all(1.0f), Colors.getTextColor().mulAlpha(0.07f * Interface.minimalizm() * alpha));
+            context.drawRoundedBorder(sidebarX, sidebarY, sidebarW, sidebarH, 0.7f, BorderRadius.all(9.0f), Colors.getAccent().withAlpha(255.0f * alpha * 0.18f * modernStyle));
         }
-        if (Interface.showGlass()) {
-            context.drawSquircle(sidebarX, sidebarY, sidebarW, sidebarH, 8.0f, BorderRadius.all(9.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.22f : 0.16f) * Interface.glass()));
+        if (minimalStyle > 0.001f) {
+            context.drawSquircle(sidebarX, sidebarY, sidebarW, sidebarH, 8.0f, BorderRadius.all(9.0f), ColorRGBA.BLACK.withAlpha(238.0f * alpha * minimalStyle));
+            context.drawRoundedBorder(sidebarX, sidebarY, sidebarW, sidebarH, 0.7f, BorderRadius.all(9.0f), ColorRGBA.WHITE.withAlpha(18.0f * alpha * minimalStyle));
+        }
+        if (blurGlassStyle > 0.001f) {
+            context.drawBlurredRect(sidebarX, sidebarY, sidebarW, sidebarH, 38.0f, 8.0f, BorderRadius.all(9.0f), ColorRGBA.WHITE.withAlpha(255.0f * alpha * blurGlassStyle));
+            context.drawSquircle(sidebarX, sidebarY, sidebarW, sidebarH, 8.0f, BorderRadius.all(9.0f), Colors.getBackgroundColor().withAlpha(255.0f * alpha * (dark ? 0.40f : 0.30f) * blurGlassStyle));
+        }
+        if (liquidStyle > 0.001f) {
+            context.drawSquircle(sidebarX, sidebarY, sidebarW, sidebarH, 8.0f, BorderRadius.all(9.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.22f : 0.16f) * alpha * liquidStyle));
+        }
+        float dividerAlpha = modernStyle * 0.07f + minimalStyle * 0.08f;
+        if (dividerAlpha > 0.001f) {
+            context.drawRoundedRect(sidebarX + sidebarW - 0.6f, sidebarY + 10.0f, 0.8f, sidebarH - 20.0f, BorderRadius.all(1.0f), Colors.getTextColor().mulAlpha(dividerAlpha * alpha));
         }
         float x = this.menuWindow.getX();
         float y = this.menuWindow.getY();
@@ -214,7 +230,7 @@ IScaledResolution {
         context.drawCenteredText(Fonts.MEDIUM.getFont(7.0f), "parasha", searchX + 93.0f / 2.0f, searchY + 3.0f, Colors.getTextColor().mulAlpha(0.55f * alpha));
         RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)alpha);
         FontBatching regularBatching = new FontBatching(VertexFormats.POSITION_TEXTURE_COLOR, Fonts.REGULAR);
-        context.drawText(Fonts.REGULAR.getFont(6.0f), "\u0424\u0443\u043d\u043a\u0446\u0438\u0438", x + 14.0f, y + 35.0f, Colors.getTextColor().mulAlpha(0.3f));
+        context.drawText(Fonts.REGULAR.getFont(6.0f), Localizator.translate("Функции"), x + 14.0f, y + 35.0f, Colors.getTextColor().mulAlpha(0.3f));
         regularBatching.draw();
         for (ModernCategory modernCategory : this.categories) {
             this.currentCategory.setDuration(150L);
@@ -269,7 +285,7 @@ IScaledResolution {
             boolean isSub = category.getCategory().isSubCategory();
             float xOffset = isSub ? 10.0f : 0.0f;
             ColorRGBA textColor = isSub ? Colors.getTextColor().mix(Colors.WHITE, category.getSelected().getValue()) : Colors.getTextColor().mulAlpha(0.65f);
-            context.drawText(Fonts.MEDIUM.getFont(7.0f), category.getCategory().getName(), x + 32.0f + xOffset, y + 48.5f + yOff, textColor);
+            context.drawText(Fonts.MEDIUM.getFont(7.0f), category.getCategory().getDisplayName(), x + 32.0f + xOffset, y + 48.5f + yOff, textColor);
             yOff += 18.0f;
         }
         fontBatching.draw();
@@ -300,13 +316,26 @@ IScaledResolution {
             if (modeHovered) {
                 CursorUtility.set(CursorType.HAND);
                 Font modeHintFont = Fonts.REGULAR.getFont(5.5f);
-                String modeHint = this.searchAllCategories ? "\u0412\u0441\u0435 \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u0438" : "\u0422\u0435\u043a\u0443\u0449\u0430\u044f \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f";
+                String modeHint = Localizator.translate(this.searchAllCategories ? "Все категории" : "Текущая категория");
                 context.drawText(modeHintFont, modeHint, modeBtnX - 6.0f - modeHintFont.width(modeHint), modeBtnY + 5.0f, Colors.getTextColor().mulAlpha(0.6f * alpha));
             }
-            context.drawCenteredText(Fonts.MEDIUM.getFont(6.0f), this.searchAllCategories ? "\u0412\u0421\u0415" : "\u041a\u0410\u0422", modeBtnX + searchBarH / 2.0f, modeBtnY + 5.0f, Colors.getTextColor().mulAlpha((this.searchAllCategories ? 0.95f : 0.65f) * alpha));
+            ColorRGBA modeIconColor = Colors.getTextColor().mulAlpha((this.searchAllCategories ? 0.92f : 0.62f) * alpha);
+            float modeCenterX = modeBtnX + searchBarH / 2.0f;
+            float modeCenterY = modeBtnY + searchBarH / 2.0f;
+            if (this.searchAllCategories) {
+                float dotSize = 2.0f;
+                float dotOffset = 2.0f;
+                context.drawRoundedRect(modeCenterX - dotOffset - dotSize, modeCenterY - dotOffset - dotSize, dotSize, dotSize, BorderRadius.all(0.7f), modeIconColor);
+                context.drawRoundedRect(modeCenterX + dotOffset, modeCenterY - dotOffset - dotSize, dotSize, dotSize, BorderRadius.all(0.7f), modeIconColor);
+                context.drawRoundedRect(modeCenterX - dotOffset - dotSize, modeCenterY + dotOffset, dotSize, dotSize, BorderRadius.all(0.7f), modeIconColor);
+                context.drawRoundedRect(modeCenterX + dotOffset, modeCenterY + dotOffset, dotSize, dotSize, BorderRadius.all(0.7f), modeIconColor);
+            } else {
+                context.drawRoundedRect(modeCenterX - 2.5f, modeCenterY - 2.5f, 5.0f, 5.0f, BorderRadius.all(1.5f), modeIconColor);
+            }
 
             this.drawThemedChip(context, searchBarX, searchBarY, searchBarW, searchBarH, 3.0f, alpha, 0.10f);
             DrawUtility.drawAnimationSprite(context.getMatrices(), this.searchPenis.getCurrentSprite(), searchBarX + 4.0f, searchBarY + 4.0f, 8.0f, 8.0f, Colors.getTextColor().mulAlpha(0.5f));
+            this.searchField.setPreview(Localizator.translate("search"));
             this.searchField.set(searchBarX + 14.0f, searchBarY, searchBarW - 18.0f, searchBarH);
             this.searchField.setTextColor(Colors.getTextColor().mulAlpha(0.5f));
             this.searchField.render(context);
@@ -347,7 +376,7 @@ IScaledResolution {
                 }
             }
             if (!hasModules) {
-                context.drawCenteredText(Fonts.MEDIUM.getFont(8.0f), "\u0442\u0443\u0442 \u043f\u043e\u043a\u0430 \u0447\u0442\u043e \u043d\u0438\u0447\u0435\u0433\u043e \u043d\u0435\u0442\u0443(", x + 115.0f + (this.menuWindow.getWidth() - 115.0f) / 2.0f, y + this.menuWindow.getHeight() / 2.0f, Colors.getTextColor().mulAlpha(0.5f));
+                context.drawCenteredText(Fonts.MEDIUM.getFont(8.0f), Localizator.translate("тут пока что ничего нету("), x + 115.0f + (this.menuWindow.getWidth() - 115.0f) / 2.0f, y + this.menuWindow.getHeight() / 2.0f, Colors.getTextColor().mulAlpha(0.5f));
             }
             // Module name text
             FontBatching mediumBatching = new FontBatching(VertexFormats.POSITION_TEXTURE_COLOR, Fonts.MEDIUM);
@@ -406,50 +435,11 @@ IScaledResolution {
     }
 
     private void drawThemedChip(UIContext context, float x, float y, float width, float height, float radius, float alpha, float accentStrength) {
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        ColorRGBA accent = Colors.getAccent();
-        ColorRGBA surface = Colors.getAdditionalColor().mix(accent, accentStrength);
-        BorderRadius borderRadius = BorderRadius.all(radius);
-        float min = Interface.minimalizm();
-        float glass = Interface.glass();
-        if (min > 0.0f) {
-            ColorRGBA topTint = dark ? Colors.getTextColor() : Colors.getBackgroundColor();
-            ColorRGBA bottomTint = dark ? Colors.getBackgroundColor() : Colors.getTextColor();
-            ColorRGBA flatTop = surface.mix(topTint, dark ? 0.22f : 0.25f)
-                .withAlpha(255.0f * alpha * (dark ? 0.78f : 0.65f) * min);
-            ColorRGBA flatBottom = surface.mix(bottomTint, dark ? 0.40f : 0.10f)
-                .withAlpha(255.0f * alpha * (dark ? 0.52f : 0.45f) * min);
-            context.drawRoundedRect(x, y, width, height, borderRadius, new VerticalGradient(flatTop, flatBottom));
-            context.drawRoundedBorder(x, y, width, height, 0.7f, borderRadius, accent.withAlpha(255.0f * alpha * 0.26f * min));
-        }
-        if (glass > 0.0f) {
-            ColorRGBA glassTint = surface.mix(Colors.getBackgroundColor(), dark ? 0.28f : 0.12f)
-                .withAlpha(255.0f * alpha * 0.6f * glass);
-            context.drawLiquidGlass(x, y, width, height, 2.0f, 0.08f, borderRadius, glassTint);
-            context.drawRoundedBorder(x, y, width, height, 0.7f, borderRadius, accent.withAlpha(255.0f * alpha * 0.24f * glass));
-        }
+        InterfaceStyleRenderer.drawChip(context, x, y, width, height, BorderRadius.all(radius), alpha, accentStrength);
     }
 
     private void drawGlassPanel(UIContext context, float x, float y, float width, float height, float squirt, float radius, float alpha) {
-        BorderRadius borderRadius = BorderRadius.all(radius);
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        float min = Interface.minimalizm();
-        float glass = Interface.glass();
-        if (min > 0.0f) {
-            // Minimalism: flat themed gradient instead of a blurred translucent cube
-            ColorRGBA top = Colors.getAdditionalColor()
-                .mix(Colors.getTextColor(), dark ? 0.10f : 0.05f)
-                .withAlpha(255.0f * alpha * min);
-            ColorRGBA bottom = Colors.getBackgroundColor()
-                .mix(Colors.getAdditionalColor(), dark ? 0.10f : 0.0f)
-                .withAlpha(255.0f * alpha * min);
-            context.drawRoundedRect(x, y, width, height, borderRadius, new VerticalGradient(top, bottom));
-            context.drawRoundedBorder(x, y, width, height, 0.8f, borderRadius, Colors.getAccent().withAlpha(255.0f * alpha * 0.20f * min));
-        }
-        if (glass > 0.0f) {
-            context.drawLiquidGlass(x, y, width, height, squirt, 0.08f, borderRadius, Colors.getAccent().withAlpha(255.0f * alpha * glass));
-            context.drawSquircle(x, y, width, height, squirt, borderRadius, Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.9f - 0.7f * glass : 0.7f) * glass));
-        }
+        InterfaceStyleRenderer.drawSurface(context, x, y, width, height, squirt, BorderRadius.all(radius), alpha, 0.0f);
     }
 
     private void renderWatermark(UIContext context, float menuX, float menuY) {
@@ -475,14 +465,23 @@ IScaledResolution {
         if (DefineVisuals.getInstance().getHud().getIsland().handleClick((float)mouseX, (float)mouseY, button.getButtonIndex())) {
             return;
         }
+        boolean closedColorPicker = false;
         for (ColorPicker colorPicker : this.colorPickers) {
             boolean isPick = colorPicker.isPick();
             colorPicker.onMouseClicked(mouseX, mouseY, button);
             if (colorPicker.isHovered(mouseX, mouseY) || isPick) {
                 return;
             }
-            colorPicker.setShowing(false);
+            if (colorPicker.isShowing()) {
+                colorPicker.setShowing(false);
+                closedColorPicker = true;
+            }
         }
+        if (closedColorPicker) {
+            UiSound.WINDOW_CLOSE.play();
+            return;
+        }
+        boolean closedSettingsWindow = false;
         for (ModernSettings window : this.windows) {
             window.onMouseClicked(mouseX, mouseY, button);
             if (window.isHovered(mouseX, mouseY)) {
@@ -495,7 +494,14 @@ IScaledResolution {
                 can = false;
             }
             if (!can) continue;
-            window.setShowing(false);
+            if (window.isShowing()) {
+                window.setShowing(false);
+                closedSettingsWindow = true;
+            }
+        }
+        if (closedSettingsWindow) {
+            UiSound.WINDOW_CLOSE.play();
+            return;
         }
         float x = this.menuWindow.getX();
         float y = this.menuWindow.getY();
@@ -505,6 +511,7 @@ IScaledResolution {
             if (category.getCategory().isSubCategory() && GuiUtility.isHovered((double)(x + 12.0f), (double)(y + 43.0f + yOff), 95.0, 16.0, mouseX, mouseY)) {
                 if (category.getCategory() != this.current) {
                     this.current = category.getCategory();
+                    UiSound.NAVIGATION.play();
                     if (this.current == MenuCategory.CONFIGS) {
                         this.configPanel.refresh();
                     }
@@ -540,15 +547,14 @@ IScaledResolution {
             float modeBtnX = searchBarX - 4.0f - searchBarH;
             if (button == MouseButton.LEFT && GuiUtility.isHovered((double)modeBtnX, (double)searchBarY, (double)searchBarH, (double)searchBarH, mouseX, mouseY)) {
                 this.searchAllCategories = !this.searchAllCategories;
-                Sounds searchSounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
-                if (searchSounds != null && searchSounds.isEnabled()) {
-                    ClientSounds.MODULE.play(searchSounds.getVolume().getCurrentValue(), 1.0f);
-                }
+                UiSound.NAVIGATION.play();
                 return;
             }
             for (ModernCategory category : this.contentCategories()) {
                 for (ModernModule module : category.getModules()) {
-                    if (this.visibleCheck(module) || !this.isInModuleGrid(mouseX, mouseY) || !GuiUtility.isHovered(this.menuWindow, mouseX, mouseY) && (button == MouseButton.LEFT || button == MouseButton.RIGHT) || !GuiUtility.isHovered((double)module.getX(), (double)module.getY(), (double)module.getWidth(), (double)module.getHeight(), mouseX, mouseY)) continue;
+                    if (this.visibleCheck(module)) continue;
+                    if (!this.isInModuleGrid(mouseX, mouseY)) continue;
+                    if (!GuiUtility.isHovered((double)module.getX(), (double)module.getY(), (double)module.getWidth(), (double)module.getHeight(), mouseX, mouseY)) continue;
                     module.onMouseClicked(mouseX, mouseY, button);
                     return;
                 }
@@ -662,10 +668,7 @@ IScaledResolution {
     public void close() {
         this.closing = true;
         DefineVisuals.getInstance().getModuleManager().getModule(MenuModule.class).disable();
-        Sounds soundsModule = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
-        if (soundsModule.isEnabled()) {
-            ClientSounds.CLICKGUI_OPEN.play(soundsModule.getVolume().getCurrentValue(), 1.0f);
-        }
+        UiSound.MENU_CLOSE.play();
         // Async file save to prevent freeze
         CompletableFuture.runAsync(() -> {
             DefineVisuals.getInstance().getFileManager().writeFile("client");

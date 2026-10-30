@@ -2,9 +2,11 @@
 # -------- Ìîäóëè --------
 
 # Îïèñàíèÿ
-modules.descriptions.no_description=This feature has no description
-modules.descriptions.russian_roulette=Russian roulette, depends on luck :)
-modules.descriptions.free_camera=Allows you to explore the area with a detached camera
+modules.settings.zoom.key=Zoom key
+modules.settings.zoom.amount=Zoom amount
+modules.settings.zoom.smooth=Smooth transition
+modules.settings.zoom.duration=Transition speed
+modules.settings.zoom.scroll=Adjust with mouse wheel
 modules.descriptions.tracers=Displays lines to entities
 modules.descriptions.auto_totem=Automatically places a totem in the off-hand when in danger
 modules.descriptions.criticals=Allows you to do critical hits even when it's impossible
@@ -22,7 +24,6 @@ modules.settings.knockback_tweaks.fake_sprint=Fake sprint
 modules.settings.knockback_tweaks.fake_sprint.description=Sends sprint packets when attacking an entity
 modules.descriptions.auto_armor=Automatically equips the best armor
 modules.descriptions.no_web=Speeds up on the web
-modules.descriptions.clan_upgrade=Automatically levels up the clan using the torch
 modules.descriptions.hitboxes=Increases the size of hitboxes
 modules.descriptions.wind_hop=Automatically uses wind charge on jump
 modules.descriptions.flight=Allows you to fly
@@ -30,7 +31,6 @@ modules.descriptions.speed=Speeds up when touching entities
 modules.descriptions.timer=Allows to change tick rate on client side
 modules.descriptions.no_slow=Removes slowdown when using items
 modules.descriptions.spider=Allows you to climb walls
-modules.descriptions.menu=Client features menu
 modules.descriptions.esp=Allows you to configure player visibility
 modules.settings.esp.open_menu=Open menu
 
@@ -60,8 +60,6 @@ esp.boxes.mode.outline=Outline
 esp.boxes.mode.fill=Fill
 
 modules.descriptions.name_tags=Show nametags ahead of entity with some data
-modules.descriptions.ambience=Changes the world's ambiance
-modules.descriptions.swing_animation=Changes hand swing animations
 modules.descriptions.sound_esp=Shows where a trident or TNT sound was played
 modules.descriptions.arrows=Displays direction to entities
 modules.descriptions.tnt_timer=Displays the time until TNT explodes
@@ -88,11 +86,8 @@ modules.settings.xray.blocks.gold_ore=Gold Ore
 modules.settings.xray.blocks.ancient_debris=Ancient Debris
 modules.settings.xray.blocks.lapis_ore=Lapis Lazuli Ore
 modules.descriptions.anti_invisible=Allows you to see invisible players
-modules.descriptions.see_invisibles=Shows names above invisible players
-modules.descriptions.world=Visual world additions
 modules.descriptions.inventory_cleaner=Cleans the inventory of specific items
 modules.descriptions.auto_invisible=Automatically drinks invisibility potions
-modules.descriptions.mine_helper=Helper functions for mining
 modules.descriptions.middle_click=Performs an action on middle mouse click
 modules.settings.middle_click.pearl=Throw ender pearl
 modules.settings.middle_click.friend=Toggle friends
@@ -100,24 +95,14 @@ modules.settings.middle_click.friend_key=Friends key
 modules.settings.middle_click.pearl_key=Pearl key
 modules.descriptions.auto_brew=Automatically brews potions
 modules.descriptions.potion_farm=Auto-fills brewing stands, swaps ingredients and stores ready potions in chests
-modules.descriptions.auto_farm=Automatically farms crops
 modules.descriptions.auto_eat=Automatically eats food at a certain hunger level
 modules.descriptions.free_camera=Allows you to explore the area with a detached camera
-modules.descriptions.no_delay=Removes delays
 modules.descriptions.player_utils=Helper functions for the player
 modules.descriptions.no_push=Removes push from external factors
 modules.descriptions.item_pickup=Notifies you when picking up a donor item
 modules.descriptions.object_info=Shows information about traps and structures in the world
-modules.settings.object_info.particleMode=Particle Mode
-modules.settings.object_info.particleMode.description=Particle animation mode on disappearance
-modules.settings.object_info.particleMode.gravity=Gravity
-modules.settings.object_info.particleMode.scatter=Scatter
-object_info.trap=Trap
-object_info.dragon=Dragon
-object_info.plast=Plast
 object_info.boom_trap=Explosive Trap
 object_info.stan=Stun
-modules.descriptions.donate_effects=Visual effects when donor items are used
 modules.settings.donate_effects.sonar=Sonar
 modules.settings.donate_effects.sonar.description=Wave across surfaces when an item is used
 modules.settings.donate_effects.potions=Potion Particles
@@ -137,7 +122,6 @@ modules.settings.nuker.swap_delay.description=Delay before starting to break a n
 modules.descriptions.slot_lock=Prevents dropping items from the hotbar
 modules.descriptions.no_rotate=Prevents the server from rotating your camera
 modules.descriptions.effect_remover=Removes selected effects
-modules.descriptions.name_protect=Visually changes player nickname
 modules.descriptions.elytra_utils=Helper functions for elytras
 modules.descriptions.boots_swap=Used to swap jumper boots and regular boots
 modules.descriptions.fast_item_use=Quickly uses a bow or trident
@@ -147,7 +131,6 @@ modules.descriptions.death_cords=Sends death coordinates to chat
 modules.descriptions.auto_leave=Automatically performs an action if a player is nearby
 modules.descriptions.auto_swap=Automatically swaps items in the off-hand
 modules.descriptions.auto_duels=Automatically starts duels
-modules.descriptions.auto_auth=Automatically registers and logins you in on servers
 modules.descriptions.auto_join=Automatically joins a game mode
 
 modules.settings.elytra_motion.algorithm=Algorithm
@@ -157,18 +140,12 @@ modules.settings.elytra_motion.algorithm.advanced-stable=Advanced (Stable)
 modules.settings.elytra_motion.boost_strength=Boost strength
 
 modules.settings.elytra_target.auto_fireworks=Auto fireworks
-modules.settings.elytra_target.smart_fireworks=Smart fireworks
-modules.settings.elytra_target.fireworkSlot=Firework slot
-modules.settings.elytra_target.fireworkDelay=Delay
-modules.settings.elytra_target.predict_key=Predict key
-modules.settings.elytra_target.leadStrength=Lead strength
 
 modules.settings.auto_join.mode=Mode
 modules.settings.auto_join.mode.duels_st=Duels (SpookyTime)
 modules.settings.auto_join.mode.grief=Anarchy FT/Spooky
 modules.settings.auto_join.anarchy_number=Anarchy number
 modules.descriptions.assist=Assistant for different servers
-modules.descriptions.sounds=Adds sounds to the client
 modules.settings.sounds.volume=Sound volume
 modules.settings.sounds.voice=Voice
 modules.settings.sounds.voice.kill=Kill
@@ -179,12 +156,10 @@ modules.descriptions.test=This feature has no description
 modules.descriptions.recorder=This feature has no description
 modules.descriptions.player=This feature has no description
 modules.descriptions.no_fall=Removes fall damage
-modules.descriptions.kill_effects=A beautiful effect on entity death
 modules.descriptions.auto_soup=Automatically heals you with soups
 modules.descriptions.auto_explosion=Automatically places and explodes crystals
 modules.descriptions.auto_crystal=Automatically detonates crystals within range
 modules.settings.auto_crystal.place=Place
-modules.descriptions.friend_markers=Visually marks friends
 modules.descriptions.scaffold=Automatically builds
 modules.settings.scaffold.place_delay=Place Delay
 modules.settings.scaffold.place_delay.description=Minimum delay between block placements
@@ -260,7 +235,6 @@ modules.sword_farm.no_lime_dye=Confirmation button (lime_dye) not found
 modules.sword_farm.no_storage=Storage slot not found in the auction
 
 # Keep Sprint
-modules.descriptions.auto_sprint=Enables automatic sprinting
 modules.settings.keepSprint=Keep sprint
 modules.settings.auto_sprint.ignore_hunger=Ignore hunger
 modules.settings.keepSprint.description=You will not stop sprinting after hitting an entity
@@ -273,7 +247,6 @@ modules.settings.backtrack.delay=Backtrack Time
 modules.settings.backtrack.delay.description=Time in milliseconds during which past positions are stored
 
 # Target ESP
-modules.descriptions.target_esp=Marks the active target
 modules.settings.target_esp.mode=Mode
 modules.settings.target_esp.mode.souls=Souls
 modules.settings.target_esp.mode.crystals=Crystals
@@ -394,9 +367,10 @@ modules.settings.aura.sprint_reset.normal=Normal
 modules.settings.aura.sprint_reset.packet=Packet
 
 # Interface
-modules.descriptions.interface=Interface elements of the cheat
 modules.settings.interface.liquidGlass=Liquid Glass
 modules.settings.interface.minimalism=Minimalism
+modules.settings.interface.modernMinimalism=Modern Minimalism
+modules.settings.interface.glass=Glass
 modules.settings.interface.language=Language
 modules.settings.interface.mode=Style
 modules.settings.interface.theme=Theme
@@ -405,7 +379,6 @@ modules.settings.interface.light=Light
 modules.settings.interface.hud=To enable the HUD, right-click in chat
 
 # Removals
-modules.descriptions.removals=Removes various game elements
 modules.settings.removals.effects=Remove effects
 modules.settings.removals.hurtCam=Hurt camera shake
 modules.settings.removals.scoreboard=Scoreboard
@@ -494,7 +467,6 @@ modules.settings.speed.mode=Mode
 modules.settings.speed.vanilla=Vanilla
 modules.settings.speed.collision=Collision
 modules.settings.speed.entities=Entities
-modules.settings.speed.spooky_elytra=SpookyTime Elytra
 modules.settings.speed.collision_target=Collision Target
 modules.settings.speed.ice=Ice
 modules.settings.speed.distance=Distance
@@ -539,7 +511,6 @@ modules.settings.wind_hop.predictJump=Jump Prediction
 modules.settings.wind_hop.predictJump.description=If you hold down the space bar, the player will use the wind charge before landing, which allows them to jump higher.
 
 # CustomFog
-modules.descriptions.custom_fog=Fog customization
 modules.settings.custom_fog.distance=From/to
 modules.settings.custom_fog.distance.description=Adjusts the start and end of the fog
 modules.settings.custom_fog.color_enabled=Fog color
@@ -792,7 +763,6 @@ alerts.donate_picked=You picked up a donate item:
 modules.settings.anti_afk.delay.description=Delay between actions
 player_utils.hello_message=Hello everyone %s !
 # Prediction
-modules.descriptions.prediction=Displays the flight trajectory of ender pearls, tridents, etc.
 
 modules.prediction.from=From
 modules.prediction.you=You
@@ -1031,12 +1001,7 @@ friend=Friend
 enemy=Enemy
 copy=Copy
 
-modules.settings.name_tags.elementsToDisplay=Elements
-modules.settings.name_tags.elementsToDisplay.armor=Armor
-modules.settings.name_tags.elementsToDisplay.items=Items
 
-modules.settings.name_tags.offFriends=Hide friends
-modules.settings.name_tags.background=Item background
 
 # Ñâèíãè
 swing.only_aura=Aura only
@@ -1085,15 +1050,12 @@ bow=Bow
 crossbow=Crossbow
 trident=Trident
 
-delay=Delay
 ms=ms
 mode=Mode
 size=Size
 
 elements=Elements
 
-modules.settings.name_protect.fake_name=Fake name
-modules.settings.name_protect.hide_friends=Hide friends
 
 health=Health
 key=Key
@@ -1169,7 +1131,6 @@ commands.python.save.success=Script %s saved successfully
 commands.python.create.success=Script %s created successfully
 commands.python.delete.success=Script %s deleted successfully
 commands.python.delete.error=An error occurred while deleting script %s
-commands.python.not_found=Script %s not found
 commands.python.load.success=Loading script %s
 commands.python.unload.success=Script %s unloaded successfully
 commands.python.unload.not_loaded=Script %s is not loaded
@@ -1177,7 +1138,6 @@ commands.python.dir.error=Failed to open the scripts folder: %s
 
 # ReHub
 commands.rehub.description=Reconnects to the server
-commands_rehub.ct=You can't use this command while in combat!
 
 # Toggle
 commands.toggle.description=Enables/disables a module
@@ -1232,7 +1192,6 @@ commands.bind.delete=Bind removed from module
 commands.bind.module_required=Specify a module!
 
 # Auto Farm
-modules.settings.auto_farm.mode=Mode
 modules.settings.auto_farm.mode.carrot=Carrot
 modules.settings.auto_farm.mode.potato=Potato
 modules.settings.auto_farm.mode.beetroot=Beetroot
@@ -1250,43 +1209,16 @@ modules.auto_farm.screen.select_section=? Select a section
 modules.auto_farm.screen.food_seller=Food buyer
 
 # Auto Swap
-modules.settings.auto_swap.button=Button
-modules.settings.auto_swap.item=Item
-modules.settings.auto_swap.item.talisman=Talisman
-modules.settings.auto_swap.item.orb=Orb
-modules.settings.auto_swap.swap_to=Swap to
-modules.settings.auto_swap.swap_to.talisman=Talisman
-modules.settings.auto_swap.swap_to.orb=Orb
 
 # Auto Eat
-modules.settings.auto_eat.food=Hunger level
 modules.settings.auto_eat.food.description=At what hunger value to start eating
 
 # Blink
-modules.settings.blink.pulse=Pulse
-modules.settings.blink.time=Time
-modules.settings.blink.display=Display
-modules.settings.blink.hide_first_person=Hide in first person
-modules.settings.blink.hide_first_person.description=Hides the player in first-person view
 
 # Auto Leave
-modules.settings.auto_leave.leave=Leave on
-modules.settings.auto_leave.leave.distance=Distance
-modules.settings.auto_leave.leave.health=Health
-modules.settings.auto_leave.leave.ban=Player ban
-modules.settings.auto_leave.distance=Distance
 modules.settings.auto_leave.distance.description=Distance to a player at which the action will execute
-modules.settings.auto_leave.health=Health
 modules.settings.auto_leave.health.description=Health at which the action will execute
-modules.settings.auto_leave.delay=Delay
 modules.settings.auto_leave.delay.description=Time after which to rejoin the server after a player's ban
-modules.settings.auto_leave.mode=What to do
-modules.settings.auto_leave.mode.hub=Go to hub
-modules.settings.auto_leave.mode.server=Leave server
-modules.settings.auto_leave.mode.spawn=Teleport to spawn
-modules.auto_leave.near_player=Player nearby!
-modules.auto_leave.low_health=Low health!
-modules.auto_leave.banned_word=banned
 
 
 # Waypoints
@@ -1300,30 +1232,8 @@ modules.waypoints.not_found=Waypoint "%s" not found
 modules.waypoints.cleared=All waypoints cleared
 
 # Slot Lock
-modules.settings.slot_lock.lock=Lock
-modules.settings.slot_lock.lock.slot1=Slot 1
-modules.settings.slot_lock.lock.slot2=Slot 2
-modules.settings.slot_lock.lock.slot3=Slot 3
-modules.settings.slot_lock.lock.slot4=Slot 4
-modules.settings.slot_lock.lock.slot5=Slot 5
-modules.settings.slot_lock.lock.slot6=Slot 6
-modules.settings.slot_lock.lock.slot7=Slot 7
-modules.settings.slot_lock.lock.slot8=Slot 8
-modules.settings.slot_lock.lock.slot9=Slot 9
 
 # Stealer
-modules.settings.stealer.delay=Delay
-modules.settings.stealer.close=Close
-modules.settings.stealer.close.description=Closes the chest after it is emptied
-modules.settings.stealer.off=Turn off
-modules.settings.stealer.off.description=Disables the module after use
-modules.settings.stealer.open_mystic=Open mystics
-modules.settings.stealer.open_mystic.description=Module for working only with mystic chests
-modules.settings.stealer.mode=Looting mode
-modules.settings.stealer.mode.up=From top
-modules.settings.stealer.mode.down=From bottom
-modules.settings.stealer.mode.center=From center
-modules.settings.stealer.mode.random=Random
 
 # Effect Remover
 modules.settings.effect_remover.remove=Remove
@@ -1332,13 +1242,8 @@ modules.settings.effect_remover.remove.jump_boost=Jump Boost
 modules.settings.effect_remover.remove.slow_fall=Slow Falling
 
 # Anti Invisible
-modules.settings.anti_invisible.opacity=Opacity
 
 # Trap ESP
-modules.trap_esp.label=Trap
-modules.trap_esp.depth=Depth of %s blocks
-modules.trap_esp.private=Private
-modules.trap_esp.no_private=No private
 
 # Sound ESP
 modules.settings.sound_esp.select=Display
@@ -1347,24 +1252,6 @@ modules.settings.sound_esp.select.tnt=TNT
 modules.settings.sound_esp.select.fireworks=Fireworks
 
 # Storage ESP
-modules.settings.storage_esp.blocks=Highlight
-modules.settings.storage_esp.blocks.chests=Chests
-modules.settings.storage_esp.blocks.ender_chests=Ender Chests
-modules.settings.storage_esp.blocks.trapped_chests=Trapped Chests
-modules.settings.storage_esp.blocks.furnaces=Furnaces
-modules.settings.storage_esp.blocks.barrels=Barrels
-modules.settings.storage_esp.blocks.minecart=Minecarts
-modules.settings.storage_esp.blocks.shulkers=Shulkers
-modules.settings.storage_esp.blocks.droppers=Droppers
-modules.settings.storage_esp.blocks.dispensers=Dispensers
-modules.settings.storage_esp.blocks.hoppers=Hoppers
-modules.settings.storage_esp.render=Render
-modules.settings.storage_esp.render.fill=Fill
-modules.settings.storage_esp.render.outline=Outline
-modules.settings.storage_esp.render.diagonals=Diagonals
-modules.settings.storage_esp.render.lines=Lines from player
-modules.settings.storage_esp.max_distance=Max distance
-modules.settings.storage_esp.max_distance.description=Maximum distance at which blocks will be highlighted
 modules.settings.storage_esp.connect=Connect
 modules.settings.storage_esp.connect.description=Merges adjacent blocks when rendering highlights
 
@@ -1396,22 +1283,12 @@ modules.settings.ambience.shader_type.nebula=Nebula
 modules.settings.ambience.shader_type.caustic=Caustic
 modules.settings.ambience.shader_opacity=Shader opacity
 modules.settings.ambience.skybox_color=Skybox color
-modules.settings.ambience.custom_time=Change time
-modules.settings.ambience.time=Time
-modules.settings.ambience.bright=Enable brightness
 
 modules.settings.ambience.night_mode=Night mode
 modules.settings.ambience.night_mode.sync=Theme sync
 modules.settings.ambience.night_mode.color=Tint color
 modules.settings.ambience.night_mode.strength=Tint strength
 
-modules.settings.ambience.change_color=Change color
-modules.settings.ambience.change_color.sky=Sky
-modules.settings.ambience.change_color.clouds=Clouds
-modules.settings.ambience.change_color.stars=Stars
-modules.settings.ambience.sky_color=Sky color
-modules.settings.ambience.cloud_color=Cloud color
-modules.settings.ambience.stars_color=Stars color
 
 # Menu
 modules.settings.menu.mode=Mode
@@ -1419,48 +1296,21 @@ modules.settings.menu.mode.dropdown=Panels
 modules.settings.menu.mode.modern=Modern
 
 # View Model
-modules.settings.view_model.main_translate_x=Right X offset
 modules.settings.view_model.main_translate_y=Right Y offset
 modules.settings.view_model.main_translate_z=Right Z offset
 modules.settings.view_model.main_rotate_x=Right rotation X
 modules.settings.view_model.main_rotate_y=Right rotation Y
 modules.settings.view_model.main_rotate_z=Right rotation Z
-modules.settings.view_model.off_translate_x=Left X offset
 modules.settings.view_model.off_translate_y=Left Y offset
 modules.settings.view_model.off_translate_z=Left Z offset
-modules.settings.view_model.off_rotate_x=Left rotation X
-modules.settings.view_model.off_rotate_y=Left rotation Y
-modules.settings.view_model.off_rotate_z=Left rotation Z
-modules.settings.view_model.size_left=Left size
-modules.settings.view_model.size_right=Right size
 
 # Kill Effects
-modules.settings.kill_effects.color=Color
 
 # No Delay
-modules.settings.no_delay.jump=Jump
-modules.settings.no_delay.jump.description=Removes jump delay
-modules.settings.no_delay.right_click=RMB
-modules.settings.no_delay.right_click.description=Allows fast block placing or item use
-modules.settings.no_delay.right_click_delay=RMB delay
-modules.settings.no_delay.exp=Experience bottle
-modules.settings.no_delay.potions=Potions
-modules.settings.no_delay.potions.description=Removes use delay for potions
 
 # Fast Item Use
-modules.settings.fast_item_use.bow=Bow
-modules.settings.fast_item_use.bow.description=Automatically spam-shoots the bow
-modules.settings.fast_item_use.trident=Trident
-modules.settings.fast_item_use.trident.description=Automatically spam-throws the trident
-modules.settings.fast_item_use.crossbow=Crossbow
-modules.settings.fast_item_use.crossbow.description=Automatically spam-fires the crossbow
 
 # Auto Explosion
-modules.settings.auto_explosion.bind=Explosion key
-modules.settings.auto_explosion.attack_others=Hit others' crystals
-modules.settings.auto_explosion.self_save=Don't explode yourself
-modules.settings.auto_explosion.instant_destroy="Instant Destroy"
-modules.settings.auto_explosion.delay=Delay
 
 #Êíîïêè â èíâåíòàðå
 inventory.button.drop_all=Drop everything
@@ -1505,11 +1355,6 @@ python.script.template=# This script is empty for now... Time to change that!
 python.script.save_error=Failed to save script file
 python.script.delete.success=Script file deleted: %s
 python.script.delete.error=Failed to delete script file: %s
-modules.settings.waypoints.key=Waypoint key
-modules.settings.waypoints.player_time=Player waypoint duration
-modules.settings.waypoints.block_time=Block waypoint duration
-modules.waypoints.from=From %s
-modules.waypoints.distance=%s m
 rocknet.activity.main_menu=In main menu
 rocknet.activity.online=Online
 rocknet.activity.singleplayer=In singleplayer
@@ -1542,7 +1387,6 @@ rocknet.menu.connect=Connect
 rocknet.status.offline.id=Íå â ñåòè
 rocknet.status.main_menu.id=Â ãëàâíîì ìåíþ
 rocknet.status.offline=Offline
-rocknet.status.main_menu=In main menu
 rocknet.auth.login_placeholder=Enter login...
 rocknet.auth.email_placeholder=Enter email...
 rocknet.auth.password_placeholder=Enter password...
@@ -1569,20 +1413,12 @@ modules.settings.target_esp.color=Color
 modules.settings.target_esp.mode.jello=Jello
 
 # Name Protect
-modules.settings.name_protect.friend_fake_name=Friend Nickname
 
 # Inventory Cleaner
-modules.settings.inventory_cleaner.mode=Mode
-modules.settings.inventory_cleaner.mode.1_8=1.8
-modules.settings.inventory_cleaner.mode.custom=Custom
-modules.settings.inventory_cleaner.blocks=Blocks
-modules.settings.inventory_cleaner.leather_armor=Leather Armor
 
 # World
-modules.settings.world.color=Color
 
 # Waypoints
-modules.settings.waypoints.color=Color
 
 # Assist
 modules.settings.assist.auto_chorus=Auto Chorus
@@ -1593,11 +1429,8 @@ modules.settings.auto_brew.potion.invisibility=Invisibility
 modules.settings.auto_brew.enhance=Enhance
 
 # Swing Animation
-modules.settings.swing_animation.only_aura=Only with Aura
-modules.settings.swing_animation.open_menu=Open Menu
 
 # Chams
-modules.settings.glow.color=Color
 
 # Arrows
 modules.settings.arrows.lines=Lines
@@ -1608,19 +1441,13 @@ modules.settings.arrows.distance=Distance
 modules.settings.test.name=Name
 
 # Fast Item Use
-modules.settings.fast_item_use.delay=Delay
 
 # Middle Click
 modules.settings.middle_click.actions=Actions
 
 # Hitboxes
-modules.settings.hitboxes.size=Size
 
 # Inventory Utils
-modules.settings.inv_utils.targets=Utilities
-modules.settings.inv_utils.item_scroller=Item Scroller
-modules.settings.inv_utils.slot_lock=Slot Lock
-modules.settings.inv_utils.delay=Delay
 
 # XRay
 modules.settings.xray.big_block=Blocks
@@ -1690,10 +1517,6 @@ commands_rehub.ct=Enable KT Leave module to use this command!
 commands_rehub.mode_unknown=Unknown server mode!
 
 # Strafe
-modules.descriptions.strafe=Improved air movement control
-modules.settings.strafe.auto_jump=Auto Jump
-modules.settings.strafe.damage_boost=Damage Boost
-modules.settings.strafe.damage_speed=Damage Speed
 
 # Waypoints
 waypoints.error_coords=Failed to get coordinates! Creating waypoint at zero coordinates...
@@ -1777,36 +1600,12 @@ commands.lua.list=Lua scripts list:
 commands.lua.not_found_list=No Lua scripts found.
 
 # Theme Panel
-theme.type_name=Type name
-theme.expand=Expand
-theme.themes=Themes
 
-theme.colors=Colors
-theme.colors.accent=Accent
-theme.colors.background=Background
-theme.colors.additional=Additional
-theme.colors.text=Text
-theme.colors.outline=Outline
 
-theme.other=Other
-theme.hud_rounding=HUD Rounding
-theme.blur_strength=Blur Strength
 
-theme.minimalism=Minimalism
-theme.opacity=Opacity
 
-theme.liquid_glass=Liquid Glass
-theme.strength=Strength
-theme.distortion=Distortion
 
-theme.additional=Additional
-theme.extended_settings=Extended Settings
-theme.icons=Icons
 
-theme.in_menu=In Menu
-theme.enabled_offset=Enabled Offset
-theme.separators=Separators
-theme.separators=Separators
 
 theme.sync=Sync with Theme
 
@@ -1832,21 +1631,11 @@ modules.settings.beautifully.select=Select
 modules.settings.beautifully.smooth_f5=Smooth F5
 
 # Ambience Module
-modules.settings.ambience.mode=Mode
-modules.settings.ambience.mode.gamma=Gamma
-modules.settings.ambience.mode.effect=Effect
-modules.settings.ambience.mode.dynamic=Dynamic
-modules.settings.ambience.dynamic.radius=Light Radius
-modules.settings.ambience.dynamic.light=Light Strength
-modules.settings.ambience.dynamic.only_in_cave=Only in Cave
 
 # Sounds Module
 modules.settings.sounds.voice.death=On Death
 
 # Object Info
-object_info.trap=Trap
-object_info.dragon=Dragon
-object_info.plast=Plast
 
 # Auto Potion
 modules.settings.auto_potion.mode.packet=Packet
@@ -1897,9 +1686,6 @@ modules.settings.player_utils.block_trap=Block Trap
 modules.settings.speed.spooky_elytra=Spooky Elytra
 
 # Theme Panel (additional)
-theme.dynamic_island=Dynamic Island
-theme.color_from_statuses=Color from statuses
-theme.enabled_modules=Enabled modules
 
 # Rocknet Auth
 rocknet.auth.independent_account=Globals account is independent from definevisuals account
@@ -2473,10 +2259,8 @@ lua.script.save_error=Failed to save Lua script
 lua.script.template=-- New definevisuals Lua script
 lua.script.unload=Unloading Lua script %s
 modules.descriptions.auto_bot=Automates actions through Baritone
-modules.descriptions.beautifully=Adds smooth visual camera effects
 modules.descriptions.elytra_motion=Improves elytra firework acceleration
 modules.descriptions.globals_menu=Globals menu
-modules.descriptions.macro_menu=Macro menu
 modules.descriptions.super_bow=Boosts bow shots with packet acceleration
 modules.descriptions.superfirework=Improves elytra firework acceleration
 modules.descriptions.tracker=Tracks important actions of other players
@@ -2549,47 +2333,456 @@ modules.settings.aura.targetedMoveCorrection=Targeted
 
 modules.descriptions.auctionprice=Shows auction prices
 modules.descriptions.autoauth=Automatic server authentication
-modules.descriptions.compasstooltip=Shows compass information
-modules.descriptions.death_coords=Sends death coordinates to chat
 modules.descriptions.deathcoords=Shows death coordinates
 modules.descriptions.healthindicator=Shows player HP under name
-modules.descriptions.holyevents=HolyWorld events list
 modules.descriptions.inventorycleaner=Cleans inventory from junk
 modules.descriptions.macromenu=Macro menu
 modules.descriptions.nameprotect=Hides your nickname
-modules.descriptions.nocommands=Blocks commands
-modules.descriptions.optimization=FPS optimization
 modules.descriptions.seeinvisibles=Sees invisible players
-modules.descriptions.sounds=Mod sounds
 modules.descriptions.spawnertooltip=Shows spawner information
 modules.descriptions.autosprint=Auto sprint
 modules.descriptions.clanupgrade=Clan upgrade information
 modules.descriptions.clickfriend=Click name to add friend
-modules.descriptions.hw_helper=Shows zones of HolyWorld items
 modules.descriptions.hwhelper=Helper for HolyWorld
 modules.descriptions.minehelper=Mining helper
 modules.descriptions.nodelay=Removes delay
 modules.descriptions.playerutils=Useful player functions
-modules.descriptions.ambience=Atmospheric effects
 modules.descriptions.autoeventwaypoints=Auto event waypoints
-modules.descriptions.beautifully=Beautiful effects
 modules.descriptions.bettertab=Improved tab list
-modules.descriptions.blockoverlay=Block overlay
-modules.descriptions.crosshair=Custom crosshair
 modules.descriptions.customfog=Custom fog
 modules.descriptions.donateeffects=Effects for donators
 modules.descriptions.friendmarkers=Friend markers
 modules.descriptions.gribochki=Mushrooms on server
-modules.descriptions.hit_color=Changes player color when taking damage
 modules.descriptions.hitcolor=Hitbar color
-modules.descriptions.interface=Interface
 modules.descriptions.killeffects=Kill effects
 modules.descriptions.menumodule=Menu settings
-modules.descriptions.prediction=Movement prediction
-modules.descriptions.removals=Element removals
-modules.descriptions.self_tag=Shows vanilla nametag above you (3rd person view)
 modules.descriptions.selftag=Custom tag above head
 modules.descriptions.swinganimation=Hand animation
 modules.descriptions.targetesp=ESP for targets
+
+# ---- Completed localization keys ----
+modules.descriptions.SRPSpoo=allows you to bypass resource pack servers
+modules.descriptions.VievModel=custom hand placement
+modules.descriptions.animations=Interface animations (chat, inventory, tooltips, ESC, hotbar, bossbar)
+modules.descriptions.anti_lud=Blocks /casino and /create commands, preventing gambling addiction
+modules.descriptions.aspect_ratio=Changes the screen aspect ratio
+modules.descriptions.auto_gg=Automatically sends GG after killing a player
+modules.descriptions.auto_waypoints=Automatically tags events and treasures
+modules.descriptions.compass_tooltip=Shows the cooldown of special compasses
+modules.descriptions.shulker_safe=Protects against exits with shulkers and valuable items on the HW server
+modules.settings.ambience.color_isolation=Color Isolation
+modules.settings.ambience.color_isolation.background=Background
+modules.settings.ambience.color_isolation.color=Insulation color
+modules.settings.ambience.color_isolation.mode=Isolation mode
+modules.settings.ambience.color_isolation.mode.balanced=Balanced
+modules.settings.ambience.color_isolation.mode.custom=Custom
+modules.settings.ambience.color_isolation.mode.loose=Soft
+modules.settings.ambience.color_isolation.mode.strict=Strict
+modules.settings.ambience.color_isolation.sensitivity=Sensitivity
+modules.settings.ambience.fog=Fog
+modules.settings.ambience.fog.color=Fog color
+modules.settings.ambience.fog.color_mode=Fog color mode
+modules.settings.ambience.fog.color_mode.biome=Biome
+modules.settings.ambience.fog.color_mode.custom=Custom
+modules.settings.ambience.fog.color_mode.theme=Subject
+modules.settings.ambience.fog.coverage=Coverage
+modules.settings.ambience.fog.density=Density
+modules.settings.ambience.fog.level=Level
+modules.settings.ambience.fog.quality=Quality
+modules.settings.ambience.fog.quality.high=High
+modules.settings.ambience.fog.quality.low=Low
+modules.settings.ambience.fog.thickness=Thickness
+modules.settings.ambience.rain=Rain
+modules.settings.ambience.rain.density=Density
+modules.settings.ambience.rain.drops=Drops
+modules.settings.ambience.rain.opacity=Transparency
+modules.settings.ambience.rain.splashes=splashes
+modules.settings.ambience.shader_type.galaxy=Galaxy
+modules.settings.ambience.shader_type.space=Space
+modules.settings.ambience.wet_world=Wet world
+modules.settings.ambience.wet_world.amount=Quantity
+modules.settings.ambience.wet_world.quality=Quality
+modules.settings.ambience.wet_world.quality.high=High
+modules.settings.ambience.wet_world.quality.low=Low
+modules.settings.ambience.wet_world.quality.medium=Average
+modules.settings.ambience.wet_world.reflection=Reflection
+modules.settings.animations.effects=Effects
+modules.settings.bettertab.maxColumns=Max. speakers
+modules.settings.bettertab.maxPlayers=Max. players
+modules.settings.blockoverlay.color=Color
+modules.settings.blockoverlay.fillAlpha=Transparency
+modules.settings.blockoverlay.filled=Fill
+modules.settings.blockoverlay.smooth=Smooth animation
+modules.settings.blockoverlay.smoothSpeed=Animation speed
+modules.settings.crosshair.adaptive=Adaptability
+modules.settings.crosshair.centerDot=Center mark
+modules.settings.crosshair.gap=Distance from center
+modules.settings.crosshair.length=Segment length
+modules.settings.crosshair.outline=Contour
+modules.settings.health_indicator.lowHpScale=Scale (low HP)
+modules.settings.health_indicator.normalScale=Scale (normal)
+modules.settings.health_indicator.relativeX=Position X
+modules.settings.health_indicator.relativeY=Y position
+modules.settings.health_indicator.targetDelay=Show time
+Авто ярость/каратель=Авто ярость/каратель
+Армор стенд=Армор стенд
+Божья аура=Божья аура
+Брать Цербер=Брать Цербер
+Брать ярость/карателя=Брать ярость/карателя
+Быстрое поднятие в воде=Быстрое поднятие в воде
+Всегда=Всегда
+Дезориентация=Дезориентация
+Для предмета=Для предмета
+Дополнительный=Дополнительный
+Друзей=Друзей
+Кнопка лива=Кнопка лива
+Когда без меча=Когда без меча
+Когда в элитре=Когда в элитре
+Когда ливает=Когда ливает
+Не взрывать=Не взрывать
+Обход=Обход
+Огненный смерч=Огненный смерч
+Основной=Основной
+Открыть макросы=Открыть макросы
+Открыть меню=Открыть меню
+Очищать все=Очищать все
+Предикт=Предикт
+Предметы=Предметы
+Свапать без подводки=Свапать без подводки
+Себя=Себя
+Сервер=Сервер
+Синхронизация с TPS=Синхронизация с TPS
+Тестированный градиент=Тестированный градиент
+Умный=Умный
+Эффект Sonar=Эффект Sonar
+Явная пыль=Явная пыль
+
+# ---- Current module descriptions ----
+
+# ---- Completed localization keys ----
+
+# ---- Current module descriptions ----
+modules.descriptions.ambience=Atmospheric effects
+modules.descriptions.antilud=Don't be a gambler!!
+modules.descriptions.aspectratio=Changes the screen aspect ratio
+modules.descriptions.auction_price=Shows the price in coins at the HolyWorld auction
+modules.descriptions.auto_auth=Automatically registers and logins you in on servers
+modules.descriptions.auto_respawn=Automatically revives on death
+modules.descriptions.auto_sprint=Enables automatic sprinting
+modules.descriptions.autogg=Automatic chat message after winning
+modules.descriptions.autowaypoints=Automatically tags events and treasures
+modules.descriptions.beautifully=Beautiful effects
+modules.descriptions.better_tab=Shows all players in the tab
+modules.descriptions.blockoverlay=Block overlay
+modules.descriptions.china_hat=Beautiful Chinese cap
+modules.descriptions.clan_upgrade=Automatically levels up the clan using the torch
+modules.descriptions.click_friend=Adds friends when you press a key
+modules.descriptions.compasstooltip=Shows compass information
+modules.descriptions.cosmetics=3D character cosmetics: wings, hats, pets, and bodywear
+modules.descriptions.crosshair=Custom crosshair
+modules.descriptions.custom_fog=Fog customization
+modules.descriptions.death_coords=Sends death coordinates to chat
+modules.descriptions.donate_effects=Visual effects when donor items are used
+modules.descriptions.freelook=Free all-round camera view while driving
+modules.descriptions.friend_markers=Visually marks friends
+modules.descriptions.health_indicator=Shows the player's HP after being hit
+modules.descriptions.hit_color=Changes player color when taking damage
+modules.descriptions.holyevents=HolyWorld events list
+modules.descriptions.hw_helper=Shows zones of HolyWorld items
+modules.descriptions.interface=Interface
+modules.descriptions.item_physics=Realistic physics of lying and rotating objects on the ground
+modules.descriptions.itemscroller=Quick-moves items while dragging with Shift held
+modules.descriptions.jump_circle=Spectacular circles and spatial distortion when jumping
+modules.descriptions.kill_effects=A beautiful effect on entity death
+modules.descriptions.lyrics=Renders track lyrics in a 3D world with tight block alignment and precise timing
+modules.descriptions.macro_menu=Macro menu
+modules.descriptions.menu=Client features menu
+modules.descriptions.mine_helper=Helper functions for mining
+modules.descriptions.name_protect=Visually changes player nickname
+modules.descriptions.no_delay=Removes delays
+modules.descriptions.no_friend_damage=Doesn't allow you to hit your friends
+modules.descriptions.nocommands=Blocks commands
+modules.descriptions.optimization=FPS optimization
+modules.descriptions.prediction=Movement prediction
+modules.descriptions.removals=Element removals
+modules.descriptions.see_invisibles=Shows names above invisible players
+modules.descriptions.self_tag=Shows vanilla nametag above you (3rd person view)
+modules.descriptions.shader_hand=Premium shaders and glow effects for hands and objects
+modules.descriptions.shulkersafe=You won't lose your backpack so easily)
+modules.descriptions.sounds=Mod sounds
+modules.descriptions.spawner_tooltip=Shows information about spawners
+modules.descriptions.srpspoof=Substitutes information that a server resource pack is installed
+modules.descriptions.swing_animation=Changes hand swing animations
+modules.descriptions.target_esp=Marks the active target
 modules.descriptions.viewmodel=First person view
+modules.descriptions.window_title=Changes the title of the Minecraft window
 modules.descriptions.world=World changes
+modules.descriptions.zoom=Smooth camera zoom similar to OptiFine and Zoomify
+
+# ---- Current literal setting names ----
+1-е лицо=1st person
+3-е лицо=3rd person
+3D Модели=3D Models
+Авто замена=Auto replacement
+Авто замена.description=Automatically changes pickaxe when durability is low
+Авто починка=Auto repair
+Авто починка.description=Repairs a pickaxe using experience
+Авто продажа=Auto sales
+Анимация=Animation
+Анимация.description=Text Appearance Style
+Белый=White
+Вейпоинты ивентов=Event waypoints
+Вейпоинты ивентов.description=Automatically tag events from chat
+Вейпоинты сокровищ=Treasure Waypoints
+Вейпоинты сокровищ.description=Automatically mark treasures with a compass
+Взрывная трапка=Explosive ladder
+Взрывная штучка=Explosive thing
+Внешнее свечение=Outer glow
+Внутреннее свечение=Inner glow
+Все игроки=All players
+Все игроки.description=Show all players on the server
+Выключен=Off
+Высота=Height
+Высота подъема=Lifting height
+Высота подъема.description=Text Floating Height
+Высота.description=Hat cone height
+Голова Джека=Jack's head
+Головы игроков=Players' heads
+Головы игроков.description=Show players' heads in tab
+Градиент=Gradient
+Громкость звука=Sound volume
+Дебаг режим=Debug mode
+Дистанция=Distance
+Дистанция.description=Distance of text appearance from the player
+Дуо Лайт (10-19)=Duo Light (10-19)
+Задержка=Delay
+Задержка биндов (мс)=Binding latency (ms)
+Задержка биндов (мс).description=Delay between bind uses
+Зелья=Potions
+Значение=Meaning
+Иероглифы=Hieroglyphs
+Инверсия Y=Y inversion
+Искажение=Distortion
+Кастомное=Custom
+Кастомный=Custom
+Кастомный цвет=Custom color
+Клавиша=Key
+Клан Лайт (30-36)=Clan Light (30-36)
+Кнопка починки=Repair button
+Количество кристаллов=Number of crystals
+Кристаллы=Crystals
+Куб=Cube
+Куб 1=Cube 1
+Кубек 4=Kubek 4
+Кубик 3=Cube 3
+Куллинг существ=Culling creatures
+Куллинг существ.description=Do not render creatures completely hidden behind blocks.
+Левая рука X=Left hand X
+Левая рука Y=Left hand Y
+Левая рука Z=Left hand Z
+Лимит строк=Line limit
+Лимит строк.description=Maximum number of simultaneously visible lines
+Масштаб=Scale
+Масштаб.description=Item display scale
+Не сбрасывать в меню=Don't reset to menu
+Обод=Rim
+Огонь=fire
+Ограничение прорисовки=Drawing limitation
+Ограничение прорисовки.description=Medium - up to 12 chunks, Ultra - up to 8.
+Оригинальный цвет=Original color
+Открыть список=Open list
+Пароль=Password
+Перспектива=Perspective
+Плавный F5=Smooth F5
+Плотность призраков=Ghost Density
+Подсвечивать без КД=Highlight without CD
+Поиск предмета=Search for an item
+Правая рука X=Right hand X
+Правая рука Y=Right hand Y
+Правая рука Z=Right hand Z
+Предпросмотр зоны=Zone preview
+Предпросмотр зоны.description=Show the trap area when holding an object
+Призраки=Ghosts
+Прозрачность стекла=Glass transparency
+Прозрачность стекла.description=Glass Effect Transparency Degree
+Прочность=Strength
+Радиус=Radius
+Радиус кольца=Ring radius
+Радиус свечения=Glow radius
+Радиус свечения.description=Kawase Bloom Blur Radius
+Радиус спирали=Spiral radius
+Радиус.description=Jump circle radius
+Разбиение=Splitting
+Разбиение.description=Line split mode
+Размер кристаллов=Crystal size
+Размер куба=Cube size
+Размер призраков=Ghost Size
+Размытие фона=Blur background
+Рандом=Random
+Режим=Mode
+Режим.description=Aggressive optimization.
+Рубик 2=Rubik 2
+Русский=Russian
+Свечение=Glow
+Свечение кристаллов=Crystal glow
+Сила искажения=Distortion Strength
+Сила искажения.description=Distortion shader intensity
+Сила размытия=Blur strength
+Сила размытия.description=Blur intensity
+Сила шлейфа=Loop strength
+Сила шлейфа.description=Residual plume intensity
+Скорость вращения=Rotation speed
+Скорость вращения.description=The speed of rotation of objects in the air
+Скорость кристаллов=Crystal Speed
+Скорость куба=Cube speed
+Скорость призраков=Ghost speed
+Скрывать в первом лице=Hide in first person
+Следующая косметика (F9)=Next cosmetics (F9)
+Слов в строке=Words per line
+Слов в строке.description=Number of words in one line in the world
+Смещение (мс)=Offset (ms)
+Смещение (мс).description=Audio Clock Time Offset
+Снежок=Snowball
+Соло Лайт (1-9)=Solo Light (1-9)
+Сонар=Sonar
+Соотношение=Ratio
+Сохранять кирку=Keep the pickaxe
+Сохранять кирку.description=Prevents breaking a block if the item has reached a certain strength
+Средний=Medium
+Стан=Stan
+Стекло=Glass
+Стиль=Style
+Текстура=Texture
+Тема=Subject
+Только с игроком внутри=Only with the player inside
+Только с игроком внутри.description=Only use the ramp if there is another player inside
+Трапка=Ladder
+Трио Лайт (20-29)=Trio Light (20-29)
+Угол разброса=Spread angle
+Угол разброса.description=Scatter angle around gaze (degrees)
+Українська=Ukrainian
+Ультра=Ultra
+Хроматизм=Chromatism
+Цвет=Color
+Цвет верха=Top color
+Цвет кристаллов=Crystal color
+Цвет куба=Cube color
+Цвет низа=Bottom color
+Цвет призраков=Ghost color
+Цвет темы=Theme color
+Цвет урона=Damage color
+Цвет.description=Text color scheme
+Шлейф движения=Movement trail
+Шрифт=Font
+Шрифт.description=Font for text rendering
+Эффекты=Effects
+Яркость внешнего=External brightness
+Яркость внешнего.description=External halo intensity
+Яркость внутреннего=Internal brightness
+Яркость внутреннего.description=Internal glow intensity
+
+# ---- Modern UI texts ----
+" уже существует="already exists
+"autosave" — зарезервированное имя="autosave" is a reserved name
+1.16 Анархия=1.16 Anarchy
+1.20 Анархия=1.20 Anarchy
+1.20 Анархия #1=1.20 Anarchy #1
+1.20 Анархия #2=1.20 Anarchy #2
+1.20 Анархия #3=1.20 Anarchy #3
+Автосохранение=Autosave
+Активен=Active
+Активные события=Active Events
+Анархия #=Anarchy #
+ВЗРЫВНОЙ=EXPLOSIVE
+Введите название конфига=Enter the name of the config
+Введите название нового конфига:=Enter the name of the new config:
+Весенняя=Spring
+Водяная=Water
+Все категории=All categories
+Все модули и бинды вернутся к заводским.=All modules and binds will return to factory settings.
+Голубо-розовая=Blue pink
+Готов=Ready
+Другое=Other
+Дуо Лайт · 10–19=Duo Light · 10–19
+ЗАЖИТОЧНЫЙ=WEALTHY
+Загрузить=Download
+Загрузка событий...=Loading events...
+Закатная=Sunset
+Зимняя=Winter
+Клан Лайт · 30–36=Clan Light · 30–36
+Клиентская=Client
+Конфиг "=Config "
+Конфигов пока нет(=No configs yet(
+Конфигурации=Configurations
+Косметика=Cosmetics
+Косметика сброшена=Cosmetics reset
+Крылья=Wings
+ЛЕГЕНДАРНЫЙ=LEGENDARY
+Лавандовая=Lavender
+Летняя=Summer
+МИРНЫЙ=PEACEFUL
+МИФИЧЕСКИЙ=MYTHICAL
+Мои конфиги=My configs
+Мониторинг событий HolyWorld=HolyWorld Event Monitoring
+Нажмите, чтобы перейти=Click to go
+Название конфига=Config name
+Настройки сброшены к заводским=Settings reset to factory settings
+Не удалось загрузить события=Failed to load events
+Некорректный ответ JSON=Invalid JSON response
+Нет активных событий=No active events
+ОБЫЧНЫЙ=REGULAR
+ОБЫЧНЫЙ КОРАБЛЬ=ORDINARY SHIP
+Обновить=Update
+Отмена=Cancel
+Ошибка соединения=Connection error
+Папка=Folder
+Перейти=Go
+Питомец=Pet
+Питомцы=Pets
+Подключение к HolyWorld API=Connecting to HolyWorld API
+Поиск=Search
+Полуночная=Midnight
+Проверьте фильтры серверов=Check server filters
+Проверьте фильтры серверов в ClickGUI=Check server filters in ClickGUI
+РЕДКИЙ=RARE
+РОСКОШНЫЙ=LUXURY
+Рассветная=Rassvetnaya
+СМЕРТЕЛЬНЫЙ=DEADLY
+Сбросить=Reset
+Сбросить всё=Reset everything
+Сбросить настройки?=Reset settings?
+Светлая=Light
+Сине-зелёная=Blue-green
+События HolyWorld в реальном времени=HolyWorld events in real time
+Создать=Create
+Создать конфигурацию=Create configuration
+Соло Лайт · 1–9=Solo Light · 1–9
+Сохранить=Save
+Текущая категория=Current category
+Тело=Body
+Темы=Topics
+Трио Лайт · 20–29=Trio Light · 20–29
+Тёмная=Dark
+Тёмно-синяя=Dark blue
+Фильтры серверов=Server filters
+Фиолетовая=Purple
+Функции=Functions
+Цветовые палитры=Color palettes
+Чёрно-белая=Black and white
+Шляпа=Hat
+Шляпы=Hats
+ЭПИЧЕСКИЙ=EPIC
+тут пока что ничего нету(=there's nothing here yet(
+menu.category.modules=Modules
+menu.category.player=Player
+menu.category.visuals=Visuals
+menu.category.utils=Utils
+menu.category.server=Server
+menu.category.events=Events
+menu.category.client=Client
+menu.category.configs=Configs
+menu.category.themes=Themes
+menu.category.cosmetics=Cosmetics
+menu.category.other=Other
+menu.category.interface=Interface
+Активно=Active

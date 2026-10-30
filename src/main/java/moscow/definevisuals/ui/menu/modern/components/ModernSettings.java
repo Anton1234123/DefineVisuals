@@ -18,10 +18,10 @@ import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.setting.Setting;
-import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.menu.dropdown.components.settings.MenuSettingComponent;
 import moscow.definevisuals.ui.menu.modern.ModernScreen;
 import moscow.definevisuals.ui.menu.modern.components.ModernModule;
@@ -37,6 +37,7 @@ import moscow.definevisuals.utility.gui.ScrollHandler;
 import moscow.definevisuals.utility.math.MathUtility;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class ModernSettings
 extends CustomComponent {
@@ -77,7 +78,6 @@ extends CustomComponent {
         }
         float alpha = Math.min(1.0f, this.animation.getValue());
         boolean check = DefineVisuals.getInstance().getMenuScreen().getMenuAnimation().getValue() == DefineVisuals.getInstance().getMenuScreen().getMenuAnimation().getTargetValue();
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
         this.animation.setEasing(this.showing ? Easing.QUARTIC_OUT : Easing.BAKEK_BACK);
         float x = MathUtility.interpolate(this.module.getX(), this.x, alpha);
         float y = MathUtility.interpolate(this.module.getY(), this.y, alpha);
@@ -94,13 +94,7 @@ extends CustomComponent {
             RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)alpha);
         }
         BorderRadius windowRadius = BorderRadius.all(6.0f + 5.0f * alpha);
-        if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(x, y, width, height, 45.0f, 10.0f, windowRadius, ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.minimalizm()));
-        }
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(x, y, width, height, 10.0f, 0.08f, windowRadius, Colors.getAccent().withAlpha(255.0f * alpha * Interface.glass()));
-        }
-        context.drawSquircle(x, y, width, height, 10.0f, windowRadius, Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.9f - 0.7f * Interface.glass() : 0.7f)));
+        InterfaceStyleRenderer.drawSurface(context, x, y, width, height, 10.0f, windowRadius, alpha, this.drag ? 1.0f : 0.0f);
         if (this.showing && check) {
             context.drawRoundedRect(x + width - 25.0f, y + 10.5f + 20.0f * alpha, 14.5f, 7.0f, BorderRadius.all(3.0f), Colors.getAdditionalColor().mix(Colors.ACCENT, this.module.getModule().isEnabled() ? 1.0f : 0.0f).mulAlpha(1.0f - alpha));
             context.drawRoundedRect(x + width - 25.0f + 1.0f + (float)(5 * (this.module.getModule().isEnabled() ? 1 : 0)), y + 11.5f + 20.0f * alpha, 7.5f, 5.0f, BorderRadius.all(1.75f), Colors.WHITE.mulAlpha(1.0f - alpha));
@@ -116,8 +110,8 @@ extends CustomComponent {
         if (GuiUtility.isHovered(x + width - 17.0f, y + 9.0f, 8.0, 8.0, context)) {
             CursorUtility.set(CursorType.HAND);
         }
-        if (Interface.showMinimalizm()) {
-            context.drawRect(x, y + 24.0f, width, 4.0f, Colors.getSeparatorColor().withAlpha(Colors.getSeparatorColor().getAlpha() * Interface.minimalizm()));
+        if (Interface.nonLiquid() > 0.001f) {
+            context.drawRect(x, y + 24.0f, width, 4.0f, Colors.getSeparatorColor().withAlpha(Colors.getSeparatorColor().getAlpha() * Interface.nonLiquid()));
         }
         float settingsY = 28.0f;
         float offset = 0.0f;
@@ -180,8 +174,9 @@ extends CustomComponent {
             this.dragX = (float)(mouseX - (double)this.x);
             this.dragY = (float)(mouseY - (double)this.y);
         }
-        if (GuiUtility.isHovered((double)(this.x + this.width - 17.0f), (double)(this.y + 9.0f), 8.0, 8.0, mouseX, mouseY)) {
+        if (this.showing && GuiUtility.isHovered((double)(this.x + this.width - 17.0f), (double)(this.y + 9.0f), 8.0, 8.0, mouseX, mouseY)) {
             this.showing = false;
+            UiSound.WINDOW_CLOSE.play();
         }
         super.onMouseClicked(mouseX, mouseY, button);
     }
@@ -301,4 +296,3 @@ extends CustomComponent {
         this.showing = showing;
     }
 }
-

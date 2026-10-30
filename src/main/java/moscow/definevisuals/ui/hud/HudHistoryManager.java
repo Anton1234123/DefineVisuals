@@ -15,25 +15,26 @@ public class HudHistoryManager {
         this.redoStack.clear();
     }
 
-    public void undo() {
+    public boolean undo() {
         if (this.undoStack.isEmpty()) {
-            return;
+            return false;
         }
         MoveAction lastAction = this.undoStack.pop();
         lastAction.element().pos(lastAction.fromX(), lastAction.fromY());
         this.redoStack.push(lastAction);
+        return true;
     }
 
-    public void redo() {
+    public boolean redo() {
         if (this.redoStack.isEmpty()) {
-            return;
+            return false;
         }
         MoveAction redoAction = this.redoStack.pop();
         redoAction.element().pos(redoAction.toX(), redoAction.toY());
         this.undoStack.push(redoAction);
+        return true;
     }
 
     private record MoveAction(HudElement element, float fromX, float fromY, float toX, float toY) {
     }
 }
-

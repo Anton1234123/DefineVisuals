@@ -51,6 +51,7 @@ import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.interfaces.IScaledResolution;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.Utils;
+import moscow.definevisuals.utility.sounds.UiSound;
 import moscow.definevisuals.utility.time.Timer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ChatScreen;
@@ -124,11 +125,15 @@ IScaledResolution {
         int modifiers = event.getModifiers();
         int keyCode = event.getKeyCode();
         if (keyCode == 90 && (modifiers & 2) != 0) {
-            DefineVisuals.getInstance().getHud().getHistoryManager().undo();
+            if (DefineVisuals.getInstance().getHud().getHistoryManager().undo()) {
+                UiSound.NAVIGATION.play();
+            }
             return;
         }
         if (keyCode == 89 && (modifiers & 2) != 0) {
-            DefineVisuals.getInstance().getHud().getHistoryManager().redo();
+            if (DefineVisuals.getInstance().getHud().getHistoryManager().redo()) {
+                UiSound.NAVIGATION.play();
+            }
             return;
         }
     };
@@ -139,12 +144,20 @@ IScaledResolution {
         //     if (screenPos == null || entity.getType() != EntityType.PLAYER || !this.handleClick((ChatClickEvent)event, entity, screenPos)) continue;
         //     return;
         // }
+        boolean closedPopup = false;
         for (Popup popup : this.popups) {
             popup.onMouseClicked(event.getX(), event.getY(), MouseButton.fromButtonIndex(event.getButton()));
             if (popup.isHovered(event.getX(), event.getY())) {
                 return;
             }
-            popup.setShowing(false);
+            if (popup.isShowing()) {
+                popup.setShowing(false);
+                closedPopup = true;
+            }
+        }
+        if (closedPopup) {
+            UiSound.WINDOW_CLOSE.play();
+            return;
         }
         for (HudElement element : this.elements) {
             element.onMouseClicked(event.getX(), event.getY(), MouseButton.fromButtonIndex(event.getButton()));
@@ -162,7 +175,9 @@ IScaledResolution {
                 });
             }
             this.popups.add(popup);
+            UiSound.WINDOW_OPEN.play();
         } else if (event.getButton() == 1 && this.disabledElements().isEmpty() && this.timer.finished(600L)) {
+            UiSound.ERROR.play();
             DefineVisuals.getInstance().getNotificationManager().addNotificationOther(NotificationType.ERROR, "\u042d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432 \u043d\u0435\u0442", "\u042d\u043b\u0435\u043c\u0435\u043d\u0442\u044b \u0437\u0430\u043a\u043e\u043d\u0447\u0438\u043b\u0438\u0441\u044c, \u0434\u043e\u0431\u0430\u0432\u043b\u044f\u0442\u044c \u0431\u043e\u043b\u044c\u0448\u0435 \u043d\u0435\u0447\u0435\u0433\u043e");
             this.timer.reset();
         }
@@ -286,4 +301,3 @@ IScaledResolution {
         this.desc = desc;
     }
 }
-

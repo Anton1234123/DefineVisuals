@@ -13,14 +13,13 @@ import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
 import moscow.definevisuals.systems.modules.api.ModuleCategory;
 import moscow.definevisuals.systems.modules.api.ModuleInfo;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
 import moscow.definevisuals.systems.modules.modules.visuals.MenuModule;
 import moscow.definevisuals.systems.notifications.NotificationType;
 import moscow.definevisuals.systems.setting.Setting;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.game.TextUtility;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public abstract class BaseModule implements Module {
    private static final ScheduledExecutorService autoSaveExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -73,10 +72,9 @@ public abstract class BaseModule implements Module {
    public void setEnabled(boolean newState, boolean silent) {
       if (this.enabled != newState) {
          this.enabled = newState;
-         if (!(this instanceof MenuModule) && DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).isEnabled() && !silent) {
-            ClientSounds.MODULE
-               .play(DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).getVolume().getCurrentValue(), this.enabled ? 1.1F : 1.0F);
-         }
+          if (!(this instanceof MenuModule) && !silent && !isLoadingConfig) {
+             (this.enabled ? UiSound.MODULE_ON : UiSound.MODULE_OFF).play();
+          }
 
          if (this.enabled) {
             DefineVisuals.getInstance().getEventManager().subscribe(this);

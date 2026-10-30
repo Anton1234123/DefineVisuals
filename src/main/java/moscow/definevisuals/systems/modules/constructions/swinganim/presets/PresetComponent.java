@@ -22,6 +22,7 @@ import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.gui.ScrollHandler;
 import moscow.definevisuals.utility.render.ScissorUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class PresetComponent extends CustomComponent {
    private final Animation addAnim = new Animation(300L, Easing.BAKEK);
@@ -194,6 +195,8 @@ public class PresetComponent extends CustomComponent {
             end.getRotateZ().setCurrentValue(value.getTo().rotateZ());
             manager.setCurrent(null);
             swingManager.setCurrent(value.getName());
+            UiSound.NAVIGATION.play();
+            return;
          }
 
          offset += 12.0F;
@@ -207,7 +210,8 @@ public class PresetComponent extends CustomComponent {
                )
                && GuiUtility.isHovered((double)(x - 1.0F), (double)(elmtY - 4.0F), (double)(width + 2.0F), 12.0, mouseX, mouseY);
             if (hover && GuiUtility.isHovered((double)(x + 7.0F), (double)elmtY, 6.0, 6.0, mouseX, mouseY) && button == MouseButton.LEFT) {
-               value.delete();
+               (value.delete() ? UiSound.DELETE : UiSound.ERROR).play();
+               return;
             } else if (hover && button == MouseButton.LEFT) {
                if (manager.getCurrent() != null) {
                   manager.getCurrent().save();
@@ -215,6 +219,8 @@ public class PresetComponent extends CustomComponent {
 
                swingManager.setCurrent(value.getFileName());
                value.load();
+               UiSound.NAVIGATION.play();
+               return;
             }
 
             offset += 12.0F;
@@ -250,6 +256,7 @@ public class PresetComponent extends CustomComponent {
       manager.createPreset(this.textField.getBuiltText());
       manager.getPreset(this.textField.getBuiltText()).load();
       this.textField.clear();
+      UiSound.SUCCESS.play();
    }
 
    @Override

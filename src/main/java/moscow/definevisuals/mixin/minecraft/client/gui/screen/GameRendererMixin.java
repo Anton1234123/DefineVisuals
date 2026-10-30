@@ -5,8 +5,10 @@ import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.systems.event.impl.render.AspectRatioEvent;
 import moscow.definevisuals.systems.modules.modules.visuals.AspectRatio;
 import moscow.definevisuals.systems.modules.modules.visuals.Removals;
+import moscow.definevisuals.systems.modules.modules.visuals.Zoom;
 import moscow.definevisuals.utility.render.Utils;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
@@ -48,6 +50,12 @@ public abstract class GameRendererMixin {
          matrix4f.perspective(fov * (float) (Math.PI / 180.0), aspect, 0.05F, this.getFarPlaneDistance());
          cir.setReturnValue(matrix4f);
       }
+   }
+
+   @Inject(method = "getFov", at = @At("RETURN"), cancellable = true)
+   private void applyZoom(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Float> cir) {
+      Zoom zoomModule = DefineVisuals.getInstance().getModuleManager().getModule(Zoom.class);
+      cir.setReturnValue(zoomModule.applyFov(cir.getReturnValue()));
    }
 
    @Inject(

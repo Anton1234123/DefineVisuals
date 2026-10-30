@@ -14,8 +14,10 @@ import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.event.EventListener;
 import moscow.definevisuals.systems.event.impl.player.ClientPlayerTickEvent;
+import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.setting.settings.SelectSetting;
 import moscow.definevisuals.ui.hud.HudElement;
 import moscow.definevisuals.ui.hud.impl.island.impl.DefaultStatus;
@@ -37,6 +39,7 @@ import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.interfaces.IScaledResolution;
 import moscow.definevisuals.utility.render.ScissorUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 import moscow.definevisuals.utility.time.Timer;
 import net.minecraft.client.gui.screen.ChatScreen;
 
@@ -116,8 +119,22 @@ IScaledResolution {
         IslandStatus status = this.active();
         this.backgroundColor.update(status.getColor());
         context.drawSquircle(this.x - 1.0f, this.y - 1.0f, this.width + 2.0f, this.height + 2.0f, 2.0f + 5.0f * this.extendingAnim.getValue(), BorderRadius.all(8.0f + 11.0f * this.extendingAnim.getValue()), Colors.WHITE.withAlpha(this.adaptColor.getColor().getRed() * 0.1f));
-        context.drawBlurredRect(this.x, this.y, this.width, this.height, 45.0f, 2.0f + 2.0f * this.extendingAnim.getValue(), radius, ColorRGBA.WHITE.withAlpha(255.0f));
-        context.drawSquircle(this.x, this.y, this.width, this.height, 2.0f + 5.0f * this.extendingAnim.getValue(), radius, this.backgroundColor.getColor().withAlpha(216.75f));
+        float surfaceSquirt = 2.0f + 5.0f * this.extendingAnim.getValue();
+        InterfaceStyleRenderer.drawSurface(context, this.x, this.y, this.width, this.height, surfaceSquirt, radius, 1.0f, this.dragAnim.getValue());
+        Interface.StyleWeights styleWeights = Interface.styleWeights();
+        float statusOverlay = styleWeights.liquidGlass() * 0.72f
+            + styleWeights.blurGlass() * 0.28f
+            + styleWeights.modernMinimalism() * 0.20f
+            + styleWeights.minimalism() * 0.10f;
+        context.drawSquircle(
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            surfaceSquirt,
+            radius,
+            this.backgroundColor.getColor().withAlpha(255.0f * statusOverlay)
+        );
         for (SelectSetting.Value islandStatus : this.statuses.getValues()) {
             ((IslandStatus)islandStatus).getAnimation().update(status == islandStatus ? 1.0f : 0.0f);
         }
@@ -159,13 +176,17 @@ IScaledResolution {
         if (this.extended) {
             if (!GuiUtility.isHovered((double)x, (double)y, (double)this.size.width, (double)this.size.height, mouseX, mouseY)) {
                 this.extended = false;
+                UiSound.WINDOW_CLOSE.play();
             } else {
                 this.active().click(mouseX, mouseY, button);
             }
             return true;
         }
         if (GuiUtility.isHovered((double)x, (double)y, (double)this.size.width, (double)this.size.height, mouseX, mouseY) && this.active() instanceof ExtandableStatus) {
-            this.extended = true;
+            if (button == MouseButton.LEFT.getButtonIndex()) {
+                this.extended = true;
+                UiSound.WINDOW_OPEN.play();
+            }
             return true;
         }
         return false;
@@ -251,4 +272,3 @@ IScaledResolution {
         return this.onTick;
     }
 }
-

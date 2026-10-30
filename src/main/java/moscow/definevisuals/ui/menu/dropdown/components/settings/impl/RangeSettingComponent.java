@@ -20,6 +20,7 @@ import moscow.definevisuals.utility.game.TextUtility;
 import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class RangeSettingComponent
 extends MenuSettingComponent<RangeSetting> {
@@ -63,11 +64,19 @@ extends MenuSettingComponent<RangeSetting> {
         }
         if (this.dragFirst) {
             float xValue = GuiUtility.getSliderValue(((RangeSetting)this.setting).getMin(), ((RangeSetting)this.setting).getMax(), x, width, context.getMouseX());
+            float previousValue = ((RangeSetting)this.setting).getFirstValue();
             ((RangeSetting)this.setting).setFirstValue(xValue);
+            if (Float.compare(previousValue, ((RangeSetting)this.setting).getFirstValue()) != 0) {
+                UiSound.TICK.play();
+            }
             CursorUtility.set(CursorType.ARROW_HORIZONTAL);
         } else if (this.dragSecond) {
             float xValue = GuiUtility.getSliderValue(((RangeSetting)this.setting).getMin(), ((RangeSetting)this.setting).getMax(), x, width, context.getMouseX());
+            float previousValue = ((RangeSetting)this.setting).getSecondValue();
             ((RangeSetting)this.setting).setSecondValue(xValue);
+            if (Float.compare(previousValue, ((RangeSetting)this.setting).getSecondValue()) != 0) {
+                UiSound.TICK.play();
+            }
             CursorUtility.set(CursorType.ARROW_HORIZONTAL);
         }
     }
@@ -107,4 +116,3 @@ extends MenuSettingComponent<RangeSetting> {
         return 29.0f;
     }
 }
-

@@ -19,6 +19,7 @@ import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.render.DrawUtility;
 import moscow.definevisuals.utility.render.penis.PenisPlayer;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class ModeSettingComponent
 extends MenuSettingComponent<ModeSetting> {
@@ -97,8 +98,10 @@ extends MenuSettingComponent<ModeSetting> {
         for (ModeSetting.Value value : ((ModeSetting)this.setting).getValues()) {
             if (value.isHidden()) continue;
             boolean hover = GuiUtility.isHovered((double)(this.x - 1.0f), (double)(this.y + 20.0f + offset), (double)(this.width - 2.0f), 12.0, mouseX, mouseY);
-            if (hover) {
+            if (hover && !value.isSelected()) {
                 value.select();
+                UiSound.NAVIGATION.play();
+                break;
             }
             offset += 12.0f;
         }
@@ -111,4 +114,3 @@ extends MenuSettingComponent<ModeSetting> {
         return this.height;
     }
 }
-

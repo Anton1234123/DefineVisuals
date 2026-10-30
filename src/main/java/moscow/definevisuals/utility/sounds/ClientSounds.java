@@ -9,6 +9,9 @@ public final class ClientSounds {
    public static final ClientSoundInstance WELCOME = new ClientSoundInstance("welcome", 1.0F);
    public static final ClientSoundInstance CRITICAL = new ClientSoundInstance("critical", 1.0F);
    public static final ClientSoundInstance TYPING = new ClientSoundInstance("typing", 1.0F);
+   public static final ClientSoundInstance UI_CLICK = new ClientSoundInstance("ui_click", 1.0F);
+   public static final ClientSoundInstance UI_NAV = new ClientSoundInstance("ui_nav", 1.0F);
+   public static final ClientSoundInstance UI_BIND = new ClientSoundInstance("ui_bind", 1.0F);
 
    @Generated
    private ClientSounds() {

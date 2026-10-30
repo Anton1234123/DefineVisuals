@@ -19,13 +19,12 @@ import moscow.definevisuals.systems.file.FileManager;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
 import moscow.definevisuals.systems.modules.exception.UnknownModuleException;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
 import moscow.definevisuals.systems.modules.modules.visuals.MenuModule;
 import moscow.definevisuals.systems.notifications.NotificationType;
 import moscow.definevisuals.systems.setting.Setting;
 import moscow.definevisuals.utility.game.MessageUtility;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.text.Text;
 
 public class ConfigFile implements IMinecraft {
@@ -104,7 +103,7 @@ public class ConfigFile implements IMinecraft {
 
                   moscow.definevisuals.systems.modules.impl.BaseModule.setLoadingConfig(false);
 
-                  ClientSounds.MODULE.play(DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).getVolume().getCurrentValue(), 1.0F);
+                   UiSound.SUCCESS.play();
                   DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, Localizator.translate("configs.loaded"));
                   DefineVisuals.LOGGER.info("Loaded {} modules from config {}", loadedModules, this.fileName);
                   if (!this.fileName.equals("autosave")) {

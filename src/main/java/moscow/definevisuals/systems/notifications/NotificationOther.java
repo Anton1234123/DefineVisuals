@@ -5,11 +5,10 @@ import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.framework.base.CustomDrawContext;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.colors.ColorRGBA;
-import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.time.Timer;
 
@@ -40,35 +39,25 @@ public class NotificationOther {
       float height = 26.0F;
       int alpha = (int)(255.0F * this.animation.getValue());
       RenderUtility.scale(context.getMatrices(), x + width / 2.0F, y + 12.0F + height / 2.0F, 0.5F + 0.5F * this.animation.getValue());
-      if (Interface.showGlass()) {
-         context.drawLiquidGlass(
-            x, y, width, height, 7.0F, 0.08F, BorderRadius.all(7.0F), ColorRGBA.WHITE.withAlpha(255.0F * this.animation.getValue() * Interface.glass())
-         );
-         context.drawSquircle(
-            x,
-            y,
-            width,
-            height,
-            7.0F,
-            BorderRadius.all(7.0F),
-            Colors.getBackgroundColor().withAlpha(255.0F * (0.8F - 0.6F * Interface.glass()) * this.animation.getValue())
-         );
-      } else {
-         context.drawBlurredRect(
-            x, y, width, height, 45.0F, 7.0F, BorderRadius.all(7.0F), ColorRGBA.WHITE.withAlpha(255.0F * this.animation.getValue() * Interface.minimalizm())
-         );
-         context.drawSquircle(
-            x, y, width, height, 7.0F, BorderRadius.all(7.0F), new ColorRGBA(0.0F, 0.0F, 0.0F).withAlpha((int)(140.25F * this.animation.getValue()))
-         );
-         context.drawRoundedRect(
-            x + height / 2.0F - 9.0F,
-            y + height / 2.0F - 9.0F,
-            18.0F,
-            18.0F,
-            BorderRadius.all(4.0F),
-            new ColorRGBA(0.0F, 0.0F, 0.0F).withAlpha((int)(51.0F * this.animation.getValue()))
-         );
-      }
+       InterfaceStyleRenderer.drawSurface(
+          context,
+          x,
+          y,
+          width,
+          height,
+          7.0F,
+          BorderRadius.all(7.0F),
+          this.animation.getValue(),
+          0.0F
+       );
+       context.drawRoundedRect(
+          x + height / 2.0F - 9.0F,
+          y + height / 2.0F - 9.0F,
+          18.0F,
+          18.0F,
+          BorderRadius.all(4.0F),
+          ColorRGBA.BLACK.withAlpha(51.0F * this.animation.getValue())
+       );
 
       context.drawTexture(
          DefineVisuals.id("icons/" + this.type.getName() + ".png"),

@@ -13,12 +13,12 @@ import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.config.ConfigFile;
 import moscow.definevisuals.systems.config.ConfigManager;
 import moscow.definevisuals.systems.file.FileManager;
+import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.modules.modules.visuals.MenuModule;
 import moscow.definevisuals.systems.notifications.NotificationType;
 import moscow.definevisuals.systems.theme.Theme;
@@ -35,7 +35,7 @@ import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.render.DrawUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.render.obj.CustomSprite;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.util.Identifier;
 
 public class ModernConfigPanel implements IMinecraft {
@@ -73,7 +73,7 @@ public class ModernConfigPanel implements IMinecraft {
 
     public ModernConfigPanel() {
         this.createField = new TextField(Fonts.MEDIUM.getFont(6.5f));
-        this.createField.setPreview("Название конфига");
+        this.createField.setPreview(Localizator.translate("Название конфига"));
 
     }
 
@@ -99,7 +99,7 @@ public class ModernConfigPanel implements IMinecraft {
 
         // Header Title: [Folder Icon] Конфигурации
         context.drawSprite(CustomSprite.CONFIGS, headerX, headerY + 1.0f, 9.0f, 9.0f, textColor);
-        context.drawText(Fonts.SEMIBOLD.getFont(9.0f), "Конфигурации", headerX + 13.0f, headerY + 1.0f, textColor);
+        context.drawText(Fonts.SEMIBOLD.getFont(9.0f), Localizator.translate("Конфигурации"), headerX + 13.0f, headerY + 1.0f, textColor);
 
         // Header Action Buttons on Right
         float rightBtnY = headerY - 1.0f;
@@ -128,7 +128,7 @@ public class ModernConfigPanel implements IMinecraft {
 
         // 2. Subheader: "Мои конфиги"
         float subHeaderY = headerY + 20.0f;
-        context.drawText(Fonts.MEDIUM.getFont(6.0f), "Мои конфиги", headerX, subHeaderY, textColor.mulAlpha(0.35f));
+        context.drawText(Fonts.MEDIUM.getFont(6.0f), Localizator.translate("Мои конфиги"), headerX, subHeaderY, textColor.mulAlpha(0.35f));
 
         // 3. Config Cards List
         float listY = subHeaderY + 11.0f;
@@ -148,7 +148,7 @@ public class ModernConfigPanel implements IMinecraft {
         ConfigFile currentActive = configManager.getCurrent();
 
         if (configs.isEmpty()) {
-            context.drawCenteredText(Fonts.MEDIUM.getFont(7.5f), "Конфигов пока нет(", headerX + cardWidth / 2.0f, listY + listHeight / 2.0f - 4.0f, textColor.mulAlpha(0.4f));
+            context.drawCenteredText(Fonts.MEDIUM.getFont(7.5f), Localizator.translate("Конфигов пока нет("), headerX + cardWidth / 2.0f, listY + listHeight / 2.0f - 4.0f, textColor.mulAlpha(0.4f));
         } else {
             for (ConfigCardState state : this.cardStates) {
                 ConfigFile cfg = state.configFile;
@@ -161,16 +161,19 @@ public class ModernConfigPanel implements IMinecraft {
                 boolean isActive = (currentActive != null && currentActive.getFileName().equalsIgnoreCase(cfg.getFileName())) || (currentActive == null && cfg.getFileName().equalsIgnoreCase("autosave"));
                 state.selectAnim.update(isActive);
 
-                // Card background (matching module grid style without outline)
-                float glass = Interface.glass();
-                ColorRGBA base = (dark ? Colors.getBackgroundColor() : Colors.getAdditionalColor())
-                        .withAlpha(255.0f * (dark ? 0.16f + 0.14f * Interface.minimalizm() : 0.12f + 0.12f * Interface.minimalizm()));
-                ColorRGBA cardBg = base
-                        .mix(accent.withAlpha(255.0f * (0.25f + 0.15f * (1.0f - glass))), state.selectAnim.getValue() * 0.9f)
-                        .mix(Colors.getTextColor().withAlpha(20.0f), state.hoverAnim.getValue() * 0.35f);
-
                 BorderRadius cardRadius = BorderRadius.all(4.0f);
-                context.drawSquircle(headerX, currentY, cardWidth, cardHeight, 3.0f, cardRadius, cardBg);
+                InterfaceStyleRenderer.drawCard(
+                        context,
+                        headerX,
+                        currentY,
+                        cardWidth,
+                        cardHeight,
+                        3.0f,
+                        cardRadius,
+                        1.0f,
+                        state.selectAnim.getValue(),
+                        state.hoverAnim.getValue()
+                );
 
                 // Left Avatar / Player Head
                 float avatarSize = 18.0f;
@@ -200,7 +203,7 @@ public class ModernConfigPanel implements IMinecraft {
                     }
                 }
                 String dateStr = cfgFile.exists() ? DATE_FORMAT.format(new Date(cfgFile.lastModified())) : "—";
-                String subInfo = dateStr + " · " + (isAutosave ? "Автосохранение" : isActive ? "Активен" : "Готов");
+                String subInfo = dateStr + " · " + Localizator.translate(isAutosave ? "Автосохранение" : isActive ? "Активен" : "Готов");
                 context.drawText(Fonts.REGULAR.getFont(5.5f), subInfo, textLeft, currentY + 16.5f, isActive ? accent.mulAlpha(0.85f) : textColor.mulAlpha(0.45f));
 
                 // Action Buttons on Card (Right Side)
@@ -254,7 +257,7 @@ public class ModernConfigPanel implements IMinecraft {
     private void drawButton(UIContext context, float x, float y, float w, float h, String text, boolean hovered, boolean dark, ColorRGBA accent, ColorRGBA textColor) {
         ColorRGBA bg = hovered ? accent.mulAlpha(0.3f) : Colors.getBackgroundColor().mulAlpha(dark ? 0.4f : 0.25f);
         context.drawSquircle(x, y, w, h, 3.0f, BorderRadius.all(3.0f), bg);
-        context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), text, x + w / 2.0f, y + 4.5f, hovered ? accent : textColor.mulAlpha(0.8f));
+        context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), Localizator.translate(text), x + w / 2.0f, y + 4.5f, hovered ? accent : textColor.mulAlpha(0.8f));
     }
 
     private void renderModal(UIContext context, float menuX, float menuY, float menuW, float menuH, float anim, boolean dark, ColorRGBA accent, ColorRGBA textColor) {
@@ -270,10 +273,7 @@ public class ModernConfigPanel implements IMinecraft {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, anim);
 
         context.drawShadow(modalX, modalY, modalW, modalH, 20.0f, BorderRadius.all(8.0f), ColorRGBA.BLACK.withAlpha(60.0f * anim));
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(modalX, modalY, modalW, modalH, 6.0f, 0.08f, BorderRadius.all(8.0f), Colors.getAccent().withAlpha(255.0f * anim * Interface.glass()));
-        }
-        context.drawSquircle(modalX, modalY, modalW, modalH, 6.0f, BorderRadius.all(8.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.95f : 0.85f) * anim));
+        InterfaceStyleRenderer.drawSurface(context, modalX, modalY, modalW, modalH, 6.0f, BorderRadius.all(8.0f), anim, 0.0f);
         context.drawRoundedBorder(modalX, modalY, modalW, modalH, 0.8f, BorderRadius.all(8.0f), accent.mulAlpha(0.4f * anim));
 
         float btnW = 56.0f;
@@ -281,8 +281,8 @@ public class ModernConfigPanel implements IMinecraft {
         float btnY = modalY + modalH - btnH - 8.0f;
 
         if (this.activeModal == ModalType.RESET) {
-            context.drawCenteredText(Fonts.SEMIBOLD.getFont(7.5f), "Сбросить настройки?", modalX + modalW / 2.0f, modalY + 12.0f, textColor);
-            context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), "Все модули и бинды вернутся к заводским.", modalX + modalW / 2.0f, modalY + 25.0f, textColor.mulAlpha(0.6f));
+            context.drawCenteredText(Fonts.SEMIBOLD.getFont(7.5f), Localizator.translate("Сбросить настройки?"), modalX + modalW / 2.0f, modalY + 12.0f, textColor);
+            context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), Localizator.translate("Все модули и бинды вернутся к заводским."), modalX + modalW / 2.0f, modalY + 25.0f, textColor.mulAlpha(0.6f));
 
             // Cancel Button
             float cancelX = modalX + 18.0f;
@@ -296,16 +296,17 @@ public class ModernConfigPanel implements IMinecraft {
             if (confHov) CursorUtility.set(CursorType.HAND);
             ColorRGBA resetBtnBg = confHov ? ColorRGBA.RED.mulAlpha(0.6f) : ColorRGBA.RED.mulAlpha(0.35f);
             context.drawSquircle(confirmX, btnY, btnW, btnH, 3.0f, BorderRadius.all(3.0f), resetBtnBg);
-            context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), "Сбросить", confirmX + btnW / 2.0f, btnY + 4.5f, Colors.WHITE);
+            context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), Localizator.translate("Сбросить"), confirmX + btnW / 2.0f, btnY + 4.5f, Colors.WHITE);
 
         } else if (this.activeModal == ModalType.CREATE) {
-            context.drawCenteredText(Fonts.SEMIBOLD.getFont(7.5f), "Создать конфигурацию", modalX + modalW / 2.0f, modalY + 10.0f, textColor);
-            context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), "Введите название нового конфига:", modalX + modalW / 2.0f, modalY + 21.0f, textColor.mulAlpha(0.55f));
+            context.drawCenteredText(Fonts.SEMIBOLD.getFont(7.5f), Localizator.translate("Создать конфигурацию"), modalX + modalW / 2.0f, modalY + 10.0f, textColor);
+            context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), Localizator.translate("Введите название нового конфига:"), modalX + modalW / 2.0f, modalY + 21.0f, textColor.mulAlpha(0.55f));
 
             float fieldW = modalW - 24.0f;
             float fieldX = modalX + 12.0f;
             float fieldY = modalY + 31.0f;
             context.drawRoundedRect(fieldX, fieldY, fieldW, 14.0f, BorderRadius.all(3.0f), Colors.getBackgroundColor().mulAlpha(dark ? 0.6f : 0.4f));
+            this.createField.setPreview(Localizator.translate("Название конфига"));
             this.createField.set(fieldX + 4.0f, fieldY, fieldW - 8.0f, 14.0f);
             this.createField.setTextColor(textColor);
             this.createField.render(context);
@@ -322,7 +323,7 @@ public class ModernConfigPanel implements IMinecraft {
             if (confHov) CursorUtility.set(CursorType.HAND);
             ColorRGBA createBtnBg = confHov ? accent : accent.mulAlpha(0.7f);
             context.drawSquircle(confirmX, btnY, btnW, btnH, 3.0f, BorderRadius.all(3.0f), createBtnBg);
-            context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), "Создать", confirmX + btnW / 2.0f, btnY + 4.5f, Colors.WHITE);
+            context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), Localizator.translate("Создать"), confirmX + btnW / 2.0f, btnY + 4.5f, Colors.WHITE);
 
         }
 
@@ -344,7 +345,7 @@ public class ModernConfigPanel implements IMinecraft {
         float resetX = x + width - 14.0f - resetW;
         if (GuiUtility.isHovered((double)resetX, (double)rightBtnY, resetW, btnHeight, mouseX, mouseY)) {
             this.activeModal = ModalType.RESET;
-            this.playClickSound();
+            UiSound.WINDOW_OPEN.play();
             return;
         }
 
@@ -355,7 +356,7 @@ public class ModernConfigPanel implements IMinecraft {
             this.activeModal = ModalType.CREATE;
             this.createField.clear();
             this.createField.setFocused(true);
-            this.playClickSound();
+            UiSound.WINDOW_OPEN.play();
             return;
         }
 
@@ -364,7 +365,7 @@ public class ModernConfigPanel implements IMinecraft {
         float folderX = createX - folderW - 4.0f;
         if (GuiUtility.isHovered((double)folderX, (double)rightBtnY, folderW, btnHeight, mouseX, mouseY)) {
             DefineVisuals.getInstance().getConfigManager().directionConfig();
-            this.playClickSound();
+            UiSound.CLICK.play();
             return;
         }
 
@@ -387,8 +388,7 @@ public class ModernConfigPanel implements IMinecraft {
                     // Delete Button
                     float delX = headerX + cardWidth - btnSize - 6.0f;
                     if (GuiUtility.isHovered((double)delX, (double)actY, btnSize, btnSize, mouseX, mouseY)) {
-                        cfg.delete();
-                        this.playClickSound();
+                        (cfg.delete() ? UiSound.DELETE : UiSound.ERROR).play();
                         return;
                     }
 
@@ -397,7 +397,7 @@ public class ModernConfigPanel implements IMinecraft {
                     if (GuiUtility.isHovered((double)saveX, (double)actY, TEXT_BTN_W, btnSize, mouseX, mouseY)) {
                         cfg.save();
                         DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, "Конфиг " + cfg.getFileName() + " сохранён!");
-                        this.playClickSound();
+                        UiSound.SUCCESS.play();
                         return;
                     }
 
@@ -405,13 +405,11 @@ public class ModernConfigPanel implements IMinecraft {
                     float loadX = saveX - TEXT_BTN_W - 4.0f;
                     if (GuiUtility.isHovered((double)loadX, (double)actY, TEXT_BTN_W, btnSize, mouseX, mouseY)) {
                         cfg.load();
-                        this.playClickSound();
                         return;
                     }
                 } else {
                     // Autosave card click -> load (no action buttons)
                     cfg.load();
-                    this.playClickSound();
                     return;
                 }
             }
@@ -433,7 +431,7 @@ public class ModernConfigPanel implements IMinecraft {
         float cancelX = modalX + 18.0f;
         if (GuiUtility.isHovered((double)cancelX, (double)btnY, btnW, btnH, mouseX, mouseY)) {
             this.closeModal();
-            this.playClickSound();
+            UiSound.WINDOW_CLOSE.play();
             return;
         }
 
@@ -442,11 +440,11 @@ public class ModernConfigPanel implements IMinecraft {
         if (GuiUtility.isHovered((double)confirmX, (double)btnY, btnW, btnH, mouseX, mouseY)) {
             if (this.activeModal == ModalType.RESET) {
                 this.resetAllSettings();
+                UiSound.SUCCESS.play();
             } else if (this.activeModal == ModalType.CREATE) {
-                this.tryCreateConfig();
+                (this.tryCreateConfig() ? UiSound.SUCCESS : UiSound.ERROR).play();
             }
             this.closeModal();
-            this.playClickSound();
             return;
         }
 
@@ -494,7 +492,7 @@ public class ModernConfigPanel implements IMinecraft {
     private void resetAllSettings() {
         for (Module module : DefineVisuals.getInstance().getModuleManager().getModules()) {
             if (!(module instanceof MenuModule)) {
-                module.setEnabled(false, false);
+                module.setEnabled(false, true);
                 module.setKey(-1);
             }
         }
@@ -506,13 +504,6 @@ public class ModernConfigPanel implements IMinecraft {
             autosave.save();
         }
         DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, "Настройки сброшены к заводским");
-    }
-
-    private void playClickSound() {
-        Sounds sounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
-        if (sounds != null && sounds.isEnabled()) {
-            ClientSounds.MODULE.play(sounds.getVolume().getCurrentValue(), 1.0f);
-        }
     }
 
     private void syncCardStates(List<ConfigFile> configs) {
@@ -539,7 +530,7 @@ public class ModernConfigPanel implements IMinecraft {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (this.activeModal == ModalType.CREATE && this.createField.isFocused()) {
             if (keyCode == 257) { // Enter
-                this.tryCreateConfig();
+                (this.tryCreateConfig() ? UiSound.SUCCESS : UiSound.ERROR).play();
                 this.closeModal();
                 return true;
             }
@@ -548,6 +539,7 @@ public class ModernConfigPanel implements IMinecraft {
         }
         if (this.isModalOpen() && keyCode == 256) { // Escape
             this.closeModal();
+            UiSound.WINDOW_CLOSE.play();
             return true;
         }
         return false;

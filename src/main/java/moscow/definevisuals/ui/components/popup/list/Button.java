@@ -25,6 +25,7 @@ import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class Button
 extends PopupComponent {
@@ -54,6 +55,7 @@ extends PopupComponent {
     @Override
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button) {
         if (this.isHovered(mouseX, mouseY) && button == MouseButton.LEFT) {
+            (this.text.equals(Localizator.translate("remove")) ? UiSound.DELETE : UiSound.CLICK).play();
             this.action.run(this.popup);
         }
         super.onMouseClicked(mouseX, mouseY, button);
@@ -73,4 +75,3 @@ extends PopupComponent {
         this.action = action;
     }
 }
-

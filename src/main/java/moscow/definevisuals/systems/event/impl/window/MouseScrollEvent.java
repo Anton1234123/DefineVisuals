@@ -1,9 +1,9 @@
 package moscow.definevisuals.systems.event.impl.window;
 
 import lombok.Generated;
-import moscow.definevisuals.systems.event.Event;
+import moscow.definevisuals.systems.event.EventCancellable;
 
-public class MouseScrollEvent extends Event {
+public class MouseScrollEvent extends EventCancellable {
    private final double verticalAmount;
 
    @Generated

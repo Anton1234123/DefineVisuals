@@ -1,15 +1,12 @@
 package moscow.definevisuals.framework.base;
 
-import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.MsdfRenderer;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.gradient.Gradient;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.mixin.accessors.DrawContextAccessor;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
-import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.utility.colors.ColorRGBA;
-import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.render.DrawUtility;
 import moscow.definevisuals.utility.render.obj.CustomSprite;
@@ -48,14 +45,7 @@ public class CustomDrawContext extends DrawContext implements IMinecraft {
    }
 
    public void drawClientRect(float x, float y, float width, float height, float alpha, float dragAnim, float squircle) {
-      if (Interface.showMinimalizm()) {
-         this.drawBlurredRect(x, y, width, height, 45.0f, squircle, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.minimalizm()));
-      }
-      if (Interface.showGlass()) {
-         this.drawLiquidGlass(x, y, width, height, squircle, 0.08f - 0.07f * dragAnim, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.glass()));
-      }
-      boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-      this.drawSquircle(x, y, width, height, squircle, BorderRadius.all(6.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.8f - 0.6f * Interface.glass() : 0.7f)));
+      InterfaceStyleRenderer.drawSurface(this, x, y, width, height, squircle, BorderRadius.all(6.0f), alpha, dragAnim);
    }
 
    public void pushMatrix() {
@@ -99,19 +89,19 @@ public class CustomDrawContext extends DrawContext implements IMinecraft {
       );
       DrawUtility.drawLiquidGlass(
          this.getMatrices(),
-         x - 5.0F * Interface.minimalizm(),
-         y - 5.0F * Interface.minimalizm(),
-         width + 10.0F * Interface.minimalizm(),
-         height + 10.0F * Interface.minimalizm(),
+         x,
+         y,
+         width,
+         height,
          borderRadius,
          color,
-         color.getAlpha() / 255.0F * Interface.glass(),
-         (float)(height == 240.0F ? 100 : 50) * Interface.glass(),
+         color.getAlpha() / 255.0F,
+         height == 240.0F ? 100.0F : 50.0F,
          color.withAlpha(255.0F),
          1.0F,
          true,
          0.0F,
-         power * Interface.glass(),
+         power,
          squirt,
          false
       );

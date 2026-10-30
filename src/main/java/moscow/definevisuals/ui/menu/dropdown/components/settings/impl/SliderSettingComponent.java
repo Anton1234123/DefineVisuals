@@ -22,6 +22,7 @@ import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.render.DrawUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 import moscow.definevisuals.utility.time.Timer;
 
 public class SliderSettingComponent
@@ -58,9 +59,9 @@ extends MenuSettingComponent<SliderSetting> {
             context.drawSquircle(x + width * GuiUtility.getPercent(this.animation.getValue(), ((SliderSetting)this.setting).getMin(), ((SliderSetting)this.setting).getMax()) - 4.5f - 3.0f * this.moving.getValue(), y + this.height - 11.0f - 3.0f - 2.0f * this.moving.getValue(), 9.0f + 6.0f * this.moving.getValue(), 6.0f + 4.0f * this.moving.getValue(), 7.0f, BorderRadius.all(3.0f + this.moving.getValue()), ColorRGBA.WHITE.withAlpha(255.0f * (1.0f - this.moving.getValue()) * Interface.glass()));
             context.drawLiquidGlass(x + width * GuiUtility.getPercent(this.animation.getValue(), ((SliderSetting)this.setting).getMin(), ((SliderSetting)this.setting).getMax()) - 4.5f - 3.0f * this.moving.getValue(), y + this.height - 11.0f - 3.0f - 2.0f * this.moving.getValue(), 9.0f + 6.0f * this.moving.getValue(), 6.0f + 4.0f * this.moving.getValue(), 7.0f, BorderRadius.all(3.0f + this.moving.getValue()), ColorRGBA.WHITE.withAlpha(255.0f * this.moving.getValue() * Interface.glass()), true);
         }
-        if (Interface.showMinimalizm()) {
-            context.drawShadow(x + width * GuiUtility.getPercent(this.animation.getValue(), ((SliderSetting)this.setting).getMin(), ((SliderSetting)this.setting).getMax()) - 3.0f, y + this.height - 14.0f + this.moving.getValue(), 6.0f, 6.0f - this.moving.getValue() * 2.0f, 10.0f, BorderRadius.all(3.0f - this.moving.getValue() * 2.0f), ColorRGBA.BLACK.withAlpha(63.75f * Interface.minimalizm()));
-            context.drawRoundedRect(x + width * GuiUtility.getPercent(this.animation.getValue(), ((SliderSetting)this.setting).getMin(), ((SliderSetting)this.setting).getMax()) - 3.0f, y + this.height - 14.0f + this.moving.getValue(), 6.0f, 6.0f - this.moving.getValue() * 2.0f, BorderRadius.all(3.0f - this.moving.getValue() * 2.0f), ColorRGBA.WHITE.withAlpha(255.0f * Interface.minimalizm()));
+        if (Interface.nonLiquid() > 0.001f) {
+            context.drawShadow(x + width * GuiUtility.getPercent(this.animation.getValue(), ((SliderSetting)this.setting).getMin(), ((SliderSetting)this.setting).getMax()) - 3.0f, y + this.height - 14.0f + this.moving.getValue(), 6.0f, 6.0f - this.moving.getValue() * 2.0f, 10.0f, BorderRadius.all(3.0f - this.moving.getValue() * 2.0f), ColorRGBA.BLACK.withAlpha(63.75f * Interface.nonLiquid()));
+            context.drawRoundedRect(x + width * GuiUtility.getPercent(this.animation.getValue(), ((SliderSetting)this.setting).getMin(), ((SliderSetting)this.setting).getMax()) - 3.0f, y + this.height - 14.0f + this.moving.getValue(), 6.0f, 6.0f - this.moving.getValue() * 2.0f, BorderRadius.all(3.0f - this.moving.getValue() * 2.0f), ColorRGBA.WHITE.withAlpha(255.0f * Interface.nonLiquid()));
         }
         String value = TextUtility.formatNumberClean(this.animation.getValue()) + ((SliderSetting)this.setting).getSuffix();
         context.drawFadeoutText(nameFont, Localizator.translate(((SliderSetting)this.setting).getName()), this.x + leftPadding, y + 11.0f - nameFont.height(), Colors.getTextColor().withAlpha(255.0f * (0.75f + 0.25f * this.hoverAnimation.getValue())), 0.8f, 1.0f, this.getParent().getWidth() - leftPadding - Fonts.REGULAR.getFont(7.0f).width(value) - 10.0f);
@@ -72,7 +73,11 @@ extends MenuSettingComponent<SliderSetting> {
         this.moving.update(this.drag ? 1.0f : 0.0f);
         if (this.drag) {
             float xValue = GuiUtility.getSliderValue(((SliderSetting)this.setting).getMin(), ((SliderSetting)this.setting).getMax(), x, width, context.getMouseX());
+            float previousValue = ((SliderSetting)this.setting).getCurrentValue();
             ((SliderSetting)this.setting).setCurrentValue(xValue);
+            if (Float.compare(previousValue, ((SliderSetting)this.setting).getCurrentValue()) != 0) {
+                UiSound.TICK.play();
+            }
             CursorUtility.set(CursorType.ARROW_HORIZONTAL);
             current = this;
         }
@@ -101,7 +106,11 @@ extends MenuSettingComponent<SliderSetting> {
     @Override
     public void onKeyPressed(int keyCode, int scanCode, int modifiers) {
         if ((keyCode == 262 || keyCode == 263) && current == this) {
+            float previousValue = ((SliderSetting)current.getSetting()).getCurrentValue();
             ((SliderSetting)current.getSetting()).setCurrentValue(((SliderSetting)current.getSetting()).getCurrentValue() + ((SliderSetting)current.getSetting()).getStep() * 0.7f * (float)(keyCode == 262 ? 1 : -1));
+            if (Float.compare(previousValue, ((SliderSetting)current.getSetting()).getCurrentValue()) != 0) {
+                UiSound.TICK.play();
+            }
         }
     }
 
@@ -111,4 +120,3 @@ extends MenuSettingComponent<SliderSetting> {
         return 29.0f;
     }
 }
-

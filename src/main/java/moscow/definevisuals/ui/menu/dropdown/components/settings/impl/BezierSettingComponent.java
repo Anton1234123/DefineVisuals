@@ -22,6 +22,7 @@ import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.util.math.Vec2f;
 
 public class BezierSettingComponent
@@ -68,12 +69,22 @@ extends MenuSettingComponent<BezierSetting> {
         if (this.dragStart) {
             float xValue = GuiUtility.getSliderValue(0.0f, 1.0f, boxX, boxWidth, context.getMouseX());
             float yValue = GuiUtility.getSliderValueWithoutClamp(0.0f, 1.0f, boxY, boxHeight, context.getMouseY());
+            Vec2f previous = ((BezierSetting)this.setting).start();
             ((BezierSetting)this.setting).start(new Vec2f(xValue, Math.clamp(yValue, -0.5f, 1.5f)));
+            Vec2f current = ((BezierSetting)this.setting).start();
+            if (Float.compare(previous.x, current.x) != 0 || Float.compare(previous.y, current.y) != 0) {
+                UiSound.TICK.play();
+            }
             CursorUtility.set(CursorType.CROSSHAIR);
         } else if (this.dragEnd) {
             float xValue = GuiUtility.getSliderValue(0.0f, 1.0f, boxX, boxWidth, context.getMouseX());
             float yValue = GuiUtility.getSliderValueWithoutClamp(0.0f, 1.0f, boxY, boxHeight, context.getMouseY());
+            Vec2f previous = ((BezierSetting)this.setting).end();
             ((BezierSetting)this.setting).end(new Vec2f(xValue, Math.clamp(yValue, -0.5f, 1.5f)));
+            Vec2f current = ((BezierSetting)this.setting).end();
+            if (Float.compare(previous.x, current.x) != 0 || Float.compare(previous.y, current.y) != 0) {
+                UiSound.TICK.play();
+            }
             CursorUtility.set(CursorType.CROSSHAIR);
         }
         this.startX.setValue(((BezierSetting)this.setting).start().x);
@@ -129,4 +140,3 @@ extends MenuSettingComponent<BezierSetting> {
         return this.height;
     }
 }
-

@@ -30,10 +30,14 @@ public class MouseMixin implements IMinecraft {
       DefineVisuals.getInstance().getEventManager().triggerEvent(new MouseEvent(button, action));
    }
 
-   @Inject(method = "onMouseScroll", at = @At("HEAD"))
+   @Inject(method = "onMouseScroll", at = @At("HEAD"), cancellable = true)
    private void onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
       if (vertical != 0.0) {
-         DefineVisuals.getInstance().getEventManager().triggerEvent(new MouseScrollEvent(vertical));
+         MouseScrollEvent event = new MouseScrollEvent(vertical);
+         DefineVisuals.getInstance().getEventManager().triggerEvent(event);
+         if (event.isCancelled()) {
+            ci.cancel();
+         }
       }
    }
 }

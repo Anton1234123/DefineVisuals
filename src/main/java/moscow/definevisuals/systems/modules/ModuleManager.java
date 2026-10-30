@@ -54,6 +54,7 @@ import moscow.definevisuals.systems.modules.modules.visuals.JumpCircle;
 import moscow.definevisuals.systems.modules.modules.visuals.ShaderHand;
 import moscow.definevisuals.systems.modules.modules.visuals.Lyrics;
 import moscow.definevisuals.systems.modules.modules.visuals.Cosmetics;
+import moscow.definevisuals.systems.modules.modules.visuals.Zoom;
 import net.minecraft.client.MinecraftClient;
 
 public class ModuleManager {
@@ -88,6 +89,7 @@ public class ModuleManager {
       this.register(new AutoSprint());
       this.register(new MenuModule());
       this.register(new Removals());
+      this.register(new Zoom());
       this.register(new Ambience());
       this.register(new SwingAnimation());
       this.register(new FriendMarkers());

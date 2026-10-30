@@ -28,6 +28,7 @@ import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.interfaces.IScaledResolution;
 import moscow.definevisuals.utility.render.RenderUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public abstract class HudElement
 implements SettingsContainer,
@@ -156,6 +157,7 @@ IMinecraft {
                     this.select = false;
                 });
                 DefineVisuals.getInstance().getHud().getPopups().add(popup);
+                UiSound.WINDOW_OPEN.play();
             }
         }
     }
@@ -374,4 +376,3 @@ IMinecraft {
         this.startDragY = startDragY;
     }
 }
-

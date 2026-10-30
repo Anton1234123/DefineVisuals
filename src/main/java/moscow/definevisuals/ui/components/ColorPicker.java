@@ -20,9 +20,9 @@ import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.framework.objects.gradient.Gradient;
 import moscow.definevisuals.framework.objects.gradient.impl.HorizontalGradient;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.modules.visuals.Interface;
-import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.animation.types.ColorAnimation;
@@ -36,6 +36,7 @@ import moscow.definevisuals.utility.interfaces.IWindow;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.render.obj.Rect;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.client.gui.screen.Screen;
 
 public class ColorPicker
@@ -87,14 +88,21 @@ IWindow {
     @Override
     protected void renderComponent(UIContext context) {
         if (this.dragHue) {
+            float previous = this.hue;
             this.hue = GuiUtility.getSliderValue(0.0f, 1.0f, this.y + 22.0f, 66.0f, context.getMouseY());
+            if (Float.compare(previous, this.hue) != 0) UiSound.TICK.play();
         }
         if (this.dragBS) {
+            float previousBrightness = this.brightness;
+            float previousSaturation = this.saturation;
             this.brightness = 1.0f - GuiUtility.getSliderValue(0.0f, 1.0f, this.x + 6.0f, 114.0f, context.getMouseX());
             this.saturation = 1.0f - GuiUtility.getSliderValue(0.0f, 1.0f, this.y + 20.0f, 70.0f, context.getMouseY());
+            if (Float.compare(previousBrightness, this.brightness) != 0 || Float.compare(previousSaturation, this.saturation) != 0) UiSound.TICK.play();
         }
         if (this.dragAlpha) {
+            float previous = this.alpha;
             this.alpha = GuiUtility.getSliderValue(0.0f, 1.0f, this.x + 7.0f, 88.0f, context.getMouseX());
+            if (Float.compare(previous, this.alpha) != 0) UiSound.TICK.play();
         }
         if (this.drag) {
             this.x = (float)context.getMouseX() - this.dragX;
@@ -112,21 +120,23 @@ IWindow {
         this.saturationAnim.update(1.0f - this.saturation);
         this.alphaAnim.update(this.alpha);
         this.huePreviewColorAnimation.update(ColorRGBA.fromHSB(this.hue, 1.0f, 1.0f));
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        ColorRGBA bgColor = Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.9f - 0.6f * Interface.glass() : 0.7f));
         ColorRGBA withoutAlpha = ColorRGBA.fromHSB(this.hue, this.brightness, this.saturation);
         RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)Math.min(1.0f, this.animation.getValue()));
         RenderUtility.scale(context.getMatrices(), this.x + this.width / this.offsetFactor, this.y + this.height / this.offsetFactor, 0.5f + this.animation.getValue() * 0.5f);
         ScissorUtility.push(context.getMatrices(), this.x + 1.0f, this.y + 1.0f, this.width - 2.0f, this.height - 2.0f);
         context.drawShadow(this.x - 5.0f, this.y - 5.0f, this.width + 10.0f, this.height + 10.0f, 15.0f, BorderRadius.all(6.0f), ColorRGBA.BLACK.withAlpha(255.0f * (0.1f + 0.15f * this.dragAnim.getValue())));
         ScissorUtility.pop();
-        if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(this.x, this.y, this.width, this.height, 45.0f, 7.0f, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * this.animation.getValue() * Interface.minimalizm()));
-        }
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(this.x, this.y, this.width, this.height, 7.0f, 0.05f - 0.03f * this.dragAnim.getValue(), BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * this.animation.getValue() * Interface.glass()));
-        }
-        context.drawSquircle(this.x, this.y, this.width, this.height, 7.0f, BorderRadius.all(6.0f), bgColor);
+        InterfaceStyleRenderer.drawSurface(
+            context,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            7.0f,
+            BorderRadius.all(6.0f),
+            this.animation.getValue(),
+            this.dragAnim.getValue()
+        );
         ScissorUtility.push(context.getMatrices(), this.x, this.y, this.width, this.height);
         context.drawCenteredText(Fonts.MEDIUM.getFont(7.0f), this.title, this.x + this.width / 2.0f, this.y + 7.0f, Colors.getTextColor());
         context.drawTexture(DefineVisuals.id("icons/colorpicker/pipette.png"), this.x + 7.0f, this.y + 6.0f, 8.0f, 8.0f);
@@ -195,8 +205,17 @@ IWindow {
             Rect pickRect = new Rect(context.getMouseX(), context.getMouseY() + 10, 45.0f + Fonts.REGULAR.getFont(6.0f).width(Localizator.translate("colorpicker.click_to_sample")), 30.0f);
             RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)Math.min(1.0f, this.pickAnim.getValue()));
             RenderUtility.scale(context.getMatrices(), pickRect.getX() + pickRect.getWidth() / 2.0f, pickRect.getY() + pickRect.getHeight() / 2.0f, 0.5f + this.pickAnim.getValue() * 0.5f);
-            context.drawBlurredRect(pickRect.getX(), pickRect.getY(), pickRect.getWidth(), pickRect.getHeight(), 45.0f, 7.0f, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * this.pickAnim.getValue()));
-            context.drawSquircle(pickRect.getX(), pickRect.getY(), pickRect.getWidth(), pickRect.getHeight(), 7.0f, BorderRadius.all(6.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.8f : 0.7f)));
+            InterfaceStyleRenderer.drawSurface(
+                context,
+                pickRect.getX(),
+                pickRect.getY(),
+                pickRect.getWidth(),
+                pickRect.getHeight(),
+                7.0f,
+                BorderRadius.all(6.0f),
+                this.pickAnim.getValue(),
+                0.0f
+            );
             ColorRGBA mouseColor = ColorRGBA.fromPixel((float)((double)context.getMouseX() * sr.getScaleFactor()), (float)((double)mw.getHeight() - (double)context.getMouseY() * sr.getScaleFactor()));
             context.drawRoundedRect(pickRect.getX() + 5.0f, pickRect.getY() + 5.0f, pickRect.getHeight() - 10.0f, pickRect.getHeight() - 10.0f, BorderRadius.all(5.0f), mouseColor);
             context.drawTexture(DefineVisuals.id("icons/colorpicker/click.png"), pickRect.getX() + pickRect.getHeight(), pickRect.getY() + 16.0f, 6.0f, 6.0f);
@@ -216,13 +235,15 @@ IWindow {
     public void onKeyPressed(int keyCode, int scanCode, int modifiers) {
         if (Screen.isCopy((int)keyCode)) {
             ColorPicker.mc.keyboard.setClipboard(this.built().toHex());
+            UiSound.CLICK.play();
         } else if (Screen.isPaste((int)keyCode)) {
             String clipboard = ColorPicker.mc.keyboard.getClipboard();
             try {
                 this.update(ColorRGBA.fromHex(clipboard));
+                UiSound.SUCCESS.play();
             }
             catch (Exception exception) {
-                // empty catch block
+                UiSound.ERROR.play();
             }
         }
         super.onKeyPressed(keyCode, scanCode, modifiers);
@@ -238,8 +259,10 @@ IWindow {
                 if (button.getButtonIndex() != 0) {
                     preset.showing = false;
                     DefineVisuals.getInstance().getFileManager().writeFile("client");
+                    UiSound.DELETE.play();
                 } else {
                     this.update(preset.color);
+                    UiSound.NAVIGATION.play();
                 }
                 return;
             }
@@ -253,24 +276,31 @@ IWindow {
         if (GuiUtility.isHovered((double)(this.x + 45.0f + xOffset), (double)(this.y + this.height - 36.0f + yOffset), 11.0, 11.0, mouseX, mouseY) && canAppend) {
             COLOR_PRESETS.add(new Preset(this.built()));
             DefineVisuals.getInstance().getFileManager().writeFile("client");
+            UiSound.CLICK.play();
             return;
         }
         if (button.getButtonIndex() != 0) {
-            this.pick = false;
+            if (this.pick) {
+                this.pick = false;
+                UiSound.WINDOW_CLOSE.play();
+            }
             return;
         }
         if (this.pick) {
             ColorRGBA color = ColorRGBA.fromPixel((float)(mouseX * sr.getScaleFactor()), (float)((double)mw.getHeight() - mouseY * sr.getScaleFactor()));
             this.update(color);
             this.pick = false;
+            UiSound.SUCCESS.play();
         }
         if (GuiUtility.isHovered((double)(this.x + 7.0f), (double)(this.y + 6.0f), 8.0, 8.0, mouseX, mouseY)) {
             this.pick = true;
+            UiSound.CLICK.play();
             return;
         }
         if (GuiUtility.isHovered((double)(this.x + this.width - 15.0f), (double)(this.y + 5.0f), 10.0, 10.0, mouseX, mouseY)) {
             this.showing = false;
             this.offsetFactor = 2.0f;
+            UiSound.WINDOW_CLOSE.play();
             return;
         }
         if (GuiUtility.isHovered((double)(this.x + this.width - 18.0f), (double)(this.y + 20.0f), 12.0, 70.0, mouseX, mouseY)) {
@@ -365,4 +395,3 @@ IWindow {
         }
     }
 }
-

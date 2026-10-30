@@ -3,19 +3,16 @@ package moscow.definevisuals.ui.menu.modern.components;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.mojang.blaze3d.systems.RenderSystem;
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
+import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.modules.other.HolyEvents;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
-import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.components.IosSwitch;
-import moscow.definevisuals.utility.animation.base.Animation;
-import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.colors.ColorRGBA;
 import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.game.cursor.CursorType;
@@ -23,14 +20,10 @@ import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.gui.ScrollHandler;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
-import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.render.obj.CustomSprite;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.Identifier;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -42,7 +35,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ModernEventsPanel implements IMinecraft {
-    private static final Identifier CHECK_ICON = DefineVisuals.id("icons/check.png");
+    private static final float FILTER_CARD_HEIGHT = 15.0f;
+    private static final float FILTER_ROW_STEP = 18.0f;
     private final Gson gson = new Gson();
     private final HolyEvents module;
     private Map<String, JsonArray> eventsData = new HashMap<>();
@@ -61,11 +55,18 @@ public class ModernEventsPanel implements IMinecraft {
     private final IosSwitch switchSoloLight = new IosSwitch(200L);
     private final IosSwitch switchDuoLight = new IosSwitch(200L);
     
-    private float layoutY;
     private float layoutHeaderY;
     private float layoutSettingsY;
     private float layoutSettingsListY;
-    private float layoutSettingsHeight = 80.0f;
+    private float layoutSettingsHeight;
+    private float layoutRefreshX;
+    private float layoutRefreshY;
+    private float layoutRefreshWidth;
+    private float layoutEventsListY;
+    private float layoutEventsListHeight;
+    private float layoutEventsListX;
+    private float layoutEventsListWidth;
+    private float layoutSettingWidth;
     
     private static final ExecutorService NETWORK_EXECUTOR = Executors.newFixedThreadPool(2, r -> {
         Thread t = new Thread(r, "HolyEvents-Network");
@@ -73,7 +74,7 @@ public class ModernEventsPanel implements IMinecraft {
         return t;
     });
 
-    private final List<EventCardState> cardStates = new ArrayList<>();
+    private final List<RenderedEventCard> renderedCards = new ArrayList<>();
 
     private enum Rarity {
         DEADLY(7, "СМЕРТЕЛЬНЫЙ", new ColorRGBA(230, 45, 45, 255)),
@@ -107,16 +108,23 @@ public class ModernEventsPanel implements IMinecraft {
         SERVER_NAME_MAPPING.put("LITE_NEW_ANARCHY_3", "1.20 Анархия #3");
     }
 
-    private static class EventCardState {
-        final String displayName;
+    private static class RenderedEventCard {
         final String serverName;
-        final String rareValue;
-        final Animation hoverAnim = new Animation(200L, Easing.QUAD_OUT);
+        final float x;
+        final float y;
+        final float width;
+        final float height;
 
-        EventCardState(String displayName, String serverName, String rareValue) {
-            this.displayName = displayName;
+        RenderedEventCard(String serverName, float x, float y, float width, float height) {
             this.serverName = serverName;
-            this.rareValue = rareValue;
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+
+        boolean isHovered(double mouseX, double mouseY) {
+            return GuiUtility.isHovered(this.x, this.y, this.width, this.height, mouseX, mouseY);
         }
     }
 
@@ -130,97 +138,113 @@ public class ModernEventsPanel implements IMinecraft {
     public void render(UIContext context, float x, float y, float width, float height, float menuAlpha) {
         this.scrollHandler.update();
         this.settingsScrollHandler.update();
-        
-        this.layoutY = y;
-        this.layoutHeaderY = y + 14.0f;
-        this.layoutSettingsY = this.layoutHeaderY + 22.0f;
+
+        float contentX = x + 10.0f;
+        float contentWidth = width - 20.0f;
+        this.layoutHeaderY = y + 9.0f;
+        this.layoutSettingsY = y + 42.0f;
         this.layoutSettingsListY = this.layoutSettingsY + 10.0f;
+        this.layoutSettingsHeight = FILTER_CARD_HEIGHT + FILTER_ROW_STEP * 2.0f;
 
         if (!this.isLoading && System.currentTimeMillis() - this.lastUpdateTime > UPDATE_INTERVAL_MS) {
             this.loadEventData();
         }
 
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
         ColorRGBA accent = Colors.getAccent();
         ColorRGBA textColor = Colors.getTextColor();
 
-        float headerY = this.layoutHeaderY;
-        float headerX = x + 12.0f;
+        float iconSize = 20.0f;
+        InterfaceStyleRenderer.drawChip(context, contentX, this.layoutHeaderY, iconSize, iconSize, BorderRadius.all(5.0f), menuAlpha, 0.28f);
+        context.drawSprite(CustomSprite.EVENTS, contentX + 5.5f, this.layoutHeaderY + 5.5f, 9.0f, 9.0f, accent);
 
-        context.drawSprite(CustomSprite.EVENTS, headerX, headerY + 1.0f, 9.0f, 9.0f, textColor);
-        context.drawText(Fonts.SEMIBOLD.getFont(9.0f), "HolyEvents", headerX + 13.0f, headerY + 1.0f, textColor);
+        float titleX = contentX + iconSize + 7.0f;
+        Font titleFont = Fonts.SEMIBOLD.getFont(8.5f);
+        Font subtitleFont = Fonts.REGULAR.getFont(5.5f);
+        context.drawText(titleFont, "Holy Events", titleX, this.layoutHeaderY + 2.0f, textColor);
+        context.drawText(subtitleFont, Localizator.translate("События HolyWorld в реальном времени"), titleX, this.layoutHeaderY + 12.5f, textColor.mulAlpha(0.42f));
 
-        float refreshW = 50.0f;
-        float refreshH = 14.0f;
-        float refreshX = x + width - 14.0f - refreshW;
-        float refreshY = headerY - 1.0f;
-        boolean refreshHov = GuiUtility.isHovered((double)refreshX, (double)refreshY, refreshW, refreshH, (double)context.getMouseX(), (double)context.getMouseY());
+        float refreshW = 48.0f;
+        float refreshH = 16.0f;
+        float refreshX = x + width - 10.0f - refreshW;
+        float refreshY = this.layoutHeaderY + 2.0f;
+        this.layoutRefreshX = refreshX;
+        this.layoutRefreshY = refreshY;
+        this.layoutRefreshWidth = refreshW;
+        boolean refreshHov = GuiUtility.isHovered(refreshX, refreshY, refreshW, refreshH, context);
         if (refreshHov) CursorUtility.set(CursorType.HAND);
 
-        ColorRGBA refreshBg = refreshHov ? accent.mulAlpha(0.3f) : Colors.getBackgroundColor().mulAlpha(dark ? 0.4f : 0.25f);
-        context.drawSquircle(refreshX, refreshY, refreshW, refreshH, 3.0f, BorderRadius.all(3.0f), refreshBg);
-        context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), "Обновить", refreshX + refreshW / 2.0f, refreshY + 4.5f, refreshHov ? accent : textColor.mulAlpha(0.85f));
+        InterfaceStyleRenderer.drawChip(context, refreshX, refreshY, refreshW, refreshH, BorderRadius.all(4.0f), menuAlpha, refreshHov ? 0.34f : 0.12f);
+        Font refreshFont = Fonts.MEDIUM.getFont(5.5f);
+        context.drawCenteredText(refreshFont, Localizator.translate("Обновить"), refreshX + refreshW / 2.0f, centeredTextY(refreshFont, refreshY, refreshH), refreshHov ? accent : textColor.mulAlpha(0.78f));
 
         int totalCount = this.countVisibleEvents();
-        String badgeText = this.isLoading ? "Загрузка..." : totalCount + (totalCount == 1 ? " ивент" : (totalCount >= 2 && totalCount <= 4 ? " ивента" : " ивентов"));
+        String badgeText = this.isLoading ? "..." : String.valueOf(totalCount);
         Font badgeFont = Fonts.MEDIUM.getFont(5.5f);
-        float badgeW = badgeFont.width(badgeText) + 10.0f;
-        float badgeH = 12.0f;
-        float badgeX = refreshX - badgeW - 6.0f;
-        float badgeY = headerY + 1.0f;
+        float badgeW = Math.max(25.0f, badgeFont.width(badgeText) + 17.0f);
+        float badgeH = refreshH;
+        float badgeX = refreshX - badgeW - 5.0f;
+        float badgeY = refreshY;
 
-        context.drawRoundedRect(badgeX, badgeY, badgeW, badgeH, BorderRadius.all(3.0f), Colors.getBackgroundColor().withAlpha(140.0f));
+        InterfaceStyleRenderer.drawChip(context, badgeX, badgeY, badgeW, badgeH, BorderRadius.all(4.0f), menuAlpha, totalCount > 0 ? 0.20f : 0.08f);
         ColorRGBA dotColor = this.isLoading ? new ColorRGBA(255, 185, 30, 255) : (totalCount > 0 ? new ColorRGBA(50, 220, 80, 255) : textColor.mulAlpha(0.5f));
-        context.drawRoundedRect(badgeX + 3.0f, badgeY + badgeH / 2.0f - 1.5f, 3.0f, 3.0f, BorderRadius.all(1.5f), dotColor);
-        context.drawText(badgeFont, badgeText, badgeX + 9.0f, badgeY + 2.5f, textColor.mulAlpha(0.85f));
+        context.drawRoundedRect(badgeX + 5.0f, badgeY + badgeH / 2.0f - 1.5f, 3.0f, 3.0f, BorderRadius.all(1.5f), dotColor);
+        float badgeTextCenterX = badgeX + 11.0f + (badgeW - 11.0f) / 2.0f;
+        context.drawCenteredText(badgeFont, badgeText, badgeTextCenterX, centeredTextY(badgeFont, badgeY, badgeH), textColor.mulAlpha(0.82f));
 
         float settingsY = this.layoutSettingsY;
-        context.drawText(Fonts.MEDIUM.getFont(6.0f), "Фильтры серверов", headerX, settingsY, textColor.mulAlpha(0.35f));
+        Font sectionFont = Fonts.MEDIUM.getFont(5.5f);
+        context.drawText(sectionFont, Localizator.translate("Фильтры серверов"), contentX, settingsY, textColor.mulAlpha(0.42f));
 
         float settingsListY = this.layoutSettingsListY;
         float settingsHeight = this.layoutSettingsHeight;
 
-        ScissorUtility.push(context.getMatrices(), headerX - 2.0f, settingsListY, width - 24.0f + 4.0f, settingsHeight);
-        
+        ScissorUtility.push(context.getMatrices(), contentX, settingsListY, contentWidth, settingsHeight);
+
         float currentSettingY = settingsListY - (float)this.settingsScrollHandler.getValue();
-        float settingW = (width - 24.0f - 4.0f) / 2.0f;
+        float settingW = (contentWidth - 4.0f) / 2.0f;
+        this.layoutSettingWidth = settingW;
         float colGap = 4.0f;
-        
+
         // Левая колонка
-        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "1.20 Анархия", this.module.showAnarchy120.isEnabled(), this.switchAnarchy120, dark, accent, textColor);
-        currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "1.16 Анархия", this.module.showAnarchy116.isEnabled(), this.switchAnarchy116, dark, accent, textColor);
-        currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "Трио Лайт (20-29)", this.module.showTrioLight.isEnabled(), this.switchTrioLight, dark, accent, textColor);
-        
+        this.renderSettingToggle(context, contentX, currentSettingY, settingW, FILTER_CARD_HEIGHT, "1.20 Анархия", this.module.showAnarchy120.isEnabled(), this.switchAnarchy120, accent, textColor);
+        currentSettingY += FILTER_ROW_STEP;
+        this.renderSettingToggle(context, contentX, currentSettingY, settingW, FILTER_CARD_HEIGHT, "1.16 Анархия", this.module.showAnarchy116.isEnabled(), this.switchAnarchy116, accent, textColor);
+        currentSettingY += FILTER_ROW_STEP;
+        this.renderSettingToggle(context, contentX, currentSettingY, settingW, FILTER_CARD_HEIGHT, "Трио Лайт · 20–29", this.module.showTrioLight.isEnabled(), this.switchTrioLight, accent, textColor);
+
         // Правая колонка
         currentSettingY = settingsListY - (float)this.settingsScrollHandler.getValue();
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Клан Лайт (30-36)", this.module.showClanLight.isEnabled(), this.switchClanLight, dark, accent, textColor);
-        currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Соло Лайт (1-9)", this.module.showSoloLight.isEnabled(), this.switchSoloLight, dark, accent, textColor);
-        currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Дуо Лайт (10-19)", this.module.showDuoLight.isEnabled(), this.switchDuoLight, dark, accent, textColor);
+        this.renderSettingToggle(context, contentX + settingW + colGap, currentSettingY, settingW, FILTER_CARD_HEIGHT, "Клан Лайт · 30–36", this.module.showClanLight.isEnabled(), this.switchClanLight, accent, textColor);
+        currentSettingY += FILTER_ROW_STEP;
+        this.renderSettingToggle(context, contentX + settingW + colGap, currentSettingY, settingW, FILTER_CARD_HEIGHT, "Соло Лайт · 1–9", this.module.showSoloLight.isEnabled(), this.switchSoloLight, accent, textColor);
+        currentSettingY += FILTER_ROW_STEP;
+        this.renderSettingToggle(context, contentX + settingW + colGap, currentSettingY, settingW, FILTER_CARD_HEIGHT, "Дуо Лайт · 10–19", this.module.showDuoLight.isEnabled(), this.switchDuoLight, accent, textColor);
 
         this.settingsScrollHandler.setMax(0.0f);
         ScissorUtility.pop();
 
-        float eventsHeaderY = this.layoutSettingsY + 62.0f;
-        context.drawText(Fonts.MEDIUM.getFont(6.0f), "Активные ивенты", headerX, eventsHeaderY, textColor.mulAlpha(0.35f));
+        float eventsHeaderY = settingsListY + settingsHeight + 8.0f;
+        context.drawText(sectionFont, Localizator.translate("Активные события"), contentX, eventsHeaderY, textColor.mulAlpha(0.42f));
 
         float listY = eventsHeaderY + 11.0f;
-        float listHeight = height - (listY - y) - 10.0f;
-        float cardWidth = width - 24.0f;
+        float listHeight = height - (listY - y) - 9.0f;
+        float cardWidth = contentWidth;
+        this.layoutEventsListX = contentX;
+        this.layoutEventsListY = listY;
+        this.layoutEventsListWidth = cardWidth;
+        this.layoutEventsListHeight = listHeight;
 
-        ScissorUtility.push(context.getMatrices(), headerX - 2.0f, listY, cardWidth + 4.0f, listHeight);
+        ScissorUtility.push(context.getMatrices(), contentX, listY, cardWidth, listHeight);
 
         float currentY = listY - (float)this.scrollHandler.getValue();
         float totalListHeight = 0.0f;
+        this.renderedCards.clear();
 
         if (this.isLoading) {
-            this.renderLoading(context, headerX + cardWidth / 2.0f, listY + listHeight / 2.0f - 10.0f, cardWidth, textColor, accent);
+            this.renderLoading(context, contentX + cardWidth / 2.0f, listY + listHeight / 2.0f - 10.0f, cardWidth, textColor, accent);
             totalListHeight = listHeight;
         } else if (this.errorMessage != null) {
-            this.renderError(context, headerX + cardWidth / 2.0f, listY + listHeight / 2.0f - 10.0f, cardWidth, textColor);
+            this.renderError(context, contentX + cardWidth / 2.0f, listY + listHeight / 2.0f - 10.0f, cardWidth, textColor);
             totalListHeight = listHeight;
         } else {
             Map<Rarity, List<EventInfo>> eventsByRarity = new LinkedHashMap<>();
@@ -256,6 +280,7 @@ public class ModernEventsPanel implements IMinecraft {
             float cardH = 36.0f;
             float gap = 4.0f;
             boolean hasAnyEvents = false;
+            Font groupFont = Fonts.SEMIBOLD.getFont(5.5f);
 
             for (Rarity rarity : Rarity.values()) {
                 List<EventInfo> events = eventsByRarity.get(rarity);
@@ -263,15 +288,20 @@ public class ModernEventsPanel implements IMinecraft {
 
                 hasAnyEvents = true;
 
-                if (currentY + 14.0f > listY && currentY < listY + listHeight) {
-                    context.drawText(Fonts.SEMIBOLD.getFont(7.0f), rarity.display + " (" + events.size() + ")", headerX + 2.0f, currentY + 2.0f, rarity.color);
+                float groupHeight = 13.0f;
+                if (currentY + groupHeight > listY && currentY < listY + listHeight) {
+                    float groupTextY = centeredTextY(groupFont, currentY, groupHeight);
+                    context.drawRoundedRect(contentX + 1.0f, currentY + groupHeight / 2.0f - 1.5f, 3.0f, 3.0f, BorderRadius.all(1.5f), rarity.color);
+                    context.drawText(groupFont, Localizator.translate(rarity.display), contentX + 8.0f, groupTextY, rarity.color);
+                    context.drawRightText(groupFont, String.valueOf(events.size()), contentX + cardWidth - 2.0f, groupTextY, textColor.mulAlpha(0.38f));
                 }
-                currentY += 16.0f;
-                totalListHeight += 16.0f;
+                currentY += groupHeight;
+                totalListHeight += groupHeight;
 
                 for (EventInfo ev : events) {
+                    this.renderedCards.add(new RenderedEventCard(ev.serverName, contentX, currentY, cardWidth, cardH));
                     if (currentY + cardH > listY && currentY < listY + listHeight) {
-                        this.renderEventCard(context, ev, headerX + 2.0f, currentY, cardWidth - 4.0f, cardH, dark, accent, textColor);
+                        this.renderEventCard(context, ev, contentX, currentY, cardWidth, cardH, accent, textColor);
                     }
                     currentY += cardH + gap;
                     totalListHeight += cardH + gap;
@@ -281,7 +311,7 @@ public class ModernEventsPanel implements IMinecraft {
             }
 
             if (!hasAnyEvents) {
-                this.renderEmptyState(context, headerX + cardWidth / 2.0f, listY + listHeight / 2.0f - 10.0f, cardWidth, textColor);
+                this.renderEmptyState(context, contentX + cardWidth / 2.0f, listY + listHeight / 2.0f - 10.0f, cardWidth, textColor);
                 totalListHeight = listHeight;
             }
 
@@ -294,83 +324,94 @@ public class ModernEventsPanel implements IMinecraft {
         ScissorUtility.pop();
     }
 
-    private void renderSettingToggle(UIContext context, float x, float y, float w, String text, boolean enabled, IosSwitch iosSwitch, boolean dark, ColorRGBA accent, ColorRGBA textColor) {
-        boolean hovered = GuiUtility.isHovered((double)x, (double)y, w, 12.0f, (double)context.getMouseX(), (double)context.getMouseY());
+    private void renderSettingToggle(UIContext context, float x, float y, float w, float h, String text, boolean enabled, IosSwitch iosSwitch, ColorRGBA accent, ColorRGBA textColor) {
+        boolean hovered = GuiUtility.isHovered(x, y, w, h, context);
         if (hovered) CursorUtility.set(CursorType.HAND);
 
         iosSwitch.update(enabled);
 
-        ColorRGBA bg = hovered ? Colors.getBackgroundColor().mulAlpha(dark ? 0.5f : 0.35f) : Colors.getBackgroundColor().mulAlpha(dark ? 0.35f : 0.2f);
-        context.drawRoundedRect(x, y, w, 12.0f, BorderRadius.all(3.0f), bg);
+        InterfaceStyleRenderer.drawCard(
+                context,
+                 x,
+                 y,
+                 w,
+                 h,
+                 2.5f,
+                 BorderRadius.all(4.0f),
+                 1.0f,
+                 iosSwitch.getValue(),
+                 hovered ? 1.0f : 0.0f
+        );
 
-        float switchX = x + w - 13.0f - 5.0f;
-        float switchY = y + 2.0f;
+        float switchX = x + w - 18.0f;
+        float switchY = y + (h - 8.0f) / 2.0f;
         IosSwitch.render(context, switchX, switchY, iosSwitch.getValue(), 1.0f, accent);
 
         ColorRGBA nameColor = textColor.mulAlpha(0.6f + 0.4f * iosSwitch.getValue());
-        context.drawText(Fonts.MEDIUM.getFont(5.5f), text, x + 6.0f, y + 3.0f, nameColor);
+        Font nameFont = Fonts.MEDIUM.getFont(5.5f);
+        context.drawFadeoutText(nameFont, Localizator.translate(text), x + 6.0f, centeredTextY(nameFont, y, h), nameColor, 0.8f, 1.0f, w - 29.0f);
     }
 
-    private void renderEventCard(UIContext context, EventInfo ev, float x, float y, float w, float h, boolean dark, ColorRGBA accent, ColorRGBA textColor) {
-        boolean hovered = GuiUtility.isHovered((double)x, (double)y, w, h, (double)context.getMouseX(), (double)context.getMouseY());
+    private void renderEventCard(UIContext context, EventInfo ev, float x, float y, float w, float h, ColorRGBA accent, ColorRGBA textColor) {
+        boolean hovered = GuiUtility.isHovered(x, y, w, h, context);
         if (hovered) CursorUtility.set(CursorType.HAND);
 
         Rarity rarity = this.parseRarity(ev.rareValue);
 
-        BorderRadius cardRadius = BorderRadius.all(4.0f);
-        ColorRGBA cardBg = Colors.getBackgroundColor().withAlpha(hovered ? 150.0f : 105.0f);
-        context.drawRoundedRect(x, y, w, h, cardRadius, cardBg);
-        context.drawRoundedBorder(x, y, w, h, 0.7f, cardRadius, Colors.getOutlineColor().mulAlpha(hovered ? 0.62f : 0.42f));
-
-        context.drawRoundedRect(x + 3.0f, y + 5.0f, 2.5f, h - 10.0f, BorderRadius.all(1.25f), rarity.color);
-
-        context.drawText(Fonts.SEMIBOLD.getFont(7.5f), ev.displayName, x + 10.0f, y + 7.0f, textColor);
-
-        String server = this.getReadableServerName(ev.serverName);
-        Font serverFont = Fonts.REGULAR.getFont(5.5f);
-        float sW = serverFont.width(server) + 8.0f;
-        float sH = 12.0f;
-        float sX = x + 10.0f;
-        float sY = y + 21.0f;
-        context.drawRoundedRect(sX, sY, sW, sH, BorderRadius.all(3.0f), Colors.getBackgroundColor().withAlpha(120.0f));
-        context.drawText(serverFont, server, sX + 4.0f, sY + 2.5f, textColor.mulAlpha(0.75f));
+        BorderRadius cardRadius = BorderRadius.all(5.0f);
+        InterfaceStyleRenderer.drawCard(context, x, y, w, h, 3.0f, cardRadius, 1.0f, 0.0f, hovered ? 1.0f : 0.0f);
+        context.drawRoundedRect(x + 3.0f, y + 5.0f, 2.0f, h - 10.0f, BorderRadius.all(1.0f), rarity.color.mulAlpha(0.9f));
 
         Font rarityFont = Fonts.SEMIBOLD.getFont(5.5f);
-        float rW = rarityFont.width(rarity.display) + 10.0f;
-        float rH = 12.0f;
+        String rarityText = Localizator.translate(rarity.display);
+        float rW = rarityFont.width(rarityText) + 10.0f;
+        float rH = 11.0f;
         float rX = x + w - rW - 6.0f;
-        float rY = y + 6.0f;
-        context.drawRoundedRect(rX, rY, rW, rH, BorderRadius.all(3.0f), rarity.color.withAlpha(hovered ? 50.0f : 30.0f));
-        context.drawRoundedRect(rX, rY, rW, rH, BorderRadius.all(3.0f), rarity.color.mulAlpha(0.5f));
-        context.drawCenteredText(rarityFont, rarity.display, rX + rW / 2.0f, rY + 2.5f, rarity.color);
+        float rY = y + 5.0f;
+        context.drawRoundedRect(rX, rY, rW, rH, BorderRadius.all(3.0f), rarity.color.withAlpha(hovered ? 52.0f : 32.0f));
+        context.drawCenteredText(rarityFont, rarityText, rX + rW / 2.0f, centeredTextY(rarityFont, rY, rH), rarity.color);
 
-        String actionText = "Перейти ➜";
+        Font titleFont = Fonts.SEMIBOLD.getFont(7.0f);
+        float titleX = x + 10.0f;
+        float titleWidth = Math.max(18.0f, rX - titleX - 5.0f);
+        context.drawFadeoutText(titleFont, ev.displayName, titleX, centeredTextY(titleFont, y + 4.0f, 13.0f), textColor, 0.85f, 1.0f, titleWidth);
+
+        String actionText = Localizator.translate("Перейти");
         Font actionFont = Fonts.MEDIUM.getFont(5.5f);
         float aW = actionFont.width(actionText) + 10.0f;
-        float aH = 12.0f;
+        float aH = 11.0f;
         float aX = x + w - aW - 6.0f;
         float aY = y + 20.0f;
 
-        ColorRGBA actionBg = accent.withAlpha(hovered ? 60.0f : 25.0f);
-        context.drawRoundedRect(aX, aY, aW, aH, BorderRadius.all(3.0f), actionBg);
-        context.drawRoundedRect(aX, aY, aW, aH, BorderRadius.all(3.0f), accent.mulAlpha(hovered ? 0.8f : 0.35f));
-        context.drawCenteredText(actionFont, actionText, aX + aW / 2.0f, aY + 2.5f, accent);
+        context.drawRoundedRect(aX, aY, aW, aH, BorderRadius.all(3.0f), accent.withAlpha(hovered ? 52.0f : 24.0f));
+        context.drawCenteredText(actionFont, actionText, aX + aW / 2.0f, centeredTextY(actionFont, aY, aH), accent);
+
+        String server = this.getReadableServerName(ev.serverName);
+        Font serverFont = Fonts.REGULAR.getFont(5.5f);
+        float serverX = x + 10.0f;
+        float serverY = y + 20.0f;
+        context.drawRoundedRect(serverX, serverY + aH / 2.0f - 1.5f, 3.0f, 3.0f, BorderRadius.all(1.5f), textColor.mulAlpha(0.34f));
+        context.drawFadeoutText(serverFont, server, serverX + 6.0f, centeredTextY(serverFont, serverY, aH), textColor.mulAlpha(0.58f), 0.8f, 1.0f, Math.max(10.0f, aX - serverX - 10.0f));
     }
 
     private void renderLoading(UIContext context, float x, float y, float w, ColorRGBA textColor, ColorRGBA accent) {
-        context.drawCenteredText(Fonts.MEDIUM.getFont(7.5f), "Загрузка ивентов...", x, y - 6.0f, textColor.mulAlpha(0.8f));
+        context.drawCenteredText(Fonts.MEDIUM.getFont(7.5f), Localizator.translate("Загрузка событий..."), x, y - 6.0f, textColor.mulAlpha(0.8f));
         float alpha = (float) (0.4 + 0.6 * Math.abs(Math.sin(System.currentTimeMillis() / 250.0)));
-        context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), "Подключение к HolyWorld API", x, y + 8.0f, accent.mulAlpha(alpha));
+        context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), Localizator.translate("Подключение к HolyWorld API"), x, y + 8.0f, accent.mulAlpha(alpha));
     }
 
     private void renderError(UIContext context, float x, float y, float w, ColorRGBA textColor) {
-        context.drawCenteredText(Fonts.MEDIUM.getFont(7.5f), "Не удалось загрузить ивенты", x, y - 8.0f, new ColorRGBA(255, 90, 90, 255));
+        context.drawCenteredText(Fonts.MEDIUM.getFont(7.5f), Localizator.translate("Не удалось загрузить события"), x, y - 8.0f, new ColorRGBA(255, 90, 90, 255));
         context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), this.errorMessage != null ? this.errorMessage : "Ошибка соединения", x, y + 8.0f, textColor.mulAlpha(0.6f));
     }
 
     private void renderEmptyState(UIContext context, float x, float y, float w, ColorRGBA textColor) {
-        context.drawCenteredText(Fonts.MEDIUM.getFont(8.0f), "Нет активных ивентов", x, y - 6.0f, textColor.mulAlpha(0.6f));
-        context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), "Проверьте фильтры серверов", x, y + 8.0f, textColor.mulAlpha(0.4f));
+        context.drawCenteredText(Fonts.MEDIUM.getFont(8.0f), Localizator.translate("Нет активных событий"), x, y - 6.0f, textColor.mulAlpha(0.6f));
+        context.drawCenteredText(Fonts.REGULAR.getFont(5.5f), Localizator.translate("Проверьте фильтры серверов"), x, y + 8.0f, textColor.mulAlpha(0.4f));
+    }
+
+    private static float centeredTextY(Font font, float y, float height) {
+        return y + GuiUtility.getMiddleOfBox(font.height(), height) - 0.5f;
     }
 
     private void loadEventData() {
@@ -506,93 +547,64 @@ public class ModernEventsPanel implements IMinecraft {
     }
 
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button, float x, float y, float width, float height) {
-        float headerX = x + 12.0f;
-
-        float refreshW = 50.0f;
-        float refreshH = 14.0f;
-        float refreshX = x + width - 14.0f - refreshW;
-        float refreshY = this.layoutHeaderY - 1.0f;
-        if (GuiUtility.isHovered((double)refreshX, (double)refreshY, refreshW, refreshH, mouseX, mouseY) && button == MouseButton.LEFT) {
+        if (GuiUtility.isHovered(this.layoutRefreshX, this.layoutRefreshY, this.layoutRefreshWidth, 16.0f, mouseX, mouseY) && button == MouseButton.LEFT) {
             this.loadEventData();
-            this.playClickSound();
+            UiSound.CLICK.play();
             return;
         }
 
+        float contentX = x + 10.0f;
         float settingsListY = this.layoutSettingsListY;
-        float settingW = (width - 24.0f - 4.0f) / 2.0f;
+        float settingW = this.layoutSettingWidth;
         float colGap = 4.0f;
         float currentSettingY = settingsListY - (float)this.settingsScrollHandler.getValue();
 
         // Левая колонка
-        if (GuiUtility.isHovered((double)headerX, (double)currentSettingY, settingW, 12.0f, mouseX, mouseY) && button == MouseButton.LEFT) {
+        if (GuiUtility.isHovered(contentX, currentSettingY, settingW, FILTER_CARD_HEIGHT, mouseX, mouseY) && button == MouseButton.LEFT) {
             this.module.showAnarchy120.toggle();
-            this.playClickSound();
+            (this.module.showAnarchy120.isEnabled() ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
             return;
         }
-        currentSettingY += 14.0f;
-        if (GuiUtility.isHovered((double)headerX, (double)currentSettingY, settingW, 12.0f, mouseX, mouseY) && button == MouseButton.LEFT) {
+        currentSettingY += FILTER_ROW_STEP;
+        if (GuiUtility.isHovered(contentX, currentSettingY, settingW, FILTER_CARD_HEIGHT, mouseX, mouseY) && button == MouseButton.LEFT) {
             this.module.showAnarchy116.toggle();
-            this.playClickSound();
+            (this.module.showAnarchy116.isEnabled() ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
             return;
         }
-        currentSettingY += 14.0f;
-        if (GuiUtility.isHovered((double)headerX, (double)currentSettingY, settingW, 12.0f, mouseX, mouseY) && button == MouseButton.LEFT) {
+        currentSettingY += FILTER_ROW_STEP;
+        if (GuiUtility.isHovered(contentX, currentSettingY, settingW, FILTER_CARD_HEIGHT, mouseX, mouseY) && button == MouseButton.LEFT) {
             this.module.showTrioLight.toggle();
-            this.playClickSound();
+            (this.module.showTrioLight.isEnabled() ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
             return;
         }
-        
+
         // Правая колонка
+        float rightX = contentX + settingW + colGap;
         currentSettingY = settingsListY - (float)this.settingsScrollHandler.getValue();
-        if (GuiUtility.isHovered((double)(headerX + settingW + colGap), (double)currentSettingY, settingW, 12.0f, mouseX, mouseY) && button == MouseButton.LEFT) {
+        if (GuiUtility.isHovered(rightX, currentSettingY, settingW, FILTER_CARD_HEIGHT, mouseX, mouseY) && button == MouseButton.LEFT) {
             this.module.showClanLight.toggle();
-            this.playClickSound();
+            (this.module.showClanLight.isEnabled() ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
             return;
         }
-        currentSettingY += 14.0f;
-        if (GuiUtility.isHovered((double)(headerX + settingW + colGap), (double)currentSettingY, settingW, 12.0f, mouseX, mouseY) && button == MouseButton.LEFT) {
+        currentSettingY += FILTER_ROW_STEP;
+        if (GuiUtility.isHovered(rightX, currentSettingY, settingW, FILTER_CARD_HEIGHT, mouseX, mouseY) && button == MouseButton.LEFT) {
             this.module.showSoloLight.toggle();
-            this.playClickSound();
+            (this.module.showSoloLight.isEnabled() ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
             return;
         }
-        currentSettingY += 14.0f;
-        if (GuiUtility.isHovered((double)(headerX + settingW + colGap), (double)currentSettingY, settingW, 12.0f, mouseX, mouseY) && button == MouseButton.LEFT) {
+        currentSettingY += FILTER_ROW_STEP;
+        if (GuiUtility.isHovered(rightX, currentSettingY, settingW, FILTER_CARD_HEIGHT, mouseX, mouseY) && button == MouseButton.LEFT) {
             this.module.showDuoLight.toggle();
-            this.playClickSound();
+            (this.module.showDuoLight.isEnabled() ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
             return;
         }
 
-        float eventsHeaderY = this.layoutSettingsY + 62.0f;
-        float listY = eventsHeaderY + 11.0f;
-        float listHeight = height - (listY - y) - 10.0f;
-        float cardWidth = width - 24.0f;
-        float currentY = listY - (float)this.scrollHandler.getValue();
-
-        if (!this.isLoading && this.errorMessage == null) {
-            for (Map.Entry<String, JsonArray> entry : this.eventsData.entrySet()) {
-                String server = entry.getKey();
-                JsonArray arr = entry.getValue();
-                if (arr == null) continue;
-                for (int i = 0; i < arr.size(); i++) {
-                    JsonObject ev = arr.get(i).getAsJsonObject();
-                    if (ev == null) continue;
-                    JsonObject meta = ev.has("metadata") ? ev.getAsJsonObject("metadata") : null;
-                    if (meta == null) continue;
-
-                    String name = meta.has("displayName") ? meta.get("displayName").getAsString() : "";
-                    String rare = meta.has("rare") ? meta.get("rare").getAsString() : "normal";
-
-                    if (!this.shouldShowServer(server)) continue;
-
-                    float cardH = 36.0f;
-                    if (GuiUtility.isHovered((double)(headerX + 2.0f), (double)currentY, cardWidth - 4.0f, cardH, mouseX, mouseY)) {
-                        if (button == MouseButton.RIGHT || button == MouseButton.LEFT) {
-                            this.connectToServer(server);
-                        }
-                        return;
-                    }
-                    currentY += cardH + 4.0f;
-                }
+        if ((button == MouseButton.LEFT || button == MouseButton.RIGHT)
+                && GuiUtility.isHovered(this.layoutEventsListX, this.layoutEventsListY, this.layoutEventsListWidth, this.layoutEventsListHeight, mouseX, mouseY)) {
+            for (RenderedEventCard card : this.renderedCards) {
+                if (!card.isHovered(mouseX, mouseY)) continue;
+                this.connectToServer(card.serverName);
+                return;
             }
         }
     }
@@ -610,14 +622,7 @@ public class ModernEventsPanel implements IMinecraft {
                 mc.player.networkHandler.sendChatCommand("an20 " + num);
             }
         }
-        this.playClickSound();
-    }
-
-    private void playClickSound() {
-        Sounds sounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
-        if (sounds != null && sounds.isEnabled()) {
-            ClientSounds.MODULE.play(sounds.getVolume().getCurrentValue(), 1.0f);
-        }
+        UiSound.NAVIGATION.play();
     }
 
     public void onMouseReleased(double mouseX, double mouseY, MouseButton button) {
@@ -642,4 +647,3 @@ public class ModernEventsPanel implements IMinecraft {
         return false;
     }
 }
-

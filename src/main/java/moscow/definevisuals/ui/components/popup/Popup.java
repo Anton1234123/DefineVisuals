@@ -18,9 +18,8 @@ import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.setting.Setting;
-import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.components.popup.CheckBoxAction;
 import moscow.definevisuals.ui.components.popup.PopupAction;
 import moscow.definevisuals.ui.components.popup.list.Button;
@@ -91,14 +90,17 @@ extends CustomComponent {
         RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)Math.min(1.0f, this.animation.getValue()));
         RenderUtility.scale(context.getMatrices(), this.x + this.width / this.offsetFactor, this.y + this.height / this.offsetFactor, 0.5f + this.animation.getValue() * 0.5f);
         context.drawShadow(this.x, this.y, this.width, this.height, 15.0f, BorderRadius.all(6.0f), ColorRGBA.BLACK.withAlpha(127.5f));
-        if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(this.x, this.y, this.width, this.height, 45.0f, 7.0f, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * this.animation.getValue() * Interface.minimalizm()));
-        }
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(this.x, this.y, this.width, this.height, 7.0f, 0.08f, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * this.animation.getValue() * Interface.glass()));
-        }
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        context.drawSquircle(this.x, this.y, this.width, this.height, 7.0f, BorderRadius.all(6.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.8f - 0.6f * Interface.glass() : 0.7f)));
+        InterfaceStyleRenderer.drawSurface(
+            context,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            7.0f,
+            BorderRadius.all(6.0f),
+            this.animation.getValue(),
+            0.0f
+        );
         for (CustomComponent component : this.components) {
             int index;
             if (component instanceof MenuSettingComponent) {
@@ -240,4 +242,3 @@ extends CustomComponent {
         return this.showing;
     }
 }
-

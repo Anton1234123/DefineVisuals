@@ -23,6 +23,7 @@ import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.render.DrawUtility;
 import moscow.definevisuals.utility.render.penis.PenisPlayer;
+import moscow.definevisuals.utility.sounds.UiSound;
 import moscow.definevisuals.utility.time.Timer;
 
 public class SelectSettingComponent
@@ -141,8 +142,13 @@ extends MenuSettingComponent<SelectSetting> {
             boolean hover = GuiUtility.isHovered((double)(x - 1.0f), (double)(y + 20.0f + offset), (double)(this.width - 2.0f), 12.0, mouseX, mouseY);
             if (GuiUtility.isHovered((double)x, (double)(y + 22.0f + offset), 17.0, 10.0, mouseX, mouseY) && ((SelectSetting)this.setting).isDraggable()) {
                 this.dragging = value;
+                UiSound.CLICK.play();
             } else if (hover) {
+                boolean wasSelected = value.isSelected();
                 value.toggle();
+                if (wasSelected != value.isSelected()) {
+                    (value.isSelected() ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
+                }
             }
             offset += 12.0f;
         }
@@ -161,4 +167,3 @@ extends MenuSettingComponent<SelectSetting> {
         return this.height;
     }
 }
-

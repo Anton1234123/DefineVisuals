@@ -12,7 +12,6 @@ import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.framework.objects.gradient.impl.VerticalGradient;
 import moscow.definevisuals.systems.background.BackgroundManager;
 import moscow.definevisuals.systems.localization.Localizator;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.colors.ColorRGBA;
@@ -23,7 +22,7 @@ import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.math.MathUtility;
 import moscow.definevisuals.utility.render.DrawUtility;
 import moscow.definevisuals.utility.render.RenderUtility;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
@@ -46,17 +45,15 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
     protected void init() {
         String basePath = "image/mainmenu/icons/";
         if (!once) {
-            if (DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).isEnabled()) {
-                ClientSounds.WELCOME.play(DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).getVolume().getCurrentValue());
-            }
+            UiSound.WELCOME.play();
             buttons.clear();
             buttons.add(new CustomButton(basePath + "single.png", 14.0f, () -> mc.setScreen(new SelectWorldScreen(this))));
             buttons.add(new CustomButton(basePath + "multi.png", 14.0f, () -> mc.setScreen(new MultiplayerScreen(this))));
             buttons.add(new CustomButton(basePath + "settings.png", 14.0f, () -> mc.setScreen(new OptionsScreen(this, CustomTitleScreen.mc.options))));
             buttons.add(new CustomButton(basePath + "quit.png", 14.0f, () -> ((MinecraftClient)mc).stop()));
 
-            prevBackgroundButton = new CustomButton("icons/arrow.png", 12.0f, 180.0f, () -> DefineVisuals.getInstance().getBackgroundManager().previousBackground());
-            nextBackgroundButton = new CustomButton("icons/arrow.png", 12.0f, 0.0f, () -> DefineVisuals.getInstance().getBackgroundManager().nextBackground());
+            prevBackgroundButton = new CustomButton("icons/arrow.png", 12.0f, 180.0f, UiSound.NAVIGATION, () -> DefineVisuals.getInstance().getBackgroundManager().previousBackground());
+            nextBackgroundButton = new CustomButton("icons/arrow.png", 12.0f, 0.0f, UiSound.NAVIGATION, () -> DefineVisuals.getInstance().getBackgroundManager().nextBackground());
             once = true;
         }
         super.init();
@@ -201,6 +198,7 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         }
 
         this.active = !this.active;
+        (this.active ? UiSound.WINDOW_OPEN : UiSound.WINDOW_CLOSE).play();
         super.onMouseClicked(mouseX, mouseY, button);
     }
 
@@ -209,21 +207,25 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         // Esc: if active, collapse back to idle clock view
         if (keyCode == 256 && this.active) {
             this.active = false;
+            UiSound.WINDOW_CLOSE.play();
             return true;
         }
 
         // Left / Right Arrow or A / D keys: switch background
         if (keyCode == 263 || keyCode == 65) { // Left arrow or 'A'
             DefineVisuals.getInstance().getBackgroundManager().previousBackground();
+            UiSound.NAVIGATION.play();
             return true;
         }
         if (keyCode == 262 || keyCode == 68) { // Right arrow or 'D'
             DefineVisuals.getInstance().getBackgroundManager().nextBackground();
+            UiSound.NAVIGATION.play();
             return true;
         }
 
         if (keyCode == 69) { // 'E' -> Switch Theme
             DefineVisuals.getInstance().getThemeManager().switchTheme();
+            UiSound.NAVIGATION.play();
         }
         if (Screen.hasControlDown() && keyCode == 82) { // Ctrl+R -> Multiplayer
             MinecraftClient.getInstance().setScreen(new MultiplayerScreen(this));
@@ -306,7 +308,10 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         for (int i = 0; i < totalBackgrounds; i++) {
             float x = startX + i * dotSpacing;
             if (Math.abs(mouseX - x) < 9.0 && Math.abs(mouseY - y) < 12.0) {
-                bgManager.setBackground(i);
+                if (i != bgManager.getCurrentIndex()) {
+                    bgManager.setBackground(i);
+                    UiSound.NAVIGATION.play();
+                }
                 return true;
             }
         }
@@ -318,4 +323,3 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         return false;
     }
 }
-

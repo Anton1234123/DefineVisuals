@@ -22,12 +22,10 @@ import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.modules.modules.visuals.MenuModule;
-import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.components.ColorPicker;
 import moscow.definevisuals.ui.components.animated.AnimatedText;
 import moscow.definevisuals.ui.components.textfield.FieldAction;
@@ -57,7 +55,7 @@ import moscow.definevisuals.utility.render.batching.Batching;
 import moscow.definevisuals.utility.render.batching.impl.FontBatching;
 import moscow.definevisuals.utility.render.batching.impl.IconBatching;
 import moscow.definevisuals.utility.render.batching.impl.RectBatching;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
@@ -157,14 +155,17 @@ implements IMinecraft {
         this.searchAnimation.update(this.searchField.isFocused());
         float f = this.menuAnimation.getValue() * this.searchAnimation.getValue();
         if (f > 0.0f) {
-            if (Interface.showMinimalizm()) {
-                context.drawBlurredRect(this.searchField.getX(), this.searchField.getY(), this.searchField.getWidth(), this.searchField.getHeight(), 45.0f, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * f));
-            }
-            if (Interface.showGlass()) {
-                context.drawLiquidGlass(this.searchField.getX(), this.searchField.getY(), this.searchField.getWidth(), this.searchField.getHeight(), 2.0f, 0.08f, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * f));
-            }
-            boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-            context.drawRoundedRect(this.searchField.getX(), this.searchField.getY(), this.searchField.getWidth(), this.searchField.getHeight(), BorderRadius.all(6.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.9f - 0.7f * Interface.glass() : 0.7f) * f));
+            InterfaceStyleRenderer.drawSurface(
+                context,
+                this.searchField.getX(),
+                this.searchField.getY(),
+                this.searchField.getWidth(),
+                this.searchField.getHeight(),
+                2.0f,
+                BorderRadius.all(6.0f),
+                f,
+                0.0f
+            );
             this.searchField.set((float)this.width / 2.0f - this.searchField.getWidth() / 2.0f, (float)(this.height - 20) - 20.0f * f, 100.0f, 20.0f);
             this.searchField.setAlpha(f);
             this.searchField.setTextColor(Colors.getTextColor());
@@ -238,13 +239,21 @@ implements IMinecraft {
         if (DefineVisuals.getInstance().getHud().getIsland().handleClick((float)mouseX, (float)mouseY, button.getButtonIndex())) {
             return;
         }
+        boolean closedColorPicker = false;
         for (ColorPicker colorPicker : this.colorPickers) {
             boolean isPick = colorPicker.isPick();
             colorPicker.onMouseClicked(mouseX, mouseY, button);
             if (colorPicker.isHovered(mouseX, mouseY) || isPick) {
                 return;
             }
-            colorPicker.setShowing(false);
+            if (colorPicker.isShowing()) {
+                colorPicker.setShowing(false);
+                closedColorPicker = true;
+            }
+        }
+        if (closedColorPicker) {
+            UiSound.WINDOW_CLOSE.play();
+            return;
         }
         for (MenuPanel panel : this.panels) {
             if (!panel.isHovered(mouseX, mouseY)) continue;
@@ -303,10 +312,7 @@ implements IMinecraft {
     public void close() {
         this.closing = true;
         DefineVisuals.getInstance().getModuleManager().getModule(MenuModule.class).disable();
-        Sounds soundsModule = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
-        if (soundsModule.isEnabled()) {
-            ClientSounds.CLICKGUI_OPEN.play(soundsModule.getVolume().getCurrentValue(), 1.0f);
-        }
+        UiSound.MENU_CLOSE.play();
         // Async file save to prevent freeze
         CompletableFuture.runAsync(() -> {
             DefineVisuals.getInstance().getFileManager().writeFile("client");
@@ -407,4 +413,3 @@ implements IMinecraft {
         new SliderSettingComponent(null, null);
     }
 }
-

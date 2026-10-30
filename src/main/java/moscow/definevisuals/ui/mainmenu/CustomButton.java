@@ -11,24 +11,31 @@ import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.obj.Rect;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class CustomButton extends Rect {
     private final String icon;
     private final float iconSize;
     private final Runnable onClick;
+    private final UiSound clickSound;
     private float rotation = 0.0f;
     private final ColorRGBA backgroundColor = new ColorRGBA(40.0f, 40.0f, 45.0f);
     private final Animation activeAnim = new Animation(400L, 0.0f, Easing.BAKEK);
     private final Animation hoverAnim = new Animation(250L, 0.0f, Easing.FIGMA_EASE_IN_OUT);
 
     public CustomButton(String icon, float iconSize, Runnable onClick) {
-        this(icon, iconSize, 0.0f, onClick);
+        this(icon, iconSize, 0.0f, UiSound.CLICK, onClick);
     }
 
     public CustomButton(String icon, float iconSize, float rotation, Runnable onClick) {
+        this(icon, iconSize, rotation, UiSound.CLICK, onClick);
+    }
+
+    public CustomButton(String icon, float iconSize, float rotation, UiSound clickSound, Runnable onClick) {
         this.icon = icon;
         this.iconSize = iconSize;
         this.rotation = rotation;
+        this.clickSound = clickSound;
         this.onClick = onClick;
     }
 
@@ -67,6 +74,7 @@ public class CustomButton extends Rect {
 
     public void click(double mouseX, double mouseY, int button) {
         if (this.hovered(mouseX, mouseY) && button == 0 && this.activeAnim.getValue() > 0.5f) {
+            this.clickSound.play();
             this.onClick.run();
         }
     }
@@ -81,4 +89,3 @@ public class CustomButton extends Rect {
         return this.hoverAnim;
     }
 }
-

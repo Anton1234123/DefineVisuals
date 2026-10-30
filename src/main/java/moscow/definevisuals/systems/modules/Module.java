@@ -22,7 +22,18 @@ public interface Module extends Toggleable, IMinecraft, IScaledResolution, Setti
 
    default String getDescription() {
       String translationKey = "modules.descriptions.%s".formatted(this.getName().toLowerCase().replace(" ", "_"));
-      return Localizator.translate(translationKey);
+      if (Localizator.hasTranslation(translationKey)) {
+         return Localizator.translate(translationKey);
+      }
+
+      String declaredDescription = this.getInfo().desc();
+      if (Localizator.hasTranslation(declaredDescription)) {
+         return Localizator.translate(declaredDescription);
+      }
+      if (!declaredDescription.startsWith("modules.") && !declaredDescription.equals("У этой функции нет описания")) {
+         return declaredDescription;
+      }
+      return Localizator.translate("modules.descriptions.no_description");
    }
 
    int getKey();

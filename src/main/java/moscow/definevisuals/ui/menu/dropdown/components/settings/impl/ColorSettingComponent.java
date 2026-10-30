@@ -21,6 +21,7 @@ import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class ColorSettingComponent
 extends MenuSettingComponent<ColorSetting> {
@@ -69,6 +70,7 @@ extends MenuSettingComponent<ColorSetting> {
     @Override
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button) {
         if (this.isHovered(mouseX, mouseY) && button == MouseButton.LEFT) {
+            UiSound.WINDOW_OPEN.play();
             MenuScreen menuScreen = DefineVisuals.getInstance().getMenuScreen();
             if (menuScreen instanceof DropDownScreen) {
                 DropDownScreen dropDownScreen = (DropDownScreen)menuScreen;
@@ -92,4 +94,3 @@ extends MenuSettingComponent<ColorSetting> {
         return 18.0f;
     }
 }
-

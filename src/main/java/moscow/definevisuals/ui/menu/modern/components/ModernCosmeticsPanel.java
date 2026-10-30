@@ -7,8 +7,8 @@ import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
+import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.notifications.NotificationType;
 import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.utility.animation.base.Animation;
@@ -22,7 +22,7 @@ import moscow.definevisuals.utility.gui.ScrollHandler;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.render.obj.CustomSprite;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import moscow.definevisuals.cosmetics.LocalCosmetics;
 
 public class ModernCosmeticsPanel implements IMinecraft {
@@ -85,7 +85,6 @@ public class ModernCosmeticsPanel implements IMinecraft {
         boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
         ColorRGBA accent = Colors.getAccent();
         ColorRGBA textColor = Colors.getTextColor();
-        float glass = Interface.glass();
 
         // 1. Header Bar
         float headerY = y + 14.0f;
@@ -93,7 +92,7 @@ public class ModernCosmeticsPanel implements IMinecraft {
 
         // Title: [Visuals Icon] Косметика
         context.drawSprite(CustomSprite.VISUALS, headerX, headerY + 1.0f, 9.0f, 9.0f, textColor);
-        context.drawText(Fonts.SEMIBOLD.getFont(9.0f), "Косметика", headerX + 13.0f, headerY + 1.0f, textColor);
+        context.drawText(Fonts.SEMIBOLD.getFont(9.0f), Localizator.translate("Косметика"), headerX + 13.0f, headerY + 1.0f, textColor);
 
         // Header Action: Reset All ("Сбросить всё")
         float resetW = 60.0f;
@@ -105,7 +104,7 @@ public class ModernCosmeticsPanel implements IMinecraft {
 
         ColorRGBA resetBg = resetHov ? accent.mulAlpha(0.35f) : Colors.getBackgroundColor().mulAlpha(dark ? 0.4f : 0.25f);
         context.drawSquircle(resetX, resetY, resetW, resetH, 3.0f, BorderRadius.all(3.0f), resetBg);
-        context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), "Сбросить всё", resetX + resetW / 2.0f, resetY + 4.5f, resetHov ? accent : textColor.mulAlpha(0.75f));
+        context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), Localizator.translate("Сбросить всё"), resetX + resetW / 2.0f, resetY + 4.5f, resetHov ? accent : textColor.mulAlpha(0.75f));
 
         // 2. Filter Pills Bar
         float filterY = headerY + 20.0f;
@@ -113,7 +112,8 @@ public class ModernCosmeticsPanel implements IMinecraft {
         float filterH = 14.0f;
 
         for (FilterTab tab : this.filterTabs) {
-            float textW = Fonts.MEDIUM.getFont(6.0f).width(tab.label);
+            String tabLabel = Localizator.translate(tab.label);
+            float textW = Fonts.MEDIUM.getFont(6.0f).width(tabLabel);
             float tabW = textW + 12.0f;
 
             boolean isFilterSelected = tab.id.equalsIgnoreCase(this.currentFilter);
@@ -129,7 +129,7 @@ public class ModernCosmeticsPanel implements IMinecraft {
             ColorRGBA tabTextColor = isFilterSelected 
                     ? accent 
                     : textColor.mulAlpha(0.55f + 0.35f * tab.hoverAnim.getValue());
-            context.drawCenteredText(Fonts.MEDIUM.getFont(6.0f), tab.label, currentFilterX + tabW / 2.0f, filterY + 4.5f, tabTextColor);
+            context.drawCenteredText(Fonts.MEDIUM.getFont(6.0f), tabLabel, currentFilterX + tabW / 2.0f, filterY + 4.5f, tabTextColor);
 
             currentFilterX += tabW + 4.0f;
         }
@@ -166,22 +166,26 @@ public class ModernCosmeticsPanel implements IMinecraft {
             boolean isSelected = LocalCosmetics.isSelected(card.index);
             card.selectAnim.update(isSelected);
 
-            // Card background (matching module grid style without outline)
-            ColorRGBA base = (dark ? Colors.getBackgroundColor() : Colors.getAdditionalColor())
-                    .withAlpha(255.0f * (dark ? 0.16f + 0.14f * Interface.minimalizm() : 0.12f + 0.12f * Interface.minimalizm()));
-            ColorRGBA cardBg = base
-                    .mix(accent.withAlpha(255.0f * (0.25f + 0.15f * (1.0f - glass))), card.selectAnim.getValue() * 0.9f)
-                    .mix(Colors.getTextColor().withAlpha(20.0f), card.hoverAnim.getValue() * 0.35f);
-
             BorderRadius cardRadius = BorderRadius.all(4.0f);
-            context.drawSquircle(cardX, cardY, cardWidth, cardHeight, 3.0f, cardRadius, cardBg);
+            InterfaceStyleRenderer.drawCard(
+                    context,
+                    cardX,
+                    cardY,
+                    cardWidth,
+                    cardHeight,
+                    3.0f,
+                    cardRadius,
+                    1.0f,
+                    card.selectAnim.getValue(),
+                    card.hoverAnim.getValue()
+            );
 
             // Cosmetic Name
             context.drawFadeoutText(Fonts.MEDIUM.getFont(6.5f), card.name, cardX + 7.0f, cardY + 5.0f, textColor, 0.9f, 1.0f, cardWidth - 14.0f);
 
             // Subtitle: Type description and active status
             String typeLabel = getLocalizedType(card.type);
-            String subInfo = isSelected ? typeLabel + " · Активно" : typeLabel;
+            String subInfo = isSelected ? typeLabel + " · " + Localizator.translate("Активно") : typeLabel;
             ColorRGBA subColor = isSelected ? accent.mulAlpha(0.9f) : textColor.mulAlpha(0.45f);
             context.drawText(Fonts.REGULAR.getFont(5.5f), subInfo, cardX + 7.0f, cardY + 16.5f, subColor);
         }
@@ -205,8 +209,8 @@ public class ModernCosmeticsPanel implements IMinecraft {
         float resetY = headerY - 1.0f;
         if (GuiUtility.isHovered((double)resetX, (double)resetY, resetW, resetH, mouseX, mouseY)) {
             LocalCosmetics.clearAll();
-            this.playClickSound();
-            DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.INFO, "Косметика сброшена");
+            UiSound.DELETE.play();
+            DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.INFO, Localizator.translate("Косметика сброшена"));
             return;
         }
 
@@ -216,14 +220,16 @@ public class ModernCosmeticsPanel implements IMinecraft {
         float filterH = 14.0f;
 
         for (FilterTab tab : this.filterTabs) {
-            float textW = Fonts.MEDIUM.getFont(6.0f).width(tab.label);
+            float textW = Fonts.MEDIUM.getFont(6.0f).width(Localizator.translate(tab.label));
             float tabW = textW + 12.0f;
 
             if (GuiUtility.isHovered((double)currentFilterX, (double)filterY, tabW, filterH, mouseX, mouseY)) {
-                this.currentFilter = tab.id;
-                this.scrollHandler.setValue(0.0f);
-                this.scrollHandler.setTargetValue(0.0f);
-                this.playClickSound();
+                if (!this.currentFilter.equals(tab.id)) {
+                    this.currentFilter = tab.id;
+                    this.scrollHandler.setValue(0.0f);
+                    this.scrollHandler.setTargetValue(0.0f);
+                    UiSound.NAVIGATION.play();
+                }
                 return;
             }
             currentFilterX += tabW + 4.0f;
@@ -253,9 +259,9 @@ public class ModernCosmeticsPanel implements IMinecraft {
 
             if (GuiUtility.isHovered((double)cardX, (double)cardY, cardWidth, cardHeight, mouseX, mouseY)) {
                 LocalCosmetics.toggle(card.index);
-                this.playClickSound();
 
                 boolean nowSelected = LocalCosmetics.isSelected(card.index);
+                (nowSelected ? UiSound.TOGGLE_ON : UiSound.TOGGLE_OFF).play();
                 String msg = nowSelected 
                         ? "Выбрано: " + card.name + " (" + getLocalizedType(card.type) + ")"
                         : "Отключено: " + card.name;
@@ -277,21 +283,15 @@ public class ModernCosmeticsPanel implements IMinecraft {
         return false;
     }
 
-    private void playClickSound() {
-        Sounds sounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
-        if (sounds != null && sounds.isEnabled()) {
-            ClientSounds.MODULE.play(sounds.getVolume().getCurrentValue(), 1.0f);
-        }
-    }
-
     private static String getLocalizedType(String type) {
-        if (type == null) return "Другое";
-        return switch (type.toLowerCase()) {
+        if (type == null) return Localizator.translate("Другое");
+        String label = switch (type.toLowerCase()) {
             case "wings" -> "Крылья";
             case "hat" -> "Шляпа";
             case "pet" -> "Питомец";
             case "bodywear" -> "Тело";
             default -> type;
         };
+        return Localizator.translate(label);
     }
 }

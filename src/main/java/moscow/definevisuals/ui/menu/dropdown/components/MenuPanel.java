@@ -19,8 +19,8 @@ import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.modules.Module;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
 import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.components.textfield.TextField;
@@ -40,7 +40,7 @@ import moscow.definevisuals.utility.gui.ScrollHandler;
 import moscow.definevisuals.utility.interfaces.IScaledResolution;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class MenuPanel
 extends CustomComponent
@@ -119,12 +119,7 @@ implements IScaledResolution {
     public void renderBlur(UIContext context) {
         float alpha = DefineVisuals.getInstance().getMenuScreen().isClosing() ? 2.0f - this.sizing.getValue() : this.sizing.getValue();
         this.scale(context);
-        if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(this.x, this.y, this.width, this.height, 45.0f, 10.0f, BorderRadius.all(10.0f), ColorRGBA.WHITE.withAlpha(255.0f * alpha));
-        }
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(this.x, this.y, this.width, this.height, 10.0f, 0.08f, BorderRadius.all(10.0f), ColorRGBA.WHITE.withAlpha(255.0f * alpha));
-        }
+        InterfaceStyleRenderer.drawSurface(context, this.x, this.y, this.width, this.height, 10.0f, BorderRadius.all(10.0f), alpha, 0.0f);
         RenderUtility.end(context.getMatrices());
     }
 
@@ -149,14 +144,12 @@ implements IScaledResolution {
         float alpha = DefineVisuals.getInstance().getMenuScreen().isClosing() ? 2.0f - this.sizing.getValue() : this.sizing.getValue();
         RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)alpha);
         this.scale(context);
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        context.drawSquircle(this.x, this.y, this.width, this.height, 10.0f, BorderRadius.all(10.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.9f - 0.7f * Interface.glass() : 0.7f)));
         float separatorHeight = 4.0f;
         float titleLeftPadding = 10.0f;
         float titleHeight = this.titleFont.height();
-        context.drawText(this.titleFont, this.category.getName(), this.x + titleLeftPadding, this.y + GuiUtility.getMiddleOfBox(titleHeight, headerHeight) + 0.5f, Colors.getTextColor());
-        if (Interface.showMinimalizm()) {
-            context.drawRect(this.x, this.y + headerHeight, this.width, separatorHeight, Colors.getSeparatorColor().withAlpha(Colors.getSeparatorColor().getAlpha() * Interface.minimalizm()));
+        context.drawText(this.titleFont, this.category.getDisplayName(), this.x + titleLeftPadding, this.y + GuiUtility.getMiddleOfBox(titleHeight, headerHeight) + 0.5f, Colors.getTextColor());
+        if (Interface.nonLiquid() > 0.001f) {
+            context.drawRect(this.x, this.y + headerHeight, this.width, separatorHeight, Colors.getSeparatorColor().withAlpha(Colors.getSeparatorColor().getAlpha() * Interface.nonLiquid()));
         }
         if (this.selectedModuleComponent != null) {
             this.lastSelected = this.selectedModuleComponent;
@@ -189,8 +182,8 @@ implements IScaledResolution {
             }
             context.drawTexture(DefineVisuals.id("icons/arrow.png"), x + leftPadding, y + GuiUtility.getMiddleOfBox(arrowIconSize, headerHeight) - 2.0f, arrowIconSize, arrowIconSize, Colors.getTextColor());
             context.drawText(Fonts.REGULAR.getFont(8.0f), this.lastSelected.getModule().getName(), x + arrowIconSize + 8.0f, y + GuiUtility.getMiddleOfBox(arrowIconSize, headerHeight) - 1.0f, Colors.getTextColor().withAlpha(255.0f));
-            if (Interface.showMinimalizm()) {
-                context.drawRect(x, y + headerHeight - separatorHeight, this.width, separatorHeight, Colors.getSeparatorColor().withAlpha(Colors.getSeparatorColor().getAlpha() * Interface.minimalizm()));
+            if (Interface.nonLiquid() > 0.001f) {
+                context.drawRect(x, y + headerHeight - separatorHeight, this.width, separatorHeight, Colors.getSeparatorColor().withAlpha(Colors.getSeparatorColor().getAlpha() * Interface.nonLiquid()));
             }
             ScissorUtility.pop();
             ScissorUtility.push(context.getMatrices(), this.x, y + headerHeight, this.width, this.height - headerHeight * 2.0f - separatorHeight - 0.5f - Interface.glass() * 5.0f);
@@ -313,8 +306,7 @@ implements IScaledResolution {
                 }
                 if (!GuiUtility.isHovered((double)this.x, (double)(y = this.y + 28.0f), (double)this.width, 20.0, mouseX, mouseY) || button != MouseButton.LEFT) break block5;
                 this.selectedModuleComponent = null;
-                if (!DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).isEnabled()) break block5;
-                ClientSounds.CLICKGUI_OPEN.play(0.8f, 1.2f);
+                UiSound.WINDOW_CLOSE.play();
                 break block5;
             }
             if (GuiUtility.isHovered((double)this.x, (double)(this.y + 28.0f), (double)this.width, (double)(this.height - 28.0f), mouseX, mouseY)) {
@@ -456,4 +448,3 @@ implements IScaledResolution {
         this.selectedModuleComponent = selectedModuleComponent;
     }
 }
-

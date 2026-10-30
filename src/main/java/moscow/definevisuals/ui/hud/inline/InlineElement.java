@@ -21,6 +21,7 @@ import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.render.batching.Batching;
 import moscow.definevisuals.utility.render.batching.impl.FontBatching;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.client.render.VertexFormats;
 
 public class InlineElement
@@ -93,6 +94,7 @@ extends HudElement {
                 TextUtility.copyText(elmt.copy());
                 elmt.copyTimer().reset();
                 elmt.copied(true);
+                UiSound.SUCCESS.play();
                 return;
             }
             xOffset += textWidth + Fonts.MEDIUM.getFont(7.0f).width(elmt.suffix()) + 10.0f;
@@ -100,4 +102,3 @@ extends HudElement {
         super.onMouseClicked(mouseX, mouseY, button);
     }
 }
-

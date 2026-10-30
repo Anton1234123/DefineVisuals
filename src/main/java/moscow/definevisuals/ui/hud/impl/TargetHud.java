@@ -21,6 +21,7 @@ import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.setting.settings.BooleanSetting;
@@ -38,6 +39,7 @@ import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.interfaces.IScaledResolution;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 import moscow.definevisuals.utility.time.Timer;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -109,8 +111,6 @@ extends HudElement {
         }
         Font regular7 = Fonts.REGULAR.getFont(7.0f);
         Font semibold6 = Fonts.SEMIBOLD.getFont(6.0f);
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        ColorRGBA bgColor = Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.8f - 0.6f * Interface.glass() : 0.7f));
         boolean hover = GuiUtility.isHovered(this.x + 30.0f, this.y + 3.0f + 6.0f * this.content.getValue(), 60.0, 6.0, context);
         if (!hover || this.copyTimer.finished(1000L)) {
             this.copied = false;
@@ -173,8 +173,18 @@ extends HudElement {
                 boolean isIcon = this.armorIcon.isSelected();
                 float panelWidth = isIcon ? 11.0f : 5.0f + semibold6.width(percent);
                 float panelHeight = isIcon ? 11.0f : 9.0f;
-                ColorRGBA itemBgColor = Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.8f - 0.6f * Interface.glass() : 0.7f) * anim);
-                context.drawSquircle(this.x + this.width / 2.0f + xOffset, this.y - 12.0f * this.content.getValue(), panelWidth, panelHeight, 2.0f, BorderRadius.all(2.5f), itemBgColor);
+                InterfaceStyleRenderer.drawCard(
+                    context,
+                    this.x + this.width / 2.0f + xOffset,
+                    this.y - 12.0f * this.content.getValue(),
+                    panelWidth,
+                    panelHeight,
+                    2.0f,
+                    BorderRadius.all(2.5f),
+                    anim,
+                    0.0f,
+                    0.0f
+                );
                 if (isIcon) {
                     RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)anim);
                     context.drawItem(itemStack, this.x + this.width / 2.0f + xOffset + 1.0f, this.y - 11.0f * this.content.getValue(), 0.55f);
@@ -188,8 +198,18 @@ extends HudElement {
             if (this.armorIcon.isSelected()) {
                 for (ItemStack handItem : handItems) {
                     if (handItem.isEmpty()) continue;
-                    ColorRGBA itemBgColor = Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.8f - 0.6f * Interface.glass() : 0.7f) * this.content.getValue());
-                    context.drawSquircle(this.x + this.width / 2.0f + xOffset, this.y - 12.0f * this.content.getValue(), itemSize, itemSize, 2.0f, BorderRadius.all(2.5f), itemBgColor);
+                    InterfaceStyleRenderer.drawCard(
+                        context,
+                        this.x + this.width / 2.0f + xOffset,
+                        this.y - 12.0f * this.content.getValue(),
+                        itemSize,
+                        itemSize,
+                        2.0f,
+                        BorderRadius.all(2.5f),
+                        this.content.getValue(),
+                        0.0f,
+                        0.0f
+                    );
                     RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)this.content.getValue());
                     context.drawItem(handItem, this.x + this.width / 2.0f + xOffset + 1.0f, this.y - 11.0f * this.content.getValue(), 0.55f);
                     RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
@@ -198,13 +218,17 @@ extends HudElement {
             }
         }
         context.drawShadow(this.x - 5.0f, this.y - 5.0f, this.width + 10.0f, this.height + 10.0f, 15.0f, BorderRadius.all(6.0f), ColorRGBA.BLACK.withAlpha(63.75f * this.dragAnim.getValue()));
-        if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(this.x, this.y, this.width, this.height, 45.0f, 7.0f, BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * this.animation.getValue() * Interface.minimalizm()));
-        }
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(this.x, this.y, this.width, this.height, 7.0f, 0.08f - 0.07f * this.dragAnim.getValue(), BorderRadius.all(6.0f), ColorRGBA.WHITE.withAlpha(255.0f * this.animation.getValue() * Interface.glass()));
-        }
-        context.drawSquircle(this.x, this.y, this.width, this.height, 7.0f, BorderRadius.all(6.0f), bgColor);
+        InterfaceStyleRenderer.drawSurface(
+            context,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            7.0f,
+            BorderRadius.all(6.0f),
+            this.animation.getValue(),
+            this.dragAnim.getValue()
+        );
         float alpha = 255.0f * this.content.getValue();
         ScissorUtility.push(context.getMatrices(), this.x, this.y, this.width, this.height);
         LivingEntity livingEntity3 = this.target;
@@ -314,6 +338,7 @@ extends HudElement {
                 TextUtility.copyText(this.target.getName().getString());
                 this.copyTimer.reset();
                 this.copied = true;
+                UiSound.SUCCESS.play();
                 return;
             }
         }

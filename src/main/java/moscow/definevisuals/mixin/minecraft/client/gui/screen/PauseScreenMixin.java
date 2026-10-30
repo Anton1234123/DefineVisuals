@@ -2,6 +2,7 @@ package moscow.definevisuals.mixin.minecraft.client.gui.screen;
 
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.ui.QuitConfirmScreen;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -36,10 +37,11 @@ public class PauseScreenMixin extends Screen {
                if (buttonText.contains("Save") || buttonText.contains("Сохранить") || buttonText.contains("Quit") || buttonText.contains("Выйти")) {
                   try {
                      Field onPressField = ButtonWidget.class.getDeclaredField("onPress");
-                     onPressField.setAccessible(true);
-                     onPressField.set(button, (Runnable) () -> {
-                        MinecraftClient.getInstance().setScreen(new QuitConfirmScreen(this));
-                     });
+                      onPressField.setAccessible(true);
+                      onPressField.set(button, (Runnable) () -> {
+                         UiSound.WINDOW_OPEN.play();
+                         MinecraftClient.getInstance().setScreen(new QuitConfirmScreen(this));
+                      });
                   } catch (Exception e) {
                      e.printStackTrace();
                   }

@@ -26,6 +26,7 @@ import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class BindSettingComponent
 extends MenuSettingComponent<BindSetting> {
@@ -73,11 +74,13 @@ extends MenuSettingComponent<BindSetting> {
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button) {
         if (this.isHovered(mouseX, mouseY) && button == MouseButton.LEFT) {
             boolean bl = this.bindingMode = !this.bindingMode;
+            (this.bindingMode ? UiSound.BIND : UiSound.CLICK).play();
         }
         if (this.bindingMode && button != MouseButton.LEFT) {
             int buttonIndex = button.getButtonIndex();
             ((BindSetting)this.setting).setKey(buttonIndex);
             this.bindingMode = false;
+            UiSound.BIND_SET.play();
         }
         super.onMouseClicked(mouseX, mouseY, button);
     }
@@ -93,6 +96,7 @@ extends MenuSettingComponent<BindSetting> {
             }
             this.changeAnimation = new Animation(500L, 0.0f, Easing.FIGMA_EASE_IN_OUT);
             this.bindingMode = false;
+            UiSound.BIND_SET.play();
             return;
         }
         super.onKeyPressed(keyCode, scanCode, modifiers);
@@ -109,4 +113,3 @@ extends MenuSettingComponent<BindSetting> {
         this.bindingMode = bindingMode;
     }
 }
-

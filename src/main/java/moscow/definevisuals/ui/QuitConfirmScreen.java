@@ -10,6 +10,7 @@ import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.gradient.impl.VerticalGradient;
 import moscow.definevisuals.utility.colors.ColorRGBA;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -80,6 +81,10 @@ public class QuitConfirmScreen extends CustomScreen implements IMinecraft {
     
     @Override
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button) {
+        if (button != MouseButton.LEFT) {
+            return;
+        }
+
         float width = 300.0f;
         float height = 250.0f;
         float x = (float) this.width / 2.0f - width / 2.0f;
@@ -93,12 +98,14 @@ public class QuitConfirmScreen extends CustomScreen implements IMinecraft {
         
         // Cancel button
         if (isHovered(cancelX, buttonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+            UiSound.WINDOW_CLOSE.play();
             mc.setScreen(parent);
             return;
         }
         
         // Quit button
         if (isHovered(quitX, buttonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+            UiSound.DELETE.play();
             mc.world.disconnect();
             mc.disconnect();
             return;
@@ -169,6 +176,7 @@ public class QuitConfirmScreen extends CustomScreen implements IMinecraft {
     
     @Override
     public boolean shouldCloseOnEsc() {
+        UiSound.WINDOW_CLOSE.play();
         mc.setScreen(parent);
         return false;
     }

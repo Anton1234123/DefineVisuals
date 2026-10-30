@@ -11,8 +11,9 @@ import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
+import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.modules.other.HolyEvents;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.colors.ColorRGBA;
@@ -23,6 +24,8 @@ import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.gui.ScrollHandler;
 import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
+import moscow.definevisuals.utility.render.obj.CustomSprite;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -35,7 +38,6 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class EventListScreen extends CustomScreen {
     private final Gson gson = new Gson();
@@ -216,93 +218,91 @@ public class EventListScreen extends CustomScreen {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, alpha);
         RenderUtility.scale(ctx.getMatrices(), this.windowX + this.windowWidth / 2.0f, this.windowY + this.windowHeight / 2.0f, 0.7f + 0.3f * this.menuAnimation.getValue());
 
-        // Liquid glass / Blur background
-        float blurKernel = 45.0f;
-        if (Interface.showMinimalizm()) {
-            ctx.drawBlurredRect(this.windowX, this.windowY, this.windowWidth, this.windowHeight, blurKernel, 10.0f, BorderRadius.all(14.0f),
-                    ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.minimalizm()));
-        }
-        if (Interface.showGlass()) {
-            ctx.drawLiquidGlass(this.windowX, this.windowY, this.windowWidth, this.windowHeight, 10.0f, 0.08f, BorderRadius.all(14.0f),
-                    ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.glass()));
-        }
-
-        // Panel background
-        ColorRGBA bgColor = Colors.getBackgroundColor();
-        ctx.drawSquircle(this.windowX, this.windowY, this.windowWidth, this.windowHeight, 10.0f, BorderRadius.all(14.0f),
-                bgColor.withAlpha(255.0f * (0.85f * (1.0f - 0.7f * Interface.glass())) * alpha));
-        ctx.drawRoundedRect(this.windowX, this.windowY, this.windowWidth, this.windowHeight, BorderRadius.all(14.0f),
-                Colors.getOutlineColor().mulAlpha(0.4f * alpha));
+        ctx.drawShadow(this.windowX, this.windowY, this.windowWidth, this.windowHeight, 28.0f, BorderRadius.all(14.0f), ColorRGBA.BLACK.withAlpha(48.0f * alpha));
+        InterfaceStyleRenderer.drawSurface(
+                ctx,
+                this.windowX,
+                this.windowY,
+                this.windowWidth,
+                this.windowHeight,
+                10.0f,
+                BorderRadius.all(14.0f),
+                alpha,
+                0.0f
+        );
 
         // Header
-        float headerHeight = 36.0f;
-        float headerX = this.windowX + 16.0f;
-        float headerY = this.windowY + 12.0f;
+        float headerX = this.windowX + 14.0f;
+        float headerY = this.windowY + 10.0f;
+        float iconSize = 24.0f;
+        InterfaceStyleRenderer.drawChip(ctx, headerX, headerY, iconSize, iconSize, BorderRadius.all(6.0f), alpha, 0.28f);
+        ctx.drawSprite(CustomSprite.EVENTS, headerX + 7.0f, headerY + 7.0f, 10.0f, 10.0f, Colors.getAccent());
 
-        Font titleFont = Fonts.SEMIBOLD.getFont(11.5f);
-        ctx.drawText(titleFont, "HolyEvents", headerX, headerY, Colors.getTextColor());
+        float titleX = headerX + iconSize + 8.0f;
+        Font titleFont = Fonts.SEMIBOLD.getFont(10.0f);
+        Font subtitleFont = Fonts.REGULAR.getFont(6.0f);
+        ctx.drawText(titleFont, "Holy Events", titleX, headerY + 2.0f, Colors.getTextColor());
+        ctx.drawText(subtitleFont, Localizator.translate("Мониторинг событий HolyWorld"), titleX, headerY + 15.0f, Colors.getTextColor().mulAlpha(0.42f));
 
-        // Badge pill next to title
+        // Compact status badge next to the title
         int totalCount = this.countVisibleEvents();
-        String badgeText = this.isLoading ? "Загрузка..." : totalCount + (totalCount == 1 ? " ивент" : (totalCount >= 2 && totalCount <= 4 ? " ивента" : " ивентов"));
-        Font badgeFont = Fonts.MEDIUM.getFont(7.5f);
-        float badgeW = badgeFont.width(badgeText) + 14.0f;
-        float badgeH = 15.0f;
-        float badgeX = headerX + titleFont.width("HolyEvents") + 10.0f;
-        float badgeY = headerY + 1.0f;
-
-        ctx.drawRoundedRect(badgeX, badgeY, badgeW, badgeH, BorderRadius.all(4.5f), Colors.getBackgroundColor().withAlpha(140.0f));
-        ctx.drawRoundedRect(badgeX, badgeY, badgeW, badgeH, BorderRadius.all(4.5f), Colors.getOutlineColor().mulAlpha(0.3f));
+        String badgeText = this.isLoading ? "..." : String.valueOf(totalCount);
+        Font badgeFont = Fonts.MEDIUM.getFont(6.0f);
+        float badgeW = Math.max(30.0f, badgeFont.width(badgeText) + 20.0f);
+        float badgeH = 18.0f;
+        float badgeX = titleX + titleFont.width("Holy Events") + 10.0f;
+        float badgeY = headerY + 3.0f;
+        InterfaceStyleRenderer.drawChip(ctx, badgeX, badgeY, badgeW, badgeH, BorderRadius.all(5.0f), alpha, totalCount > 0 ? 0.20f : 0.08f);
 
         // Status indicator dot
         ColorRGBA dotColor = this.isLoading ? new ColorRGBA(255, 185, 30, 255) : (totalCount > 0 ? new ColorRGBA(50, 220, 80, 255) : Colors.getTextColor().mulAlpha(0.5f));
-        ctx.drawRoundedRect(badgeX + 5.0f, badgeY + badgeH / 2.0f - 2.0f, 4.0f, 4.0f, BorderRadius.all(2.0f), dotColor);
-        ctx.drawText(badgeFont, badgeText, badgeX + 13.0f, badgeY + 3.0f, Colors.getTextColor().mulAlpha(0.85f));
+        ctx.drawRoundedRect(badgeX + 6.0f, badgeY + badgeH / 2.0f - 2.0f, 4.0f, 4.0f, BorderRadius.all(2.0f), dotColor);
+        float badgeTextCenterX = badgeX + 14.0f + (badgeW - 14.0f) / 2.0f;
+        ctx.drawCenteredText(badgeFont, badgeText, badgeTextCenterX, centeredTextY(badgeFont, badgeY, badgeH), Colors.getTextColor().mulAlpha(0.82f));
 
         // Buttons on top right
-        float closeBtnW = 64.0f;
-        float closeBtnH = 20.0f;
+        float closeBtnW = 22.0f;
+        float closeBtnH = 22.0f;
         float closeBtnX = this.windowX + this.windowWidth - closeBtnW - 14.0f;
-        float closeBtnY = this.windowY + 10.0f;
+        float closeBtnY = headerY + 1.0f;
         boolean closeHovered = GuiUtility.isHovered(closeBtnX, closeBtnY, closeBtnW, closeBtnH, ctx);
         if (closeHovered) {
             CursorUtility.set(CursorType.HAND);
         }
 
-        float refreshBtnW = 76.0f;
-        float refreshBtnH = 20.0f;
+        float refreshBtnW = 66.0f;
+        float refreshBtnH = 22.0f;
         float refreshBtnX = closeBtnX - refreshBtnW - 6.0f;
-        float refreshBtnY = this.windowY + 10.0f;
+        float refreshBtnY = closeBtnY;
         boolean refreshHovered = GuiUtility.isHovered(refreshBtnX, refreshBtnY, refreshBtnW, refreshBtnH, ctx);
         if (refreshHovered) {
             CursorUtility.set(CursorType.HAND);
         }
 
-        // Render Refresh button
-        ColorRGBA refreshBg = Colors.getBackgroundColor().withAlpha(refreshHovered ? 230.0f : 130.0f);
-        ctx.drawRoundedRect(refreshBtnX, refreshBtnY, refreshBtnW, refreshBtnH, BorderRadius.all(5.0f), refreshBg);
-        ctx.drawRoundedRect(refreshBtnX, refreshBtnY, refreshBtnW, refreshBtnH, BorderRadius.all(5.0f),
-                refreshHovered ? Colors.getAccent().mulAlpha(0.6f) : Colors.getOutlineColor().mulAlpha(0.3f));
-        ctx.drawCenteredText(Fonts.MEDIUM.getFont(7.5f), "⟳  Обновить", refreshBtnX + refreshBtnW / 2.0f, refreshBtnY + 5.0f,
-                refreshHovered ? Colors.getAccent() : Colors.getTextColor().mulAlpha(0.85f));
+        InterfaceStyleRenderer.drawChip(ctx, refreshBtnX, refreshBtnY, refreshBtnW, refreshBtnH, BorderRadius.all(6.0f), alpha, refreshHovered ? 0.34f : 0.12f);
+        Font refreshFont = Fonts.MEDIUM.getFont(6.5f);
+        ctx.drawCenteredText(refreshFont, Localizator.translate("Обновить"), refreshBtnX + refreshBtnW / 2.0f, centeredTextY(refreshFont, refreshBtnY, refreshBtnH),
+                refreshHovered ? Colors.getAccent() : Colors.getTextColor().mulAlpha(0.80f));
 
-        // Render Close button
-        ColorRGBA closeBg = closeHovered ? new ColorRGBA(220, 45, 45, 190) : Colors.getBackgroundColor().withAlpha(130.0f);
-        ctx.drawRoundedRect(closeBtnX, closeBtnY, closeBtnW, closeBtnH, BorderRadius.all(5.0f), closeBg);
-        ctx.drawRoundedRect(closeBtnX, closeBtnY, closeBtnW, closeBtnH, BorderRadius.all(5.0f),
-                closeHovered ? new ColorRGBA(255, 90, 90, 220) : Colors.getOutlineColor().mulAlpha(0.3f));
-        ctx.drawCenteredText(Fonts.MEDIUM.getFont(7.5f), "✕  Закрыть", closeBtnX + closeBtnW / 2.0f, closeBtnY + 5.0f,
-                closeHovered ? ColorRGBA.WHITE : Colors.getTextColor().mulAlpha(0.85f));
-
-        // Separator line
-        ctx.drawRect(this.windowX + 14.0f, this.windowY + headerHeight + 2.0f, this.windowWidth - 28.0f, 1.0f,
-                Colors.getOutlineColor().mulAlpha(0.25f));
+        InterfaceStyleRenderer.drawChip(ctx, closeBtnX, closeBtnY, closeBtnW, closeBtnH, BorderRadius.all(6.0f), alpha, 0.08f);
+        if (closeHovered) {
+            ctx.drawRoundedRect(closeBtnX, closeBtnY, closeBtnW, closeBtnH, BorderRadius.all(6.0f), new ColorRGBA(220, 55, 65, 58.0f * alpha));
+        }
+        Font closeFont = Fonts.MEDIUM.getFont(8.0f);
+        ctx.drawCenteredText(closeFont, "×", closeBtnX + closeBtnW / 2.0f, centeredTextY(closeFont, closeBtnY, closeBtnH),
+                closeHovered ? new ColorRGBA(255, 115, 120, 255) : Colors.getTextColor().mulAlpha(0.72f));
 
         // Events content viewport
         float contentX = this.windowX + 14.0f;
-        float contentY = this.windowY + headerHeight + 8.0f;
         float contentWidth = this.windowWidth - 28.0f;
-        float contentHeight = this.windowHeight - headerHeight - 16.0f;
+        float sectionY = this.windowY + 46.0f;
+        Font sectionFont = Fonts.MEDIUM.getFont(6.5f);
+        ctx.drawText(sectionFont, Localizator.translate("Активные события"), contentX, sectionY, Colors.getTextColor().mulAlpha(0.48f));
+        Font hintFont = Fonts.REGULAR.getFont(5.5f);
+        ctx.drawRightText(hintFont, Localizator.translate("Нажмите, чтобы перейти"), contentX + contentWidth, sectionY + 0.5f, Colors.getTextColor().mulAlpha(0.28f));
+
+        float contentY = sectionY + 12.0f;
+        float contentHeight = this.windowY + this.windowHeight - contentY - 11.0f;
 
         float scroll = (float) this.scrollHandler.getValue();
 
@@ -350,9 +350,10 @@ public class EventListScreen extends CustomScreen {
             }
 
             float cardW = contentWidth - 8.0f;
-            float cardH = 46.0f;
+            float cardH = 44.0f;
             float gap = 6.0f;
             boolean hasAnyEvents = false;
+            Font groupFont = Fonts.SEMIBOLD.getFont(6.5f);
 
             for (Rarity rarity : Rarity.values()) {
                 List<EventInfo> events = eventsByRarity.get(rarity);
@@ -360,12 +361,15 @@ public class EventListScreen extends CustomScreen {
 
                 hasAnyEvents = true;
 
-                // Category title header
-                if (currentY + 16.0f > contentY && currentY < contentY + contentHeight) {
-                    ctx.drawText(Fonts.SEMIBOLD.getFont(8.5f), rarity.display + " (" + events.size() + ")", contentX + 2.0f, currentY + 2.0f, rarity.color);
+                float groupHeight = 16.0f;
+                if (currentY + groupHeight > contentY && currentY < contentY + contentHeight) {
+                    float groupTextY = centeredTextY(groupFont, currentY, groupHeight);
+                    ctx.drawRoundedRect(contentX + 2.0f, currentY + groupHeight / 2.0f - 2.0f, 4.0f, 4.0f, BorderRadius.all(2.0f), rarity.color);
+                    ctx.drawText(groupFont, Localizator.translate(rarity.display), contentX + 11.0f, groupTextY, rarity.color);
+                    ctx.drawRightText(groupFont, String.valueOf(events.size()), contentX + cardW, groupTextY, Colors.getTextColor().mulAlpha(0.38f));
                 }
-                currentY += 18.0f;
-                totalListHeight += 18.0f;
+                currentY += groupHeight;
+                totalListHeight += groupHeight;
 
                 for (EventInfo ev : events) {
                     if (currentY + cardH > contentY && currentY < contentY + contentHeight) {
@@ -390,8 +394,6 @@ public class EventListScreen extends CustomScreen {
         }
 
         ScissorUtility.pop();
-        RenderUtility.end(ctx.getMatrices());
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         // Calculate and apply maximum scroll distance
         float maxScroll = Math.max(0.0f, totalListHeight - contentHeight);
@@ -412,6 +414,9 @@ public class EventListScreen extends CustomScreen {
             ColorRGBA thumbColor = Colors.getAccent().withAlpha(thumbHovered ? 230.0f : 150.0f);
             ctx.drawRoundedRect(scrollbarX, thumbY, 3.0f, thumbHeight, BorderRadius.all(1.5f), thumbColor);
         }
+
+        RenderUtility.end(ctx.getMatrices());
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     private int countVisibleEvents() {
@@ -431,89 +436,97 @@ public class EventListScreen extends CustomScreen {
         }
         Rarity rarity = this.parseRarity(ev.rareValue);
 
-        // Card background with smooth hover highlight
-        ColorRGBA cardBg = Colors.getBackgroundColor().withAlpha(hovered ? 240.0f : 165.0f);
-        ctx.drawRoundedRect(x, y, w, h, BorderRadius.all(9.0f), cardBg);
-        ctx.drawRoundedRect(x, y, w, h, BorderRadius.all(9.0f),
-                Colors.getOutlineColor().mulAlpha(hovered ? 0.65f : 0.28f));
+        InterfaceStyleRenderer.drawCard(
+                ctx,
+                x,
+                y,
+                w,
+                h,
+                5.0f,
+                BorderRadius.all(9.0f),
+                1.0f,
+                0.0f,
+                hovered ? 1.0f : 0.0f
+        );
 
         // Left colored accent indicator bar
-        ctx.drawRoundedRect(x + 4.0f, y + 6.0f, 3.0f, h - 12.0f, BorderRadius.all(1.5f), rarity.color);
-
-        // Event name
-        ctx.drawText(Fonts.SEMIBOLD.getFont(9.0f), ev.displayName, x + 14.0f, y + 9.0f, Colors.getTextColor());
-
-        // Server badge capsule
-        String server = this.getReadableServerName(ev.serverName);
-        Font serverFont = Fonts.REGULAR.getFont(7.0f);
-        float sW = serverFont.width(server) + 10.0f;
-        float sH = 14.0f;
-        float sX = x + 14.0f;
-        float sY = y + 24.0f;
-        ctx.drawRoundedRect(sX, sY, sW, sH, BorderRadius.all(3.5f), Colors.getBackgroundColor().withAlpha(120.0f));
-        ctx.drawRoundedRect(sX, sY, sW, sH, BorderRadius.all(3.5f), Colors.getOutlineColor().mulAlpha(0.25f));
-        ctx.drawText(serverFont, server, sX + 5.0f, sY + 2.5f, Colors.getTextColor().mulAlpha(0.75f));
+        ctx.drawRoundedRect(x + 4.0f, y + 6.0f, 2.5f, h - 12.0f, BorderRadius.all(1.25f), rarity.color.mulAlpha(0.92f));
 
         // Rarity badge capsule (top right)
-        Font rarityFont = Fonts.SEMIBOLD.getFont(7.0f);
-        float rW = rarityFont.width(rarity.display) + 12.0f;
-        float rH = 15.0f;
+        Font rarityFont = Fonts.SEMIBOLD.getFont(6.5f);
+        String rarityText = Localizator.translate(rarity.display);
+        float rW = rarityFont.width(rarityText) + 12.0f;
+        float rH = 14.0f;
         float rX = x + w - rW - 8.0f;
-        float rY = y + 8.0f;
+        float rY = y + 6.0f;
         ctx.drawRoundedRect(rX, rY, rW, rH, BorderRadius.all(4.0f), rarity.color.withAlpha(hovered ? 50.0f : 30.0f));
-        ctx.drawRoundedRect(rX, rY, rW, rH, BorderRadius.all(4.0f), rarity.color.mulAlpha(0.5f));
-        ctx.drawCenteredText(rarityFont, rarity.display, rX + rW / 2.0f, rY + 3.0f, rarity.color);
+        ctx.drawCenteredText(rarityFont, rarityText, rX + rW / 2.0f, centeredTextY(rarityFont, rY, rH), rarity.color);
+
+        // Event name
+        Font titleFont = Fonts.SEMIBOLD.getFont(8.5f);
+        float titleX = x + 14.0f;
+        ctx.drawFadeoutText(titleFont, ev.displayName, titleX, centeredTextY(titleFont, y + 5.0f, 16.0f), Colors.getTextColor(), 0.85f, 1.0f, Math.max(30.0f, rX - titleX - 6.0f));
 
         // Action button (bottom right)
-        String actionText = "Перейти ➜";
-        Font actionFont = Fonts.MEDIUM.getFont(7.0f);
+        String actionText = Localizator.translate("Перейти");
+        Font actionFont = Fonts.MEDIUM.getFont(6.5f);
         float aW = actionFont.width(actionText) + 12.0f;
         float aH = 14.0f;
         float aX = x + w - aW - 8.0f;
-        float aY = y + 25.0f;
+        float aY = y + 24.0f;
 
-        ColorRGBA actionBg = Colors.getAccent().withAlpha(hovered ? 60.0f : 25.0f);
-        ctx.drawRoundedRect(aX, aY, aW, aH, BorderRadius.all(3.5f), actionBg);
-        ctx.drawRoundedRect(aX, aY, aW, aH, BorderRadius.all(3.5f), Colors.getAccent().mulAlpha(hovered ? 0.8f : 0.35f));
-        ctx.drawCenteredText(actionFont, actionText, aX + aW / 2.0f, aY + 2.5f, Colors.getAccent());
+        ctx.drawRoundedRect(aX, aY, aW, aH, BorderRadius.all(4.0f), Colors.getAccent().withAlpha(hovered ? 56.0f : 25.0f));
+        ctx.drawCenteredText(actionFont, actionText, aX + aW / 2.0f, centeredTextY(actionFont, aY, aH), Colors.getAccent());
+
+        String server = this.getReadableServerName(ev.serverName);
+        Font serverFont = Fonts.REGULAR.getFont(6.5f);
+        float serverX = x + 14.0f;
+        float serverY = y + 24.0f;
+        ctx.drawRoundedRect(serverX, serverY + aH / 2.0f - 1.5f, 3.0f, 3.0f, BorderRadius.all(1.5f), Colors.getTextColor().mulAlpha(0.34f));
+        ctx.drawFadeoutText(serverFont, server, serverX + 7.0f, centeredTextY(serverFont, serverY, aH), Colors.getTextColor().mulAlpha(0.58f), 0.8f, 1.0f, Math.max(20.0f, aX - serverX - 12.0f));
 
         return new ModernEventCard(ev.displayName, ev.serverName, x, y, w, h);
     }
 
     private void renderLoading(UIContext ctx, float x, float y, float w) {
         float cx = x + w / 2.0f;
-        ctx.drawCenteredText(Fonts.MEDIUM.getFont(9.0f), "Загрузка ивентов...", cx, y - 6.0f, Colors.getTextColor().mulAlpha(0.8f));
+        ctx.drawCenteredText(Fonts.MEDIUM.getFont(9.0f), Localizator.translate("Загрузка событий..."), cx, y - 6.0f, Colors.getTextColor().mulAlpha(0.8f));
         float alpha = (float) (0.4 + 0.6 * Math.abs(Math.sin(System.currentTimeMillis() / 250.0)));
-        ctx.drawCenteredText(Fonts.REGULAR.getFont(7.0f), "Подключение к HolyWorld API", cx, y + 8.0f, Colors.getAccent().mulAlpha(alpha));
+        ctx.drawCenteredText(Fonts.REGULAR.getFont(7.0f), Localizator.translate("Подключение к HolyWorld API"), cx, y + 8.0f, Colors.getAccent().mulAlpha(alpha));
     }
 
     private void renderError(UIContext ctx, float x, float y, float w) {
         float cx = x + w / 2.0f;
-        ctx.drawCenteredText(Fonts.MEDIUM.getFont(9.0f), "Не удалось загрузить ивенты", cx, y - 8.0f, new ColorRGBA(255, 90, 90, 255));
+        ctx.drawCenteredText(Fonts.MEDIUM.getFont(9.0f), Localizator.translate("Не удалось загрузить события"), cx, y - 8.0f, new ColorRGBA(255, 90, 90, 255));
         ctx.drawCenteredText(Fonts.REGULAR.getFont(7.0f), this.errorMessage != null ? this.errorMessage : "Ошибка соединения", cx, y + 8.0f, Colors.getTextColor().mulAlpha(0.6f));
     }
 
     private void renderEmptyState(UIContext ctx, float x, float y, float w) {
         float cx = x + w / 2.0f;
-        ctx.drawCenteredText(Fonts.MEDIUM.getFont(9.5f), "Нет активных ивентов", cx, y - 6.0f, Colors.getTextColor().mulAlpha(0.6f));
-        ctx.drawCenteredText(Fonts.REGULAR.getFont(7.0f), "Проверьте фильтры серверов в ClickGUI", cx, y + 8.0f, Colors.getTextColor().mulAlpha(0.4f));
+        ctx.drawCenteredText(Fonts.MEDIUM.getFont(9.5f), Localizator.translate("Нет активных событий"), cx, y - 6.0f, Colors.getTextColor().mulAlpha(0.6f));
+        ctx.drawCenteredText(Fonts.REGULAR.getFont(7.0f), Localizator.translate("Проверьте фильтры серверов в ClickGUI"), cx, y + 8.0f, Colors.getTextColor().mulAlpha(0.4f));
+    }
+
+    private static float centeredTextY(Font font, float y, float height) {
+        return y + GuiUtility.getMiddleOfBox(font.height(), height) - 0.5f;
     }
 
     @Override
     public void onMouseClicked(double mx, double my, MouseButton btn) {
-        float closeBtnW = 64.0f;
-        float closeBtnH = 20.0f;
+        float closeBtnW = 22.0f;
+        float closeBtnH = 22.0f;
         float closeBtnX = this.windowX + this.windowWidth - closeBtnW - 14.0f;
-        float closeBtnY = this.windowY + 10.0f;
+        float closeBtnY = this.windowY + 11.0f;
 
-        float refreshBtnW = 76.0f;
-        float refreshBtnH = 20.0f;
+        float refreshBtnW = 66.0f;
+        float refreshBtnH = 22.0f;
         float refreshBtnX = closeBtnX - refreshBtnW - 6.0f;
-        float refreshBtnY = this.windowY + 10.0f;
+        float refreshBtnY = closeBtnY;
 
         // Refresh button click
         if (GuiUtility.isHovered(refreshBtnX, refreshBtnY, refreshBtnW, refreshBtnH, mx, my) && btn == MouseButton.LEFT) {
             this.loadEventData();
+            UiSound.CLICK.play();
             return;
         }
 
@@ -530,8 +543,13 @@ public class EventListScreen extends CustomScreen {
         }
 
         // Card interaction
-        for (ModernEventCard card : this.eventCards) {
-            if (card.isHovered(mx, my)) {
+        float contentX = this.windowX + 14.0f;
+        float contentY = this.windowY + 58.0f;
+        float contentWidth = this.windowWidth - 28.0f;
+        float contentHeight = this.windowY + this.windowHeight - contentY - 11.0f;
+        if (GuiUtility.isHovered(contentX, contentY, contentWidth, contentHeight, mx, my)) {
+            for (ModernEventCard card : this.eventCards) {
+                if (!card.isHovered(mx, my)) continue;
                 if (btn == MouseButton.RIGHT || btn == MouseButton.LEFT) {
                     this.connectToServer(card.serverName);
                 }
@@ -543,17 +561,22 @@ public class EventListScreen extends CustomScreen {
     private void connectToServer(String serverName) {
         if (serverName == null || serverName.isEmpty()) return;
         String s = serverName.toUpperCase();
+        boolean navigated = false;
         if (s.startsWith("LITE_ANARCHY_")) {
             String num = s.replace("LITE_ANARCHY_", "");
             String prefix = DefineVisuals.getInstance().getCommandManager().getPrefix();
             DefineVisuals.getInstance().getCommandManager().dispatch(prefix + "rct " + num);
-            this.close();
+            navigated = true;
         } else if (s.startsWith("LITE_NEW_ANARCHY_")) {
             String num = s.replace("LITE_NEW_ANARCHY_", "");
             if (MinecraftClient.getInstance().player != null) {
                 MinecraftClient.getInstance().player.networkHandler.sendChatCommand("an20 " + num);
+                navigated = true;
             }
-            this.close();
+        }
+        if (navigated) {
+            UiSound.NAVIGATION.play();
+            this.closing = true;
         }
     }
 
@@ -578,7 +601,10 @@ public class EventListScreen extends CustomScreen {
 
     @Override
     public void close() {
-        this.closing = true;
+        if (!this.closing) {
+            this.closing = true;
+            UiSound.WINDOW_CLOSE.play();
+        }
     }
 
     @Override

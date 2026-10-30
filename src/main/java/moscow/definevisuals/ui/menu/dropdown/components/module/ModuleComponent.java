@@ -19,7 +19,6 @@ import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
 import moscow.definevisuals.systems.setting.Setting;
 import moscow.definevisuals.ui.menu.MenuScreen;
 import moscow.definevisuals.ui.menu.dropdown.DropDownScreen;
@@ -36,7 +35,7 @@ import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.render.DrawUtility;
 import moscow.definevisuals.utility.render.penis.PenisPlayer;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class ModuleComponent
 extends CustomComponent {
@@ -153,6 +152,7 @@ extends CustomComponent {
         if (this.bindingMode && button != MouseButton.LEFT && button != MouseButton.RIGHT) {
             this.module.setKey(button.getButtonIndex());
             this.bindingMode = false;
+            UiSound.BIND_SET.play();
             return;
         }
         switch (button) {
@@ -165,6 +165,7 @@ extends CustomComponent {
                     comp.setBindingMode(false);
                 }
                 this.bindingMode = true;
+                UiSound.BIND.play();
                 break;
             }
             case RIGHT: {
@@ -176,17 +177,15 @@ extends CustomComponent {
 
     public void open() {
         if (this.module.getSettings().isEmpty()) {
-            if (DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).isEnabled() && !this.blocking) {
-                ClientSounds.CRITICAL.play(1.0f, 1.0f);
+            if (!this.blocking) {
+                UiSound.ERROR.play();
             }
             this.blocking = true;
             this.shakeValue = true;
         } else {
             this.parent.setSelectedModuleComponent(this);
             this.onInit();
-            if (DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).isEnabled()) {
-                ClientSounds.CLICKGUI_OPEN.play(0.8f, 1.3f);
-            }
+            UiSound.WINDOW_OPEN.play();
         }
     }
 
@@ -199,6 +198,7 @@ extends CustomComponent {
                 this.module.setKey(keyCode);
             }
             this.bindingMode = false;
+            UiSound.BIND_SET.play();
             MenuScreen menuScreen = DefineVisuals.getInstance().getMenuScreen();
             if (menuScreen instanceof DropDownScreen) {
                 DropDownScreen dropDownScreen = (DropDownScreen)menuScreen;
@@ -298,4 +298,3 @@ extends CustomComponent {
         this.bindingMode = bindingMode;
     }
 }
-

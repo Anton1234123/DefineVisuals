@@ -8,8 +8,8 @@ import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
+import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.notifications.NotificationType;
 import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.components.ColorPicker;
@@ -24,7 +24,7 @@ import moscow.definevisuals.utility.gui.ScrollHandler;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.render.obj.CustomSprite;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class ModernThemePanel implements IMinecraft {
 
@@ -115,7 +115,7 @@ public class ModernThemePanel implements IMinecraft {
 
         // Header Title: [Palette Icon] Темы
         context.drawSprite(CustomSprite.THEMES, headerX, headerY + 1.0f, 9.0f, 9.0f, textColor);
-        context.drawText(Fonts.SEMIBOLD.getFont(9.0f), "Темы", headerX + 13.0f, headerY + 1.0f, textColor);
+        context.drawText(Fonts.SEMIBOLD.getFont(9.0f), Localizator.translate("Темы"), headerX + 13.0f, headerY + 1.0f, textColor);
 
         // Header Action: Theme Mode Toggle Button (Тёмная / Светлая)
         float modeBtnW = 54.0f;
@@ -127,12 +127,12 @@ public class ModernThemePanel implements IMinecraft {
 
         ColorRGBA modeBg = modeHov ? accent.mulAlpha(0.3f) : Colors.getBackgroundColor().mulAlpha(dark ? 0.4f : 0.25f);
         context.drawSquircle(modeBtnX, modeBtnY, modeBtnW, modeBtnH, 3.0f, BorderRadius.all(3.0f), modeBg);
-        String modeText = dark ? "Тёмная" : "Светлая";
+        String modeText = Localizator.translate(dark ? "Тёмная" : "Светлая");
         context.drawCenteredText(Fonts.MEDIUM.getFont(5.5f), modeText, modeBtnX + modeBtnW / 2.0f, modeBtnY + 4.5f, modeHov ? accent : textColor.mulAlpha(0.85f));
 
         // 2. Subheader: "Цветовые палитры"
         float subHeaderY = headerY + 20.0f;
-        context.drawText(Fonts.MEDIUM.getFont(6.0f), "Цветовые палитры", headerX, subHeaderY, textColor.mulAlpha(0.35f));
+        context.drawText(Fonts.MEDIUM.getFont(6.0f), Localizator.translate("Цветовые палитры"), headerX, subHeaderY, textColor.mulAlpha(0.35f));
 
         // 3. Grid of Theme Cards (2 Columns)
         float listY = subHeaderY + 11.0f;
@@ -164,19 +164,22 @@ public class ModernThemePanel implements IMinecraft {
             boolean isSelected = (this.selectedPreset == preset);
             preset.getSelectAnim().update(isSelected);
 
-            // Card background (matching module grid style without outline)
-            float glass = Interface.glass();
-            ColorRGBA base = (dark ? Colors.getBackgroundColor() : Colors.getAdditionalColor())
-                    .withAlpha(255.0f * (dark ? 0.16f + 0.14f * Interface.minimalizm() : 0.12f + 0.12f * Interface.minimalizm()));
-            ColorRGBA cardBg = base
-                    .mix(accent.withAlpha(255.0f * (0.25f + 0.15f * (1.0f - glass))), preset.getSelectAnim().getValue() * 0.9f)
-                    .mix(Colors.getTextColor().withAlpha(20.0f), preset.getHoverAnim().getValue() * 0.35f);
-
             BorderRadius cardRadius = BorderRadius.all(4.0f);
-            context.drawSquircle(cardX, cardY, cardWidth, cardHeight, 3.0f, cardRadius, cardBg);
+            InterfaceStyleRenderer.drawCard(
+                    context,
+                    cardX,
+                    cardY,
+                    cardWidth,
+                    cardHeight,
+                    3.0f,
+                    cardRadius,
+                    1.0f,
+                    preset.getSelectAnim().getValue(),
+                    preset.getHoverAnim().getValue()
+            );
 
             // Theme Name
-            context.drawText(Fonts.MEDIUM.getFont(6.5f), preset.getName(), cardX + 7.0f, cardY + 5.0f, textColor);
+            context.drawText(Fonts.MEDIUM.getFont(6.5f), Localizator.translate(preset.getName()), cardX + 7.0f, cardY + 5.0f, textColor);
 
             // Color 1 Dot
             float dot1X = cardX + 7.0f;
@@ -243,6 +246,7 @@ public class ModernThemePanel implements IMinecraft {
                 return;
             }
             this.colorPicker.setShowing(false);
+            UiSound.WINDOW_CLOSE.play();
             return;
         }
 
@@ -256,7 +260,7 @@ public class ModernThemePanel implements IMinecraft {
         float modeBtnY = headerY - 1.0f;
         if (GuiUtility.isHovered((double)modeBtnX, (double)modeBtnY, modeBtnW, modeBtnH, mouseX, mouseY)) {
             DefineVisuals.getInstance().getThemeManager().switchTheme();
-            this.playClickSound();
+            UiSound.NAVIGATION.play();
             return;
         }
 
@@ -288,27 +292,27 @@ public class ModernThemePanel implements IMinecraft {
                 // Right click on Color 1
                 if (button == MouseButton.RIGHT && GuiUtility.isHovered((double)dot1X, (double)dot1Y, dotSize, dotSize, mouseX, mouseY)) {
                     this.openColorPicker(mouseX, mouseY, preset, 1);
-                    this.playClickSound();
+                    UiSound.WINDOW_OPEN.play();
                     return;
                 }
 
                 // Right click on Color 2
                 if (button == MouseButton.RIGHT && GuiUtility.isHovered((double)dot2X, (double)dot2Y, dotSize, dotSize, mouseX, mouseY)) {
                     this.openColorPicker(mouseX, mouseY, preset, 2);
-                    this.playClickSound();
+                    UiSound.WINDOW_OPEN.play();
                     return;
                 }
 
                 if (button == MouseButton.RIGHT) {
                     // Right click anywhere on the card -> open Color 1 picker
                     this.openColorPicker(mouseX, mouseY, preset, 1);
-                    this.playClickSound();
+                    UiSound.WINDOW_OPEN.play();
                     return;
                 }
 
                 // Left click -> apply preset
                 this.selectThemePreset(preset);
-                this.playClickSound();
+                UiSound.NAVIGATION.play();
                 return;
             }
         }
@@ -327,15 +331,8 @@ public class ModernThemePanel implements IMinecraft {
         this.editingPreset = preset;
         this.editingColorIndex = colorIndex;
         ColorRGBA color = (colorIndex == 1) ? preset.getColor1() : preset.getColor2();
-        String title = preset.getName() + " #" + colorIndex;
+        String title = Localizator.translate(preset.getName()) + " #" + colorIndex;
         this.colorPicker = new ColorPicker((float)mouseX, (float)mouseY, 0.0f, false, color, title);
-    }
-
-    private void playClickSound() {
-        Sounds sounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
-        if (sounds != null && sounds.isEnabled()) {
-            ClientSounds.MODULE.play(sounds.getVolume().getCurrentValue(), 1.0f);
-        }
     }
 
     public void onMouseReleased(double mouseX, double mouseY, MouseButton button) {
@@ -356,6 +353,7 @@ public class ModernThemePanel implements IMinecraft {
         if (this.colorPicker != null && this.colorPicker.isShowing()) {
             if (keyCode == 256) { // Escape
                 this.colorPicker.setShowing(false);
+                UiSound.WINDOW_CLOSE.play();
                 return true;
             }
             this.colorPicker.onKeyPressed(keyCode, scanCode, modifiers);

@@ -32,7 +32,7 @@ import moscow.definevisuals.utility.render.RenderUtility;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.render.batching.Batching;
 import moscow.definevisuals.utility.render.batching.impl.FontBatching;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 import moscow.definevisuals.utility.time.Timer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.VertexFormats;
@@ -210,7 +210,7 @@ implements IMinecraft {
         }
         if ((keyCode == 259 || keyCode == 261) && this.selection != null) {
             this.clearSelection();
-            ClientSounds.TYPING.play(0.3f, 1.2f);
+            UiSound.TYPE.playPitched(1.2f);
             this.moveCursor(0);
         } else if (keyCode == 259 && this.cursor > 0) {
             int offset = Screen.hasControlDown() ? Math.max(1, this.getWordSize(false)) : 1;
@@ -227,7 +227,7 @@ implements IMinecraft {
                 if (last == null) continue;
                 last.removing = true;
             }
-            ClientSounds.TYPING.play(0.3f, 1.2f);
+            UiSound.TYPE.playPitched(1.2f);
         } else if (keyCode == 261 && this.cursor < this.texts.size()) {
             int offset = Screen.hasControlDown() ? Math.max(1, this.getWordSize(true)) : 1;
             block2: for (int i = 0; i < offset && this.cursor < this.texts.size(); ++i) {
@@ -239,10 +239,10 @@ implements IMinecraft {
                 }
             }
             this.moveCursor(0);
-            ClientSounds.TYPING.play(0.3f, 1.2f);
+            UiSound.TYPE.playPitched(1.2f);
         } else if (keyCode == 263) {
             int offset;
-            ClientSounds.TYPING.play(0.3f, 1.3f);
+            UiSound.TYPE.playPitched(1.3f);
             int n = offset = Screen.hasControlDown() ? Math.max(1, this.getWordSize(false)) : 1;
             if (Screen.hasShiftDown()) {
                 this.select(-offset);
@@ -254,7 +254,7 @@ implements IMinecraft {
             this.moveCursor(-offset);
         } else if (keyCode == 262) {
             int offset;
-            ClientSounds.TYPING.play(0.3f, 1.3f);
+            UiSound.TYPE.playPitched(1.3f);
             int n = offset = Screen.hasControlDown() ? Math.max(1, this.getWordSize(true)) : 1;
             if (Screen.hasShiftDown()) {
                 this.select(offset);
@@ -312,12 +312,12 @@ implements IMinecraft {
             return false;
         }
         if (chr == ' ') {
-            ClientSounds.TYPING.play(0.3f, 0.8f);
+            UiSound.TYPE.playPitched(0.8f);
         } else {
             if (!this.charSoundCache.containsKey(Character.valueOf(chr))) {
                 this.charSoundCache.put(Character.valueOf(chr), Float.valueOf(MathUtility.random(0.8, 1.2)));
             }
-            ClientSounds.TYPING.play(0.3f, this.charSoundCache.get(Character.valueOf(chr)).floatValue());
+            UiSound.TYPE.playPitched(this.charSoundCache.get(Character.valueOf(chr)).floatValue());
         }
         this.typeChar(chr);
         return true;
@@ -561,4 +561,3 @@ implements IMinecraft {
         }
     }
 }
-

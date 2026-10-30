@@ -18,11 +18,9 @@ import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
-import moscow.definevisuals.systems.modules.modules.other.Sounds;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
-import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.components.IosSwitch;
 import moscow.definevisuals.ui.menu.MenuScreen;
 import moscow.definevisuals.ui.menu.dropdown.DropDownScreen;
@@ -37,7 +35,7 @@ import moscow.definevisuals.utility.colors.Colors;
 import moscow.definevisuals.utility.game.TextUtility;
 import moscow.definevisuals.utility.interfaces.IScaledResolution;
 import moscow.definevisuals.utility.render.obj.Rect;
-import moscow.definevisuals.utility.sounds.ClientSounds;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class ModernModule
 extends CustomComponent {
@@ -111,15 +109,19 @@ extends CustomComponent {
         if (this.shakeAnimation.getValue() == -1.0f) {
             this.shakeValue = true;
         }
-        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        float glass = Interface.glass();
-        ColorRGBA base = (dark ? Colors.getBackgroundColor() : Colors.getAdditionalColor()).withAlpha(255.0f * (dark ? 0.16f + 0.14f * Interface.minimalizm() : 0.12f + 0.12f * Interface.minimalizm()));
-        ColorRGBA card = base
-            .mix(Colors.getAccent().withAlpha(255.0f * (0.25f + 0.15f * (1.0f - glass))), this.enableAnimation.getValue() * 0.9f)
-            .mix(Colors.getTextColor().withAlpha(20.0f), this.hoverAnimation.getValue() * 0.35f)
-            .mulAlpha(this.visible.getValue());
         BorderRadius cardRadius = BorderRadius.all(4.0f);
-        context.drawSquircle(this.x, this.y, this.width, this.height, 3.0f, cardRadius, card);
+        InterfaceStyleRenderer.drawCard(
+            context,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            3.0f,
+            cardRadius,
+            this.visible.getValue(),
+            this.enableAnimation.getValue(),
+            this.hoverAnimation.getValue()
+        );
 
         // iOS switch from dropdown menu on top right
         float switchX = this.x + this.width - 13.0f - 8.0f;
@@ -160,6 +162,7 @@ extends CustomComponent {
         if (this.bindingMode && button != MouseButton.LEFT && button != MouseButton.RIGHT) {
             this.module.setKey(button.getButtonIndex());
             this.bindingMode = false;
+            UiSound.BIND_SET.play();
             return;
         }
         switch (button) {
@@ -172,6 +175,7 @@ extends CustomComponent {
                     comp.setBindingMode(false);
                 }
                 this.bindingMode = true;
+                UiSound.BIND.play();
                 break;
             }
             case RIGHT: {
@@ -189,6 +193,7 @@ extends CustomComponent {
                 this.module.setKey(keyCode);
             }
             this.bindingMode = false;
+            UiSound.BIND_SET.play();
             MenuScreen menuScreen = DefineVisuals.getInstance().getMenuScreen();
             if (menuScreen instanceof DropDownScreen dropDownScreen) {
                 dropDownScreen.getSearchField().setFocused(false);
@@ -201,8 +206,8 @@ extends CustomComponent {
 
     public void open() {
         if (this.module.getSettings().isEmpty()) {
-            if (DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).isEnabled() && !this.blocking) {
-                ClientSounds.CRITICAL.play(1.0f, 1.0f);
+            if (!this.blocking) {
+                UiSound.ERROR.play();
             }
             this.blocking = true;
             this.shakeValue = true;
@@ -244,6 +249,7 @@ extends CustomComponent {
             } else {
                 windows.add(new ModernSettings(this, x, y, width));
             }
+            UiSound.WINDOW_OPEN.play();
             this.visible.setValue(0.0f);
         }
     }

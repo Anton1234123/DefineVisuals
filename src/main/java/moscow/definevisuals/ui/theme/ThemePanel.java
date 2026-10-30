@@ -6,7 +6,7 @@ import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
-import moscow.definevisuals.systems.modules.modules.visuals.Interface;
+import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
 import moscow.definevisuals.systems.theme.Theme;
 import moscow.definevisuals.ui.components.ColorPicker;
 import moscow.definevisuals.ui.components.textfield.TextField;
@@ -18,6 +18,7 @@ import moscow.definevisuals.utility.game.cursor.CursorType;
 import moscow.definevisuals.utility.game.cursor.CursorUtility;
 import moscow.definevisuals.utility.gui.GuiUtility;
 import moscow.definevisuals.utility.interfaces.IScaledResolution;
+import moscow.definevisuals.utility.sounds.UiSound;
 
 public class ThemePanel extends CustomComponent implements IScaledResolution {
 
@@ -73,29 +74,16 @@ public class ThemePanel extends CustomComponent implements IScaledResolution {
         float alpha  = this.menuAlpha;
         float radius = 10.0F;
 
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(
-                this.x, this.y, this.width, this.height,
-                radius, 0.08f,
-                BorderRadius.all(radius),
-                ColorRGBA.WHITE.withAlpha(255.0F * alpha)
-            );
-        }
-        if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(
-                this.x, this.y, this.width, this.height,
-                45.0F, BorderRadius.all(radius),
-                ColorRGBA.WHITE.withAlpha(255.0F * alpha)
-            );
-        }
-
-        float fillAlpha = Interface.glassSelected()
-            ? 0.2f
-            : DefineVisuals.getInstance().getThemeManager().getCurrentTheme().getHudAlpha();
-        context.drawRoundedRect(
-            this.x, this.y, this.width, this.height,
+        InterfaceStyleRenderer.drawSurface(
+            context,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            radius,
             BorderRadius.all(radius),
-            new ColorRGBA(18.0F, 18.0F, 20.0F).withAlpha(255.0F * fillAlpha * alpha)
+            alpha,
+            0.0f
         );
 
         context.drawRoundedRect(
@@ -280,6 +268,7 @@ public class ThemePanel extends CustomComponent implements IScaledResolution {
     private void openColorPicker(double mouseX, double mouseY, EditedColor target, ColorRGBA color, String title) {
         this.editedColor = target;
         this.colorPicker = new ColorPicker((float) mouseX, (float) mouseY, 6.0F, false, color, title);
+        UiSound.WINDOW_OPEN.play();
     }
 
     private void applyEditedColor(ColorRGBA color) {
@@ -305,6 +294,7 @@ public class ThemePanel extends CustomComponent implements IScaledResolution {
             if (pickerHovered || pickerWasPick) return;
             if (!super.isHovered(mouseX, mouseY)) {
                 this.colorPicker.setShowing(false);
+                UiSound.WINDOW_CLOSE.play();
             }
         }
 
@@ -313,6 +303,7 @@ public class ThemePanel extends CustomComponent implements IScaledResolution {
 
         if (!this.expanded) {
             this.expanded = true;
+            UiSound.WINDOW_OPEN.play();
             return;
         }
 
@@ -329,8 +320,13 @@ public class ThemePanel extends CustomComponent implements IScaledResolution {
 
         if (GuiUtility.isHovered(addBtnX, inputY, addBtnW, inputH, mouseX, mouseY)) {
             String name = this.nameField.getBuiltText().trim();
+            if (name.isBlank()) {
+                UiSound.ERROR.play();
+                return;
+            }
             this.nameField.clear();
             DefineVisuals.getInstance().getThemeManager().flushSave();
+            UiSound.SUCCESS.play();
             return;
         }
 
@@ -339,8 +335,11 @@ public class ThemePanel extends CustomComponent implements IScaledResolution {
         float dotX       = this.x + 11.0F;
         for (Theme theme : Theme.values()) {
             if (GuiUtility.isHovered(dotX, dotsRowY, dotSize, dotSize, mouseX, mouseY)) {
-                DefineVisuals.getInstance().getThemeManager().setCurrentTheme(theme);
-                DefineVisuals.getInstance().getThemeManager().flushSave();
+                if (DefineVisuals.getInstance().getThemeManager().getCurrentTheme() != theme) {
+                    DefineVisuals.getInstance().getThemeManager().setCurrentTheme(theme);
+                    DefineVisuals.getInstance().getThemeManager().flushSave();
+                    UiSound.NAVIGATION.play();
+                }
                 return;
             }
             dotX += dotSize + 5.0F;
@@ -361,8 +360,8 @@ public class ThemePanel extends CustomComponent implements IScaledResolution {
         } else if (this.isColorRowHovered(rowStartY + rowStep * 4, mouseX, mouseY)) {
             this.openColorPicker(mouseX, mouseY, EditedColor.OUTLINE,    Colors.getOutlineColor(),     TXT_OUTLINE);
         } else if (GuiUtility.isHovered(this.x, this.y, this.width, COLLAPSED_HEIGHT, mouseX, mouseY)) {
-
             this.expanded = false;
+            UiSound.WINDOW_CLOSE.play();
         }
     }
 
@@ -379,6 +378,11 @@ public class ThemePanel extends CustomComponent implements IScaledResolution {
     public void onKeyPressed(int keyCode, int scanCode, int modifiers) {
         this.nameField.onKeyPressed(keyCode, scanCode, modifiers);
         if (this.colorPicker != null) {
+            if (keyCode == 256 && this.colorPicker.isShowing()) {
+                this.colorPicker.setShowing(false);
+                UiSound.WINDOW_CLOSE.play();
+                return;
+            }
             this.colorPicker.onKeyPressed(keyCode, scanCode, modifiers);
         }
     }

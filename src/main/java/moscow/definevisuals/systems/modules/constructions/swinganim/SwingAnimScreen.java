@@ -13,6 +13,7 @@ import moscow.definevisuals.ui.components.popup.Popup;
 import moscow.definevisuals.ui.components.textfield.TextField;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.interfaces.IScaledResolution;
+import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Hand;
 
@@ -135,6 +136,7 @@ public class SwingAnimScreen extends CustomScreen implements IScaledResolution, 
          TextField.LAST_FIELD.setFocused(false);
       }
 
+      UiSound.WINDOW_CLOSE.play();
       super.close();
       mc.setScreen(DefineVisuals.getInstance().getMenuScreen());
    }
