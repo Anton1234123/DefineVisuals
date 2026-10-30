@@ -6,6 +6,7 @@ import java.util.function.BooleanSupplier;
 import lombok.Generated;
 import moscow.definevisuals.systems.setting.SettingsContainer;
 import moscow.definevisuals.systems.setting.impl.AbstractSetting;
+import moscow.definevisuals.systems.modules.impl.BaseModule;
 import org.jetbrains.annotations.NotNull;
 
 public class StringSetting extends AbstractSetting {
@@ -50,5 +51,6 @@ public class StringSetting extends AbstractSetting {
    @Generated
    public void setText(String text) {
       this.text = text;
+      BaseModule.scheduleAutoSaveStatic();
    }
 }

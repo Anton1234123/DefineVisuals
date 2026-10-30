@@ -23,6 +23,7 @@ import moscow.definevisuals.systems.modules.Module;
 import moscow.definevisuals.systems.modules.modules.other.Sounds;
 import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.theme.Theme;
+import moscow.definevisuals.ui.components.IosSwitch;
 import moscow.definevisuals.ui.menu.MenuScreen;
 import moscow.definevisuals.ui.menu.dropdown.DropDownScreen;
 import moscow.definevisuals.ui.menu.modern.ModernCategory;
@@ -117,8 +118,13 @@ extends CustomComponent {
             .mix(Colors.getAccent().withAlpha(255.0f * (0.25f + 0.15f * (1.0f - glass))), this.enableAnimation.getValue() * 0.9f)
             .mix(Colors.getTextColor().withAlpha(20.0f), this.hoverAnimation.getValue() * 0.35f)
             .mulAlpha(this.visible.getValue());
-        BorderRadius cardRadius = BorderRadius.all(3.0f);
+        BorderRadius cardRadius = BorderRadius.all(4.0f);
         context.drawSquircle(this.x, this.y, this.width, this.height, 3.0f, cardRadius, card);
+
+        // iOS switch from dropdown menu on top right
+        float switchX = this.x + this.width - 13.0f - 8.0f;
+        float switchY = this.y + 6.5f;
+        IosSwitch.render(context, switchX, switchY, this.enableAnimation.getValue(), this.visible.getValue());
     }
 
     public void renderRounds(UIContext context) {
@@ -132,7 +138,7 @@ extends CustomComponent {
     public void renderMedium(UIContext context) {
         int key = this.module.getKey();
         Object bindingText = key == -1 ? Localizator.translate("menu.binding") : Localizator.translate("key") + ": " + TextUtility.getKeyName(key);
-        context.drawFadeoutText(Fonts.MEDIUM.getFont(7.0f), (String)(this.bindingMode ? bindingText : this.module.getName()), this.x + 7.0f + this.shakeAnimation.getValue(), this.y + 7.0f, this.blockingColorAnimation.getColor().mulAlpha(RenderSystem.getShaderColor()[3] * 0.75f + 0.25f * this.enableAnimation.getValue() + 0.25f * this.hoverAnimation.getValue()).mulAlpha(this.visible.getValue()), 0.9f, 1.0f, this.width - 14.0f);
+        context.drawFadeoutText(Fonts.MEDIUM.getFont(7.0f), (String)(this.bindingMode ? bindingText : this.module.getName()), this.x + 7.0f + this.shakeAnimation.getValue(), this.y + 7.0f, this.blockingColorAnimation.getColor().mulAlpha(RenderSystem.getShaderColor()[3] * 0.75f + 0.25f * this.enableAnimation.getValue() + 0.25f * this.hoverAnimation.getValue()).mulAlpha(this.visible.getValue()), 0.9f, 1.0f, this.width - 26.0f);
     }
 
     public void renderRegular(UIContext context) {

@@ -40,6 +40,7 @@ public class FreeLook extends BaseModule {
       .currentValue(4.0f);
 
    private final BooleanSetting invertPitch = new BooleanSetting(this, "Инверсия Y").enabled(false);
+   private final BooleanSetting keepInMenus = new BooleanSetting(this, "Не сбрасывать в меню").enabled(true);
 
    private boolean active = false;
    private Perspective previousPerspective;
@@ -88,8 +89,14 @@ public class FreeLook extends BaseModule {
          return;
       }
 
-      if (this.active && (mc.currentScreen != null || (this.holdMode.isSelected() && !this.isKeyDown(this.getBoundKey())))) {
-         this.deactivate();
+      if (this.active) {
+         if (mc.currentScreen != null) {
+            if (!this.keepInMenus.isEnabled()) {
+               this.deactivate();
+            }
+         } else if (this.holdMode.isSelected() && !this.isKeyDown(this.getBoundKey())) {
+            this.deactivate();
+         }
       }
    };
 

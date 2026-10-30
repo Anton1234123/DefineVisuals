@@ -13,6 +13,7 @@ import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.systems.modules.modules.other.HolyEvents;
 import moscow.definevisuals.systems.modules.modules.other.Sounds;
 import moscow.definevisuals.systems.theme.Theme;
+import moscow.definevisuals.ui.components.IosSwitch;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.colors.ColorRGBA;
@@ -52,6 +53,13 @@ public class ModernEventsPanel implements IMinecraft {
 
     private final ScrollHandler scrollHandler = new ScrollHandler();
     private final ScrollHandler settingsScrollHandler = new ScrollHandler();
+
+    private final IosSwitch switchAnarchy120 = new IosSwitch(200L);
+    private final IosSwitch switchAnarchy116 = new IosSwitch(200L);
+    private final IosSwitch switchTrioLight = new IosSwitch(200L);
+    private final IosSwitch switchClanLight = new IosSwitch(200L);
+    private final IosSwitch switchSoloLight = new IosSwitch(200L);
+    private final IosSwitch switchDuoLight = new IosSwitch(200L);
     
     private float layoutY;
     private float layoutHeaderY;
@@ -179,19 +187,19 @@ public class ModernEventsPanel implements IMinecraft {
         float colGap = 4.0f;
         
         // Левая колонка
-        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "1.20 Анархия", this.module.showAnarchy120.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "1.20 Анархия", this.module.showAnarchy120.isEnabled(), this.switchAnarchy120, dark, accent, textColor);
         currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "1.16 Анархия", this.module.showAnarchy116.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "1.16 Анархия", this.module.showAnarchy116.isEnabled(), this.switchAnarchy116, dark, accent, textColor);
         currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "Трио Лайт (20-29)", this.module.showTrioLight.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX, currentSettingY, settingW, "Трио Лайт (20-29)", this.module.showTrioLight.isEnabled(), this.switchTrioLight, dark, accent, textColor);
         
         // Правая колонка
         currentSettingY = settingsListY - (float)this.settingsScrollHandler.getValue();
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Клан Лайт (30-36)", this.module.showClanLight.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Клан Лайт (30-36)", this.module.showClanLight.isEnabled(), this.switchClanLight, dark, accent, textColor);
         currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Соло Лайт (1-9)", this.module.showSoloLight.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Соло Лайт (1-9)", this.module.showSoloLight.isEnabled(), this.switchSoloLight, dark, accent, textColor);
         currentSettingY += 14.0f;
-        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Дуо Лайт (10-19)", this.module.showDuoLight.isEnabled(), dark, accent, textColor);
+        this.renderSettingToggle(context, headerX + settingW + colGap, currentSettingY, settingW, "Дуо Лайт (10-19)", this.module.showDuoLight.isEnabled(), this.switchDuoLight, dark, accent, textColor);
 
         this.settingsScrollHandler.setMax(0.0f);
         ScissorUtility.pop();
@@ -286,35 +294,21 @@ public class ModernEventsPanel implements IMinecraft {
         ScissorUtility.pop();
     }
 
-    private void renderSettingToggle(UIContext context, float x, float y, float w, String text, boolean enabled, boolean dark, ColorRGBA accent, ColorRGBA textColor) {
+    private void renderSettingToggle(UIContext context, float x, float y, float w, String text, boolean enabled, IosSwitch iosSwitch, boolean dark, ColorRGBA accent, ColorRGBA textColor) {
         boolean hovered = GuiUtility.isHovered((double)x, (double)y, w, 12.0f, (double)context.getMouseX(), (double)context.getMouseY());
         if (hovered) CursorUtility.set(CursorType.HAND);
+
+        iosSwitch.update(enabled);
 
         ColorRGBA bg = hovered ? Colors.getBackgroundColor().mulAlpha(dark ? 0.5f : 0.35f) : Colors.getBackgroundColor().mulAlpha(dark ? 0.35f : 0.2f);
         context.drawRoundedRect(x, y, w, 12.0f, BorderRadius.all(3.0f), bg);
 
-        float checkboxSize = 10.0f;
-        float checkboxX = x + w - checkboxSize - 6.0f;
-        float checkboxY = y + 1.0f;
+        float switchX = x + w - 13.0f - 5.0f;
+        float switchY = y + 2.0f;
+        IosSwitch.render(context, switchX, switchY, iosSwitch.getValue(), 1.0f, accent);
 
-        ColorRGBA checkboxBg = enabled
-                ? accent.mulAlpha(hovered ? 0.55f : 0.45f)
-                : Colors.getBackgroundColor().mulAlpha(hovered ? 0.3f : 0.2f);
-        ColorRGBA checkboxBorder = enabled
-                ? accent.mulAlpha(0.85f)
-                : Colors.getOutlineColor().mulAlpha(hovered ? 0.55f : 0.38f);
-
-        BorderRadius boxRadius = BorderRadius.all(2.5f);
-        context.drawSquircle(checkboxX, checkboxY, checkboxSize, checkboxSize, 2.5f, boxRadius, checkboxBg);
-        context.drawRoundedBorder(checkboxX, checkboxY, checkboxSize, checkboxSize, 0.7f, boxRadius, checkboxBorder);
-
-        if (enabled) {
-            float iconSize = 7.0f;
-            float iconOffset = (checkboxSize - iconSize) / 2.0f;
-            context.drawTexture(CHECK_ICON, checkboxX + iconOffset, checkboxY + iconOffset, iconSize, iconSize, Colors.WHITE);
-        }
-
-        context.drawText(Fonts.MEDIUM.getFont(5.5f), text, x + 6.0f, y + 3.5f, textColor.mulAlpha(0.85f));
+        ColorRGBA nameColor = textColor.mulAlpha(0.6f + 0.4f * iosSwitch.getValue());
+        context.drawText(Fonts.MEDIUM.getFont(5.5f), text, x + 6.0f, y + 3.0f, nameColor);
     }
 
     private void renderEventCard(UIContext context, EventInfo ev, float x, float y, float w, float h, boolean dark, ColorRGBA accent, ColorRGBA textColor) {
@@ -622,7 +616,7 @@ public class ModernEventsPanel implements IMinecraft {
     private void playClickSound() {
         Sounds sounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
         if (sounds != null && sounds.isEnabled()) {
-            ClientSounds.CLICKGUI_OPEN.play(sounds.getVolume().getCurrentValue(), 1.0f);
+            ClientSounds.MODULE.play(sounds.getVolume().getCurrentValue(), 1.0f);
         }
     }
 

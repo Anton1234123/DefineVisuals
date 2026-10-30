@@ -16,6 +16,8 @@
     "accessors.ScreenAccessor",
     "accessors.ShaderProgramAccessor",
     "accessors.SplashOverlayAccessor",
+    "cosmetics.CosmeticKeybindMixin",
+    "cosmetics.CosmeticRendererMixin",
     "minecraft.client.ClientWorldMixin",
     "minecraft.client.IMinecraftClient",
     "minecraft.client.KeyboardMixin",

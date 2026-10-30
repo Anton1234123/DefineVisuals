@@ -334,7 +334,7 @@ public class ModernThemePanel implements IMinecraft {
     private void playClickSound() {
         Sounds sounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
         if (sounds != null && sounds.isEnabled()) {
-            ClientSounds.CLICKGUI_OPEN.play(sounds.getVolume().getCurrentValue(), 1.0f);
+            ClientSounds.MODULE.play(sounds.getVolume().getCurrentValue(), 1.0f);
         }
     }
 

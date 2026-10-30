@@ -6,6 +6,7 @@ import java.util.function.BooleanSupplier;
 import lombok.Generated;
 import moscow.definevisuals.systems.setting.SettingsContainer;
 import moscow.definevisuals.systems.setting.impl.AbstractSetting;
+import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.utility.colors.ColorRGBA;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
@@ -77,6 +78,7 @@ public class ColorSetting extends AbstractSetting {
    @Generated
    public void setColor(ColorRGBA color) {
       this.color = color;
+      BaseModule.scheduleAutoSaveStatic();
    }
 
    @Generated

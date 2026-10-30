@@ -7,6 +7,7 @@ import lombok.Generated;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.setting.SettingsContainer;
 import moscow.definevisuals.systems.setting.impl.AbstractSetting;
+import moscow.definevisuals.systems.modules.impl.BaseModule;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -83,6 +84,7 @@ public class SliderSetting extends AbstractSetting {
 
    public void setCurrentValue(float currentValue) {
       this.currentValue = MathHelper.clamp((float)(Math.round(currentValue * (1.0 / this.step)) / (1.0 / this.step)), this.min, this.max);
+      BaseModule.scheduleAutoSaveStatic();
    }
 
    @Generated

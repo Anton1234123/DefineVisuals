@@ -92,9 +92,6 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         float bgWidth = (float)this.width + padding * 2.0f;
         float bgHeight = (float)this.height + padding * 2.0f;
 
-        // Capture blur buffer BEFORE rendering background so it can be overlaid on top
-        DrawUtility.blurProgram.draw();
-
         // Base gradient
         context.drawRoundedRect(0.0f, 0.0f, (float)this.width, (float)this.height, BorderRadius.ZERO, new VerticalGradient(new ColorRGBA(22.0f, 28.0f, 42.0f), new ColorRGBA(5.0f, 3.0f, 10.0f)));
 
@@ -109,18 +106,19 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
 
         RenderUtility.end(context.getMatrices());
 
+        // Capture the blur buffer AFTER the background is drawn, so the blur is built from the wallpaper itself
+        DrawUtility.blurProgram.draw();
+
         // Blur overlay for the clock-only stage (blurVal=1 when !active, fades out as menu opens)
-        // Re-draw blur from the buffer we captured above
         if (blurVal > 0.01f) {
-            float blurStrength = 40.0f + 20.0f * blurVal;
-            context.drawBlurredRect(0.0f, 0.0f, (float)this.width, (float)this.height, blurStrength, 0.0f, BorderRadius.ZERO, ColorRGBA.WHITE.withAlpha(255.0f * blurVal * 0.85f));
-            // Dark scrim to deepen the frosted-glass effect - disabled
-            // context.drawRoundedRect(0.0f, 0.0f, (float)this.width, (float)this.height, BorderRadius.ZERO,
-            //     new VerticalGradient(new ColorRGBA(0.0f, 0.0f, 0.0f, 60.0f * blurVal), new ColorRGBA(0.0f, 0.0f, 0.0f, 140.0f * blurVal)));
+            float blurStrength = 55.0f + 15.0f * blurVal;
+            context.drawBlurredRect(0.0f, 0.0f, (float)this.width, (float)this.height, blurStrength, 0.0f, BorderRadius.ZERO, ColorRGBA.WHITE.withAlpha(255.0f * blurVal));
         }
 
-        // Subtle dark vignette overlay for enhanced legibility
-        context.drawRoundedRect(0.0f, 0.0f, (float)this.width, (float)this.height, BorderRadius.ZERO, new VerticalGradient(new ColorRGBA(0.0f, 0.0f, 0.0f, 30.0f), new ColorRGBA(0.0f, 0.0f, 0.0f, 120.0f)));
+        // Darkening vignette only for the opened menu, so the idle view stays a clean blur
+        if (activeVal > 0.01f) {
+            context.drawRoundedRect(0.0f, 0.0f, (float)this.width, (float)this.height, BorderRadius.ZERO, new VerticalGradient(new ColorRGBA(0.0f, 0.0f, 0.0f, 30.0f * activeVal), new ColorRGBA(0.0f, 0.0f, 0.0f, 120.0f * activeVal)));
+        }
 
         // Date and Time
         context.drawCenteredText(dateFont, TextUtility.getFormattedDate(), (float)this.width / 2.0f, timeOffset - 24.0f, ColorRGBA.WHITE.withAlpha(textAlpha * 0.9f));

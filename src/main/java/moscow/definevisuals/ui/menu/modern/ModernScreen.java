@@ -14,6 +14,7 @@ import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
+import moscow.definevisuals.framework.objects.gradient.impl.VerticalGradient;
 import moscow.definevisuals.systems.modules.Module;
 import moscow.definevisuals.systems.modules.api.ModuleCategory;
 import moscow.definevisuals.systems.modules.modules.other.Sounds;
@@ -91,6 +92,7 @@ IScaledResolution {
     private final ModernCosmeticsPanel cosmeticsPanel = new ModernCosmeticsPanel();
     private final TextField searchField;
     private final PenisPlayer searchPenis;
+    private boolean searchAllCategories = true;
     private boolean prevFocused;
     Timer timer = new Timer();
 
@@ -184,10 +186,23 @@ IScaledResolution {
         RenderUtility.scale(context.getMatrices(), this.menuWindow.getX() + this.menuWindow.getWidth() / 2.0f, this.menuWindow.getY() + this.menuWindow.getHeight() / 2.0f, 0.5f + 0.5f * this.menuAnimation.getValue());
         context.drawShadow(this.menuWindow.getX(), this.menuWindow.getY(), this.menuWindow.getWidth(), this.menuWindow.getHeight(), 25.0f, BorderRadius.all(12.0f), ColorRGBA.BLACK.withAlpha(51.0f));
         this.drawGlassPanel(context, this.menuWindow.getX(), this.menuWindow.getY(), this.menuWindow.getWidth(), this.menuWindow.getHeight(), 10.0f, 12.0f, alpha);
+        float sidebarX = this.menuWindow.getX() + 5.0f;
+        float sidebarY = this.menuWindow.getY() + 5.0f;
+        float sidebarW = 109.0f;
+        float sidebarH = 270.0f;
         if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(this.menuWindow.getX() + 5.0f, this.menuWindow.getY() + 5.0f, 109.0f, 270.0f, 45.0f, BorderRadius.all(9.0f), ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.minimalizm()));
+            // Minimalism: flat themed panel instead of blur, with a subtle border and divider
+            ColorRGBA sideFill = Colors.getAdditionalColor()
+                .mix(Colors.getAccent(), 0.08f)
+                .mix(Colors.getTextColor(), dark ? 0.06f : 0.10f)
+                .withAlpha(255.0f * alpha * (dark ? 0.55f : 0.5f) * Interface.minimalizm());
+            context.drawSquircle(sidebarX, sidebarY, sidebarW, sidebarH, 8.0f, BorderRadius.all(9.0f), sideFill);
+            context.drawRoundedBorder(sidebarX, sidebarY, sidebarW, sidebarH, 0.7f, BorderRadius.all(9.0f), Colors.getAccent().withAlpha(255.0f * alpha * 0.18f * Interface.minimalizm()));
+            context.drawRoundedRect(sidebarX + sidebarW - 0.6f, sidebarY + 10.0f, 0.8f, sidebarH - 20.0f, BorderRadius.all(1.0f), Colors.getTextColor().mulAlpha(0.07f * Interface.minimalizm() * alpha));
         }
-        context.drawSquircle(this.menuWindow.getX() + 5.0f, this.menuWindow.getY() + 5.0f, 109.0f, 270.0f, 8.0f, BorderRadius.all(9.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.28f : 0.2f) * (0.45f + 0.55f * Interface.minimalizm())));
+        if (Interface.showGlass()) {
+            context.drawSquircle(sidebarX, sidebarY, sidebarW, sidebarH, 8.0f, BorderRadius.all(9.0f), Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.22f : 0.16f) * Interface.glass()));
+        }
         float x = this.menuWindow.getX();
         float y = this.menuWindow.getY();
         float yOff = 0.0f;
@@ -195,15 +210,8 @@ IScaledResolution {
         float moduleWidth = 120.0f;
         float searchX = x + 13.0f;
         float searchY = y + 13.0f;
-        if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(searchX, searchY, 93.0f, 14.0f, 45.0f, BorderRadius.all(3.0f), ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.minimalizm()));
-        }
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(searchX, searchY, 93.0f, 14.0f, 2.0f, 0.08f, BorderRadius.all(3.0f), Colors.getAccent().withAlpha(255.0f * alpha * Interface.glass()));
-        } else {
-            context.drawRoundedRect(searchX, searchY, 93.0f, 14.0f, BorderRadius.all(3.0f), dark ? Colors.getAdditionalColor().mulAlpha(0.6f) : Colors.getBackgroundColor().mulAlpha(0.6f));
-        }
-        context.drawCenteredText(Fonts.MEDIUM.getFont(7.0f), "parasha", searchX + 93.0f / 2.0f, searchY + 3.0f, Colors.getTextColor().mulAlpha(0.5f));
+        this.drawThemedChip(context, searchX, searchY, 93.0f, 14.0f, 3.0f, alpha, 0.18f);
+        context.drawCenteredText(Fonts.MEDIUM.getFont(7.0f), "parasha", searchX + 93.0f / 2.0f, searchY + 3.0f, Colors.getTextColor().mulAlpha(0.55f * alpha));
         RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)alpha);
         FontBatching regularBatching = new FontBatching(VertexFormats.POSITION_TEXTURE_COLOR, Fonts.REGULAR);
         context.drawText(Fonts.REGULAR.getFont(6.0f), "\u0424\u0443\u043d\u043a\u0446\u0438\u0438", x + 14.0f, y + 35.0f, Colors.getTextColor().mulAlpha(0.3f));
@@ -219,9 +227,16 @@ IScaledResolution {
             }
             yOff += 18.0f;
         }
-        context.drawShadow(x + 12.0f, y + 43.0f + this.currentCategory.getValue(), 95.0f, 16.0f, 16.0f, BorderRadius.all(5.0f), accent.mulAlpha(0.45f));
-        context.drawSquircle(x + 12.0f, y + 43.0f + this.currentCategory.getValue(), 95.0f, 16.0f, 10.0f, BorderRadius.all(4.0f), accent);
-        context.drawRoundedRect(x + 14.0f, y + 46.5f + this.currentCategory.getValue(), 2.0f, 9.0f, BorderRadius.all(1.0f), Colors.WHITE.mulAlpha(0.85f));
+        float selY = y + 43.0f + this.currentCategory.getValue();
+        ColorRGBA selTop = Colors.getAccent()
+            .mix(Colors.getAdditionalColor(), 0.45f)
+            .withAlpha(255.0f * alpha * (dark ? 0.40f : 0.32f));
+        ColorRGBA selBottom = Colors.getAccent()
+            .mix(Colors.getBackgroundColor(), 0.65f)
+            .withAlpha(255.0f * alpha * (dark ? 0.16f : 0.10f));
+        context.drawRoundedRect(x + 12.0f, selY, 95.0f, 16.0f, BorderRadius.all(4.0f), new VerticalGradient(selTop, selBottom));
+        context.drawRoundedBorder(x + 12.0f, selY, 95.0f, 16.0f, 0.7f, BorderRadius.all(4.0f), accent.withAlpha(255.0f * alpha * 0.26f));
+        context.drawRoundedRect(x + 14.0f, selY + 3.5f, 2.0f, 9.0f, BorderRadius.all(1.0f), accent.mulAlpha(0.9f));
         yOff = 0.0f;
         IconBatching iconBatchingCat = new IconBatching(VertexFormats.POSITION_TEXTURE_COLOR, context.getMatrices());
         for (ModernCategory modernCategory : this.categories) {
@@ -269,21 +284,28 @@ IScaledResolution {
         } else if (this.current == MenuCategory.COSMETICS) {
             this.cosmeticsPanel.render(context, x + 115.0f, y, this.menuWindow.getWidth() - 115.0f, this.menuWindow.getHeight(), alpha);
         } else {
-            // --- Search bar at top of right content area ---
+            // --- Search bar at top of right content area (quarter width, right-aligned) ---
             float contentX = x + 115.0f;
             float contentWidth = this.menuWindow.getWidth() - 115.0f;
-            float searchBarX = contentX + 8.0f;
-            float searchBarY = y + 8.0f;
-            float searchBarW = contentWidth - 16.0f;
             float searchBarH = 16.0f;
-            if (Interface.showMinimalizm()) {
-                context.drawBlurredRect(searchBarX, searchBarY, searchBarW, searchBarH, 45.0f, BorderRadius.all(3.0f), ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.minimalizm()));
+            float searchBarW = (contentWidth - 16.0f) * 0.25f;
+            float searchBarX = contentX + contentWidth - 8.0f - searchBarW;
+            float searchBarY = y + 8.0f;
+
+            // --- Search mode toggle (square, fits search bar height) ---
+            float modeBtnX = searchBarX - 4.0f - searchBarH;
+            float modeBtnY = searchBarY;
+            boolean modeHovered = GuiUtility.isHovered((double)modeBtnX, (double)modeBtnY, (double)searchBarH, (double)searchBarH, (double)context.getMouseX(), (double)context.getMouseY());
+            this.drawThemedChip(context, modeBtnX, modeBtnY, searchBarH, searchBarH, 4.0f, alpha, this.searchAllCategories ? 0.40f : 0.12f);
+            if (modeHovered) {
+                CursorUtility.set(CursorType.HAND);
+                Font modeHintFont = Fonts.REGULAR.getFont(5.5f);
+                String modeHint = this.searchAllCategories ? "\u0412\u0441\u0435 \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u0438" : "\u0422\u0435\u043a\u0443\u0449\u0430\u044f \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f";
+                context.drawText(modeHintFont, modeHint, modeBtnX - 6.0f - modeHintFont.width(modeHint), modeBtnY + 5.0f, Colors.getTextColor().mulAlpha(0.6f * alpha));
             }
-            if (Interface.showGlass()) {
-                context.drawLiquidGlass(searchBarX, searchBarY, searchBarW, searchBarH, 2.0f, 0.08f, BorderRadius.all(3.0f), Colors.getAccent().withAlpha(255.0f * alpha * Interface.glass()));
-            } else {
-                context.drawRoundedRect(searchBarX, searchBarY, searchBarW, searchBarH, BorderRadius.all(3.0f), dark ? Colors.getAdditionalColor().mulAlpha(0.4f) : Colors.getBackgroundColor().mulAlpha(0.4f));
-            }
+            context.drawCenteredText(Fonts.MEDIUM.getFont(6.0f), this.searchAllCategories ? "\u0412\u0421\u0415" : "\u041a\u0410\u0422", modeBtnX + searchBarH / 2.0f, modeBtnY + 5.0f, Colors.getTextColor().mulAlpha((this.searchAllCategories ? 0.95f : 0.65f) * alpha));
+
+            this.drawThemedChip(context, searchBarX, searchBarY, searchBarW, searchBarH, 3.0f, alpha, 0.10f);
             DrawUtility.drawAnimationSprite(context.getMatrices(), this.searchPenis.getCurrentSprite(), searchBarX + 4.0f, searchBarY + 4.0f, 8.0f, 8.0f, Colors.getTextColor().mulAlpha(0.5f));
             this.searchField.set(searchBarX + 14.0f, searchBarY, searchBarW - 18.0f, searchBarH);
             this.searchField.setTextColor(Colors.getTextColor().mulAlpha(0.5f));
@@ -299,10 +321,7 @@ IScaledResolution {
             float gridVisibleHeight = this.menuWindow.getHeight() - (gridStartY - y) - 5.0f;
 
             ScissorUtility.push(context.getMatrices(), contentX, gridStartY, contentWidth, gridVisibleHeight);
-            SquircleBatching squircleBatching = new SquircleBatching(5.0f);
-            List<ModernCategory> contentCategories = this.searchField.getBuiltText().isBlank() 
-                ? this.categories.stream().filter(cat -> cat.getCategory() == this.current).toList()
-                : this.categories;
+            List<ModernCategory> contentCategories = this.contentCategories();
             boolean hasModules = false;
             for (ModernCategory modernCategory : contentCategories) {
                 modernCategory.setY(0.0f);
@@ -330,12 +349,6 @@ IScaledResolution {
             if (!hasModules) {
                 context.drawCenteredText(Fonts.MEDIUM.getFont(8.0f), "\u0442\u0443\u0442 \u043f\u043e\u043a\u0430 \u0447\u0442\u043e \u043d\u0438\u0447\u0435\u0433\u043e \u043d\u0435\u0442\u0443(", x + 115.0f + (this.menuWindow.getWidth() - 115.0f) / 2.0f, y + this.menuWindow.getHeight() / 2.0f, Colors.getTextColor().mulAlpha(0.5f));
             }
-            squircleBatching.draw();
-            // Rounds & Into batches (empty now but keep batching structure)
-            RoundedRectBatching roundBatching = new RoundedRectBatching();
-            roundBatching.draw();
-            RoundedRectBatching roundedRectBatching = new RoundedRectBatching();
-            roundedRectBatching.draw();
             // Module name text
             FontBatching mediumBatching = new FontBatching(VertexFormats.POSITION_TEXTURE_COLOR, Fonts.MEDIUM);
             for (ModernCategory modernCategory : contentCategories) {
@@ -392,16 +405,51 @@ IScaledResolution {
         return ModernScreen.mc.currentScreen != null && TextField.LAST_FIELD != null && TextField.LAST_FIELD.isFocused();
     }
 
+    private void drawThemedChip(UIContext context, float x, float y, float width, float height, float radius, float alpha, float accentStrength) {
+        boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
+        ColorRGBA accent = Colors.getAccent();
+        ColorRGBA surface = Colors.getAdditionalColor().mix(accent, accentStrength);
+        BorderRadius borderRadius = BorderRadius.all(radius);
+        float min = Interface.minimalizm();
+        float glass = Interface.glass();
+        if (min > 0.0f) {
+            ColorRGBA topTint = dark ? Colors.getTextColor() : Colors.getBackgroundColor();
+            ColorRGBA bottomTint = dark ? Colors.getBackgroundColor() : Colors.getTextColor();
+            ColorRGBA flatTop = surface.mix(topTint, dark ? 0.22f : 0.25f)
+                .withAlpha(255.0f * alpha * (dark ? 0.78f : 0.65f) * min);
+            ColorRGBA flatBottom = surface.mix(bottomTint, dark ? 0.40f : 0.10f)
+                .withAlpha(255.0f * alpha * (dark ? 0.52f : 0.45f) * min);
+            context.drawRoundedRect(x, y, width, height, borderRadius, new VerticalGradient(flatTop, flatBottom));
+            context.drawRoundedBorder(x, y, width, height, 0.7f, borderRadius, accent.withAlpha(255.0f * alpha * 0.26f * min));
+        }
+        if (glass > 0.0f) {
+            ColorRGBA glassTint = surface.mix(Colors.getBackgroundColor(), dark ? 0.28f : 0.12f)
+                .withAlpha(255.0f * alpha * 0.6f * glass);
+            context.drawLiquidGlass(x, y, width, height, 2.0f, 0.08f, borderRadius, glassTint);
+            context.drawRoundedBorder(x, y, width, height, 0.7f, borderRadius, accent.withAlpha(255.0f * alpha * 0.24f * glass));
+        }
+    }
+
     private void drawGlassPanel(UIContext context, float x, float y, float width, float height, float squirt, float radius, float alpha) {
         BorderRadius borderRadius = BorderRadius.all(radius);
-        if (Interface.showMinimalizm()) {
-            context.drawBlurredRect(x, y, width, height, 45.0f, squirt, borderRadius, ColorRGBA.WHITE.withAlpha(255.0f * alpha * Interface.minimalizm()));
-        }
-        if (Interface.showGlass()) {
-            context.drawLiquidGlass(x, y, width, height, squirt, 0.08f, borderRadius, Colors.getAccent().withAlpha(255.0f * alpha * Interface.glass()));
-        }
         boolean dark = DefineVisuals.getInstance().getThemeManager().getCurrentTheme() == Theme.DARK;
-        context.drawSquircle(x, y, width, height, squirt, borderRadius, Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.9f - 0.7f * Interface.glass() : 0.7f)));
+        float min = Interface.minimalizm();
+        float glass = Interface.glass();
+        if (min > 0.0f) {
+            // Minimalism: flat themed gradient instead of a blurred translucent cube
+            ColorRGBA top = Colors.getAdditionalColor()
+                .mix(Colors.getTextColor(), dark ? 0.10f : 0.05f)
+                .withAlpha(255.0f * alpha * min);
+            ColorRGBA bottom = Colors.getBackgroundColor()
+                .mix(Colors.getAdditionalColor(), dark ? 0.10f : 0.0f)
+                .withAlpha(255.0f * alpha * min);
+            context.drawRoundedRect(x, y, width, height, borderRadius, new VerticalGradient(top, bottom));
+            context.drawRoundedBorder(x, y, width, height, 0.8f, borderRadius, Colors.getAccent().withAlpha(255.0f * alpha * 0.20f * min));
+        }
+        if (glass > 0.0f) {
+            context.drawLiquidGlass(x, y, width, height, squirt, 0.08f, borderRadius, Colors.getAccent().withAlpha(255.0f * alpha * glass));
+            context.drawSquircle(x, y, width, height, squirt, borderRadius, Colors.getBackgroundColor().withAlpha(255.0f * (dark ? 0.9f - 0.7f * glass : 0.7f) * glass));
+        }
     }
 
     private void renderWatermark(UIContext context, float menuX, float menuY) {
@@ -457,6 +505,9 @@ IScaledResolution {
             if (category.getCategory().isSubCategory() && GuiUtility.isHovered((double)(x + 12.0f), (double)(y + 43.0f + yOff), 95.0, 16.0, mouseX, mouseY)) {
                 if (category.getCategory() != this.current) {
                     this.current = category.getCategory();
+                    if (this.current == MenuCategory.CONFIGS) {
+                        this.configPanel.refresh();
+                    }
                     this.scrollHandler.setValue(0.0f);
                     this.scrollHandler.setTargetValue(0.0f);
                     if (category.getPenis() != null) {
@@ -480,10 +531,22 @@ IScaledResolution {
             this.cosmeticsPanel.onMouseClicked(mouseX, mouseY, button, x + 115.0f, y, this.menuWindow.getWidth() - 115.0f, this.menuWindow.getHeight());
             return;
         } else {
-            List<ModernCategory> contentCategories = this.searchField.getBuiltText().isBlank() 
-                ? this.categories.stream().filter(cat -> cat.getCategory() == this.current).toList()
-                : this.categories;
-            for (ModernCategory category : contentCategories) {
+            float contentX = x + 115.0f;
+            float contentWidth = this.menuWindow.getWidth() - 115.0f;
+            float searchBarH = 16.0f;
+            float searchBarW = (contentWidth - 16.0f) * 0.25f;
+            float searchBarX = contentX + contentWidth - 8.0f - searchBarW;
+            float searchBarY = y + 8.0f;
+            float modeBtnX = searchBarX - 4.0f - searchBarH;
+            if (button == MouseButton.LEFT && GuiUtility.isHovered((double)modeBtnX, (double)searchBarY, (double)searchBarH, (double)searchBarH, mouseX, mouseY)) {
+                this.searchAllCategories = !this.searchAllCategories;
+                Sounds searchSounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
+                if (searchSounds != null && searchSounds.isEnabled()) {
+                    ClientSounds.MODULE.play(searchSounds.getVolume().getCurrentValue(), 1.0f);
+                }
+                return;
+            }
+            for (ModernCategory category : this.contentCategories()) {
                 for (ModernModule module : category.getModules()) {
                     if (this.visibleCheck(module) || !this.isInModuleGrid(mouseX, mouseY) || !GuiUtility.isHovered(this.menuWindow, mouseX, mouseY) && (button == MouseButton.LEFT || button == MouseButton.RIGHT) || !GuiUtility.isHovered((double)module.getX(), (double)module.getY(), (double)module.getWidth(), (double)module.getHeight(), mouseX, mouseY)) continue;
                     module.onMouseClicked(mouseX, mouseY, button);
@@ -616,6 +679,13 @@ IScaledResolution {
         super.close();
     }
 
+    private List<ModernCategory> contentCategories() {
+        if (!this.searchField.getBuiltText().isBlank() && this.searchAllCategories) {
+            return this.categories;
+        }
+        return this.categories.stream().filter(cat -> cat.getCategory() == this.current).toList();
+    }
+
     private boolean searchCheck(ModernModule component) {
         TextField search = this.searchField;
         return search != null && !search.getBuiltText().isBlank() && !component.getModule().getName().toLowerCase().contains(search.getBuiltText().toLowerCase()) && !component.getModule().getName().replace(" ", "").toLowerCase().contains(search.getBuiltText().toLowerCase());
@@ -631,8 +701,10 @@ IScaledResolution {
 
     private boolean isInModuleGrid(double mouseX, double mouseY) {
         float x = this.menuWindow.getX() + 115.0f;
-        float y = this.menuWindow.getY() + 32.0f;
-        return GuiUtility.isHovered(x, y, this.menuWindow.getWidth() - 115.0f, this.menuWindow.getHeight() - 37.0f, mouseX, mouseY);
+        float y = this.menuWindow.getY();
+        float gridStartY = y + 32.0f;
+        float gridVisibleHeight = this.menuWindow.getHeight() - (gridStartY - y) - 5.0f;
+        return GuiUtility.isHovered(x, gridStartY, this.menuWindow.getWidth() - 115.0f, gridVisibleHeight, mouseX, mouseY);
     }
 
     public boolean isBindingModule() {

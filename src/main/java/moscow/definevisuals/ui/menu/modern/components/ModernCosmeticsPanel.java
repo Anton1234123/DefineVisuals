@@ -23,7 +23,7 @@ import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.render.ScissorUtility;
 import moscow.definevisuals.utility.render.obj.CustomSprite;
 import moscow.definevisuals.utility.sounds.ClientSounds;
-import pulse.cosmetic.LocalCosmetics;
+import moscow.definevisuals.cosmetics.LocalCosmetics;
 
 public class ModernCosmeticsPanel implements IMinecraft {
 
@@ -53,15 +53,13 @@ public class ModernCosmeticsPanel implements IMinecraft {
     }
 
     private final List<FilterTab> filterTabs = List.of(
-            new FilterTab("all", "Все"),
             new FilterTab("wings", "Крылья"),
             new FilterTab("hat", "Шляпы"),
             new FilterTab("pet", "Питомцы"),
-            new FilterTab("bodywear", "Тело"),
-            new FilterTab("cape", "Плащи")
+            new FilterTab("bodywear", "Тело")
     );
 
-    private String currentFilter = "all";
+    private String currentFilter = "wings";
     private final ScrollHandler scrollHandler = new ScrollHandler();
     private final List<CosmeticCardState> allCards = new ArrayList<>();
 
@@ -146,7 +144,7 @@ public class ModernCosmeticsPanel implements IMinecraft {
         float rowGap = 5.0f;
 
         List<CosmeticCardState> visibleCards = this.allCards.stream()
-                .filter(c -> "all".equalsIgnoreCase(this.currentFilter) || c.type.equalsIgnoreCase(this.currentFilter))
+                .filter(c -> c.type.equalsIgnoreCase(this.currentFilter))
                 .toList();
 
         ScissorUtility.push(context.getMatrices(), headerX - 2.0f, listY, totalWidth + 4.0f, listHeight);
@@ -242,7 +240,7 @@ public class ModernCosmeticsPanel implements IMinecraft {
         float currentScroll = (float)this.scrollHandler.getValue();
 
         List<CosmeticCardState> visibleCards = this.allCards.stream()
-                .filter(c -> "all".equalsIgnoreCase(this.currentFilter) || c.type.equalsIgnoreCase(this.currentFilter))
+                .filter(c -> c.type.equalsIgnoreCase(this.currentFilter))
                 .toList();
 
         for (int i = 0; i < visibleCards.size(); i++) {
@@ -282,7 +280,7 @@ public class ModernCosmeticsPanel implements IMinecraft {
     private void playClickSound() {
         Sounds sounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
         if (sounds != null && sounds.isEnabled()) {
-            ClientSounds.CLICKGUI_OPEN.play(sounds.getVolume().getCurrentValue(), 1.0f);
+            ClientSounds.MODULE.play(sounds.getVolume().getCurrentValue(), 1.0f);
         }
     }
 
@@ -293,7 +291,6 @@ public class ModernCosmeticsPanel implements IMinecraft {
             case "hat" -> "Шляпа";
             case "pet" -> "Питомец";
             case "bodywear" -> "Тело";
-            case "cape" -> "Плащ";
             default -> type;
         };
     }

@@ -15,8 +15,7 @@
 	"environment": "client",
 	"entrypoints": {},
 	"mixins": [
-		"definevisuals.mixins.json",
-		"pulse.cosmetics.mixins.json"
+		"definevisuals.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.14",

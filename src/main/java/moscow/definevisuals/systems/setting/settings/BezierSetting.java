@@ -6,6 +6,7 @@ import java.util.function.BooleanSupplier;
 import lombok.Generated;
 import moscow.definevisuals.systems.setting.SettingsContainer;
 import moscow.definevisuals.systems.setting.impl.AbstractSetting;
+import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.utility.animation.base.Easing;
 import net.minecraft.util.math.Vec2f;
 import org.jetbrains.annotations.NotNull;
@@ -43,11 +44,13 @@ public class BezierSetting extends AbstractSetting {
 
    public BezierSetting start(Vec2f start) {
       this.start = start;
+      BaseModule.scheduleAutoSaveStatic();
       return this;
    }
 
    public BezierSetting end(Vec2f end) {
       this.end = end;
+      BaseModule.scheduleAutoSaveStatic();
       return this;
    }
 

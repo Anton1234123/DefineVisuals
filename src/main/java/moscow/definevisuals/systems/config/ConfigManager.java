@@ -44,13 +44,15 @@ public class ConfigManager {
    }
 
    public void createConfig(String name) {
-      if (name != null) {
+      if (name != null && !name.isBlank()) {
          this.refresh();
-         ConfigFile config = new ConfigFile(name);
-         if (name.equals("autosave")) {
-            config.load();
+         ConfigFile existing = this.getConfig(name);
+         if (existing != null) {
+            existing.save();
+            return;
          }
 
+         ConfigFile config = new ConfigFile(name.trim());
          config.save();
          this.configFiles.add(config);
       }

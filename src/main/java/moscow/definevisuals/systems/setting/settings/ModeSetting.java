@@ -10,6 +10,7 @@ import java.util.function.BooleanSupplier;
 import lombok.Generated;
 import moscow.definevisuals.systems.setting.SettingsContainer;
 import moscow.definevisuals.systems.setting.impl.AbstractSetting;
+import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.render.penis.PenisPlayer;
@@ -86,6 +87,7 @@ public class ModeSetting extends AbstractSetting {
    @Generated
    public void setValue(ModeSetting.Value value) {
       this.value = value;
+      BaseModule.scheduleAutoSaveStatic();
    }
 
    public static class Value {

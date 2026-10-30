@@ -11,6 +11,7 @@ import java.util.function.BooleanSupplier;
 import lombok.Generated;
 import moscow.definevisuals.systems.setting.SettingsContainer;
 import moscow.definevisuals.systems.setting.impl.AbstractSetting;
+import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.utility.animation.base.Animation;
 import moscow.definevisuals.utility.animation.base.Easing;
 import moscow.definevisuals.utility.render.penis.PenisPlayer;
@@ -55,6 +56,7 @@ public class SelectSetting extends AbstractSetting {
    public void select(SelectSetting.Value value) {
       if (!this.selectedValues.contains(value)) {
          this.selectedValues.add(value);
+         BaseModule.scheduleAutoSaveStatic();
       }
    }
 
@@ -217,9 +219,11 @@ public class SelectSetting extends AbstractSetting {
             if (this.parent.getSelectedValues().contains(this)) {
                if (this.parent.getSelectedValues().size() > this.parent.getMin()) {
                   this.parent.getSelectedValues().remove(this);
+                  BaseModule.scheduleAutoSaveStatic();
                }
             } else {
                this.parent.getSelectedValues().add(this);
+               BaseModule.scheduleAutoSaveStatic();
             }
 
             return this;

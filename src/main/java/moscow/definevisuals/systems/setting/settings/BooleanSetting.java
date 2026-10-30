@@ -4,8 +4,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import java.util.function.BooleanSupplier;
 import lombok.Generated;
+import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.systems.setting.SettingsContainer;
 import moscow.definevisuals.systems.setting.impl.AbstractSetting;
+import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.utility.interfaces.Toggleable;
 import org.jetbrains.annotations.NotNull;
 
@@ -69,5 +71,6 @@ public class BooleanSetting extends AbstractSetting implements Toggleable {
    @Generated
    public void setEnabled(boolean enabled) {
       this.enabled = enabled;
+      BaseModule.scheduleAutoSaveStatic();
    }
 }

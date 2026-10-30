@@ -2,6 +2,10 @@ package moscow.definevisuals.systems.modules.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import lombok.Generated;
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.systems.localization.Language;
@@ -19,6 +23,10 @@ import moscow.definevisuals.utility.game.TextUtility;
 import moscow.definevisuals.utility.sounds.ClientSounds;
 
 public abstract class BaseModule implements Module {
+   private static final ScheduledExecutorService autoSaveExecutor = Executors.newSingleThreadScheduledExecutor();
+   private static CompletableFuture<Void> pendingAutoSave = null;
+   private static boolean isLoadingConfig = false;
+
    private final ModuleInfo info = this.getClass().getAnnotation(ModuleInfo.class);
    private int key;
    private ModuleCategory category;
@@ -101,11 +109,39 @@ public abstract class BaseModule implements Module {
 
             this.onDisable();
          }
+
+         this.scheduleAutoSave();
       }
    }
 
    public String getSettingName(String key) {
       return "modules.settings." + this.getName().toLowerCase().replace(" ", "_") + "." + key;
+   }
+
+   private void scheduleAutoSave() {
+      scheduleAutoSaveStatic();
+   }
+
+   public static void scheduleAutoSaveStatic() {
+      if (isLoadingConfig) {
+         return;
+      }
+      if (pendingAutoSave != null) {
+         pendingAutoSave.cancel(false);
+      }
+      pendingAutoSave = CompletableFuture.runAsync(() -> {
+         try {
+            Thread.sleep(2000);
+         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return;
+         }
+         DefineVisuals.getInstance().getConfigManager().getAutoSaveConfig().save();
+      }, autoSaveExecutor);
+   }
+
+   public static void setLoadingConfig(boolean loading) {
+      isLoadingConfig = loading;
    }
 
    @Generated
@@ -160,6 +196,7 @@ public abstract class BaseModule implements Module {
    @Override
    public void setKey(int key) {
       this.key = key;
+      this.scheduleAutoSave();
    }
 
    @Generated

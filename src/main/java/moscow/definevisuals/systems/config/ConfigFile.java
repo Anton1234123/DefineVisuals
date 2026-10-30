@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.util.List;
 import lombok.Generated;
 import moscow.definevisuals.DefineVisuals;
+import moscow.definevisuals.cosmetics.LocalCosmetics;
 import moscow.definevisuals.systems.file.FileManager;
 import moscow.definevisuals.systems.localization.Localizator;
 import moscow.definevisuals.systems.modules.Module;
@@ -55,10 +56,16 @@ public class ConfigFile implements IMinecraft {
          try {
             try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
                JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+               if (jsonObject.has("cosmetics") && jsonObject.get("cosmetics").isJsonObject()) {
+                  LocalCosmetics.deserializeSelection(jsonObject.getAsJsonObject("cosmetics"));
+               }
+
                if (jsonObject.has("modules")) {
                   JsonArray modulesArray = jsonObject.getAsJsonArray("modules");
                   boolean hasLegacyLeftClickBinds = this.hasLegacyLeftClickBinds(modulesArray);
                   int loadedModules = 0;
+
+                  moscow.definevisuals.systems.modules.impl.BaseModule.setLoadingConfig(true);
 
                   for (JsonElement moduleElement : modulesArray) {
                      JsonObject moduleObject = moduleElement.getAsJsonObject();
@@ -95,6 +102,8 @@ public class ConfigFile implements IMinecraft {
                      }
                   }
 
+                  moscow.definevisuals.systems.modules.impl.BaseModule.setLoadingConfig(false);
+
                   ClientSounds.MODULE.play(DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class).getVolume().getCurrentValue(), 1.0F);
                   DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, Localizator.translate("configs.loaded"));
                   DefineVisuals.LOGGER.info("Loaded {} modules from config {}", loadedModules, this.fileName);
@@ -113,6 +122,7 @@ public class ConfigFile implements IMinecraft {
                DefineVisuals.LOGGER.warn("Invalid config format: missing 'modules' array in {}", this.fileName);
             }
          } catch (Exception var18) {
+            moscow.definevisuals.systems.modules.impl.BaseModule.setLoadingConfig(false);
             DefineVisuals.LOGGER.error("Failed to load config file {}: {}", this.fileName, var18.getMessage());
          }
       }
@@ -127,6 +137,7 @@ public class ConfigFile implements IMinecraft {
          JsonObject json = new JsonObject();
          JsonArray modulesJsonArray = this.getModulesJsonArray();
          json.add("modules", modulesJsonArray);
+         json.add("cosmetics", LocalCosmetics.serializeSelection());
          FileWriter fileWriter = new FileWriter(this.file);
 
          try {
@@ -152,10 +163,10 @@ public class ConfigFile implements IMinecraft {
       }
    }
 
-   public void delete() {
+   public boolean delete() {
       if (this.fileName.equalsIgnoreCase("autosave")) {
          MessageUtility.error(Text.of("Автосохранение нельзя удалить"));
-         return;
+         return false;
       }
 
       boolean deleted = false;
@@ -182,6 +193,8 @@ public class ConfigFile implements IMinecraft {
          MessageUtility.error(Text.of("Произошла ошибка при удалении"));
          DefineVisuals.LOGGER.warn("Failed to delete config file: {}", this.file.getAbsolutePath());
       }
+
+      return deleted;
    }
 
    private boolean hasLegacyLeftClickBinds(JsonArray modulesArray) {

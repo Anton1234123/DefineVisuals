@@ -7,18 +7,17 @@ import moscow.definevisuals.systems.notifications.NotificationType;
 import moscow.definevisuals.systems.setting.settings.BooleanSetting;
 import moscow.definevisuals.systems.setting.settings.ButtonSetting;
 import moscow.definevisuals.DefineVisuals;
-import pulse.cosmetic.LocalCosmetics;
+import moscow.definevisuals.cosmetics.LocalCosmetics;
 
 @ModuleInfo(
    name = "Cosmetics",
    category = ModuleCategory.VISUALS,
-   desc = "3D косметика для персонажа из Pulse (крылья, шляпы, питомцы)",
+   desc = "3D косметика для персонажа (крылья, шляпы, питомцы)",
    enabledByDefault = true
 )
 public class Cosmetics extends BaseModule {
    private static Cosmetics INSTANCE;
 
-   private final BooleanSetting capes = new BooleanSetting(this, "Плащи").enable();
    private final BooleanSetting models = new BooleanSetting(this, "3D Модели").enable();
    private final ButtonSetting nextCosmetic = new ButtonSetting(this, "Следующая косметика (F9)").action(() -> {
       int next = LocalCosmetics.cycleNext();
@@ -31,6 +30,7 @@ public class Cosmetics extends BaseModule {
 
    public Cosmetics() {
       INSTANCE = this;
+      this.enable();
    }
 
    public static Cosmetics getInstance() {
@@ -38,14 +38,11 @@ public class Cosmetics extends BaseModule {
    }
 
    public static boolean isActive() {
-      return INSTANCE != null && INSTANCE.isEnabled();
+      return INSTANCE == null || INSTANCE.isEnabled();
    }
 
    public static boolean isModelsEnabled() {
-      return isActive() && INSTANCE.models.isEnabled();
-   }
-
-   public static boolean isCapesEnabled() {
-      return isActive() && INSTANCE.capes.isEnabled();
+      if (INSTANCE != null && !INSTANCE.models.isEnabled()) return false;
+      return isActive();
    }
 }

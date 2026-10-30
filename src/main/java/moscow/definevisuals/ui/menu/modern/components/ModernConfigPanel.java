@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import moscow.definevisuals.DefineVisuals;
+import moscow.definevisuals.cosmetics.LocalCosmetics;
 import moscow.definevisuals.framework.base.UIContext;
 import moscow.definevisuals.framework.msdf.Font;
 import moscow.definevisuals.framework.msdf.Fonts;
@@ -40,7 +41,7 @@ import net.minecraft.util.Identifier;
 public class ModernConfigPanel implements IMinecraft {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
     private static final Identifier TRASH_ICON = DefineVisuals.id("icons/hud/trash.png");
-    private static final Identifier CHECK_ICON = DefineVisuals.id("icons/check.png");
+    private static final float TEXT_BTN_W = 38.0f;
 
     public enum ModalType {
         NONE,
@@ -80,6 +81,10 @@ public class ModernConfigPanel implements IMinecraft {
         return this.activeModal != ModalType.NONE;
     }
 
+    public void refresh() {
+        DefineVisuals.getInstance().getConfigManager().refresh();
+    }
+
     public void render(UIContext context, float x, float y, float width, float height, float menuAlpha) {
         this.scrollHandler.update();
         this.modalAnim.update(this.activeModal != ModalType.NONE ? 1.0f : 0.0f);
@@ -114,13 +119,12 @@ public class ModernConfigPanel implements IMinecraft {
         if (createHov) CursorUtility.set(CursorType.HAND);
         this.drawButton(context, createX, rightBtnY, createW, btnHeight, "Создать", createHov, dark, accent, textColor);
 
-        // Button 1: [Folder Icon Button]
-        float folderW = 16.0f;
+        // Button 1: [Папка] - открыть папку с конфигами
+        float folderW = 32.0f;
         float folderX = createX - folderW - 4.0f;
         boolean folderHov = GuiUtility.isHovered((double)folderX, (double)rightBtnY, folderW, btnHeight, (double)context.getMouseX(), (double)context.getMouseY());
         if (folderHov) CursorUtility.set(CursorType.HAND);
-        context.drawSquircle(folderX, rightBtnY, folderW, btnHeight, 3.0f, BorderRadius.all(3.0f), folderHov ? accent.mulAlpha(0.35f) : Colors.getBackgroundColor().mulAlpha(dark ? 0.4f : 0.25f));
-        context.drawSprite(CustomSprite.CONFIGS, folderX + 4.0f, rightBtnY + 3.0f, 8.0f, 8.0f, folderHov ? accent : textColor.mulAlpha(0.75f));
+        this.drawButton(context, folderX, rightBtnY, folderW, btnHeight, "Папка", folderHov, dark, accent, textColor);
 
         // 2. Subheader: "Мои конфиги"
         float subHeaderY = headerY + 20.0f;
@@ -181,41 +185,55 @@ public class ModernConfigPanel implements IMinecraft {
                 }
 
                 // Config Name & Subtitle
+                boolean isAutosave = cfg.getFileName().equalsIgnoreCase("autosave");
                 float textLeft = avatarX + avatarSize + 6.0f;
-                context.drawText(Fonts.SEMIBOLD.getFont(7.0f), cfg.getFileName(), textLeft, currentY + 6.5f, textColor);
+                float actionW = isAutosave ? 0.0f : TEXT_BTN_W * 2.0f + 13.0f + 8.0f;
+                float maxTextW = Math.max(40.0f, headerX + cardWidth - 6.0f - actionW - textLeft);
+                context.drawFadeoutText(Fonts.SEMIBOLD.getFont(7.0f), cfg.getFileName(), textLeft, currentY + 6.5f, textColor, 0.9f, 1.0f, maxTextW);
 
-                File cfgFile = new File(new File(FileManager.DIRECTORY, "configs"), cfg.getFileName() + ".def");
-                String dateStr = cfgFile.exists() ? DATE_FORMAT.format(new Date(cfgFile.lastModified())) : "01.01.2026 00:00";
-                String subInfo = dateStr + " · " + (isActive ? "Активен" : "Готов");
+                File cfgDir = new File(FileManager.DIRECTORY, "configs");
+                File cfgFile = new File(cfgDir, cfg.getFileName() + ".def");
+                if (!cfgFile.exists()) {
+                    File legacy = new File(cfgDir, cfg.getFileName() + ".rock");
+                    if (legacy.exists()) {
+                        cfgFile = legacy;
+                    }
+                }
+                String dateStr = cfgFile.exists() ? DATE_FORMAT.format(new Date(cfgFile.lastModified())) : "—";
+                String subInfo = dateStr + " · " + (isAutosave ? "Автосохранение" : isActive ? "Активен" : "Готов");
                 context.drawText(Fonts.REGULAR.getFont(5.5f), subInfo, textLeft, currentY + 16.5f, isActive ? accent.mulAlpha(0.85f) : textColor.mulAlpha(0.45f));
 
                 // Action Buttons on Card (Right Side)
                 float btnSize = 13.0f;
                 float actY = currentY + (cardHeight - btnSize) / 2.0f;
 
-                // Delete Button
-                float delX = headerX + cardWidth - btnSize - 6.0f;
-                boolean isDelHov = !this.isModalOpen() && GuiUtility.isHovered((double)delX, (double)actY, btnSize, btnSize, (double)context.getMouseX(), (double)context.getMouseY());
-                state.deleteHover.update(isDelHov);
-                if (isDelHov) CursorUtility.set(CursorType.HAND);
-                context.drawSquircle(delX, actY, btnSize, btnSize, 2.5f, BorderRadius.all(2.5f), isDelHov ? ColorRGBA.RED.mulAlpha(0.35f) : Colors.getBackgroundColor().mulAlpha(0.2f));
-                context.drawTexture(TRASH_ICON, delX + 2.5f, actY + 2.5f, 8.0f, 8.0f, isDelHov ? ColorRGBA.RED : textColor.mulAlpha(0.6f));
+                if (isAutosave) {
+                    state.deleteHover.update(false);
+                    state.saveHover.update(false);
+                    state.loadHover.update(false);
+                } else {
+                    // Delete Button
+                    float delX = headerX + cardWidth - btnSize - 6.0f;
+                    boolean isDelHov = !this.isModalOpen() && GuiUtility.isHovered((double)delX, (double)actY, btnSize, btnSize, (double)context.getMouseX(), (double)context.getMouseY());
+                    state.deleteHover.update(isDelHov);
+                    if (isDelHov) CursorUtility.set(CursorType.HAND);
+                    context.drawSquircle(delX, actY, btnSize, btnSize, 2.5f, BorderRadius.all(2.5f), isDelHov ? ColorRGBA.RED.mulAlpha(0.35f) : Colors.getBackgroundColor().mulAlpha(0.2f));
+                    context.drawTexture(TRASH_ICON, delX + 2.5f, actY + 2.5f, 8.0f, 8.0f, isDelHov ? ColorRGBA.RED : textColor.mulAlpha(0.6f));
 
-                // Save Button (Overwrite)
-                float saveX = delX - btnSize - 4.0f;
-                boolean isSaveHov = !this.isModalOpen() && GuiUtility.isHovered((double)saveX, (double)actY, btnSize, btnSize, (double)context.getMouseX(), (double)context.getMouseY());
-                state.saveHover.update(isSaveHov);
-                if (isSaveHov) CursorUtility.set(CursorType.HAND);
-                context.drawSquircle(saveX, actY, btnSize, btnSize, 2.5f, BorderRadius.all(2.5f), isSaveHov ? accent.mulAlpha(0.35f) : Colors.getBackgroundColor().mulAlpha(0.2f));
-                context.drawSprite(CustomSprite.CONFIGS, saveX + 2.5f, actY + 2.5f, 8.0f, 8.0f, isSaveHov ? accent : textColor.mulAlpha(0.6f));
+                    // Save Button (Overwrite)
+                    float saveX = delX - TEXT_BTN_W - 4.0f;
+                    boolean isSaveHov = !this.isModalOpen() && GuiUtility.isHovered((double)saveX, (double)actY, TEXT_BTN_W, btnSize, (double)context.getMouseX(), (double)context.getMouseY());
+                    state.saveHover.update(isSaveHov);
+                    if (isSaveHov) CursorUtility.set(CursorType.HAND);
+                    this.drawButton(context, saveX, actY, TEXT_BTN_W, btnSize, "Сохранить", isSaveHov, dark, accent, textColor);
 
-                // Load / Apply Button
-                float loadX = saveX - btnSize - 4.0f;
-                boolean isLoadHov = !this.isModalOpen() && GuiUtility.isHovered((double)loadX, (double)actY, btnSize, btnSize, (double)context.getMouseX(), (double)context.getMouseY());
-                state.loadHover.update(isLoadHov);
-                if (isLoadHov) CursorUtility.set(CursorType.HAND);
-                context.drawSquircle(loadX, actY, btnSize, btnSize, 2.5f, BorderRadius.all(2.5f), (isActive || isLoadHov) ? accent.mulAlpha(0.45f) : Colors.getBackgroundColor().mulAlpha(0.2f));
-                context.drawTexture(CHECK_ICON, loadX + 2.5f, actY + 2.5f, 8.0f, 8.0f, (isActive || isLoadHov) ? Colors.WHITE : textColor.mulAlpha(0.6f));
+                    // Load Button
+                    float loadX = saveX - TEXT_BTN_W - 4.0f;
+                    boolean isLoadHov = !this.isModalOpen() && GuiUtility.isHovered((double)loadX, (double)actY, TEXT_BTN_W, btnSize, (double)context.getMouseX(), (double)context.getMouseY());
+                    state.loadHover.update(isLoadHov);
+                    if (isLoadHov) CursorUtility.set(CursorType.HAND);
+                    this.drawButton(context, loadX, actY, TEXT_BTN_W, btnSize, "Загрузить", isLoadHov || isActive, dark, accent, textColor);
+                }
 
                 currentY += cardHeight + 5.0f;
             }
@@ -342,7 +360,7 @@ public class ModernConfigPanel implements IMinecraft {
         }
 
         // Button 1: [Folder Button]
-        float folderW = 16.0f;
+        float folderW = 32.0f;
         float folderX = createX - folderW - 4.0f;
         if (GuiUtility.isHovered((double)folderX, (double)rightBtnY, folderW, btnHeight, mouseX, mouseY)) {
             DefineVisuals.getInstance().getConfigManager().directionConfig();
@@ -361,30 +379,41 @@ public class ModernConfigPanel implements IMinecraft {
         for (ConfigCardState state : this.cardStates) {
             ConfigFile cfg = state.configFile;
             if (GuiUtility.isHovered((double)headerX, (double)currentY, cardWidth, cardHeight, mouseX, mouseY)) {
+                boolean isAutosave = cfg.getFileName().equalsIgnoreCase("autosave");
                 float btnSize = 13.0f;
                 float actY = currentY + (cardHeight - btnSize) / 2.0f;
 
-                // Delete Button
-                float delX = headerX + cardWidth - btnSize - 6.0f;
-                if (GuiUtility.isHovered((double)delX, (double)actY, btnSize, btnSize, mouseX, mouseY)) {
-                    cfg.delete();
+                if (!isAutosave) {
+                    // Delete Button
+                    float delX = headerX + cardWidth - btnSize - 6.0f;
+                    if (GuiUtility.isHovered((double)delX, (double)actY, btnSize, btnSize, mouseX, mouseY)) {
+                        cfg.delete();
+                        this.playClickSound();
+                        return;
+                    }
+
+                    // Save Button (Overwrite)
+                    float saveX = delX - TEXT_BTN_W - 4.0f;
+                    if (GuiUtility.isHovered((double)saveX, (double)actY, TEXT_BTN_W, btnSize, mouseX, mouseY)) {
+                        cfg.save();
+                        DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, "Конфиг " + cfg.getFileName() + " сохранён!");
+                        this.playClickSound();
+                        return;
+                    }
+
+                    // Load Button
+                    float loadX = saveX - TEXT_BTN_W - 4.0f;
+                    if (GuiUtility.isHovered((double)loadX, (double)actY, TEXT_BTN_W, btnSize, mouseX, mouseY)) {
+                        cfg.load();
+                        this.playClickSound();
+                        return;
+                    }
+                } else {
+                    // Autosave card click -> load (no action buttons)
+                    cfg.load();
                     this.playClickSound();
                     return;
                 }
-
-                // Save Button (Overwrite)
-                float saveX = delX - btnSize - 4.0f;
-                if (GuiUtility.isHovered((double)saveX, (double)actY, btnSize, btnSize, mouseX, mouseY)) {
-                    cfg.save();
-                    DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, "Конфиг " + cfg.getFileName() + " сохранён!");
-                    this.playClickSound();
-                    return;
-                }
-
-                // Load Button or Card Body Click -> Load Config
-                cfg.load();
-                this.playClickSound();
-                return;
             }
             currentY += cardHeight + 5.0f;
         }
@@ -403,7 +432,7 @@ public class ModernConfigPanel implements IMinecraft {
         // Cancel Button
         float cancelX = modalX + 18.0f;
         if (GuiUtility.isHovered((double)cancelX, (double)btnY, btnW, btnH, mouseX, mouseY)) {
-            this.activeModal = ModalType.NONE;
+            this.closeModal();
             this.playClickSound();
             return;
         }
@@ -414,17 +443,9 @@ public class ModernConfigPanel implements IMinecraft {
             if (this.activeModal == ModalType.RESET) {
                 this.resetAllSettings();
             } else if (this.activeModal == ModalType.CREATE) {
-                String name = this.createField.getBuiltText().trim();
-                if (!name.isEmpty()) {
-                    DefineVisuals.getInstance().getConfigManager().createConfig(name);
-                    ConfigFile created = DefineVisuals.getInstance().getConfigManager().getConfig(name, true);
-                    if (created != null) {
-                        created.load();
-                    }
-                    DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, "Конфиг " + name + " создан!");
-                }
+                this.tryCreateConfig();
             }
-            this.activeModal = ModalType.NONE;
+            this.closeModal();
             this.playClickSound();
             return;
         }
@@ -435,6 +456,41 @@ public class ModernConfigPanel implements IMinecraft {
         }
     }
 
+    private String sanitizeConfigName(String raw) {
+        if (raw == null) {
+            return "";
+        }
+        // Strip characters invalid in file names: \ / : * ? " < > |
+        return raw.trim().replaceAll("[\\\\/:*?\"<>|]", "");
+    }
+
+    private boolean tryCreateConfig() {
+        String name = this.sanitizeConfigName(this.createField.getBuiltText());
+        if (name.isEmpty()) {
+            DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.ERROR, "Введите название конфига");
+            return false;
+        }
+        if (name.equalsIgnoreCase("autosave")) {
+            DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.ERROR, "\"autosave\" — зарезервированное имя");
+            return false;
+        }
+
+        ConfigManager configManager = DefineVisuals.getInstance().getConfigManager();
+        if (configManager.getConfig(name, true) != null) {
+            DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.ERROR, "Конфиг \"" + name + "\" уже существует");
+            return false;
+        }
+
+        configManager.createConfig(name);
+        DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, "Конфиг " + name + " создан!");
+        return true;
+    }
+
+    private void closeModal() {
+        this.activeModal = ModalType.NONE;
+        this.createField.setFocused(false);
+    }
+
     private void resetAllSettings() {
         for (Module module : DefineVisuals.getInstance().getModuleManager().getModules()) {
             if (!(module instanceof MenuModule)) {
@@ -442,7 +498,10 @@ public class ModernConfigPanel implements IMinecraft {
                 module.setKey(-1);
             }
         }
-        ConfigFile autosave = DefineVisuals.getInstance().getConfigManager().getAutoSaveConfig();
+        LocalCosmetics.clearAll();
+        ConfigManager configManager = DefineVisuals.getInstance().getConfigManager();
+        configManager.setCurrent(null);
+        ConfigFile autosave = configManager.getConfig("autosave");
         if (autosave != null) {
             autosave.save();
         }
@@ -452,7 +511,7 @@ public class ModernConfigPanel implements IMinecraft {
     private void playClickSound() {
         Sounds sounds = DefineVisuals.getInstance().getModuleManager().getModule(Sounds.class);
         if (sounds != null && sounds.isEnabled()) {
-            ClientSounds.CLICKGUI_OPEN.play(sounds.getVolume().getCurrentValue(), 1.0f);
+            ClientSounds.MODULE.play(sounds.getVolume().getCurrentValue(), 1.0f);
         }
     }
 
@@ -480,21 +539,15 @@ public class ModernConfigPanel implements IMinecraft {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (this.activeModal == ModalType.CREATE && this.createField.isFocused()) {
             if (keyCode == 257) { // Enter
-                String name = this.createField.getBuiltText().trim();
-                if (!name.isEmpty()) {
-                    DefineVisuals.getInstance().getConfigManager().createConfig(name);
-                    ConfigFile created = DefineVisuals.getInstance().getConfigManager().getConfig(name, true);
-                    if (created != null) created.load();
-                    DefineVisuals.getInstance().getNotificationManager().addNotification(NotificationType.SUCCESS, "Конфиг " + name + " создан!");
-                }
-                this.activeModal = ModalType.NONE;
+                this.tryCreateConfig();
+                this.closeModal();
                 return true;
             }
             this.createField.onKeyPressed(keyCode, scanCode, modifiers);
             return true;
         }
         if (this.isModalOpen() && keyCode == 256) { // Escape
-            this.activeModal = ModalType.NONE;
+            this.closeModal();
             return true;
         }
         return false;

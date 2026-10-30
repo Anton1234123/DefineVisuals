@@ -53,9 +53,6 @@ dependencies {
     // Принудительно заставляем среду разработки видеть наш скачанный DLL внутри ресурсов
     runtimeOnly files("src/main/resources")
 
-    // Vosk Offline Speech Recognition
-    implementation "com.alphacephei:vosk:0.3.45"
-    include "com.alphacephei:vosk:0.3.45"
 
     // Media Player Info
     implementation "dev.redstones.mediaplayerinfo:media-player-info:0.1.0"

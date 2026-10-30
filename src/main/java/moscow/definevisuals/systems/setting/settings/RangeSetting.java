@@ -6,6 +6,7 @@ import java.util.function.BooleanSupplier;
 import lombok.Generated;
 import moscow.definevisuals.systems.setting.SettingsContainer;
 import moscow.definevisuals.systems.setting.impl.AbstractSetting;
+import moscow.definevisuals.systems.modules.impl.BaseModule;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,10 +74,12 @@ public class RangeSetting extends AbstractSetting {
 
    public void setFirstValue(float value) {
       this.firstValue = (float)MathHelper.clamp(Math.round(value * (1.0 / this.step)) / (1.0 / this.step), this.min, this.max);
+      BaseModule.scheduleAutoSaveStatic();
    }
 
    public void setSecondValue(float value) {
       this.secondValue = (float)MathHelper.clamp(Math.round(value * (1.0 / this.step)) / (1.0 / this.step), this.min, this.max);
+      BaseModule.scheduleAutoSaveStatic();
    }
 
    @Generated

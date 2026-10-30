@@ -142,6 +142,10 @@ public enum DefineVisuals implements IMinecraft {
       return INSTANCE;
    }
 
+   public static Logger getLOGGER() {
+      return LOGGER;
+   }
+
    public static Identifier id(String path) {
       return Identifier.of(MOD_ID, path);
    }
