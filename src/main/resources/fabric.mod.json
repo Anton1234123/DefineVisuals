@@ -1,19 +1,25 @@
 {
 	"schemaVersion": 1,
 	"id": "definevisuals",
-	"version": "1.0.0",
+	"version": "${version}",
 	"name": "Define Visuals",
 	"description": "Visual enhancements, customizable liquid glass HUD and utility client mod for Minecraft 1.21.4 Fabric.",
 	"authors": [
 		"Define Team"
 	],
 	"contact": {
-		"homepage": "https://t.me/DefineDevs"
+		"homepage": "https://github.com/Anton1234123/DefineVisuals",
+		"sources": "https://github.com/Anton1234123/DefineVisuals",
+		"issues": "https://github.com/Anton1234123/DefineVisuals/issues"
 	},
 	"license": "GPL-3.0",
 	"icon": "assets/definevisuals/icon.png",
 	"environment": "client",
-	"entrypoints": {},
+	"entrypoints": {
+		"client": [
+			"moscow.definevisuals.DefineVisualsClient"
+		]
+	},
 	"mixins": [
 		"definevisuals.mixins.json"
 	],
@@ -22,9 +28,6 @@
 		"minecraft": "~1.21.4",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	},
 	"accessWidener": "definevisuals.accesswidener"
 }

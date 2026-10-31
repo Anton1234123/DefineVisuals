@@ -161,19 +161,10 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
         if (this.active) {
             this.renderPageIndicators(context);
         }
-
-        // Dynamic Island
-        if (this.shouldShowIsland()) {
-            DefineVisuals.getInstance().getHud().getIsland().render(context);
-        }
     }
 
     @Override
     public void onMouseClicked(double mouseX, double mouseY, MouseButton button) {
-        if (this.shouldShowIsland() && DefineVisuals.getInstance().getHud().getIsland().handleClick((float)mouseX, (float)mouseY, button.getButtonIndex())) {
-            return;
-        }
-
         if (this.active) {
             if (this.handlePageIndicatorClick(mouseX, mouseY)) {
                 return;
@@ -234,10 +225,6 @@ public class CustomTitleScreen extends CustomScreen implements IMinecraft {
             MinecraftClient.getInstance().setScreen(new SelectWorldScreen(this));
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-    private boolean shouldShowIsland() {
-        return DefineVisuals.getInstance().getMusicTracker().haveActiveSession();
     }
 
     private void renderPageIndicators(UIContext context) {

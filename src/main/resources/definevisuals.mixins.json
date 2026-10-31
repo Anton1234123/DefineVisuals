@@ -19,7 +19,6 @@
     "cosmetics.CosmeticKeybindMixin",
     "cosmetics.CosmeticRendererMixin",
     "minecraft.client.ClientWorldMixin",
-    "minecraft.client.IMinecraftClient",
     "minecraft.client.KeyboardMixin",
     "minecraft.client.MinecraftClientMixin",
     "minecraft.client.MouseMixin",

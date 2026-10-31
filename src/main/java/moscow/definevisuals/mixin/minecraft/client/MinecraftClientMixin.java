@@ -1,9 +1,8 @@
 package moscow.definevisuals.mixin.minecraft.client;
 
 import moscow.definevisuals.DefineVisuals;
-import moscow.definevisuals.protection.client.MinecraftClientMixinProtection;
 import moscow.definevisuals.systems.event.impl.game.GameTickEvent;
-import moscow.definevisuals.systems.modules.modules.player.NoDelay;
+import moscow.definevisuals.systems.modules.modules.player.InputGuard;
 import moscow.definevisuals.systems.modules.modules.visuals.ShaderHand;
 import moscow.definevisuals.utility.render.penis.PenisAtlas;
 import net.minecraft.client.MinecraftClient;
@@ -13,7 +12,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -37,11 +35,6 @@ public class MinecraftClientMixin {
       }
    }
 
-   @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;onResolutionChanged()V"))
-   public void initializeClient(RunArgs args, CallbackInfo ci) {
-      MinecraftClientMixinProtection.init();
-   }
-
    @Inject(method = "<init>", at = @At("RETURN"))
    public void endInitialize(RunArgs args, CallbackInfo ci) {
       PenisAtlas atlas = PenisAtlas.getOrCreateAtlasFor(16, 16);
@@ -58,21 +51,18 @@ public class MinecraftClientMixin {
       atlas12.buildAtlas();
    }
 
-   @Inject(method = "stop", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;close()V", shift = Shift.AFTER))
-   public void shutdownClient(CallbackInfo ci) {
-      MinecraftClientMixinProtection.shutdown();
-   }
-
    @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
    public void changeWindowTitle(CallbackInfoReturnable<String> cir) {
-      MinecraftClientMixinProtection.updateTitle(cir);
+      if (!DefineVisuals.INSTANCE.isPanic()) {
+         cir.setReturnValue("Define Visuals");
+      }
    }
 
    @Inject(method = "doItemUse", at = @At("TAIL"))
-   private void resetItemUseCooldown(CallbackInfo ci) {
-      NoDelay noDelayModule = DefineVisuals.getInstance().getModuleManager().getModule(NoDelay.class);
-      if (noDelayModule.isEnabled() && noDelayModule.getRightClick().isEnabled()) {
-         this.itemUseCooldown = 0;
+   private void applyInputGuard(CallbackInfo ci) {
+      InputGuard inputGuard = DefineVisuals.getInstance().getModuleManager().getModule(InputGuard.class);
+      if (inputGuard.isEnabled()) {
+         this.itemUseCooldown = Math.max(this.itemUseCooldown, inputGuard.getMinimumUseDelay());
       }
    }
 }

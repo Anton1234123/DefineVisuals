@@ -1,5 +1,6 @@
 package moscow.definevisuals.systems.config;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,8 +37,13 @@ public class ConfigManager {
    public void directionConfig() {
       try {
          File configDir = new File(FileManager.DIRECTORY, "configs");
-         String[] commands = new String[]{"explorer", configDir.getAbsolutePath()};
-         Runtime.getRuntime().exec(commands);
+         if (!configDir.exists() && !configDir.mkdirs()) {
+            throw new IOException("Не удалось создать папку конфигов");
+         }
+         if (!Desktop.isDesktopSupported() || !Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+            throw new IOException("Открытие папок не поддерживается системой");
+         }
+         Desktop.getDesktop().open(configDir);
       } catch (Exception var3) {
          DefineVisuals.LOGGER.error("Не удалось открыть папку с конфигами: {}", var3.getMessage());
       }

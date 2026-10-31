@@ -30,7 +30,6 @@ import net.minecraft.client.render.VertexFormat.DrawMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Kill Effects", category = ModuleCategory.VISUALS, desc = "modules.descriptions.kill_effects")
 public class KillEffects extends BaseModule {
    private final List<KillEffects.Lightning> lightnings = new ArrayList<>();

@@ -1,8 +1,5 @@
 package moscow.definevisuals;
 
-import java.awt.image.BufferedImage;
-import java.net.URL;
-import javax.imageio.ImageIO;
 import lombok.Generated;
 import moscow.definevisuals.framework.shader.GlProgram;
 import moscow.definevisuals.systems.background.BackgroundManager;
@@ -28,17 +25,14 @@ import moscow.definevisuals.systems.waypoints.WayPointsManager;
 import moscow.definevisuals.ui.hud.Hud;
 import moscow.definevisuals.ui.menu.MenuScreen;
 import moscow.definevisuals.utility.game.TitleBarHelper;
-import moscow.definevisuals.utility.game.WebUtility;
 import moscow.definevisuals.utility.game.server.TPSHandler;
 import moscow.definevisuals.utility.interfaces.IMinecraft;
 import moscow.definevisuals.utility.math.calculator.ChatListener;
 import moscow.definevisuals.utility.render.DrawUtility;
 import moscow.definevisuals.utility.rotations.RotationHandler;
 import moscow.definevisuals.utility.rotations.RotationUpdateListener;
-import moscow.definevisuals.utility.sounds.MusicTracker;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
@@ -49,8 +43,8 @@ public enum DefineVisuals implements IMinecraft {
    INSTANCE;
 
    public static final String NAME = "Define Visuals";
-   public static final String BUILD_TYPE = "Beta";
-   public static final String VERSION = "2.0";
+   public static final String BUILD_TYPE = "Alpha";
+   public static final String VERSION = "1.1";
    public static final String MOD_ID = "definevisuals";
    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
    private EventManager eventManager;
@@ -61,7 +55,6 @@ public enum DefineVisuals implements IMinecraft {
    private FriendManager friendManager;
    private RotationHandler rotationHandler;
    private TargetManager targetManager;
-   private MusicTracker musicTracker;
    private FileManager fileManager;
    private NotificationManager notificationManager;
    private ConfigManager configManager;
@@ -77,7 +70,6 @@ public enum DefineVisuals implements IMinecraft {
    private boolean panic;
    public void initialize() {
       LOGGER.info("Initializing {}...", "DefineVisuals");
-      this.musicTracker = new MusicTracker();
       this.wayPointsManager = new WayPointsManager();
       this.eventManager = new EventManager();
       this.friendManager = new FriendManager();
@@ -120,7 +112,6 @@ public enum DefineVisuals implements IMinecraft {
       TitleBarHelper.setDarkTitleBar();
       TitleBarHelper.setCustomWindowIcon();
       new EventIntegration();
-      this.createAvatar();
       LOGGER.info("{} initialized", NAME);
    }
 
@@ -149,19 +140,6 @@ public enum DefineVisuals implements IMinecraft {
    public static Identifier id(String path) {
       return Identifier.of(MOD_ID, path);
    }
-   private void createAvatar() {
-      try {
-         BufferedImage bufferedImage = ImageIO.read(new URL("https://DefineVisuals.pub/api/avatars/ConeTin.jpg?t=1754613855632"));
-         if (bufferedImage == null) {
-            return;
-         }
-
-         Identifier id = id("temp/avatar");
-         mc.getTextureManager().registerTexture(id, new NativeImageBackedTexture(WebUtility.bufferedImageToNativeImage(bufferedImage, true)));
-      } catch (Exception var3) {
-      }
-   }
-
    @Generated
    public EventManager getEventManager() {
       return this.eventManager;
@@ -201,11 +179,6 @@ public enum DefineVisuals implements IMinecraft {
    @Generated
    public TargetManager getTargetManager() {
       return this.targetManager;
-   }
-
-   @Generated
-   public MusicTracker getMusicTracker() {
-      return this.musicTracker;
    }
 
    @Generated

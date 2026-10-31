@@ -541,19 +541,6 @@ modules.settings.no_interact.playerHeads=Glowy
 modules.settings.no_interact.onlyAura=Tylko z Aura
 modules.settings.no_interact.onlyUtilityItems=Tylko z perlami/chorusem
 
-# MineHelper
-modules.settings.mine_helper.save_pickaxe=Zachowac kilof
-modules.settings.mine_helper.save_pickaxe.description=Zapobiega niszczeniu bloku przy niskiej trwalosci narzedzia
-modules.settings.mine_helper.percent=Trwalosc
-modules.settings.mine_helper.fix_key=Klawisz naprawy
-modules.settings.mine_helper.auto_replace=Auto zamiana
-modules.settings.mine_helper.auto_replace.description=Automatycznie zamienia kilof przy niskiej trwalosci
-modules.settings.mine_helper.auto_repair=Auto naprawa
-modules.settings.mine_helper.auto_repair.description=Naprawia kilof uzywajac XP
-mine_helper.pickaxe_almost_broken=Kilof prawie zlamany!
-mine_helper.no_replacement=Brak zamiennika/XP do naprawy
-mine_helper.no_bottles=Brak butelek XP!
-mine_helper.need_bottles=Musisz miec butelki XP w ekwipunku
 
 # WebUtils
 modules.settings.web_utils=Narzedzia
@@ -1263,7 +1250,6 @@ modules.settings.view_model.off_translate_z=Lewe przesuniecie Z
 
 # Kill Effects
 
-# No Delay
 
 # Fast Item Use
 
@@ -1605,8 +1591,6 @@ ui.range_format=od %s do %s
 rocknet.status.main_menu=W menu glownym
 
 # Mine Helper
-mine_helper.pickaxe_swap=Zamiana kilofa
-mine_helper.pickaxe_swapped=Zamieniono kilof z %.1f%% na %.1f%%
 
 # Beautifully Module
 modules.settings.beautifully.select=Wybierz
@@ -1894,15 +1878,6 @@ modules.settings.ambience.dynamic.only_in_cave=Tylko w jaskini
 # World
 modules.settings.world.color=Kolor
 
-# NoDelay
-modules.settings.no_delay.jump=Skok
-modules.settings.no_delay.jump.description=Usuwa opoznienie skoku
-modules.settings.no_delay.right_click=PPM
-modules.settings.no_delay.right_click.description=Usuwa opoznienie uzywania przedmiotow
-modules.settings.no_delay.right_click_delay=Opoznienie PPM
-modules.settings.no_delay.exp=Butelka doswiadczenia
-modules.settings.no_delay.potions=Mikstury
-modules.settings.no_delay.potions.description=Usuwa opoznienie uzywania mikstur
 
 # InvUtils
 modules.settings.inv_utils.targets=Narzedzia
@@ -2311,7 +2286,6 @@ modules.descriptions.bettertab=Ulepszona lista graczy
 modules.descriptions.customfog=Własna mgła
 modules.descriptions.donateeffects=Efekty dla donatorów
 modules.descriptions.friendmarkers=Markery przyjaciół
-modules.descriptions.gribochki=Grzyby na serwerze
 modules.descriptions.hitcolor=Kolor paska trafien
 modules.descriptions.killeffects=Efekty przy zabójstwie
 modules.descriptions.menumodule=Ustawienia menu
@@ -2322,7 +2296,6 @@ modules.descriptions.targetesp=ESP dla celów
 # ---- Completed localization keys ----
 hud.targethud.staytime=Czas odpoczynku
 hud.targethud.staytime.description=Czas trwania po odwróceniu wzroku od celu (s)
-modules.descriptions.SRPSpoo=pozwala ominąć serwery pakietów zasobów
 modules.descriptions.VievModel=niestandardowe ułożenie dłoni
 modules.descriptions.animations=Animacje interfejsu (czat, ekwipunek, podpowiedzi, ESC, pasek skrótów, pasek bossów)
 modules.descriptions.anti_lud=Blokuje polecenia /casino i /create, zapobiegając uzależnieniu od hazardu
@@ -2475,7 +2448,6 @@ modules.descriptions.beautifully=Piękne efekty
 modules.descriptions.better_tab=Pokazuje wszystkich graczy w zakładce
 modules.descriptions.blockoverlay=Overlay na blokach
 modules.descriptions.china_hat=Piękna chińska czapka
-modules.descriptions.clan_upgrade=Automatycznie pompuje klan za pomoca pochodni
 modules.descriptions.click_friend=Dodaje znajomych po naciśnięciu klawisza
 modules.descriptions.compasstooltip=Pokazuje informacje o kompasie
 modules.descriptions.cosmetics=Kosmetyka 3D postaci: skrzydła, czapki, zwierzaki i stroje
@@ -2497,9 +2469,7 @@ modules.descriptions.kill_effects=Piekny efekt gdy istoty umieraja
 modules.descriptions.lyrics=Renderuje teksty utworów w świecie 3D z dokładnym wyrównaniem bloków i precyzyjnym synchronizacją
 modules.descriptions.macro_menu=Menu makr
 modules.descriptions.menu=Menu funkcji klienta
-modules.descriptions.mine_helper=Funkcje pomocnicze dla kopalni
 modules.descriptions.name_protect=Wizualnie zmienia pseudonim gracza
-modules.descriptions.no_delay=Usuwa opoznienia
 modules.descriptions.no_friend_damage=Nie pozwala na bicie znajomych
 modules.descriptions.nocommands=Blokuje komendy
 modules.descriptions.optimization=Optymalizacja FPS
@@ -2511,7 +2481,6 @@ modules.descriptions.shader_hand=Najlepsze shadery i efekty blasku dla dłoni i 
 modules.descriptions.shulkersafe=Plecaka nie zgubisz tak łatwo)
 modules.descriptions.sounds=Dźwięki moda
 modules.descriptions.spawner_tooltip=Pokazuje informacje o spawnerach
-modules.descriptions.srpspoof=Zastępuje informację o zainstalowanym pakiecie zasobów serwera
 modules.descriptions.swing_animation=Zmienia animacje rak podczas machania
 modules.descriptions.target_esp=Oznacza aktywny cel
 modules.descriptions.viewmodel=Widok z pierwszej osoby
@@ -2523,10 +2492,6 @@ modules.descriptions.zoom=Plynne przyblizenie kamery jak w OptiFine i Zoomify
 1-е лицо=1. osoba
 3-е лицо=Trzecia osoba
 3D Модели=Modele 3D
-Авто замена=Automatyczna wymiana
-Авто замена.description=Automatycznie zmienia kilof, gdy wytrzymałość jest niska
-Авто починка=Naprawa samochodów
-Авто починка.description=Naprawia kilof wykorzystując doświadczenie
 Авто продажа=Sprzedaż samochodów
 Анимация=Animacja
 Анимация.description=Styl wyglądu tekstu
@@ -2568,7 +2533,6 @@ modules.descriptions.zoom=Plynne przyblizenie kamery jak w OptiFine i Zoomify
 Кастомный цвет=Kolor niestandardowy
 Клавиша=Klucz
 Клан Лайт (30-36)=Światło klanu (30-36)
-Кнопка починки=Przycisk naprawy
 Количество кристаллов=Liczba kryształów
 Кристаллы=Kryształy
 Куб=Sześcian
@@ -2646,8 +2610,6 @@ modules.descriptions.zoom=Plynne przyblizenie kamery jak w OptiFine i Zoomify
 Соло Лайт (1-9)=Światło solo (1-9)
 Сонар=Sonar
 Соотношение=Stosunek
-Сохранять кирку=Zachowaj kilof
-Сохранять кирку.description=Zapobiega rozbiciu bloku, jeśli przedmiot osiągnął określoną siłę
 Средний=Średni
 Стан=Stana
 Стекло=Szkło
@@ -2786,3 +2748,5 @@ menu.category.cosmetics=Kosmetyka
 menu.category.other=Inne
 menu.category.interface=Interfejs
 Активно=Aktywne
+modules.descriptions.input_guard=Zapobiega przypadkowemu wielokrotnemu użyciu przedmiotów
+modules.settings.input_guard.delay=Minimalne opóźnienie użycia przedmiotu (ticki)

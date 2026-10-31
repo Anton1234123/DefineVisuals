@@ -7,8 +7,5 @@
   "critical": { "sounds": [ "definevisuals:critical" ] },
   "ui_click": { "sounds": [ "definevisuals:ui_click" ] },
   "ui_nav": { "sounds": [ "definevisuals:ui_nav" ] },
-  "ui_bind": { "sounds": [ "definevisuals:ui_bind" ] },
-  "gribochki/track1": { "sounds": [ "definevisuals:gribochki/track1" ] },
-  "gribochki/track2": { "sounds": [ "definevisuals:gribochki/track2" ] },
-  "gribochki/track3": { "sounds": [ "definevisuals:gribochki/track3" ] }
+  "ui_bind": { "sounds": [ "definevisuals:ui_bind" ] }
 }

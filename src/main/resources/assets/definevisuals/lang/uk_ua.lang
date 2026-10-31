@@ -536,19 +536,6 @@ modules.settings.no_interact.playerHeads=Голови
 modules.settings.no_interact.onlyAura=Тільки з Aura
 modules.settings.no_interact.onlyUtilityItems=Тільки з перлами/хорусами
 
-# MineHelper
-modules.settings.mine_helper.save_pickaxe=Зберігати кирку
-modules.settings.mine_helper.save_pickaxe.description=Не дає зламати блок, якщо предмет досяг певної міцності
-modules.settings.mine_helper.percent=Міцність
-modules.settings.mine_helper.fix_key=Кнопка ремонту
-modules.settings.mine_helper.auto_replace=Авто заміна
-modules.settings.mine_helper.auto_replace.description=Автоматично змінює кирку за низької міцності
-modules.settings.mine_helper.auto_repair=Авто ремонт
-modules.settings.mine_helper.auto_repair.description=Чинить кирку з використанням досвіду
-mine_helper.pickaxe_almost_broken=Кірка майже зламана!
-mine_helper.no_replacement=Немає заміни/досвіду для ремонту
-mine_helper.no_bottles=Нема пляшок досвіду!
-mine_helper.need_bottles=Вам необхідно мати пляшечки досвіду в інвентарі
 
 # WebUtils
 modules.settings.web_utils=Утиліти
@@ -1261,7 +1248,6 @@ modules.settings.view_model.off_translate_z=Ліва Z-зміщення
 
 # Kill Effects
 
-# No Delay
 
 # Fast Item Use
 
@@ -1571,7 +1557,6 @@ theme.sync=Синхронізація з темою
 # Rocknet Status
 
 # Mine Helper
-mine_helper.pickaxe_swap=Заміна кирки
 
 # Beautifully Module
 
@@ -1595,7 +1580,6 @@ mine_helper.pickaxe_swap=Заміна кирки
 
 # Speed
 helper.pickaxe_swap=Заміна кирки
-mine_helper.pickaxe_swapped=Замінив кирку з %.1f%% на %.1f%%
 
 # Beautifully Module
 modules.settings.beautifully.select=Вибір
@@ -1896,15 +1880,6 @@ modules.settings.ambience.dynamic.only_in_cave=Тільки в печері
 # World
 modules.settings.world.color=Колір
 
-# NoDelay
-modules.settings.no_delay.jump=Стрибок
-modules.settings.no_delay.jump.description=Забирає затримку стрибка
-modules.settings.no_delay.right_click=ПКМ
-modules.settings.no_delay.right_click.description=Забирає затримку використання предметів
-modules.settings.no_delay.right_click_delay=Затримка ПКМ
-modules.settings.no_delay.exp=Пляшечка досвіду
-modules.settings.no_delay.potions=Пляшки
-modules.settings.no_delay.potions.description=Забирає затримку використання пляшок
 
 # InvUtils
 modules.settings.inv_utils.targets=Утиліти
@@ -2312,7 +2287,6 @@ modules.descriptions.bettertab=Покращена табличка
 modules.descriptions.customfog=Кастомний туман
 modules.descriptions.donateeffects=Ефекти для донатерів
 modules.descriptions.friendmarkers=Маркери друзів
-modules.descriptions.gribochki=Грибочки на сервері
 modules.descriptions.hitcolor=Колір хітбару
 modules.descriptions.killeffects=Ефекти при вбивстві
 modules.descriptions.menumodule=Налаштування меню
@@ -2323,7 +2297,6 @@ modules.descriptions.targetesp=ESP для цілей
 # ---- Completed localization keys ----
 hud.targethud.staytime=Затримка
 hud.targethud.staytime.description=Час затримки після видалення прицілу (сек)
-modules.descriptions.SRPSpoo=дозволяє обходити ресурспак сервера
 modules.descriptions.VievModel=кастомне розташування рук
 modules.descriptions.animations=Анімація інтерфейсу (чат, інвентар, тултипи, ESC, хотбар, босбар)
 modules.descriptions.anti_lud=Блокує команди /casino та /create, запобігаючи лудоманію
@@ -2476,7 +2449,6 @@ modules.descriptions.beautifully=Красиві ефекти
 modules.descriptions.better_tab=Показує всіх гравців у тебе
 modules.descriptions.blockoverlay=Оверлей на блоках
 modules.descriptions.china_hat=Красива китайська шапочка
-modules.descriptions.clan_upgrade=Автоматичне покращення клану
 modules.descriptions.click_friend=Додає друзів під час натискання на клавішу
 modules.descriptions.compasstooltip=Показує інформацію про компас
 modules.descriptions.cosmetics=3D-косметика персонажа: крила, капелюхи, улюбленці та одяг
@@ -2498,9 +2470,7 @@ modules.descriptions.kill_effects=Гарний ефект при смерті с
 modules.descriptions.lyrics=Рендерит слова треку у 3D-світі з жорсткою прив'язкою до блоків та точною синхронізацією
 modules.descriptions.macro_menu=Меню макросів
 modules.descriptions.menu=Меню функцій клієнта
-modules.descriptions.mine_helper=Помічник у шахті
 modules.descriptions.name_protect=Візуально приховує нік гравця
-modules.descriptions.no_delay=Видаляє затримки
 modules.descriptions.no_friend_damage=Не дозволяє бити друзів
 modules.descriptions.nocommands=Блокує команди
 modules.descriptions.optimization=Оптимізація FPS
@@ -2512,7 +2482,6 @@ modules.descriptions.shader_hand=Преміальні шейдери та ефе
 modules.descriptions.shulkersafe=Ти так легко не втратиш рюкзак)
 modules.descriptions.sounds=Звуки мода
 modules.descriptions.spawner_tooltip=Показує інформацію про спавнерів
-modules.descriptions.srpspoof=Підміняє дані про те, що встановлений серверний ресурс-пак
 modules.descriptions.swing_animation=Змінює анімацію рук при помаху
 modules.descriptions.target_esp=Позначає активну мету
 modules.descriptions.viewmodel=Від від першої особи
@@ -2524,10 +2493,6 @@ modules.descriptions.zoom=Плавне наближення камери як в
 1-е лицо=1-ша особа
 3-е лицо=3-я особа
 3D Модели=3D Моделі
-Авто замена=Авто заміна
-Авто замена.description=Автоматично змінює кирку за низької міцності
-Авто починка=Авто ремонт
-Авто починка.description=Чинить кирку з використанням досвіду
 Авто продажа=Авто продаж
 Анимация=Анімація
 Анимация.description=Стиль появи тексту
@@ -2569,7 +2534,6 @@ modules.descriptions.zoom=Плавне наближення камери як в
 Кастомный цвет=Кастомний колір
 Клавиша=Клавіша
 Клан Лайт (30-36)=Клан Лайт (30-36)
-Кнопка починки=Кнопка ремонту
 Количество кристаллов=Кількість кристалів
 Кристаллы=Кристали
 Куб=Куб
@@ -2647,8 +2611,6 @@ modules.descriptions.zoom=Плавне наближення камери як в
 Соло Лайт (1-9)=Соло Лайт (1-9)
 Сонар=Сонар
 Соотношение=Співвідношення
-Сохранять кирку=Зберігати кирку
-Сохранять кирку.description=Не дає зламати блок, якщо предмет досяг певної міцності
 Средний=Середній
 Стан=Стан
 Стекло=Скло
@@ -2787,3 +2749,5 @@ menu.category.cosmetics=Косметика
 menu.category.other=Інше
 menu.category.interface=Інтерфейс
 Активно=Активно
+modules.descriptions.input_guard=Запобігає випадковому повторному використанню предметів
+modules.settings.input_guard.delay=Мінімальна затримка використання предмета (тіки)

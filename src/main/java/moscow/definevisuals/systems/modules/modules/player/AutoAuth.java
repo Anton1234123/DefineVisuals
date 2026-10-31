@@ -12,7 +12,6 @@ import moscow.definevisuals.systems.setting.settings.BooleanSetting;
 import moscow.definevisuals.systems.setting.settings.StringSetting;
 import moscow.definevisuals.utility.game.TextUtility;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Auto Auth", category = ModuleCategory.PLAYER, desc = "Автоматически регистрирует аккаунт на сервере")
 public class AutoAuth extends BaseModule {
    private final BooleanSetting random = new BooleanSetting(this, "Рандом");

@@ -10,7 +10,6 @@ import moscow.definevisuals.systems.modules.api.ModuleInfo;
 import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.systems.setting.settings.BindSetting;
 import net.minecraft.entity.player.PlayerEntity;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Click Friend", category = ModuleCategory.PLAYER, desc = "Добавляет друзей при нажатии на клавишу")
 public class ClickFriend extends BaseModule {
    private final BindSetting clickFriendKey = new BindSetting(this, "Клавиша");

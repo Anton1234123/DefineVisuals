@@ -33,7 +33,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Quaternionf;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "World", category = ModuleCategory.VISUALS, desc = "Визуальные дополнения мира")
 public class World extends BaseModule {
    private final List<World.Particle> particles = new ArrayList<>();

@@ -18,7 +18,6 @@ import net.minecraft.item.Items;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.Arm;
 import org.joml.Quaternionf;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Swing Animation", category = ModuleCategory.VISUALS, enabledByDefault = false, desc = "Изменяет анимации рук при взмахе")
 public class SwingAnimation extends BaseModule {
    private final BooleanSetting onlyAura = new BooleanSetting(this, "swing.only_aura");

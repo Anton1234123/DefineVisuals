@@ -8,7 +8,6 @@ modules.settings.zoom.scroll=Настройка колёсиком
 modules.descriptions.animations=Анимации интерфейса (чат, инвентарь, тултипы, ESC, хотбар, боссбар)
 modules.descriptions.esp=Позволяет настроить видимость игроков
 modules.descriptions.VievModel=кастомное расположение рук
-modules.descriptions.SRPSpoo=позволяет обходить ресурспак сервера
 modules.settings.esp.open_menu=Открыть меню
 
 esp.bind=Бинд
@@ -612,19 +611,6 @@ modules.settings.no_interact.playerHeads=Головы
 modules.settings.no_interact.onlyAura=Только с Aura
 modules.settings.no_interact.onlyUtilityItems=Только с перлами/хорусами
 
-# MineHelper
-modules.settings.mine_helper.save_pickaxe=Сохранять кирку
-modules.settings.mine_helper.save_pickaxe.description=Не дает сломать блок, если предмет достиг определенной прочности
-modules.settings.mine_helper.percent=Прочность
-modules.settings.mine_helper.fix_key=Кнопка починки
-modules.settings.mine_helper.auto_replace=Авто замена
-modules.settings.mine_helper.auto_replace.description=Автоматически меняет кирку при низкой прочности
-modules.settings.mine_helper.auto_repair=Авто починка
-modules.settings.mine_helper.auto_repair.description=Чинит кирку с использованием опыта
-mine_helper.pickaxe_almost_broken=Кирка почти сломана!
-mine_helper.no_replacement=Нет замены/опыта для починки
-mine_helper.no_bottles=Нет бутылок опыта!
-mine_helper.need_bottles=Вам необходимо иметь бутылочки опыта в инвентаре
 
 # WebUtils
 modules.settings.web_utils=Утилиты
@@ -1341,7 +1327,6 @@ modules.settings.view_model.off_translate_z=Левая Z-смещение
 
 # Kill Effects
 
-# No Delay
 
 # Fast Item Use
 
@@ -1665,8 +1650,6 @@ modules.settings.aura.forceBehindOnTargeted=Заходить за спину
 modules.settings.aura.legit=Легит
 
 # Mine Helper
-mine_helper.pickaxe_swap=Замена кирки
-mine_helper.pickaxe_swapped=Заменил кирку с %.1f%% на %.1f%%
 
 # Beautifully Module
 modules.settings.beautifully.select=Выбор
@@ -1981,15 +1964,6 @@ modules.settings.ambience.dynamic.only_in_cave=Только в пещере
 # World
 modules.settings.world.color=Цвет
 
-# NoDelay
-modules.settings.no_delay.jump=Прыжок
-modules.settings.no_delay.jump.description=Убирает задержку прыжка
-modules.settings.no_delay.right_click=ПКМ
-modules.settings.no_delay.right_click.description=Убирает задержку использования предметов
-modules.settings.no_delay.right_click_delay=Задержка ПКМ
-modules.settings.no_delay.exp=Бутылочка опыта
-modules.settings.no_delay.potions=Бутыльки
-modules.settings.no_delay.potions.description=Убирает задержку использования бутыльков
 
 # InvUtils
 modules.settings.inv_utils.targets=Утилиты
@@ -2399,7 +2373,6 @@ modules.descriptions.bettertab=Улучшенная табличка
 modules.descriptions.customfog=Кастомный туман
 modules.descriptions.donateeffects=Эффекты для донатеров
 modules.descriptions.friendmarkers=Маркеры друзей
-modules.descriptions.gribochki=Грибочки на сервере
 modules.descriptions.hitcolor=Цвет хитбара
 modules.descriptions.killeffects=Эффекты при убийстве
 modules.descriptions.menumodule=Настройки меню
@@ -2490,7 +2463,6 @@ modules.descriptions.beautifully=Красивые эффекты
 modules.descriptions.better_tab=Показывает всех игроков в табе
 modules.descriptions.blockoverlay=Оверлей на блоках
 modules.descriptions.china_hat=Красивая китайская шапочка
-modules.descriptions.clan_upgrade=Автоматическое улучшение клана
 modules.descriptions.click_friend=Добавляет друзей при нажатии на клавишу
 modules.descriptions.compasstooltip=Показывает информацию о компасе
 modules.descriptions.cosmetics=3D-косметика для персонажа: крылья, шляпы, питомцы и одежда
@@ -2512,9 +2484,7 @@ modules.descriptions.kill_effects=Красивый эффект при смер�
 modules.descriptions.lyrics=Рендерит слова трека в 3D-мире с жесткой привязкой к блокам и точной синхронизацией
 modules.descriptions.macro_menu=Меню макросов
 modules.descriptions.menu=Меню функций клиента
-modules.descriptions.mine_helper=Помощник в шахте
 modules.descriptions.name_protect=Визуально скрывает ник игрока
-modules.descriptions.no_delay=Удаляет задержки
 modules.descriptions.no_friend_damage=Не позволяет бить друзей
 modules.descriptions.nocommands=Блокирует команды
 modules.descriptions.optimization=Оптимизация FPS
@@ -2526,7 +2496,6 @@ modules.descriptions.shader_hand=Премиальные шейдеры и эфф
 modules.descriptions.shulkersafe=Ты так легко не потеряешь рюкзак)
 modules.descriptions.sounds=Звуки мода
 modules.descriptions.spawner_tooltip=Показывает информацию о спавнерах
-modules.descriptions.srpspoof=Подменяет данные о том, что установлен серверный ресурс-пак
 modules.descriptions.swing_animation=Изменяет анимации рук при взмахе
 modules.descriptions.target_esp=Помечает активную цель
 modules.descriptions.viewmodel=Вид от первого лица
@@ -2538,10 +2507,6 @@ modules.descriptions.zoom=Плавное приближение камеры к�
 1-е лицо=1-е лицо
 3-е лицо=3-е лицо
 3D Модели=3D Модели
-Авто замена=Авто замена
-Авто замена.description=Автоматически меняет кирку при низкой прочности
-Авто починка=Авто починка
-Авто починка.description=Чинит кирку с использованием опыта
 Авто продажа=Авто продажа
 Анимация=Анимация
 Анимация.description=Стиль появления текста
@@ -2583,7 +2548,6 @@ modules.descriptions.zoom=Плавное приближение камеры к�
 Кастомный цвет=Кастомный цвет
 Клавиша=Клавиша
 Клан Лайт (30-36)=Клан Лайт (30-36)
-Кнопка починки=Кнопка починки
 Количество кристаллов=Количество кристаллов
 Кристаллы=Кристаллы
 Куб=Куб
@@ -2661,8 +2625,6 @@ modules.descriptions.zoom=Плавное приближение камеры к�
 Соло Лайт (1-9)=Соло Лайт (1-9)
 Сонар=Сонар
 Соотношение=Соотношение
-Сохранять кирку=Сохранять кирку
-Сохранять кирку.description=Не дает сломать блок, если предмет достиг определенной прочности
 Средний=Средний
 Стан=Стан
 Стекло=Стекло
@@ -2801,3 +2763,5 @@ menu.category.cosmetics=Косметика
 menu.category.other=Другое
 menu.category.interface=Интерфейс
 Активно=Активно
+modules.descriptions.input_guard=Предотвращает случайные повторные использования предметов
+modules.settings.input_guard.delay=Минимальная задержка использования (тики)

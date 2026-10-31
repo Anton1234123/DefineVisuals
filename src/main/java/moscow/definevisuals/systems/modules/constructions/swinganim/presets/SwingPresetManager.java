@@ -1,5 +1,6 @@
 package moscow.definevisuals.systems.modules.constructions.swinganim.presets;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,12 +31,17 @@ public class SwingPresetManager {
    }
 
    public void directionPreset() {
-      String[] commands = new String[]{"explorer " + new File(FileManager.DIRECTORY + "/presets", "swing").getAbsolutePath()};
-
       try {
-         Runtime.getRuntime().exec(commands);
+         File presetDir = new File(FileManager.DIRECTORY + "/presets", "swing");
+         if (!presetDir.exists() && !presetDir.mkdirs()) {
+            throw new IOException("Не удалось создать папку пресетов");
+         }
+         if (!Desktop.isDesktopSupported() || !Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+            throw new IOException("Открытие папок не поддерживается системой");
+         }
+         Desktop.getDesktop().open(presetDir);
       } catch (Exception var3) {
-         DefineVisuals.LOGGER.error("все наебнулось в dir конфиге {}", var3.getMessage());
+         DefineVisuals.LOGGER.error("Не удалось открыть папку пресетов: {}", var3.getMessage());
       }
    }
 

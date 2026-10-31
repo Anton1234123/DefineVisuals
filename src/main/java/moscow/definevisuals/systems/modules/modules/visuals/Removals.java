@@ -7,7 +7,6 @@ import moscow.definevisuals.systems.modules.api.ModuleCategory;
 import moscow.definevisuals.systems.modules.api.ModuleInfo;
 import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.systems.setting.settings.SelectSetting;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Removals", category = ModuleCategory.VISUALS, enabledByDefault = true, desc = "modules.descriptions.removals")
 public class Removals extends BaseModule {
    private double oldFovEffectScale;

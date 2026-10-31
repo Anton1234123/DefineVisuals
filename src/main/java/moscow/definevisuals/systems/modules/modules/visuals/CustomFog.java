@@ -15,7 +15,6 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Custom Fog", category = ModuleCategory.VISUALS)
 public class CustomFog extends BaseModule {
    private final RangeSetting distance = new RangeSetting(this, "modules.settings.custom_fog.distance")

@@ -11,16 +11,13 @@ import moscow.definevisuals.systems.event.impl.window.KeyPressEvent;
 import moscow.definevisuals.systems.event.impl.window.MouseEvent;
 import moscow.definevisuals.systems.modules.exception.UnknownModuleException;
 import moscow.definevisuals.systems.modules.impl.BaseModule;
-import moscow.definevisuals.systems.modules.modules.other.SRPSpoof;
 import moscow.definevisuals.systems.modules.modules.other.*;
 import moscow.definevisuals.systems.modules.modules.player.AutoSprint;
 import moscow.definevisuals.systems.modules.modules.player.AutoRespawn;
 import moscow.definevisuals.systems.modules.modules.player.ClickFriend;
+import moscow.definevisuals.systems.modules.modules.player.InputGuard;
 import moscow.definevisuals.systems.modules.modules.player.ItemScroller;
-import moscow.definevisuals.systems.modules.modules.player.MineHelper;
-import moscow.definevisuals.systems.modules.modules.player.NoDelay;
 import moscow.definevisuals.systems.modules.modules.player.NoFriendDamage;
-import moscow.definevisuals.systems.modules.modules.player.ClanUpgrade;
 import moscow.definevisuals.systems.modules.modules.player.HwHelper;
 import moscow.definevisuals.systems.modules.modules.player.AutoAuth;
 import moscow.definevisuals.systems.modules.modules.player.MacroMenu;
@@ -52,7 +49,6 @@ import moscow.definevisuals.systems.modules.modules.visuals.ChinaHat;
 import moscow.definevisuals.systems.modules.modules.visuals.ItemPhysics;
 import moscow.definevisuals.systems.modules.modules.visuals.JumpCircle;
 import moscow.definevisuals.systems.modules.modules.visuals.ShaderHand;
-import moscow.definevisuals.systems.modules.modules.visuals.Lyrics;
 import moscow.definevisuals.systems.modules.modules.visuals.Cosmetics;
 import moscow.definevisuals.systems.modules.modules.visuals.Zoom;
 import net.minecraft.client.MinecraftClient;
@@ -102,10 +98,9 @@ public class ModuleManager {
       this.register(new World());
       this.register(new KillEffects());
       this.register(new Prediction());
-      this.register(new MineHelper());
       this.register(new HwHelper());
       this.register(new ClickFriend());
-      this.register(new NoDelay());
+      this.register(new InputGuard());
       this.register(new NoFriendDamage());
       this.register(new AutoRespawn());
       this.register(new NameProtect());
@@ -119,7 +114,6 @@ public class ModuleManager {
       this.register(new Crosshair());
       this.register(new DonateEffects());
       this.register(new HolyEvents());
-      this.register(new ClanUpgrade());
       this.register(new MacroMenu());
       this.register(new CompassTooltip());
       this.register(new HealthIndicator());
@@ -137,10 +131,8 @@ public class ModuleManager {
       this.register(new ShulkerSafe());
       this.register(new AspectRatio());
       this.register(new ItemScroller());
-      this.register(new SRPSpoof());
       this.register(new WindowTitle());
       this.register(new FreeLook());
-      this.register(new Lyrics());
       this.register(new Cosmetics());
    }
    public void enableModules() {

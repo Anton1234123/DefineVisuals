@@ -15,15 +15,12 @@ import moscow.definevisuals.framework.msdf.Fonts;
 import moscow.definevisuals.framework.objects.BorderRadius;
 import moscow.definevisuals.framework.objects.MouseButton;
 import moscow.definevisuals.framework.style.InterfaceStyleRenderer;
-import moscow.definevisuals.systems.event.EventListener;
-import moscow.definevisuals.systems.event.impl.player.ClientPlayerTickEvent;
 import moscow.definevisuals.systems.modules.modules.visuals.Interface;
 import moscow.definevisuals.systems.setting.settings.SelectSetting;
 import moscow.definevisuals.ui.hud.HudElement;
 import moscow.definevisuals.ui.hud.impl.island.impl.DefaultStatus;
 import moscow.definevisuals.ui.hud.impl.island.impl.EventStatus;
 import moscow.definevisuals.ui.hud.impl.island.impl.MineStatus;
-import moscow.definevisuals.ui.hud.impl.island.impl.MusicStatus;
 import moscow.definevisuals.ui.hud.impl.island.impl.NotificationStatus;
 import moscow.definevisuals.ui.hud.impl.island.impl.PVPStatus;
 import moscow.definevisuals.ui.menu.dropdown.DropDownScreen;
@@ -60,22 +57,14 @@ IScaledResolution {
     private boolean dark;
     private boolean useDark;
     private IslandStatus last;
-    private final EventListener<ClientPlayerTickEvent> onTick = event -> {
-        if (!(this.active() instanceof MusicStatus) || DynamicIsland.mc.player.age % 2 == 0) {
-            // empty if block
-        }
-    };
-
     public DynamicIsland() {
         super("hud.dynamic_island", "icons/hud/island.png");
         new NotificationStatus(this.statuses);
         new PVPStatus(this.statuses);
         new EventStatus(this.statuses);
         new MineStatus(this.statuses);
-        new MusicStatus(this.statuses);
         new DefaultStatus(this.statuses).alwaysEnabled();
         DefineVisuals.getInstance().getFileManager().readFile("client");
-        DefineVisuals.getInstance().getEventManager().subscribe(this);
     }
 
     @Override
@@ -267,8 +256,4 @@ IScaledResolution {
         return this.last;
     }
 
-    @Generated
-    public EventListener<ClientPlayerTickEvent> getOnTick() {
-        return this.onTick;
-    }
 }

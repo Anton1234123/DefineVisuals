@@ -70,7 +70,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.RaycastContext.FluidHandling;
 import net.minecraft.world.RaycastContext.ShapeType;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Prediction", category = ModuleCategory.VISUALS)
 public class Prediction extends BaseModule {
    private final List<Prediction.Predicted> predicted = new ArrayList<>();

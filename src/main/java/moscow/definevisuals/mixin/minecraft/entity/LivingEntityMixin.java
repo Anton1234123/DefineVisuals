@@ -5,7 +5,6 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import moscow.definevisuals.DefineVisuals;
 import moscow.definevisuals.systems.event.impl.game.EntityDeathEvent;
 import moscow.definevisuals.systems.event.impl.game.EntityJumpEvent;
-import moscow.definevisuals.systems.modules.modules.player.NoDelay;
 import moscow.definevisuals.systems.modules.modules.visuals.HitColor;
 import moscow.definevisuals.systems.modules.modules.visuals.SwingAnimation;
 import moscow.definevisuals.utility.rotations.MoveCorrection;
@@ -29,9 +28,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-   @Shadow
-   private int jumpingCooldown;
-
    @Shadow
    public abstract void remove(RemovalReason var1);
 
@@ -69,15 +65,6 @@ public abstract class LivingEntityMixin {
          return original;
       }
    }
-
-   @Inject(method = "tickMovement", at = @At("HEAD"))
-   public void removeJumpDelay(CallbackInfo ci) {
-      NoDelay noDelay = DefineVisuals.getInstance().getModuleManager().getModule(NoDelay.class);
-      if (noDelay.isEnabled() && noDelay.getJump().isEnabled()) {
-         this.jumpingCooldown = 0;
-      }
-   }
-
 
    @Inject(method = "onDeath", at = @At("TAIL"))
    public void triggerEntityDeathEvent(DamageSource damageSource, CallbackInfo ci) {

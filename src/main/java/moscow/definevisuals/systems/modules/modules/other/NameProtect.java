@@ -6,7 +6,6 @@ import moscow.definevisuals.systems.modules.api.ModuleInfo;
 import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.systems.setting.settings.StringSetting;
 import moscow.definevisuals.utility.game.EntityUtility;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Name Protect", category = ModuleCategory.OTHER, desc = "Визуально скрывает ник игрока")
 public class NameProtect extends BaseModule {
    private final StringSetting fakeName = new StringSetting(this, "modules.settings.name_protect.fake_name").text("Player");

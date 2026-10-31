@@ -9,7 +9,6 @@ import moscow.definevisuals.systems.modules.impl.BaseModule;
 import moscow.definevisuals.systems.setting.settings.SliderSetting;
 import moscow.definevisuals.utility.sounds.UiSound;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Sounds", category = ModuleCategory.OTHER, enabledByDefault = true, desc = "Добавляет звуки клиента")
 public class Sounds extends BaseModule {
    private final SliderSetting volume = new SliderSetting(this, "Громкость звука").step(0.1F).min(0.1F).max(1.0F).currentValue(1.0F);

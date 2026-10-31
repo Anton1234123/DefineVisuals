@@ -19,7 +19,6 @@ import net.minecraft.client.render.BuiltBuffer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
-// cracked by t.me/pasterendnew
 @ModuleInfo(name = "Friend Markers", desc = "Выделяет друзей", category = ModuleCategory.VISUALS)
 public class FriendMarkers extends BaseModule {
    private final ModeSetting setting = new ModeSetting(this, "modules.settings.friends_markers.setting");

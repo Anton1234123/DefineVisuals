@@ -556,19 +556,6 @@ modules.settings.no_interact.playerHeads=Heads
 modules.settings.no_interact.onlyAura=Only with Aura
 modules.settings.no_interact.onlyUtilityItems=Only with pearls/chorus
 
-# MineHelper
-modules.settings.mine_helper.save_pickaxe=Save pickaxe
-modules.settings.mine_helper.save_pickaxe.description=Prevents breaking if tool has low durability
-modules.settings.mine_helper.percent=Durability
-modules.settings.mine_helper.fix_key=Repair key
-modules.settings.mine_helper.auto_replace=Auto replace
-modules.settings.mine_helper.auto_replace.description=Automatically swaps pickaxe at low durability
-modules.settings.mine_helper.auto_repair=Auto repair
-modules.settings.mine_helper.auto_repair.description=Repairs pickaxe using XP
-mine_helper.pickaxe_almost_broken=Pickaxe is almost broken!
-mine_helper.no_replacement=No replacement/XP to repair
-mine_helper.no_bottles=No XP bottles!
-mine_helper.need_bottles=You need XP bottles in your inventory
 
 # WebUtils
 modules.settings.web_utils=Utilities
@@ -1306,7 +1293,6 @@ modules.settings.view_model.off_translate_z=Left Z offset
 
 # Kill Effects
 
-# No Delay
 
 # Fast Item Use
 
@@ -1623,8 +1609,6 @@ ui.range_format=from %s to %s
 rocknet.status.main_menu=In main menu
 
 # Mine Helper
-mine_helper.pickaxe_swap=Pickaxe Swap
-mine_helper.pickaxe_swapped=Swapped pickaxe from %.1f%% to %.1f%%
 
 # Beautifully Module
 modules.settings.beautifully.select=Select
@@ -1914,15 +1898,6 @@ modules.settings.ambience.dynamic.only_in_cave=Only in Cave
 # World
 modules.settings.world.color=Color
 
-# NoDelay
-modules.settings.no_delay.jump=Jump
-modules.settings.no_delay.jump.description=Removes jump delay
-modules.settings.no_delay.right_click=Right click
-modules.settings.no_delay.right_click.description=Removes item use delay
-modules.settings.no_delay.right_click_delay=Right click delay
-modules.settings.no_delay.exp=Experience bottle
-modules.settings.no_delay.potions=Potions
-modules.settings.no_delay.potions.description=Removes use delay for potions
 
 # InvUtils
 modules.settings.inv_utils.targets=Utilities
@@ -2352,7 +2327,6 @@ modules.descriptions.bettertab=Improved tab list
 modules.descriptions.customfog=Custom fog
 modules.descriptions.donateeffects=Effects for donators
 modules.descriptions.friendmarkers=Friend markers
-modules.descriptions.gribochki=Mushrooms on server
 modules.descriptions.hitcolor=Hitbar color
 modules.descriptions.killeffects=Kill effects
 modules.descriptions.menumodule=Menu settings
@@ -2361,7 +2335,6 @@ modules.descriptions.swinganimation=Hand animation
 modules.descriptions.targetesp=ESP for targets
 
 # ---- Completed localization keys ----
-modules.descriptions.SRPSpoo=allows you to bypass resource pack servers
 modules.descriptions.VievModel=custom hand placement
 modules.descriptions.animations=Interface animations (chat, inventory, tooltips, ESC, hotbar, bossbar)
 modules.descriptions.anti_lud=Blocks /casino and /create commands, preventing gambling addiction
@@ -2475,7 +2448,6 @@ modules.descriptions.beautifully=Beautiful effects
 modules.descriptions.better_tab=Shows all players in the tab
 modules.descriptions.blockoverlay=Block overlay
 modules.descriptions.china_hat=Beautiful Chinese cap
-modules.descriptions.clan_upgrade=Automatically levels up the clan using the torch
 modules.descriptions.click_friend=Adds friends when you press a key
 modules.descriptions.compasstooltip=Shows compass information
 modules.descriptions.cosmetics=3D character cosmetics: wings, hats, pets, and bodywear
@@ -2497,9 +2469,7 @@ modules.descriptions.kill_effects=A beautiful effect on entity death
 modules.descriptions.lyrics=Renders track lyrics in a 3D world with tight block alignment and precise timing
 modules.descriptions.macro_menu=Macro menu
 modules.descriptions.menu=Client features menu
-modules.descriptions.mine_helper=Helper functions for mining
 modules.descriptions.name_protect=Visually changes player nickname
-modules.descriptions.no_delay=Removes delays
 modules.descriptions.no_friend_damage=Doesn't allow you to hit your friends
 modules.descriptions.nocommands=Blocks commands
 modules.descriptions.optimization=FPS optimization
@@ -2511,7 +2481,6 @@ modules.descriptions.shader_hand=Premium shaders and glow effects for hands and 
 modules.descriptions.shulkersafe=You won't lose your backpack so easily)
 modules.descriptions.sounds=Mod sounds
 modules.descriptions.spawner_tooltip=Shows information about spawners
-modules.descriptions.srpspoof=Substitutes information that a server resource pack is installed
 modules.descriptions.swing_animation=Changes hand swing animations
 modules.descriptions.target_esp=Marks the active target
 modules.descriptions.viewmodel=First person view
@@ -2523,10 +2492,6 @@ modules.descriptions.zoom=Smooth camera zoom similar to OptiFine and Zoomify
 1-е лицо=1st person
 3-е лицо=3rd person
 3D Модели=3D Models
-Авто замена=Auto replacement
-Авто замена.description=Automatically changes pickaxe when durability is low
-Авто починка=Auto repair
-Авто починка.description=Repairs a pickaxe using experience
 Авто продажа=Auto sales
 Анимация=Animation
 Анимация.description=Text Appearance Style
@@ -2568,7 +2533,6 @@ modules.descriptions.zoom=Smooth camera zoom similar to OptiFine and Zoomify
 Кастомный цвет=Custom color
 Клавиша=Key
 Клан Лайт (30-36)=Clan Light (30-36)
-Кнопка починки=Repair button
 Количество кристаллов=Number of crystals
 Кристаллы=Crystals
 Куб=Cube
@@ -2646,8 +2610,6 @@ modules.descriptions.zoom=Smooth camera zoom similar to OptiFine and Zoomify
 Соло Лайт (1-9)=Solo Light (1-9)
 Сонар=Sonar
 Соотношение=Ratio
-Сохранять кирку=Keep the pickaxe
-Сохранять кирку.description=Prevents breaking a block if the item has reached a certain strength
 Средний=Medium
 Стан=Stan
 Стекло=Glass
@@ -2786,3 +2748,5 @@ menu.category.cosmetics=Cosmetics
 menu.category.other=Other
 menu.category.interface=Interface
 Активно=Active
+modules.descriptions.input_guard=Prevents accidental repeated item use
+modules.settings.input_guard.delay=Minimum item-use delay (ticks)
