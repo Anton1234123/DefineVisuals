@@ -1,6 +1,8 @@
 "use strict";
 
 const crypto = require("node:crypto");
+const fs = require("node:fs");
+const path = require("node:path");
 const express = require("express");
 const { createStore } = require("./db");
 
@@ -281,6 +283,17 @@ function createApp(options = {}) {
 
   app.use("/api", (req, res) => {
     res.status(404).json({ ok: false, error: "not_found" });
+  });
+
+  // Vercel serves public/** from its CDN, but the Express preset routes "/" to
+  // this Function. Answer it explicitly; fall back to the CDN copy if the
+  // static file was not bundled into the Function.
+  app.get("/", (req, res) => {
+    const indexFile = path.join(__dirname, "public", "index.html");
+    if (fs.existsSync(indexFile)) {
+      return res.sendFile(indexFile);
+    }
+    return res.redirect(302, "/index.html");
   });
 
   app.use((error, req, res, next) => {
