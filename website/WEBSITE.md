@@ -6,7 +6,7 @@
 ## Структура под Vercel
 
 ```text
-.
+website/
 ├── server.js          # Express app: module.exports = app, без app.listen()
 ├── db.js              # PostgreSQL-only хранилище
 ├── dev-server.js      # локальный HTTP-сервер (на Vercel не используется)
@@ -22,7 +22,7 @@
 └── test-api.js        # smoke-тест HTTP-контракта
 ```
 
-`server.js` находится в корне проекта и экспортирует Express-приложение:
+`server.js` лежит в папке `website/` и экспортирует Express-приложение:
 
 ```js
 const app = createApp();
@@ -35,7 +35,10 @@ module.exports = app;
 
 ## Локальный запуск
 
+Из папки `website/`:
+
 ```bash
+cd website
 npm install
 ```
 
@@ -63,7 +66,7 @@ Production-код при этом всегда работает только с 
 ## Деплой на Vercel
 
 1. Импортируй репозиторий `DefineVisuals` в Vercel.
-2. **Root Directory** оставь пустым (корень репозитория): `server.js` и `vercel.json` лежат там.
+2. **Root Directory** укажи `website` — там лежат `server.js`, `package.json` и `vercel.json`.
 3. Framework Preset определится как **Express** (также зафиксировано в `vercel.json`).
 4. Build Command и Output Directory оставь по умолчанию. Vercel сам выполнит `npm install`.
 5. В **Settings → Environment Variables** добавь:
