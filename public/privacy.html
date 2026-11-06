@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Define Visuals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .policy { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; position: relative; z-index: 1; }
+    .policy h1 { font-family: "Unbounded", sans-serif; font-size: 28px; margin-bottom: 8px; }
+    .policy h2 { font-family: "Unbounded", sans-serif; font-size: 17px; margin: 34px 0 10px; }
+    .policy p, .policy li { color: var(--text-dim); font-size: 14.5px; line-height: 1.75; }
+    .policy ul { padding-left: 22px; margin-top: 8px; }
+    .policy .updated { color: var(--text-dim); font-size: 13px; }
+    .policy a { color: var(--accent-2); }
+  </style>
+</head>
+<body>
+  <div class="policy">
+    <h1>Privacy Policy</h1>
+    <div class="updated">Обновлено: 6 ноября 2026</div>
+
+    <h2>Что мы собираем / What we collect</h2>
+    <p>
+      Cloud по умолчанию не обращается к серверу. Только после явного согласия в
+      <b>Modern Menu → Configurations → Cloud</b> клиент отправляет минимальный набор данных,
+      необходимый для каталога и облачных конфигов:
+    </p>
+    <ul>
+      <li><b>Случайный ID</b> (например, <code>DV-8F3K-2M9Q-71XA-B4CD</code>) — генерируется после согласия и хранится локально в файле <code>define/cloud.json</code>. ID не привязан к железу и не кодирует идентификаторы устройства.</li>
+      <li><b>Ник Minecraft</b> — публичное игровое имя.</li>
+      <li><b>Версия клиента</b> и <b>время запусков</b>.</li>
+      <li><b>Конфиги</b>, которые ты сам добровольно загружаешь в облако.</li>
+    </ul>
+    <p>
+      <i>Cloud makes no server requests by default. After explicit opt-in, the client sends a random ID
+      (stored locally in <code>define/cloud.json</code>, not tied to hardware), your public Minecraft username,
+      client version, launch timestamps, and only the configs you voluntarily upload.</i>
+    </p>
+
+    <h2>Чего мы НЕ собираем / What we never collect</h2>
+    <ul>
+      <li>Пароли, токены сессии Minecraft/Microsoft, почту — никогда.</li>
+      <li>HWID, серийные номера железа, данные о компьютере.</li>
+      <li>IP-адреса не хранятся в базе в открытом виде: для rate limit сохраняется только односторонний хеш IP с солью.</li>
+      <li>Никакой скрытой телеметрии и сторонних трекеров.</li>
+    </ul>
+
+    <h2>Как отключиться / Opt-out</h2>
+    <p>
+      Открой <b>Configurations → Cloud → Правила → Отозвать согласие</b>. После этого клиент
+      перестанет выполнять Cloud-запросы; остальные функции Define Visuals продолжат работать офлайн.
+      Согласие версионируется и хранится только локально в <code>define/cloud.json</code>.
+    </p>
+
+    <h2>Удаление данных / Data deletion</h2>
+    <p>
+      Свои конфиги можно удалить прямо в Cloud-каталоге кнопкой корзины. Для удаления записи профиля
+      напиши в <a href="https://github.com/Anton1234123/DefineVisuals/issues" target="_blank" rel="noopener">Issues репозитория</a>
+      и приложи свой Cloud ID. Не публикуй ID в открытом сообщении, если не хочешь передавать ключ управления конфигами.
+    </p>
+
+    <h2>Цель и основание обработки / Purpose and basis</h2>
+    <p>
+      Данные используются только для статистики комьюнити, отметки автора и управления облачными конфигами.
+      Основание — добровольное согласие, которое можно отозвать в любой момент. Мы не продаём данные и не
+      используем их для рекламы или профилирования.
+    </p>
+
+    <h2 id="terms">Условия использования Cloud / Terms of Use</h2>
+    <ul>
+      <li>Загружая конфиг, ты подтверждаешь, что вправе им делиться, и разрешаешь Define Visuals хранить и публично распространять его через каталог.</li>
+      <li>Не загружай пароли, токены, персональные данные, вредоносный контент или материалы, права на которые тебе не принадлежат.</li>
+      <li>Публичными становятся название конфига, ник автора, дата, число скачиваний и содержимое самого конфига.</li>
+      <li>Мы можем удалить контент, нарушающий правила или безопасность сервиса. Cloud предоставляется «как есть» и может временно быть недоступен.</li>
+      <li>Нажатие «Принять и продолжить» в клиенте означает принятие этих условий и Privacy Policy текущей версии.</li>
+    </ul>
+
+    <h2>Сторонние сервисы / Third parties</h2>
+    <ul>
+      <li>Аватарки на сайте загружаются с <a href="https://mc-heads.net" target="_blank" rel="noopener">mc-heads.net</a> по нику.</li>
+      <li>Веб-шрифты загружаются с Google Fonts; при открытии сайта браузер обращается к серверам Google.</li>
+      <li>Хостинг приложения и базы: Vercel / Neon. Vercel обрабатывает технические метаданные запросов (включая IP) по своей политике конфиденциальности.</li>
+    </ul>
+
+    <p style="margin-top: 34px;"><a href="/">← На главную</a></p>
+  </div>
+</body>
+</html>
