@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fff4f7" />
+  <title>Privacy Policy — Define Visuals</title>
+  <meta name="description" content="Privacy Policy и условия использования Define Visuals Cloud." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="policy-page">
+  <a class="skip-link" href="#policy-content">К политике</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="/" aria-label="Define Visuals — главная">
+        <span class="brand__mark" aria-hidden="true">DV</span>
+        <span class="brand__name">Define Visuals</span>
+        <span class="brand__detail">Cloud</span>
+      </a>
+      <nav class="site-nav" aria-label="Навигация">
+        <a href="/#configs">Каталог</a>
+        <a class="site-nav__optional" href="/">На главную</a>
+        <a href="#terms">Условия</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="policy-main" id="policy-content">
+    <div class="page-width">
+      <section class="policy-intro" aria-labelledby="policy-title">
+        <div class="policy-intro__copy">
+          <h1 id="policy-title">Privacy Policy</h1>
+          <p class="policy-intro__summary">
+            Define Visuals Cloud не обращается к серверу без явного согласия.
+            Здесь простыми словами описано, что происходит после opt-in и как его отозвать.
+          </p>
+          <p class="policy-updated">Обновлено: 6 ноября 2026</p>
+        </div>
+        <img class="policy-intro__flowers" src="assets/milkshake/flowers.png" alt="" width="382" height="384" aria-hidden="true" />
+      </section>
+
+      <ul class="policy-principles" aria-label="Главное о приватности">
+        <li>Cloud работает только после opt-in</li>
+        <li>Без HWID, паролей и токенов сессии</li>
+        <li>Без рекламы, профилирования и трекеров</li>
+      </ul>
+
+      <div class="policy-layout">
+        <nav class="policy-nav" aria-label="Разделы документа">
+          <a href="#collect">Что собираем</a>
+          <a href="#never">Что не собираем</a>
+          <a href="#opt-out">Как отключиться</a>
+          <a href="#deletion">Удаление данных</a>
+          <a href="#terms">Условия Cloud</a>
+          <a href="#third-parties">Сторонние сервисы</a>
+        </nav>
+
+        <article class="policy-content">
+          <section id="collect">
+            <h2>Что мы собираем / What we collect</h2>
+            <p>
+              Cloud по умолчанию не обращается к серверу. Только после явного согласия в
+              <strong>Modern Menu → Configurations → Cloud</strong> клиент отправляет минимальный набор данных,
+              необходимый для каталога и облачных конфигов:
+            </p>
+            <ul>
+              <li><strong>Случайный ID</strong> (например, <code>DV-8F3K-2M9Q-71XA-B4CD</code>) — генерируется после согласия и хранится локально в файле <code>define/cloud.json</code>. ID не привязан к железу и не кодирует идентификаторы устройства.</li>
+              <li><strong>Ник Minecraft</strong> — публичное игровое имя.</li>
+              <li><strong>Версия клиента</strong> и <strong>время запусков</strong>.</li>
+              <li><strong>Конфиги</strong>, которые ты сам добровольно загружаешь в облако.</li>
+            </ul>
+            <p>
+              <em>Cloud makes no server requests by default. After explicit opt-in, the client sends a random ID
+              (stored locally in <code>define/cloud.json</code>, not tied to hardware), your public Minecraft username,
+              client version, launch timestamps, and only the configs you voluntarily upload.</em>
+            </p>
+          </section>
+
+          <section id="never">
+            <h2>Чего мы НЕ собираем / What we never collect</h2>
+            <ul>
+              <li>Пароли, токены сессии Minecraft/Microsoft, почту — никогда.</li>
+              <li>HWID, серийные номера железа, данные о компьютере.</li>
+              <li>IP-адреса не хранятся в базе в открытом виде: для rate limit сохраняется только односторонний хеш IP с солью.</li>
+              <li>Никакой скрытой телеметрии и сторонних трекеров.</li>
+            </ul>
+          </section>
+
+          <section id="opt-out">
+            <h2>Как отключиться / Opt-out</h2>
+            <p>
+              Открой <strong>Configurations → Cloud → Правила → Отозвать согласие</strong>. После этого клиент
+              перестанет выполнять Cloud-запросы; остальные функции Define Visuals продолжат работать офлайн.
+              Согласие версионируется и хранится только локально в <code>define/cloud.json</code>.
+            </p>
+          </section>
+
+          <section id="deletion">
+            <h2>Удаление данных / Data deletion</h2>
+            <p>
+              Свои конфиги можно удалить прямо в Cloud-каталоге кнопкой корзины. Для удаления записи профиля
+              напиши в <a href="https://github.com/Anton1234123/DefineVisuals/issues" target="_blank" rel="noopener">Issues репозитория</a>
+              и приложи свой Cloud ID. Не публикуй ID в открытом сообщении, если не хочешь передавать ключ управления конфигами.
+            </p>
+          </section>
+
+          <section id="purpose">
+            <h2>Цель и основание обработки / Purpose and basis</h2>
+            <p>
+              Данные используются только для статистики комьюнити, отметки автора и управления облачными конфигами.
+              Основание — добровольное согласие, которое можно отозвать в любой момент. Мы не продаём данные и не
+              используем их для рекламы или профилирования.
+            </p>
+          </section>
+
+          <section id="terms">
+            <h2>Условия использования Cloud / Terms of Use</h2>
+            <ul>
+              <li>Загружая конфиг, ты подтверждаешь, что вправе им делиться, и разрешаешь Define Visuals хранить и публично распространять его через каталог.</li>
+              <li>Не загружай пароли, токены, персональные данные, вредоносный контент или материалы, права на которые тебе не принадлежат.</li>
+              <li>Публичными становятся название конфига, ник автора, дата, число скачиваний и содержимое самого конфига.</li>
+              <li>Мы можем удалить контент, нарушающий правила или безопасность сервиса. Cloud предоставляется «как есть» и может временно быть недоступен.</li>
+              <li>Нажатие «Принять и продолжить» в клиенте означает принятие этих условий и Privacy Policy текущей версии.</li>
+            </ul>
+          </section>
+
+          <section id="third-parties">
+            <h2>Сторонние сервисы / Third parties</h2>
+            <ul>
+              <li>Аватарки на сайте загружаются с <a href="https://mc-heads.net" target="_blank" rel="noopener">mc-heads.net</a> по нику.</li>
+              <li>Веб-шрифты загружаются с Google Fonts; при открытии сайта браузер обращается к серверам Google.</li>
+              <li>Хостинг приложения и базы: Vercel / Neon. Vercel обрабатывает технические метаданные запросов (включая IP) по своей политике конфиденциальности.</li>
+            </ul>
+          </section>
+
+          <div class="policy-back">
+            <a class="button button--primary" href="/">Вернуться к каталогу</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-width site-footer__inner">
+      <div>
+        <a class="brand brand--footer" href="/">
+          <span class="brand__mark" aria-hidden="true">DV</span>
+          <span class="brand__name">Define Visuals</span>
+        </a>
+        <p>Публичное облако конфигов сообщества.</p>
+      </div>
+      <div class="site-footer__links">
+        <a href="/">Главная</a>
+        <a href="/#configs">Каталог</a>
+        <a href="#terms">Условия Cloud</a>
+      </div>
+      <p class="site-footer__legal">Not affiliated with Mojang or Microsoft.</p>
+    </div>
+  </footer>
+</body>
+</html>

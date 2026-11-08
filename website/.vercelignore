@@ -1,0 +1,7 @@
+# Only the community backend and the mini-site are deployed to Vercel.
+# Root Directory for the Vercel project is this folder (website/).
+node_modules/
+.vercel/
+.env
+.env.*
+*.log

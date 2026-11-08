@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fff4f7" />
+  <title>Define Visuals — облако конфигов</title>
+  <meta name="description" content="Публичный каталог .def-конфигов сообщества Define Visuals для Minecraft 1.21.4." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <svg class="icon-library" aria-hidden="true" focusable="false">
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="6.5"></circle>
+      <path d="m16 16 4 4"></path>
+    </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24">
+      <path d="M12 3v11"></path>
+      <path d="m7.5 10 4.5 4.5 4.5-4.5"></path>
+      <path d="M5 20h14"></path>
+    </symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h14"></path>
+      <path d="m14 7 5 5-5 5"></path>
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24">
+      <path d="M20 7v5h-5"></path>
+      <path d="M18.1 16.5A8 8 0 1 1 19.8 9"></path>
+    </symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24">
+      <path d="M7 3h7l4 4v14H7z"></path>
+      <path d="M14 3v5h5"></path>
+      <path d="M10 13h5M10 17h4"></path>
+    </symbol>
+  </svg>
+
+  <a class="skip-link" href="#main-content">К содержанию</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="/" aria-label="Define Visuals — главная">
+        <span class="brand__mark" aria-hidden="true">DV</span>
+        <span class="brand__name">Define Visuals</span>
+        <span class="brand__detail">Cloud</span>
+      </a>
+      <nav class="site-nav" aria-label="Основная навигация">
+        <a href="#configs">Каталог</a>
+        <a class="site-nav__optional" href="#install">Как установить</a>
+        <a class="site-nav__optional" href="#users">Участники</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero-shell" aria-labelledby="hero-title">
+      <img class="decor decor--ribbon" src="assets/milkshake/ribbon.png" alt="" width="384" height="359" aria-hidden="true" />
+      <img class="decor decor--hearts" src="assets/milkshake/hearts.png" alt="" width="298" height="252" aria-hidden="true" />
+
+      <div class="page-width hero-grid">
+        <div class="hero-copy">
+          <h1 id="hero-title">Готовые конфиги Define Visuals — в одном месте.</h1>
+          <p>
+            Находи реальные настройки сообщества, скачивай файл <code>.def</code>
+            и перетаскивай его прямо в окно игры.
+          </p>
+          <div class="hero-actions">
+            <a class="button button--primary" href="#configs">
+              Открыть каталог
+              <svg class="icon" aria-hidden="true"><use href="#icon-arrow"></use></svg>
+            </a>
+            <a class="button button--secondary" href="#install">Как импортировать</a>
+          </div>
+          <p class="hero-compatibility">Minecraft 1.21.4 · Fabric · формат .def</p>
+        </div>
+
+        <aside class="featured-panel" aria-labelledby="featured-title">
+          <div class="featured-panel__heading">
+            <h2 id="featured-title">Самый скачиваемый конфиг</h2>
+            <span class="live-label"><span aria-hidden="true"></span>Живые данные</span>
+          </div>
+          <div id="featured-config" class="featured-panel__body" aria-live="polite" aria-busy="true">
+            <div class="featured-skeleton" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="sr-only">Загружаем самый скачиваемый конфиг</span>
+          </div>
+        </aside>
+      </div>
+
+      <section id="stats" class="page-width stats-ribbon" aria-labelledby="stats-title">
+        <h2 id="stats-title" class="sr-only">Статистика Define Visuals</h2>
+        <dl class="stats-list" id="stats-list" aria-busy="true">
+          <div class="stat-item">
+            <dt>Участников</dt>
+            <dd id="stat-users">—</dd>
+          </div>
+          <div class="stat-item">
+            <dt>Запусков клиента</dt>
+            <dd id="stat-launches">—</dd>
+          </div>
+          <div class="stat-item">
+            <dt>Конфигов</dt>
+            <dd id="stat-configs">—</dd>
+          </div>
+          <div class="stat-item">
+            <dt>Скачиваний</dt>
+            <dd id="stat-downloads">—</dd>
+          </div>
+        </dl>
+        <div class="stats-message" id="stats-message" hidden>
+          <span>Статистика временно недоступна.</span>
+          <button class="text-button" type="button" data-action="retry-stats">Повторить</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="configs" class="page-width section section--catalog" aria-labelledby="configs-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="configs-title">Облако конфигов</h2>
+          <p>Выбери настройку под себя. В карточках — только данные из общего Cloud-каталога.</p>
+        </div>
+        <output id="config-count" class="result-count" aria-live="polite">Загрузка…</output>
+      </div>
+
+      <form class="catalog-controls" id="config-controls" role="search">
+        <label class="search-control" for="config-search">
+          <span class="sr-only">Поиск по названию или автору</span>
+          <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          <input id="config-search" type="search" autocomplete="off" placeholder="Найти конфиг или автора" />
+        </label>
+        <label class="sort-control" for="config-sort">
+          <span>Сортировка</span>
+          <select id="config-sort">
+            <option value="popular">По популярности</option>
+            <option value="newest">Сначала новые</option>
+            <option value="name">По названию</option>
+          </select>
+        </label>
+      </form>
+
+      <div id="configs-grid" class="configs-grid" aria-live="polite" aria-busy="true">
+        <div class="config-skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="config-skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="config-skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+      <noscript><p class="state-panel">Для загрузки каталога нужен JavaScript.</p></noscript>
+    </section>
+
+    <section id="install" class="page-width install-guide" aria-labelledby="install-title">
+      <div class="install-guide__copy">
+        <h2 id="install-title">Скачал — перетащил — играешь</h2>
+        <p>Никаких ручных папок и копирования JSON. Импорт работает прямо из окна Minecraft.</p>
+        <ol class="install-steps">
+          <li><span>1</span><div><strong>Скачай .def</strong><p>Нажми кнопку на карточке нужного конфига.</p></div></li>
+          <li><span>2</span><div><strong>Запусти клиент</strong><p>Открой Minecraft с установленным Define Visuals.</p></div></li>
+          <li><span>3</span><div><strong>Перетащи файл</strong><p>Брось .def в окно игры — клиент подхватит его сам.</p></div></li>
+        </ol>
+        <a class="button button--primary" href="#configs">Выбрать конфиг</a>
+      </div>
+      <div class="install-guide__art" aria-hidden="true">
+        <span class="install-guide__dropzone">
+          <svg class="icon"><use href="#icon-file"></use></svg>
+          <span>.def</span>
+        </span>
+        <img src="assets/milkshake/carton.png" alt="" width="265" height="384" />
+      </div>
+    </section>
+
+    <section id="users" class="page-width section section--users" aria-labelledby="users-title">
+      <img class="decor decor--flowers" src="assets/milkshake/flowers.png" alt="" width="382" height="384" loading="lazy" aria-hidden="true" />
+      <div class="section-heading">
+        <div>
+          <h2 id="users-title">Участники сообщества</h2>
+          <p>Игроки появляются здесь только после добровольного подключения Cloud в клиенте.</p>
+        </div>
+      </div>
+      <div id="users-grid" class="users-grid" aria-live="polite" aria-busy="true">
+        <div class="user-skeleton" aria-hidden="true"><span></span><span></span></div>
+        <div class="user-skeleton" aria-hidden="true"><span></span><span></span></div>
+        <div class="user-skeleton" aria-hidden="true"><span></span><span></span></div>
+        <div class="user-skeleton" aria-hidden="true"><span></span><span></span></div>
+      </div>
+      <div class="users-more-wrap">
+        <button id="users-more" class="button button--secondary" type="button" hidden>Показать ещё</button>
+      </div>
+    </section>
+
+    <section class="page-width privacy-note" aria-labelledby="privacy-note-title">
+      <div>
+        <h2 id="privacy-note-title">Cloud включается только с твоего согласия</h2>
+        <p>Без opt-in клиент не отправляет Cloud-запросы. Согласие можно отозвать в любой момент.</p>
+      </div>
+      <a class="button button--secondary" href="/privacy">Privacy и условия</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-width site-footer__inner">
+      <div>
+        <a class="brand brand--footer" href="/">
+          <span class="brand__mark" aria-hidden="true">DV</span>
+          <span class="brand__name">Define Visuals</span>
+        </a>
+        <p>Публичное облако конфигов сообщества.</p>
+      </div>
+      <div class="site-footer__links">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/privacy#terms">Условия Cloud</a>
+        <a href="https://github.com/Anton1234123/DefineVisuals" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <p class="site-footer__legal">Not affiliated with Mojang or Microsoft.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
